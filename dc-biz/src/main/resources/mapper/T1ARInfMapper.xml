@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianan.kltsp.dc.biz.mapper.T1ARInfMapper">
+
+<resultMap id="BaseResultMap" type="com.tianan.kltsp.dc.client.vo.T1ARInfVo">
+		<!-- ID -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<!-- 长约编号 -->
+		<result column="AR_ID" property="arId" jdbcType="VARCHAR" />
+		<!-- 长约类型 -->
+		<result column="AR_Tp" property="arTp" jdbcType="VARCHAR" />
+		<!-- 采购方 -->
+		<result column="Pch_Prty" property="pchPrty" jdbcType="VARCHAR" />
+		<!-- 长约开始日期 -->
+		<result column="AR_StDt" property="arStdt" jdbcType="VARCHAR" />
+		<!-- 长约结束日期 -->
+		<result column="AR_EdDt" property="arEddt" jdbcType="VARCHAR" />
+		<!-- 供应商 -->
+		<result column="Splr" property="splr" jdbcType="VARCHAR" />
+		<!-- 提货周期 -->
+		<result column="PckUpGds_Cyc" property="pckupgdsCyc" jdbcType="INTEGER" />
+		<!-- 协议仓库 -->
+		<result column="Agrm_Stg" property="agrmStg" jdbcType="VARCHAR" />
+		<!-- 业务类型 -->
+		<result column="BTp" property="btp" jdbcType="VARCHAR" />
+		<!-- 融资比例 -->
+		<result column="Fnc_Pctg" property="fncPctg" jdbcType="VARCHAR" />
+		<!-- 预付金比率 -->
+		<result column="Prpy_Gld_Rto" property="prpyGldRto" jdbcType="VARCHAR" />
+		<!-- 额度 -->
+		<result column="Lmt" property="lmt" jdbcType="VARCHAR" />
+		<!-- 警戒线 -->
+		<result column="Crdn" property="crdn" jdbcType="VARCHAR" />
+		<!-- 平仓线 -->
+		<result column="Clspos_Ln" property="clsposLn" jdbcType="VARCHAR" />
+		<!-- 服务费收取方式 -->
+		<result column="SvcFee_CMd" property="svcfeeCmd" jdbcType="VARCHAR" />
+		<!-- 溢短结转方式 -->
+		<result column="SplOv_CrrOv_Mod" property="splovCrrovMod" jdbcType="VARCHAR" />
+		<!-- 长约状态 -->
+		<result column="AR_St" property="arSt" jdbcType="VARCHAR" />
+		<!-- 时间戳 -->
+		<result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+		<!-- 创建人 -->
+		<result column="Crt_Psn" property="crtPsn" jdbcType="VARCHAR" />
+		<!-- 创建时间 -->
+		<result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
+		<!-- 确认人 -->
+		<result column="Cfm_Psn" property="cfmPsn" jdbcType="VARCHAR" />
+		<!-- 确认时间 -->
+		<result column="Cfm_Tm" property="cfmTm" jdbcType="TIMESTAMP" />
+		<!-- 一审审核意见 -->
+		<result column="FrstIns_CkOp" property="frstinsCkop" jdbcType="VARCHAR" />
+		<!-- 一审审核人 -->
+		<result column="FrstIns_Adt_Psn" property="frstinsAdtPsn" jdbcType="VARCHAR" />
+		<!-- 一审审核时间 -->
+		<result column="FrstIns_Adt_Tm" property="frstinsAdtTm" jdbcType="TIMESTAMP" />
+		<!-- 二审审核意见 -->
+		<result column="SndInsc_CkOp" property="sndinscCkop" jdbcType="VARCHAR" />
+		<!-- 二审审核人 -->
+		<result column="SndIns_Adt_Psn" property="sndinsAdtPsn" jdbcType="VARCHAR" />
+		<!-- 二审审核时间 -->
+		<result column="SndIns_Adt_Tm" property="sndinsAdtTm" jdbcType="TIMESTAMP" />		
+  	</resultMap>
+  	  
+  	<sql id="query_criteria">  
+  	  <if test="id  != null and id  != ''">
+        and ID  = #{id ,jdbcType=INTEGER}
+      </if>
+      <if test="arId  != null and arId  != ''">
+        and AR_ID  = #{arId ,jdbcType=VARCHAR}
+      </if>
+      <if test="arTp  != null and arTp  != ''">
+        and AR_Tp  = #{arTp ,jdbcType=VARCHAR}
+      </if>
+      <if test="pchPrty  != null and pchPrty  != ''">
+        and Pch_Prty  = #{pchPrty ,jdbcType=VARCHAR}
+      </if>
+      <if test="arStdt  != null and arStdt  != ''">
+        and AR_StDt  = #{arStdt ,jdbcType=VARCHAR}
+      </if>
+      <if test="arEddt  != null and arEddt  != ''">
+        and AR_EdDt  = #{arEddt ,jdbcType=VARCHAR}
+      </if>
+      <if test="splr  != null and splr  != ''">
+        and Splr  = #{splr ,jdbcType=VARCHAR}
+      </if>
+      <if test="pckupgdsCyc  != null and pckupgdsCyc  != ''">
+        and PckUpGds_Cyc  = #{pckupgdsCyc ,jdbcType=INTEGER}
+      </if>
+      <if test="agrmStg  != null and agrmStg  != ''">
+        and Agrm_Stg  = #{agrmStg ,jdbcType=VARCHAR}
+      </if>
+      <if test="btp  != null and btp  != ''">
+        and BTp  = #{btp ,jdbcType=VARCHAR}
+      </if>
+      <if test="fncPctg  != null and fncPctg  != ''">
+        and Fnc_Pctg  = #{fncPctg ,jdbcType=VARCHAR}
+      </if>
+      <if test="prpyGldRto  != null and prpyGldRto  != ''">
+        and Prpy_Gld_Rto  = #{prpyGldRto ,jdbcType=VARCHAR}
+      </if>
+      <if test="lmt  != null and lmt  != ''">
+        and Lmt  = #{lmt ,jdbcType=VARCHAR}
+      </if>
+      <if test="crdn  != null and crdn  != ''">
+        and Crdn  = #{crdn ,jdbcType=VARCHAR}
+      </if>
+      <if test="clsposLn  != null and clsposLn  != ''">
+        and Clspos_Ln  = #{clsposLn ,jdbcType=VARCHAR}
+      </if>
+      <if test="svcfeeCmd  != null and svcfeeCmd  != ''">
+        and SvcFee_CMd  = #{svcfeeCmd ,jdbcType=VARCHAR}
+      </if>
+      <if test="splovCrrovMod  != null and splovCrrovMod  != ''">
+        and SplOv_CrrOv_Mod  = #{splovCrrovMod ,jdbcType=VARCHAR}
+      </if>
+      <if test="arSt  != null and arSt  != ''">
+        and AR_St  = #{arSt ,jdbcType=VARCHAR}
+      </if>
+      <if test="tms  != null and tms  != ''">
+        and Tms  = #{tms ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="crtPsn  != null and crtPsn  != ''">
+        and Crt_Psn  = #{crtPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="crtTm  != null and crtTm  != ''">
+        and Crt_Tm  = #{crtTm ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cfmPsn  != null and cfmPsn  != ''">
+        and Cfm_Psn  = #{cfmPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="cfmTm  != null and cfmTm  != ''">
+        and Cfm_Tm  = #{cfmTm ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="frstinsCkop  != null and frstinsCkop  != ''">
+        and FrstIns_CkOp  = #{frstinsCkop ,jdbcType=VARCHAR}
+      </if>
+      <if test="frstinsAdtPsn  != null and frstinsAdtPsn  != ''">
+        and FrstIns_Adt_Psn  = #{frstinsAdtPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="frstinsAdtTm  != null and frstinsAdtTm  != ''">
+        and FrstIns_Adt_Tm  = #{frstinsAdtTm ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="sndinscCkop  != null and sndinscCkop  != ''">
+        and SndInsc_CkOp  = #{sndinscCkop ,jdbcType=VARCHAR}
+      </if>
+      <if test="sndinsAdtPsn  != null and sndinsAdtPsn  != ''">
+        and SndIns_Adt_Psn  = #{sndinsAdtPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="sndinsAdtTm  != null and sndinsAdtTm  != ''">
+        and SndIns_Adt_Tm  = #{sndinsAdtTm ,jdbcType=TIMESTAMP}
+      </if>  
+	</sql>
+  	
+   <sql id="Base_Column_List">
+     ID,AR_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm
+   </sql>
+  
+   <select id="selectByT1ARInfDcQuery" parameterType="com.tianan.kltsp.dc.client.vo.T1ARInfVo" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T1_AR_Inf
+	    where 1=1
+	    <include refid="query_criteria"></include>
+	    <if test="orderBy != null and orderBy != ''">
+		   ORDER BY ${orderBy}
+	    </if>
+  </select>
+  
+  <select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T1_AR_Inf
+		WHERE 1=1
+		<include refid="query_criteria"></include>
+  </select>
+  
+  	  
+</mapper>
