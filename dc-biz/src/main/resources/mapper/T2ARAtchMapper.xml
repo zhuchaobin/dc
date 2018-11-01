@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T2ARAtchMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T2ARAtch">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AR_AtchID" jdbcType="BIGINT" property="arAtchid" />
+    <result column="AR_ID" jdbcType="CHAR" property="arId" />
+    <result column="Ori_File_Nm" jdbcType="VARCHAR" property="oriFileNm" />
+    <result column="Sr_File_Nm" jdbcType="VARCHAR" property="srFileNm" />
+    <result column="Sr_File_Rte" jdbcType="VARCHAR" property="srFileRte" />
+    <result column="Atch_Tp" jdbcType="CHAR" property="atchTp" />
+    <result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="Crt_Psn" jdbcType="VARCHAR" property="crtPsn" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.PostAddressMapper">
+
+<resultMap id="BaseResultMap" type="com.xai.tt.dc.client.vo.PostAddressVo">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="area" property="area" jdbcType="VARCHAR" />
+		<result column="preferred" property="preferred" jdbcType="INTEGER" />
+		<result column="car_owner_id" property="carOwnerId" jdbcType="INTEGER" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="county" property="county" jdbcType="VARCHAR" />
+		<result column="postal_code" property="postalCode" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="chinese_name" property="chineseName" jdbcType="VARCHAR" />
+  	</resultMap>
+  	  	
+  <sql id="Base_Column_List">
+    id,name,phone,area,preferred,car_owner_id,province,city,county,postal_code
+  </sql>
+  	
+	<update id="save" parameterType="com.xai.tt.dc.client.request.PostAddressDcReq">
+		update post_address
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				area = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="preferred != null">
+				preferred = #{preferred,jdbcType=INTEGER},
+			</if>
+			<if test="carOwnerId != null">
+				car_owner_id = #{carOwnerId,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="county != null">
+				county = #{county,jdbcType=VARCHAR},
+			</if>
+			<if test="postalCode != null">
+				postal_code = #{postalCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="expOtherPreferred" parameterType="com.xai.tt.dc.client.request.PostAddressDcReq">
+		update post_address
+		set preferred=0
+		where 
+		preferred=1
+	</update>
+
+	<select id="list" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		a.*
+		from post_address a
+		where a.car_owner_id=#{carOwnerId,jdbcType=INTEGER}
+	</select>
+	
+	
+	 <sql id="query_criteria">
+	  <if test="carOwnerId != null">
+		and a.car_owner_id = #{carOwnerId,jdbcType=INTEGER}
+      </if>      
+      <if test="name != null and name != ''">
+        and a.name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')        
+      </if>
+      <if test="phone  != null and phone  != ''">
+        and a.phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')    
+      </if>
+      <if test="userName  != null and userName  != ''">
+      	and b.user_name like CONCAT('%',#{userName,jdbcType=VARCHAR},'%') 
+      </if>
+      <if test="chineseName != null and chineseName != ''">
+		and b.chinese_name like CONCAT('%',#{chineseName,jdbcType=VARCHAR},'%') 
+      </if>
+	</sql>
+	
+	<select id="pageQuery" parameterType="com.xai.tt.dc.client.request.PostAddressDcReq" resultMap="BaseResultMap">
+	    select 
+	    a.id,
+		a.name,
+		a.phone,
+		a.area,
+		a.preferred,
+		a.car_owner_id,
+		a.province,
+		a.city,
+		a.county,
+		a.postal_code,
+		b.user_name,
+		b.chinese_name
+	    from post_address a, car_owner b
+	    where a.car_owner_id=b.id
+	    <include refid="query_criteria"></include>
+		order by b.user_name, b.chinese_name, a.preferred desc
+  </select>
+  
+  <select id="count" resultType="java.lang.Integer" parameterType="com.xai.tt.dc.client.request.PostAddressDcReq">
+		SELECT COUNT(*)
+		from post_address a, car_owner b
+	    where a.car_owner_id=b.id
+		<include refid="query_criteria"></include>
+  </select>
+
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T1ARInfMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T1ARInf">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="AR_ID" jdbcType="CHAR" property="arId" />
+    <result column="AR_Tp" jdbcType="CHAR" property="arTp" />
+    <result column="Pch_Prty" jdbcType="VARCHAR" property="pchPrty" />
+    <result column="AR_StDt" jdbcType="CHAR" property="arStdt" />
+    <result column="AR_EdDt" jdbcType="CHAR" property="arEddt" />
+    <result column="Splr" jdbcType="VARCHAR" property="splr" />
+    <result column="PckUpGds_Cyc" jdbcType="INTEGER" property="pckupgdsCyc" />
+    <result column="Agrm_Stg" jdbcType="VARCHAR" property="agrmStg" />
+    <result column="BTp" jdbcType="VARCHAR" property="btp" />
+    <result column="Fnc_Pctg" jdbcType="REAL" property="fncPctg" />
+    <result column="Prpy_Gld_Rto" jdbcType="REAL" property="prpyGldRto" />
+    <result column="Lmt" jdbcType="REAL" property="lmt" />
+    <result column="Crdn" jdbcType="REAL" property="crdn" />
+    <result column="Clspos_Ln" jdbcType="REAL" property="clsposLn" />
+    <result column="SvcFee_CMd" jdbcType="CHAR" property="svcfeeCmd" />
+    <result column="SplOv_CrrOv_Mod" jdbcType="CHAR" property="splovCrrovMod" />
+    <result column="AR_St" jdbcType="CHAR" property="arSt" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="Crt_Psn" jdbcType="VARCHAR" property="crtPsn" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+    <result column="Cfm_Psn" jdbcType="VARCHAR" property="cfmPsn" />
+    <result column="Cfm_Tm" jdbcType="TIMESTAMP" property="cfmTm" />
+    <result column="FrstIns_CkOp" jdbcType="VARCHAR" property="frstinsCkop" />
+    <result column="FrstIns_Adt_Psn" jdbcType="VARCHAR" property="frstinsAdtPsn" />
+    <result column="FrstIns_Adt_Tm" jdbcType="TIMESTAMP" property="frstinsAdtTm" />
+    <result column="SndInsc_CkOp" jdbcType="VARCHAR" property="sndinscCkop" />
+    <result column="SndIns_Adt_Psn" jdbcType="VARCHAR" property="sndinsAdtPsn" />
+    <result column="SndIns_Adt_Tm" jdbcType="TIMESTAMP" property="sndinsAdtTm" />
+    <result column="Plchd" jdbcType="VARCHAR" property="plchd" />
+    <result column="Plchd_Adr" jdbcType="VARCHAR" property="plchdAdr" />
+    <result column="Insrd" jdbcType="VARCHAR" property="insrd" />
+    <result column="Insrd_Adr" jdbcType="VARCHAR" property="insrdAdr" />
+    <result column="Fst_Benf" jdbcType="VARCHAR" property="fstBenf" />
+    <result column="Fst_Benf_Adr" jdbcType="VARCHAR" property="fstBenfAdr" />
+    <result column="Ins_Pty_Adr" jdbcType="VARCHAR" property="insPtyAdr" />
+    <result column="Ins_Obj_Nm" jdbcType="VARCHAR" property="insObjNm" />
+    <result column="Ins_Amt" jdbcType="REAL" property="insAmt" />
+    <result column="Dctb_Amt" jdbcType="REAL" property="dctbAmt" />
+    <result column="EpAp" jdbcType="VARCHAR" property="epap" />
+    <result column="Ins_StDt" jdbcType="CHAR" property="insStdt" />
+    <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
+  </resultMap>
+   	<sql id="query_criteria">  
+  	  <if test="id  != null and id  != ''">
+        and ID  = #{id ,jdbcType=INTEGER}
+      </if>
+      <if test="arId  != null and arId  != ''">
+        and AR_ID  = #{arId ,jdbcType=VARCHAR}
+      </if>
+      <if test="arTp  != null and arTp  != ''">
+        and AR_Tp  = #{arTp ,jdbcType=VARCHAR}
+      </if>
+      <if test="pchPrty  != null and pchPrty  != ''">
+        and Pch_Prty  = #{pchPrty ,jdbcType=VARCHAR}
+      </if>
+      <if test="arStdt  != null and arStdt  != ''">
+        and AR_StDt  = #{arStdt ,jdbcType=VARCHAR}
+      </if>
+      <if test="arEddt  != null and arEddt  != ''">
+        and AR_EdDt  = #{arEddt ,jdbcType=VARCHAR}
+      </if>
+      <if test="splr  != null and splr  != ''">
+        and Splr  = #{splr ,jdbcType=VARCHAR}
+      </if>
+      <if test="pckupgdsCyc  != null and pckupgdsCyc  != ''">
+        and PckUpGds_Cyc  = #{pckupgdsCyc ,jdbcType=INTEGER}
+      </if>
+      <if test="agrmStg  != null and agrmStg  != ''">
+        and Agrm_Stg  = #{agrmStg ,jdbcType=VARCHAR}
+      </if>
+      <if test="btp  != null and btp  != ''">
+        and BTp  = #{btp ,jdbcType=VARCHAR}
+      </if>
+      <if test="fncPctg  != null and fncPctg  != ''">
+        and Fnc_Pctg  = #{fncPctg ,jdbcType=VARCHAR}
+      </if>
+      <if test="prpyGldRto  != null and prpyGldRto  != ''">
+        and Prpy_Gld_Rto  = #{prpyGldRto ,jdbcType=VARCHAR}
+      </if>
+      <if test="lmt  != null and lmt  != ''">
+        and Lmt  = #{lmt ,jdbcType=VARCHAR}
+      </if>
+      <if test="crdn  != null and crdn  != ''">
+        and Crdn  = #{crdn ,jdbcType=VARCHAR}
+      </if>
+      <if test="clsposLn  != null and clsposLn  != ''">
+        and Clspos_Ln  = #{clsposLn ,jdbcType=VARCHAR}
+      </if>
+      <if test="svcfeeCmd  != null and svcfeeCmd  != ''">
+        and SvcFee_CMd  = #{svcfeeCmd ,jdbcType=VARCHAR}
+      </if>
+      <if test="splovCrrovMod  != null and splovCrrovMod  != ''">
+        and SplOv_CrrOv_Mod  = #{splovCrrovMod ,jdbcType=VARCHAR}
+      </if>
+      <if test="arSt  != null and arSt  != ''">
+        and AR_St  = #{arSt ,jdbcType=VARCHAR}
+      </if>
+      <if test="tms  != null and tms  != ''">
+        and Tms  = #{tms ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="crtPsn  != null and crtPsn  != ''">
+        and Crt_Psn  = #{crtPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="crtTm  != null and crtTm  != ''">
+        and Crt_Tm  = #{crtTm ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cfmPsn  != null and cfmPsn  != ''">
+        and Cfm_Psn  = #{cfmPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="cfmTm  != null and cfmTm  != ''">
+        and Cfm_Tm  = #{cfmTm ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="frstinsCkop  != null and frstinsCkop  != ''">
+        and FrstIns_CkOp  = #{frstinsCkop ,jdbcType=VARCHAR}
+      </if>
+      <if test="frstinsAdtPsn  != null and frstinsAdtPsn  != ''">
+        and FrstIns_Adt_Psn  = #{frstinsAdtPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="frstinsAdtTm  != null and frstinsAdtTm  != ''">
+        and FrstIns_Adt_Tm  = #{frstinsAdtTm ,jdbcType=TIMESTAMP}
+      </if>
+      <if test="sndinscCkop  != null and sndinscCkop  != ''">
+        and SndInsc_CkOp  = #{sndinscCkop ,jdbcType=VARCHAR}
+      </if>
+      <if test="sndinsAdtPsn  != null and sndinsAdtPsn  != ''">
+        and SndIns_Adt_Psn  = #{sndinsAdtPsn ,jdbcType=VARCHAR}
+      </if>
+      <if test="sndinsAdtTm  != null and sndinsAdtTm  != ''">
+        and SndIns_Adt_Tm  = #{sndinsAdtTm ,jdbcType=TIMESTAMP}
+      </if>  
+	</sql>
+  	
+   <sql id="Base_Column_List">
+     ID,AR_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm
+   </sql>
+  
+   <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.TB0001InVo" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T1_AR_Inf
+	    where 1=1
+	    <include refid="query_criteria"></include>
+	    <if test="orderBy != null and orderBy != ''">
+		   ORDER BY ${orderBy}
+	    </if>
+  </select>
+  
+  <select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T1_AR_Inf
+		WHERE 1=1
+		<include refid="query_criteria"></include>
+  </select>
+</mapper>

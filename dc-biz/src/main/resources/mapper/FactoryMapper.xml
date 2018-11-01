@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.FactoryMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.entity.Factory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="locked" jdbcType="BIT" property="locked" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+  </resultMap>
+  
+  <resultMap type="com.xai.tt.dc.client.vo.FactoryVo" id="BaseVoResultMap" extends="BaseResultMap" >
+    <result column="provinceName" jdbcType="VARCHAR" property="provinceName"/>
+    <result column="cityName" jdbcType="VARCHAR" property="cityName"/>
+  </resultMap>
+  
+  <resultMap type="com.xai.tt.dc.client.vo.ProvinceVo" id="ProvinceVoResultMap"  >
+    <result column="provinceCode" jdbcType="VARCHAR" property="provinceCode"/>
+    <result column="provinceName" jdbcType="VARCHAR" property="provinceName"/>
+  </resultMap>
+  
+  <resultMap type="com.xai.tt.dc.client.vo.CityVo" id="CityVoResultMap">
+    <result column="cityCode" jdbcType="VARCHAR" property="cityCode"/>
+    <result column="cityName" jdbcType="VARCHAR" property="cityName"/>
+    <result column="provinceCode" jdbcType="VARCHAR" property="provinceCode"/>
+  </resultMap>
+  
+  <select id="selectAllProvince" resultMap="BaseResultMap">
+    select 
+    
+  </select>
+  
+  <select id="selectCityList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    
+  </select>
+  
+  <sql id="Base_Column_List">
+    id, create_time, code, name, manager_name, email, mobile, province, city, address, 
+    locked
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseVoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from factory
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByFactoryQuery" parameterType="com.xai.tt.dc.client.query.FactoryQuery" resultMap="BaseVoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from factory
+    where 1=1
+    <include refid="query_criteria"></include>
+    order by create_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from factory
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.xai.tt.dc.client.entity.Factory">
+    insert into factory (id, create_time, code, 
+      name, manager_name, email, 
+      mobile, province, city, 
+      address, locked)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{locked,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xai.tt.dc.client.entity.Factory">
+    update factory
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null">
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xai.tt.dc.client.vo.FactoryVo">
+    update factory
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      locked = #{locked,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM factory
+		WHERE 1=1
+		<include refid="query_criteria"></include>
+  </select>
+
+	<sql id="query_criteria">
+	  <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+	  <if test="createTimeStart != null">
+        and create_time &gt;= #{createTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeEnd != null">
+        and create_time &lt;= #{createTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="code != null and code != ''">
+        and code = #{code,jdbcType=VARCHAR}
+      </if>
+	  <if test="name != null and name != ''">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="managerName != null and managerName != ''">
+        and manager_name = #{managerName,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null and email != ''">
+        and email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="mobile != null and mobile != ''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="province != null and province != ''">
+        and province = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null and city != ''">
+        and city = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="address != null and address != ''">
+        and address = #{address,jdbcType=VARCHAR}
+      </if>
+      <if test="locked != null">
+        and locked = #{locked,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+      </if>
+      
+	  <if test="codeLike != null and codeLike != ''">
+        and code like CONCAT('%',#{codeLike,jdbcType=VARCHAR},'%')
+      </if>
+	  <if test="nameLike != null and nameLike != ''">
+        and name like CONCAT('%',#{nameLike,jdbcType=VARCHAR},'%')
+      </if>
+	  <if test="managerNameLike != null and managerNameLike != ''">
+        and manager_name like CONCAT('%',#{managerNameLike,jdbcType=VARCHAR},'%')
+      </if>
+	  <if test="mobileLike != null and mobileLike != ''">
+        and mobile like CONCAT('%',#{mobileLike,jdbcType=VARCHAR},'%')
+      </if>
+	</sql>
+	
+	<insert id="insertFactoryBatch" parameterType="java.lang.String" >
+	  insert into factory( name, code, manager_name, mobile, email, province, city, address, locked)
+	  values ${_parameter}
+    </insert>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.TSequenceMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.TSequence" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <result column="begin_num" property="beginNum" jdbcType="INTEGER" />
+    <result column="incr" property="incr" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="getSequence" resultType="java.lang.Integer" parameterType="com.xai.tt.dc.client.model.TSequence">
+	    select _nextindex('${name}');
+  </select>
+  
+</mapper>
