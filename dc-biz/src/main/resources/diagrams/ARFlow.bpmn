@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="ARFlow" name="ARFlowProcess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="AR_Itt_Pltfrm" name="长约发起(平台)" activiti:candidateGroups="01"></userTask>
+    <userTask id="AR_Cfm_SplChain" name="长约确认(供应链)" activiti:candidateGroups="02"></userTask>
+    <userTask id="AR_Cfm_Dwstr_Entp" name="长约确认(下游企业)" activiti:candidateGroups="03"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="AR_Itt_Pltfrm"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="AR_Itt_Pltfrm" targetRef="AR_Cfm_SplChain"></sequenceFlow>
+    <exclusiveGateway id="AR_Cfm_SplChain_Gw" name="长约确认(供应链)网关"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="AR_Cfm_SplChain" targetRef="AR_Cfm_SplChain_Gw"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="AR_Cfm_SplChain_Gw" targetRef="AR_Itt_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="AR_Cfm_SplChain_Gw" targetRef="AR_Cfm_Dwstr_Entp">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="AR_Cfm_Ins_Co" name="长约确认(保险公司)" activiti:candidateGroups="04"></userTask>
+    <exclusiveGateway id="AR_Cfm_Dwstr_Entp_Gw" name="长约确认(下游企业)网关"></exclusiveGateway>
+    <sequenceFlow id="flow8" sourceRef="AR_Cfm_Dwstr_Entp" targetRef="AR_Cfm_Dwstr_Entp_Gw"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="AR_Cfm_Dwstr_Entp_Gw" targetRef="AR_Cfm_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="AR_Cfm_Dwstr_Entp_Gw" targetRef="AR_Cfm_Ins_Co">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="AR_FrstIns_Pltfrm" name="长约一审(平台）" activiti:candidateGroups="01"></userTask>
+    <userTask id="AR_SndInsc_Pltfrm" name="长约二审(平台）" activiti:candidateGroups="01"></userTask>
+    <userTask id="AR_Tmt_Pltfrm" name="长约终止(平台）" activiti:candidateGroups="01"></userTask>
+    <exclusiveGateway id="AR_Cfm_Ins_Co_Gw" name="长约确认(保险公司)网关"></exclusiveGateway>
+    <exclusiveGateway id="AR_FrstIns_Pltfrm_Gw" name="长约一审(平台)网关"></exclusiveGateway>
+    <exclusiveGateway id="AR_SndInsc_Pltfrm_Gw" name="长约二审(平台)网关"></exclusiveGateway>
+    <exclusiveGateway id="AR_Tmt_Pltfrm_Gw" name="长约终止(平台)网关"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="AR_Cfm_Ins_Co" targetRef="AR_Cfm_Ins_Co_Gw"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="AR_Cfm_Ins_Co_Gw" targetRef="AR_Cfm_Dwstr_Entp">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="AR_Cfm_Ins_Co_Gw" targetRef="AR_FrstIns_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="AR_FrstIns_Pltfrm" targetRef="AR_FrstIns_Pltfrm_Gw"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="AR_FrstIns_Pltfrm_Gw" targetRef="AR_Cfm_Ins_Co">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="AR_FrstIns_Pltfrm_Gw" targetRef="AR_SndInsc_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="AR_SndInsc_Pltfrm" targetRef="AR_SndInsc_Pltfrm_Gw"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="AR_SndInsc_Pltfrm_Gw" targetRef="AR_FrstIns_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="AR_SndInsc_Pltfrm_Gw" targetRef="AR_Tmt_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="AR_Tmt_Pltfrm_Gw" targetRef="AR_SndInsc_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="AR_Tmt_Pltfrm" targetRef="AR_Tmt_Pltfrm_Gw"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="AR_Tmt_Pltfrm_Gw" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ARFlow">
+    <bpmndi:BPMNPlane bpmnElement="ARFlow" id="BPMNPlane_ARFlow">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="355.0" y="19.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="356.0" y="830.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Itt_Pltfrm" id="BPMNShape_AR_Itt_Pltfrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Cfm_SplChain" id="BPMNShape_AR_Cfm_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="201.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Cfm_Dwstr_Entp" id="BPMNShape_AR_Cfm_Dwstr_Entp">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="294.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Cfm_SplChain_Gw" id="BPMNShape_AR_Cfm_SplChain_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="580.0" y="208.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Cfm_Ins_Co" id="BPMNShape_AR_Cfm_Ins_Co">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="401.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Cfm_Dwstr_Entp_Gw" id="BPMNShape_AR_Cfm_Dwstr_Entp_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="120.0" y="304.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_FrstIns_Pltfrm" id="BPMNShape_AR_FrstIns_Pltfrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="501.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_SndInsc_Pltfrm" id="BPMNShape_AR_SndInsc_Pltfrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="611.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Tmt_Pltfrm" id="BPMNShape_AR_Tmt_Pltfrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="293.0" y="721.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Cfm_Ins_Co_Gw" id="BPMNShape_AR_Cfm_Ins_Co_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="580.0" y="407.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_FrstIns_Pltfrm_Gw" id="BPMNShape_AR_FrstIns_Pltfrm_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="120.0" y="501.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_SndInsc_Pltfrm_Gw" id="BPMNShape_AR_SndInsc_Pltfrm_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="580.0" y="617.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AR_Tmt_Pltfrm_Gw" id="BPMNShape_AR_Tmt_Pltfrm_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="120.0" y="728.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="372.0" y="54.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="373.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="201.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="453.0" y="228.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="228.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="600.0" y="208.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="600.0" y="248.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="294.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="293.0" y="321.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="324.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="140.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="256.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="140.0" y="344.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="401.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="453.0" y="428.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="427.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="600.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="349.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="600.0" y="447.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="501.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="293.0" y="528.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="521.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="140.0" y="501.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="456.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="140.0" y="541.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="611.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="453.0" y="638.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="637.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="600.0" y="617.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="556.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="600.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="721.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="140.0" y="728.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="666.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="293.0" y="748.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="748.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="140.0" y="768.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="830.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

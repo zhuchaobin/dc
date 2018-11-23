@@ -3,7 +3,9 @@ package com.xai.tt.dc.client.vo.inVo;
 import java.util.Date;
 import java.util.List;
 
-public class TB0001InVo {
+import com.xai.tt.dc.client.query.UserInfoQuery;
+
+public class TB0001InVo extends UserInfoQuery {
     /**
      * ID
      */

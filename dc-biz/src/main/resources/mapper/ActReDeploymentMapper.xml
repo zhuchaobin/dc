@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.ActReDeploymentMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.ActReDeployment" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="CATEGORY_" property="category" jdbcType="VARCHAR" />
+    <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR" />
+    <result column="DEPLOY_TIME_" property="deployTime" jdbcType="TIMESTAMP" />
+    <result column="ENGINE_VERSION_" property="engineVersion" jdbcType="VARCHAR" />
+    <result column="KEY_" property="key" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

@@ -19,6 +19,12 @@ public class T1ARInf {
     private String arId;
 
     /**
+     * 流程实例ID
+     */
+    @Column(name = "PROCESS_INST_ID")
+    private String processInstId;
+
+    /**
      * 长约类型
      */
     @Column(name = "AR_Tp")
@@ -163,6 +169,30 @@ public class T1ARInf {
     private Date frstinsAdtTm;
 
     /**
+     * 银行
+     */
+    @Column(name = "Bnk")
+    private Integer bnk;
+
+    /**
+     * 物流
+     */
+    @Column(name = "Lgstc")
+    private Integer lgstc;
+
+    /**
+     * 保险公司
+     */
+    @Column(name = "Ins_Co")
+    private Integer insCo;
+
+    /**
+     * 供应链
+     */
+    @Column(name = "SplChain")
+    private Integer splchain;
+
+    /**
      * 二审审核意见
      */
     @Column(name = "SndInsc_CkOp")
@@ -292,6 +322,24 @@ public class T1ARInf {
      */
     public void setArId(String arId) {
         this.arId = arId;
+    }
+
+    /**
+     * 获取流程实例ID
+     *
+     * @return PROCESS_INST_ID - 流程实例ID
+     */
+    public String getProcessInstId() {
+        return processInstId;
+    }
+
+    /**
+     * 设置流程实例ID
+     *
+     * @param processInstId 流程实例ID
+     */
+    public void setProcessInstId(String processInstId) {
+        this.processInstId = processInstId;
     }
 
     /**
@@ -724,6 +772,78 @@ public class T1ARInf {
      */
     public void setFrstinsAdtTm(Date frstinsAdtTm) {
         this.frstinsAdtTm = frstinsAdtTm;
+    }
+
+    /**
+     * 获取银行
+     *
+     * @return Bnk - 银行
+     */
+    public Integer getBnk() {
+        return bnk;
+    }
+
+    /**
+     * 设置银行
+     *
+     * @param bnk 银行
+     */
+    public void setBnk(Integer bnk) {
+        this.bnk = bnk;
+    }
+
+    /**
+     * 获取物流
+     *
+     * @return Lgstc - 物流
+     */
+    public Integer getLgstc() {
+        return lgstc;
+    }
+
+    /**
+     * 设置物流
+     *
+     * @param lgstc 物流
+     */
+    public void setLgstc(Integer lgstc) {
+        this.lgstc = lgstc;
+    }
+
+    /**
+     * 获取保险公司
+     *
+     * @return Ins_Co - 保险公司
+     */
+    public Integer getInsCo() {
+        return insCo;
+    }
+
+    /**
+     * 设置保险公司
+     *
+     * @param insCo 保险公司
+     */
+    public void setInsCo(Integer insCo) {
+        this.insCo = insCo;
+    }
+
+    /**
+     * 获取供应链
+     *
+     * @return SplChain - 供应链
+     */
+    public Integer getSplchain() {
+        return splchain;
+    }
+
+    /**
+     * 设置供应链
+     *
+     * @param splchain 供应链
+     */
+    public void setSplchain(Integer splchain) {
+        this.splchain = splchain;
     }
 
     /**

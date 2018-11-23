@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.ActRuTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.ActRuTask" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="REV_" property="rev" jdbcType="INTEGER" />
+    <result column="EXECUTION_ID_" property="executionId" jdbcType="VARCHAR" />
+    <result column="PROC_INST_ID_" property="procInstId" jdbcType="VARCHAR" />
+    <result column="PROC_DEF_ID_" property="procDefId" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="PARENT_TASK_ID_" property="parentTaskId" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION_" property="description" jdbcType="VARCHAR" />
+    <result column="TASK_DEF_KEY_" property="taskDefKey" jdbcType="VARCHAR" />
+    <result column="OWNER_" property="owner" jdbcType="VARCHAR" />
+    <result column="ASSIGNEE_" property="assignee" jdbcType="VARCHAR" />
+    <result column="DELEGATION_" property="delegation" jdbcType="VARCHAR" />
+    <result column="PRIORITY_" property="priority" jdbcType="INTEGER" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="DUE_DATE_" property="dueDate" jdbcType="TIMESTAMP" />
+    <result column="CATEGORY_" property="category" jdbcType="VARCHAR" />
+    <result column="SUSPENSION_STATE_" property="suspensionState" jdbcType="INTEGER" />
+    <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR" />
+    <result column="FORM_KEY_" property="formKey" jdbcType="VARCHAR" />
+    <result column="CLAIM_TIME_" property="claimTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  	<select id="queryTaskId" parameterType="com.xai.tt.dc.client.query.WfeQuery" resultType="java.lang.String">
+select t2.ID_ from 
+t1_ar_inf t1,
+act_ru_task t2
+where t1.AR_ID = #{arId,jdbcType=VARCHAR}
+and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
+and t2.TASK_DEF_KEY_ = #{taskDefKey,jdbcType=VARCHAR}
+	</select>
+</mapper>

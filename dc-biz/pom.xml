@@ -12,7 +12,6 @@
 	<artifactId>dc-biz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>dc-biz</name>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.ai</groupId>
@@ -35,6 +34,7 @@
 		    <groupId>tk.mybatis</groupId>
 		    <artifactId>mapper</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.tianan.kltsp</groupId>
 			<artifactId>dc-client</artifactId>
@@ -139,7 +139,16 @@
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 		</dependency>
-
+	<dependency>
+      		<groupId>org.activiti</groupId>
+      		<artifactId>activiti-engine</artifactId>
+      		<version>6.0.0</version>
+    	</dependency>
+ 		<dependency>
+      		<groupId>org.activiti</groupId>
+      		<artifactId>activiti-spring</artifactId>
+      		<version>6.0.0</version>
+    	</dependency>
 	</dependencies>
 
 	<properties>
@@ -191,6 +200,7 @@
 						<artifactId>mapper</artifactId>
 						<version>${tk.mybatis.version}</version>
 					</dependency>
+
 				</dependencies>
 			</plugin>
 		</plugins>

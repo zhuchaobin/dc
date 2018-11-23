@@ -5,48 +5,53 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="ID" jdbcType="BIGINT" property="id" />
-    <result column="AR_ID" jdbcType="CHAR" property="arId" />
-    <result column="AR_Tp" jdbcType="CHAR" property="arTp" />
-    <result column="Pch_Prty" jdbcType="VARCHAR" property="pchPrty" />
-    <result column="AR_StDt" jdbcType="CHAR" property="arStdt" />
-    <result column="AR_EdDt" jdbcType="CHAR" property="arEddt" />
-    <result column="Splr" jdbcType="VARCHAR" property="splr" />
-    <result column="PckUpGds_Cyc" jdbcType="INTEGER" property="pckupgdsCyc" />
-    <result column="Agrm_Stg" jdbcType="VARCHAR" property="agrmStg" />
-    <result column="BTp" jdbcType="VARCHAR" property="btp" />
-    <result column="Fnc_Pctg" jdbcType="REAL" property="fncPctg" />
-    <result column="Prpy_Gld_Rto" jdbcType="REAL" property="prpyGldRto" />
-    <result column="Lmt" jdbcType="REAL" property="lmt" />
-    <result column="Crdn" jdbcType="REAL" property="crdn" />
-    <result column="Clspos_Ln" jdbcType="REAL" property="clsposLn" />
-    <result column="SvcFee_CMd" jdbcType="CHAR" property="svcfeeCmd" />
-    <result column="SplOv_CrrOv_Mod" jdbcType="CHAR" property="splovCrrovMod" />
-    <result column="AR_St" jdbcType="CHAR" property="arSt" />
-    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
-    <result column="Crt_Psn" jdbcType="VARCHAR" property="crtPsn" />
-    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
-    <result column="Cfm_Psn" jdbcType="VARCHAR" property="cfmPsn" />
-    <result column="Cfm_Tm" jdbcType="TIMESTAMP" property="cfmTm" />
-    <result column="FrstIns_CkOp" jdbcType="VARCHAR" property="frstinsCkop" />
-    <result column="FrstIns_Adt_Psn" jdbcType="VARCHAR" property="frstinsAdtPsn" />
-    <result column="FrstIns_Adt_Tm" jdbcType="TIMESTAMP" property="frstinsAdtTm" />
-    <result column="SndInsc_CkOp" jdbcType="VARCHAR" property="sndinscCkop" />
-    <result column="SndIns_Adt_Psn" jdbcType="VARCHAR" property="sndinsAdtPsn" />
-    <result column="SndIns_Adt_Tm" jdbcType="TIMESTAMP" property="sndinsAdtTm" />
-    <result column="Plchd" jdbcType="VARCHAR" property="plchd" />
-    <result column="Plchd_Adr" jdbcType="VARCHAR" property="plchdAdr" />
-    <result column="Insrd" jdbcType="VARCHAR" property="insrd" />
-    <result column="Insrd_Adr" jdbcType="VARCHAR" property="insrdAdr" />
-    <result column="Fst_Benf" jdbcType="VARCHAR" property="fstBenf" />
-    <result column="Fst_Benf_Adr" jdbcType="VARCHAR" property="fstBenfAdr" />
-    <result column="Ins_Pty_Adr" jdbcType="VARCHAR" property="insPtyAdr" />
-    <result column="Ins_Obj_Nm" jdbcType="VARCHAR" property="insObjNm" />
-    <result column="Ins_Amt" jdbcType="REAL" property="insAmt" />
-    <result column="Dctb_Amt" jdbcType="REAL" property="dctbAmt" />
-    <result column="EpAp" jdbcType="VARCHAR" property="epap" />
-    <result column="Ins_StDt" jdbcType="CHAR" property="insStdt" />
-    <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="AR_ID" property="arId" jdbcType="CHAR" />
+    <result column="PROCESS_INST_ID" property="processInstId" jdbcType="VARCHAR" />
+    <result column="AR_Tp" property="arTp" jdbcType="CHAR" />
+    <result column="Pch_Prty" property="pchPrty" jdbcType="VARCHAR" />
+    <result column="AR_StDt" property="arStdt" jdbcType="CHAR" />
+    <result column="AR_EdDt" property="arEddt" jdbcType="CHAR" />
+    <result column="Splr" property="splr" jdbcType="VARCHAR" />
+    <result column="PckUpGds_Cyc" property="pckupgdsCyc" jdbcType="INTEGER" />
+    <result column="Agrm_Stg" property="agrmStg" jdbcType="VARCHAR" />
+    <result column="BTp" property="btp" jdbcType="CHAR" />
+    <result column="Fnc_Pctg" property="fncPctg" jdbcType="REAL" />
+    <result column="Prpy_Gld_Rto" property="prpyGldRto" jdbcType="REAL" />
+    <result column="Lmt" property="lmt" jdbcType="REAL" />
+    <result column="Crdn" property="crdn" jdbcType="REAL" />
+    <result column="Clspos_Ln" property="clsposLn" jdbcType="REAL" />
+    <result column="SvcFee_CMd" property="svcfeeCmd" jdbcType="CHAR" />
+    <result column="SplOv_CrrOv_Mod" property="splovCrrovMod" jdbcType="CHAR" />
+    <result column="AR_St" property="arSt" jdbcType="CHAR" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="Crt_Psn" property="crtPsn" jdbcType="VARCHAR" />
+    <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
+    <result column="Cfm_Psn" property="cfmPsn" jdbcType="VARCHAR" />
+    <result column="Cfm_Tm" property="cfmTm" jdbcType="TIMESTAMP" />
+    <result column="FrstIns_CkOp" property="frstinsCkop" jdbcType="VARCHAR" />
+    <result column="FrstIns_Adt_Psn" property="frstinsAdtPsn" jdbcType="VARCHAR" />
+    <result column="FrstIns_Adt_Tm" property="frstinsAdtTm" jdbcType="TIMESTAMP" />
+    <result column="Bnk" property="bnk" jdbcType="INTEGER" />
+    <result column="Lgstc" property="lgstc" jdbcType="INTEGER" />
+    <result column="Ins_Co" property="insCo" jdbcType="INTEGER" />
+    <result column="SplChain" property="splchain" jdbcType="INTEGER" />
+    <result column="SndInsc_CkOp" property="sndinscCkop" jdbcType="VARCHAR" />
+    <result column="SndIns_Adt_Psn" property="sndinsAdtPsn" jdbcType="VARCHAR" />
+    <result column="SndIns_Adt_Tm" property="sndinsAdtTm" jdbcType="TIMESTAMP" />
+    <result column="Plchd" property="plchd" jdbcType="VARCHAR" />
+    <result column="Plchd_Adr" property="plchdAdr" jdbcType="VARCHAR" />
+    <result column="Insrd" property="insrd" jdbcType="VARCHAR" />
+    <result column="Insrd_Adr" property="insrdAdr" jdbcType="VARCHAR" />
+    <result column="Fst_Benf" property="fstBenf" jdbcType="VARCHAR" />
+    <result column="Fst_Benf_Adr" property="fstBenfAdr" jdbcType="VARCHAR" />
+    <result column="Ins_Pty_Adr" property="insPtyAdr" jdbcType="VARCHAR" />
+    <result column="Ins_Obj_Nm" property="insObjNm" jdbcType="VARCHAR" />
+    <result column="Ins_Amt" property="insAmt" jdbcType="REAL" />
+    <result column="Dctb_Amt" property="dctbAmt" jdbcType="REAL" />
+    <result column="EpAp" property="epap" jdbcType="VARCHAR" />
+    <result column="Ins_StDt" property="insStdt" jdbcType="CHAR" />
+    <result column="Ins_EdDt" property="insEddt" jdbcType="CHAR" />
   </resultMap>
    	<sql id="query_criteria">  
   	  <if test="id  != null and id  != ''">
@@ -139,24 +144,131 @@
 	</sql>
   	
    <sql id="Base_Column_List">
-     ID,AR_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm
+     ID,AR_ID,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt
    </sql>
   
-   <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.TB0001InVo" resultMap="BaseResultMap">
-	    select 
-	    <include refid="Base_Column_List" />
-	    from T1_AR_Inf
-	    where 1=1
-	    <include refid="query_criteria"></include>
-	    <if test="orderBy != null and orderBy != ''">
-		   ORDER BY ${orderBy}
-	    </if>
+   <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.TB0001InVo" resultType="com.xai.tt.dc.client.vo.T1ARInfVo">
+	    SELECT
+	    t6.ID as id,
+t6.AR_ID as arId,
+t6.PROCESS_INST_ID as processInstId,
+t6.AR_Tp as arTp,
+t6.Pch_Prty as pchPrty,
+t6.AR_StDt as arStdt,
+t6.AR_EdDt as arEddt,
+t6.Splr as splr,
+t6.PckUpGds_Cyc as pckupgdsCyc,
+t6.Agrm_Stg as agrmStg,
+t6.BTp as btp,
+t6.Fnc_Pctg as fncPctg,
+t6.Prpy_Gld_Rto as prpyGldRto,
+t6.Lmt as lmt,
+t6.Crdn as crdn,
+t6.Clspos_Ln as clsposLn,
+t6.SvcFee_CMd as svcfeeCmd,
+t6.SplOv_CrrOv_Mod as splovCrrovMod,
+t6.AR_St as arSt,
+t6.Tms as tms,
+t6.Crt_Psn as crtPsn,
+t6.Crt_Tm as crtTm,
+t6.Cfm_Psn as cfmPsn,
+t6.Cfm_Tm as cfmTm,
+t6.FrstIns_CkOp as frstinsCkop,
+t6.FrstIns_Adt_Psn as frstinsAdtPsn,
+t6.FrstIns_Adt_Tm as frstinsAdtTm,
+t6.Bnk as bnk,
+t6.Lgstc as lgstc,
+t6.Ins_Co as insCo,
+t6.SplChain as splchain,
+t6.SndInsc_CkOp as sndinscCkop,
+t6.SndIns_Adt_Psn as sndinsAdtPsn,
+t6.SndIns_Adt_Tm as sndinsAdtTm,
+t6.Plchd as plchd,
+t6.Plchd_Adr as plchdAdr,
+t6.Insrd as insrd,
+t6.Insrd_Adr as insrdAdr,
+t6.Fst_Benf as fstBenf,
+t6.Fst_Benf_Adr as fstBenfAdr,
+t6.Ins_Pty_Adr as insPtyAdr,
+t6.Ins_Obj_Nm as insObjNm,
+t6.Ins_Amt as insAmt,
+t6.Dctb_Amt as dctbAmt,
+t6.EpAp as epap,
+t6.Ins_StDt as insStdt,
+t6.Ins_EdDt as insEddt,
+		CASE t4.TASK_DEF_KEY_
+WHEN 'AR_Itt_Pltfrm' THEN
+	'01'
+WHEN 'AR_Cfm_SplChain' THEN
+	'02'
+WHEN 'AR_Cfm_Dwstr_Entp' THEN
+	'03'
+WHEN 'AR_Cfm_Ins_Co' THEN
+	'04'
+WHEN 'AR_FrstIns_Pltfrm' THEN
+	'05'
+WHEN 'AR_SndInsc_Pltfrm' THEN
+	'06'
+WHEN 'AR_Tmt_Pltfrm' THEN
+	'07'
+ELSE
+	''
+END AS aplyPcstpCd
+FROM
+	(
+		SELECT
+			t3.*
+		FROM
+			t1_ar_inf t3,
+			USER t5
+		WHERE
+			t3.SplChain = t5.splchain
+			<include refid="query_criteria"></include>
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+#	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+ORDER BY
+	aplyPcstpCd,
+	crt_tm DESC
+		    
   </select>
   
   <select id="count" resultType="java.lang.Integer">
-		SELECT COUNT(*)
-		FROM T1_AR_Inf
-		WHERE 1=1
-		<include refid="query_criteria"></include>
+ SELECT
+	   COUNT(*)
+FROM
+	(
+		SELECT
+			t3.*
+		FROM
+			t1_ar_inf t3,
+			USER t5
+		WHERE
+			t3.SplChain = t5.splchain
+			<include refid="query_criteria"></include>
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+
   </select>
 </mapper>

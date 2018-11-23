@@ -1,4 +1,4 @@
-/*package test;
+package test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,15 +15,13 @@ import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 import com.tianan.common.api.bean.Result;
 import com.xai.tt.dc.App;
 import com.xai.tt.dc.biz.mapper.T1ARInfMapper;
-import com.xai.tt.dc.biz.mapper.T1ARInfMapper_bak;
-import com.xai.tt.dc.biz.mapper.T2ARAtchMapper;
+import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.client.model.T1ARInf;
-import com.xai.tt.dc.client.model.T2ARAtch;
 import com.xai.tt.dc.client.service.TB0001DcService;
+import com.xai.tt.dc.client.service.WfDcService;
+import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.TB0001InVo;
 import com.xai.tt.dc.client.vo.inVo.TB0001SubInVo;
-import com.xai.tt.dc.client.inter.T1ARInfDcService;
-
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -35,10 +33,16 @@ public class TestT1ARInf{
 	@Autowired
 	private TB0001DcService tB0001DcService;
 	@Autowired
+	private WfDcService wfDcService;
+	@Autowired
 	private T1ARInfMapper t1ARInfMapper;
-//	@Test
+	@Test
 	@Rollback(false)
 	public void testSave() {
+		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_AR);
+		System.out.println("deploymentId=" + deploymentId);
+//		String  processInstanceId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
+//		System.out.println("processInstanceId=" + processInstanceId);
 		TB0001InVo req = new TB0001InVo();
 		// ID
 //		req.setId((long) 3);
@@ -147,9 +151,8 @@ public class TestT1ARInf{
 	public void testQueryPage() {
 		T1ARInfVo query = new T1ARInfVo();
 
-		Result<PageData<T1ARInfVo>> rlt = t1ARInfDcService.queryPage(query, null);
-		System.out.println("rrrrrrrrrrrr" + JSON.toJSONString(rlt));
+//		Result<PageData<T1ARInfVo>> rlt = tB0001DcService.queryPage(query, null);
+//		System.out.println("rrrrrrrrrrrr" + JSON.toJSONString(rlt));
 	}
 
 }
-*/

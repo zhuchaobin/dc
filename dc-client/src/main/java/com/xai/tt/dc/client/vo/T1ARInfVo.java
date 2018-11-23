@@ -63,7 +63,16 @@ public class T1ARInfVo implements Serializable {
 	private String sndinsAdtPsn;
 	// 二审审核时间
 	private Date sndinsAdtTm;
+	// 环节信息
+	private String aplyPcstpCd;
 	
+	public String getAplyPcstpCd() {
+		return aplyPcstpCd;
+	}
+	public void setAplyPcstpCd(String aplyPcstpCd) {
+		this.aplyPcstpCd = aplyPcstpCd;
+	}
+	// 排序字段
 	private String orderBy;
 	
 	public String getOrderBy() {

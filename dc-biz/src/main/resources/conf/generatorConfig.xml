@@ -23,8 +23,11 @@
 	<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
 	<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-    <table schema="xlink2" tableName="t_sequence" domainObjectName="TSequence" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true">
-    </table>
+<table schema="xlink2" tableName="act_ru_task" domainObjectName="ActRuTask" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="act_ru_identitylink" domainObjectName="ActRuIdentitylink" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="act_re_procdef" domainObjectName="ActReProcdef" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="act_re_deployment" domainObjectName="ActReDeployment" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+
 
 
   </context>

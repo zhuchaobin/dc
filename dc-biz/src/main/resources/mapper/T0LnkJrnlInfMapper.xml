@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T0LnkJrnlInf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="AR_ID" property="arId" jdbcType="CHAR" />
+    <result column="BTp" property="btp" jdbcType="CHAR" />
+    <result column="PROCESS_INST_ID" property="processInstId" jdbcType="VARCHAR" />
+    <result column="Aply_PcStp_Cd" property="aplyPcstpCd" jdbcType="CHAR" />
+    <result column="Aply_PsRlt_Cd" property="aplyPsrltCd" jdbcType="CHAR" />
+    <result column="Opr_ECD" property="oprEcd" jdbcType="VARCHAR" />
+    <result column="Inlz_Tm" property="inlzTm" jdbcType="TIMESTAMP" />
+    <result column="Lnk_StTm" property="lnkSttm" jdbcType="TIMESTAMP" />
+    <result column="Lnk_EdTm" property="lnkEdtm" jdbcType="TIMESTAMP" />
+    <result column="Aply_Pcs_OdSt_Cd" property="aplyPcsOdstCd" jdbcType="CHAR" />
+    <result column="Aply_Pcs_InsID" property="aplyPcsInsid" jdbcType="INTEGER" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="Txn_Itt_Chnl_ID" property="txnIttChnlId" jdbcType="CHAR" />
+  </resultMap>
+</mapper>
