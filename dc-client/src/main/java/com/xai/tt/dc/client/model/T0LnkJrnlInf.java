@@ -12,16 +12,16 @@ public class T0LnkJrnlInf {
     private Long id;
 
     /**
-     * 长约编号
+     * 关联编号
      */
-    @Column(name = "AR_ID")
-    private String arId;
+    @Column(name = "Rltv_ID")
+    private String rltvId;
 
     /**
-     * 业务类型
+     * 流程类型
      */
-    @Column(name = "BTp")
-    private String btp;
+    @Column(name = "PROCESS_TYPE")
+    private String processType;
 
     /**
      * 流程实例编号
@@ -42,10 +42,15 @@ public class T0LnkJrnlInf {
     private String aplyPsrltCd;
 
     /**
-     * 操作员编码
+     * 用户名
      */
-    @Column(name = "Opr_ECD")
-    private String oprEcd;
+    private String username;
+
+    /**
+     * 备注
+     */
+    @Column(name = "Rmrk")
+    private String rmrk;
 
     /**
      * #初始化时间
@@ -74,8 +79,8 @@ public class T0LnkJrnlInf {
     /**
      * 申请处理机构编号
      */
-    @Column(name = "Aply_Pcs_InsID")
-    private Integer aplyPcsInsid;
+    @Column(name = "company_id")
+    private Integer companyId;
 
     /**
      * #时间戳
@@ -88,6 +93,12 @@ public class T0LnkJrnlInf {
      */
     @Column(name = "Txn_Itt_Chnl_ID")
     private String txnIttChnlId;
+
+    /**
+     * 申请处理结果
+     */
+    @Column(name = "Aply_PsRlt")
+    private byte[] aplyPsrlt;
 
     /**
      * 获取id
@@ -108,39 +119,39 @@ public class T0LnkJrnlInf {
     }
 
     /**
-     * 获取长约编号
+     * 获取关联编号
      *
-     * @return AR_ID - 长约编号
+     * @return Rltv_ID - 关联编号
      */
-    public String getArId() {
-        return arId;
+    public String getRltvId() {
+        return rltvId;
     }
 
     /**
-     * 设置长约编号
+     * 设置关联编号
      *
-     * @param arId 长约编号
+     * @param rltvId 关联编号
      */
-    public void setArId(String arId) {
-        this.arId = arId;
+    public void setRltvId(String rltvId) {
+        this.rltvId = rltvId;
     }
 
     /**
-     * 获取业务类型
+     * 获取流程类型
      *
-     * @return BTp - 业务类型
+     * @return PROCESS_TYPE - 流程类型
      */
-    public String getBtp() {
-        return btp;
+    public String getProcessType() {
+        return processType;
     }
 
     /**
-     * 设置业务类型
+     * 设置流程类型
      *
-     * @param btp 业务类型
+     * @param processType 流程类型
      */
-    public void setBtp(String btp) {
-        this.btp = btp;
+    public void setProcessType(String processType) {
+        this.processType = processType;
     }
 
     /**
@@ -198,21 +209,39 @@ public class T0LnkJrnlInf {
     }
 
     /**
-     * 获取操作员编码
+     * 获取用户名
      *
-     * @return Opr_ECD - 操作员编码
+     * @return username - 用户名
      */
-    public String getOprEcd() {
-        return oprEcd;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * 设置操作员编码
+     * 设置用户名
      *
-     * @param oprEcd 操作员编码
+     * @param username 用户名
      */
-    public void setOprEcd(String oprEcd) {
-        this.oprEcd = oprEcd;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * 获取备注
+     *
+     * @return Rmrk - 备注
+     */
+    public String getRmrk() {
+        return rmrk;
+    }
+
+    /**
+     * 设置备注
+     *
+     * @param rmrk 备注
+     */
+    public void setRmrk(String rmrk) {
+        this.rmrk = rmrk;
     }
 
     /**
@@ -290,19 +319,19 @@ public class T0LnkJrnlInf {
     /**
      * 获取申请处理机构编号
      *
-     * @return Aply_Pcs_InsID - 申请处理机构编号
+     * @return company_id - 申请处理机构编号
      */
-    public Integer getAplyPcsInsid() {
-        return aplyPcsInsid;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
     /**
      * 设置申请处理机构编号
      *
-     * @param aplyPcsInsid 申请处理机构编号
+     * @param companyId 申请处理机构编号
      */
-    public void setAplyPcsInsid(Integer aplyPcsInsid) {
-        this.aplyPcsInsid = aplyPcsInsid;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     /**
@@ -339,5 +368,23 @@ public class T0LnkJrnlInf {
      */
     public void setTxnIttChnlId(String txnIttChnlId) {
         this.txnIttChnlId = txnIttChnlId;
+    }
+
+    /**
+     * 获取申请处理结果
+     *
+     * @return Aply_PsRlt - 申请处理结果
+     */
+    public byte[] getAplyPsrlt() {
+        return aplyPsrlt;
+    }
+
+    /**
+     * 设置申请处理结果
+     *
+     * @param aplyPsrlt 申请处理结果
+     */
+    public void setAplyPsrlt(byte[] aplyPsrlt) {
+        this.aplyPsrlt = aplyPsrlt;
     }
 }

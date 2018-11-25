@@ -3,20 +3,25 @@ package com.xai.tt.dc.client.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "t2_ar_atch")
-public class T2ARAtch {
+@Table(name = "t2_upload_atch")
+public class T2UploadAtch {
     /**
-     * 长约附件ID
+     * 附件ID
      */
     @Id
-    @Column(name = "AR_AtchID")
-    private Long arAtchid;
+    private Long id;
 
     /**
-     * 长约协议编号
+     * 关联编号
      */
-    @Column(name = "AR_ID")
-    private String arId;
+    @Column(name = "Rltv_ID")
+    private String rltvId;
+
+    /**
+     * 关联类型
+     */
+    @Column(name = "Rltv_Tp")
+    private String rltvTp;
 
     /**
      * 原文件名
@@ -55,10 +60,9 @@ public class T2ARAtch {
     private Date tms;
 
     /**
-     * 操作员
+     * 用户名
      */
-    @Column(name = "Crt_Psn")
-    private String crtPsn;
+    private String username;
 
     /**
      * 创建时间
@@ -67,39 +71,57 @@ public class T2ARAtch {
     private Date crtTm;
 
     /**
-     * 获取长约附件ID
+     * 获取附件ID
      *
-     * @return AR_AtchID - 长约附件ID
+     * @return id - 附件ID
      */
-    public Long getArAtchid() {
-        return arAtchid;
+    public Long getId() {
+        return id;
     }
 
     /**
-     * 设置长约附件ID
+     * 设置附件ID
      *
-     * @param arAtchid 长约附件ID
+     * @param id 附件ID
      */
-    public void setArAtchid(Long arAtchid) {
-        this.arAtchid = arAtchid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
-     * 获取长约协议编号
+     * 获取关联编号
      *
-     * @return AR_ID - 长约协议编号
+     * @return Rltv_ID - 关联编号
      */
-    public String getArId() {
-        return arId;
+    public String getRltvId() {
+        return rltvId;
     }
 
     /**
-     * 设置长约协议编号
+     * 设置关联编号
      *
-     * @param arId 长约协议编号
+     * @param rltvId 关联编号
      */
-    public void setArId(String arId) {
-        this.arId = arId;
+    public void setRltvId(String rltvId) {
+        this.rltvId = rltvId;
+    }
+
+    /**
+     * 获取关联类型
+     *
+     * @return Rltv_Tp - 关联类型
+     */
+    public String getRltvTp() {
+        return rltvTp;
+    }
+
+    /**
+     * 设置关联类型
+     *
+     * @param rltvTp 关联类型
+     */
+    public void setRltvTp(String rltvTp) {
+        this.rltvTp = rltvTp;
     }
 
     /**
@@ -211,21 +233,21 @@ public class T2ARAtch {
     }
 
     /**
-     * 获取操作员
+     * 获取用户名
      *
-     * @return Crt_Psn - 操作员
+     * @return username - 用户名
      */
-    public String getCrtPsn() {
-        return crtPsn;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * 设置操作员
+     * 设置用户名
      *
-     * @param crtPsn 操作员
+     * @param username 用户名
      */
-    public void setCrtPsn(String crtPsn) {
-        this.crtPsn = crtPsn;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**

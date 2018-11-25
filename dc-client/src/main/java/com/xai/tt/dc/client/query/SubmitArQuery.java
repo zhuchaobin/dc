@@ -1,7 +1,5 @@
 package com.xai.tt.dc.client.query;
 
-import com.tianan.common.api.mybatis.SortQuery;
-
 public class SubmitArQuery extends UserInfoQuery {
 	/**
 	 * 
@@ -21,7 +19,15 @@ public class SubmitArQuery extends UserInfoQuery {
 	private String aplyPsrltCd;
 	// 申请处理步骤代码
 	private String aplyPcstpCd;
+	// 申请处理结果
+	private byte[] aplyPsrlt;
 		
+	public byte[] getAplyPsrlt() {
+		return aplyPsrlt;
+	}
+	public void setAplyPsrlt(byte[] aplyPsrlt) {
+		this.aplyPsrlt = aplyPsrlt;
+	}
 	public String getAplyPsrltCd() {
 		return aplyPsrltCd;
 	}

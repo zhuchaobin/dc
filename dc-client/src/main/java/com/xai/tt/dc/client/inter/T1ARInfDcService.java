@@ -3,7 +3,7 @@ package com.xai.tt.dc.client.inter;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
-import com.xai.tt.dc.client.model.T1ARInf;
+import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 
 /**
@@ -17,7 +17,7 @@ public interface T1ARInfDcService {
 	 * 
 	 * @author zhucb 2018-06-30
 	 */
-	Result<Boolean> save(T1ARInf req);
+	Result<Boolean> save(T1ArInf req);
 
 	Result<PageData<T1ARInfVo>> queryPage(T1ARInfVo query, PageParam pageParam);
 	

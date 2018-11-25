@@ -4,7 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "t1_ar_inf")
-public class T1ARInf {
+public class T1ArInf {
     /**
      * ID
      */
@@ -31,10 +31,46 @@ public class T1ARInf {
     private String arTp;
 
     /**
-     * 采购方
+     * 融资企业
      */
-    @Column(name = "Pch_Prty")
-    private String pchPrty;
+    @Column(name = "Fnc_Entp")
+    private Integer fncEntp;
+
+    /**
+     * 上游供应商
+     */
+    @Column(name = "Ustrm_Splr")
+    private Integer ustrmSplr;
+
+    /**
+     * 仓储公司
+     */
+    @Column(name = "StgCo")
+    private Integer stgco;
+
+    /**
+     * 银行
+     */
+    @Column(name = "Bnk")
+    private Integer bnk;
+
+    /**
+     * 物流公司
+     */
+    @Column(name = "Lgstc_Co")
+    private Integer lgstcCo;
+
+    /**
+     * 保险公司
+     */
+    @Column(name = "Ins_Co")
+    private Integer insCo;
+
+    /**
+     * 供应链公司
+     */
+    @Column(name = "SplChain_Co")
+    private Integer splchainCo;
 
     /**
      * 长约开始日期
@@ -49,22 +85,10 @@ public class T1ARInf {
     private String arEddt;
 
     /**
-     * 供应商
-     */
-    @Column(name = "Splr")
-    private String splr;
-
-    /**
      * 提货周期
      */
     @Column(name = "PckUpGds_Cyc")
     private Integer pckupgdsCyc;
-
-    /**
-     * 协议仓库
-     */
-    @Column(name = "Agrm_Stg")
-    private String agrmStg;
 
     /**
      * 业务类型
@@ -137,78 +161,6 @@ public class T1ARInf {
      */
     @Column(name = "Crt_Tm")
     private Date crtTm;
-
-    /**
-     * 确认人
-     */
-    @Column(name = "Cfm_Psn")
-    private String cfmPsn;
-
-    /**
-     * 确认时间
-     */
-    @Column(name = "Cfm_Tm")
-    private Date cfmTm;
-
-    /**
-     * 一审审核意见
-     */
-    @Column(name = "FrstIns_CkOp")
-    private String frstinsCkop;
-
-    /**
-     * 一审审核人
-     */
-    @Column(name = "FrstIns_Adt_Psn")
-    private String frstinsAdtPsn;
-
-    /**
-     * 一审审核时间
-     */
-    @Column(name = "FrstIns_Adt_Tm")
-    private Date frstinsAdtTm;
-
-    /**
-     * 银行
-     */
-    @Column(name = "Bnk")
-    private Integer bnk;
-
-    /**
-     * 物流
-     */
-    @Column(name = "Lgstc")
-    private Integer lgstc;
-
-    /**
-     * 保险公司
-     */
-    @Column(name = "Ins_Co")
-    private Integer insCo;
-
-    /**
-     * 供应链
-     */
-    @Column(name = "SplChain")
-    private Integer splchain;
-
-    /**
-     * 二审审核意见
-     */
-    @Column(name = "SndInsc_CkOp")
-    private String sndinscCkop;
-
-    /**
-     * 二审审核人
-     */
-    @Column(name = "SndIns_Adt_Psn")
-    private String sndinsAdtPsn;
-
-    /**
-     * 二审审核时间
-     */
-    @Column(name = "SndIns_Adt_Tm")
-    private Date sndinsAdtTm;
 
     /**
      * 投保人
@@ -361,21 +313,129 @@ public class T1ARInf {
     }
 
     /**
-     * 获取采购方
+     * 获取融资企业
      *
-     * @return Pch_Prty - 采购方
+     * @return Fnc_Entp - 融资企业
      */
-    public String getPchPrty() {
-        return pchPrty;
+    public Integer getFncEntp() {
+        return fncEntp;
     }
 
     /**
-     * 设置采购方
+     * 设置融资企业
      *
-     * @param pchPrty 采购方
+     * @param fncEntp 融资企业
      */
-    public void setPchPrty(String pchPrty) {
-        this.pchPrty = pchPrty;
+    public void setFncEntp(Integer fncEntp) {
+        this.fncEntp = fncEntp;
+    }
+
+    /**
+     * 获取上游供应商
+     *
+     * @return Ustrm_Splr - 上游供应商
+     */
+    public Integer getUstrmSplr() {
+        return ustrmSplr;
+    }
+
+    /**
+     * 设置上游供应商
+     *
+     * @param ustrmSplr 上游供应商
+     */
+    public void setUstrmSplr(Integer ustrmSplr) {
+        this.ustrmSplr = ustrmSplr;
+    }
+
+    /**
+     * 获取仓储公司
+     *
+     * @return StgCo - 仓储公司
+     */
+    public Integer getStgco() {
+        return stgco;
+    }
+
+    /**
+     * 设置仓储公司
+     *
+     * @param stgco 仓储公司
+     */
+    public void setStgco(Integer stgco) {
+        this.stgco = stgco;
+    }
+
+    /**
+     * 获取银行
+     *
+     * @return Bnk - 银行
+     */
+    public Integer getBnk() {
+        return bnk;
+    }
+
+    /**
+     * 设置银行
+     *
+     * @param bnk 银行
+     */
+    public void setBnk(Integer bnk) {
+        this.bnk = bnk;
+    }
+
+    /**
+     * 获取物流公司
+     *
+     * @return Lgstc_Co - 物流公司
+     */
+    public Integer getLgstcCo() {
+        return lgstcCo;
+    }
+
+    /**
+     * 设置物流公司
+     *
+     * @param lgstcCo 物流公司
+     */
+    public void setLgstcCo(Integer lgstcCo) {
+        this.lgstcCo = lgstcCo;
+    }
+
+    /**
+     * 获取保险公司
+     *
+     * @return Ins_Co - 保险公司
+     */
+    public Integer getInsCo() {
+        return insCo;
+    }
+
+    /**
+     * 设置保险公司
+     *
+     * @param insCo 保险公司
+     */
+    public void setInsCo(Integer insCo) {
+        this.insCo = insCo;
+    }
+
+    /**
+     * 获取供应链公司
+     *
+     * @return SplChain_Co - 供应链公司
+     */
+    public Integer getSplchainCo() {
+        return splchainCo;
+    }
+
+    /**
+     * 设置供应链公司
+     *
+     * @param splchainCo 供应链公司
+     */
+    public void setSplchainCo(Integer splchainCo) {
+        this.splchainCo = splchainCo;
     }
 
     /**
@@ -415,24 +475,6 @@ public class T1ARInf {
     }
 
     /**
-     * 获取供应商
-     *
-     * @return Splr - 供应商
-     */
-    public String getSplr() {
-        return splr;
-    }
-
-    /**
-     * 设置供应商
-     *
-     * @param splr 供应商
-     */
-    public void setSplr(String splr) {
-        this.splr = splr;
-    }
-
-    /**
      * 获取提货周期
      *
      * @return PckUpGds_Cyc - 提货周期
@@ -448,24 +490,6 @@ public class T1ARInf {
      */
     public void setPckupgdsCyc(Integer pckupgdsCyc) {
         this.pckupgdsCyc = pckupgdsCyc;
-    }
-
-    /**
-     * 获取协议仓库
-     *
-     * @return Agrm_Stg - 协议仓库
-     */
-    public String getAgrmStg() {
-        return agrmStg;
-    }
-
-    /**
-     * 设置协议仓库
-     *
-     * @param agrmStg 协议仓库
-     */
-    public void setAgrmStg(String agrmStg) {
-        this.agrmStg = agrmStg;
     }
 
     /**
@@ -682,222 +706,6 @@ public class T1ARInf {
      */
     public void setCrtTm(Date crtTm) {
         this.crtTm = crtTm;
-    }
-
-    /**
-     * 获取确认人
-     *
-     * @return Cfm_Psn - 确认人
-     */
-    public String getCfmPsn() {
-        return cfmPsn;
-    }
-
-    /**
-     * 设置确认人
-     *
-     * @param cfmPsn 确认人
-     */
-    public void setCfmPsn(String cfmPsn) {
-        this.cfmPsn = cfmPsn;
-    }
-
-    /**
-     * 获取确认时间
-     *
-     * @return Cfm_Tm - 确认时间
-     */
-    public Date getCfmTm() {
-        return cfmTm;
-    }
-
-    /**
-     * 设置确认时间
-     *
-     * @param cfmTm 确认时间
-     */
-    public void setCfmTm(Date cfmTm) {
-        this.cfmTm = cfmTm;
-    }
-
-    /**
-     * 获取一审审核意见
-     *
-     * @return FrstIns_CkOp - 一审审核意见
-     */
-    public String getFrstinsCkop() {
-        return frstinsCkop;
-    }
-
-    /**
-     * 设置一审审核意见
-     *
-     * @param frstinsCkop 一审审核意见
-     */
-    public void setFrstinsCkop(String frstinsCkop) {
-        this.frstinsCkop = frstinsCkop;
-    }
-
-    /**
-     * 获取一审审核人
-     *
-     * @return FrstIns_Adt_Psn - 一审审核人
-     */
-    public String getFrstinsAdtPsn() {
-        return frstinsAdtPsn;
-    }
-
-    /**
-     * 设置一审审核人
-     *
-     * @param frstinsAdtPsn 一审审核人
-     */
-    public void setFrstinsAdtPsn(String frstinsAdtPsn) {
-        this.frstinsAdtPsn = frstinsAdtPsn;
-    }
-
-    /**
-     * 获取一审审核时间
-     *
-     * @return FrstIns_Adt_Tm - 一审审核时间
-     */
-    public Date getFrstinsAdtTm() {
-        return frstinsAdtTm;
-    }
-
-    /**
-     * 设置一审审核时间
-     *
-     * @param frstinsAdtTm 一审审核时间
-     */
-    public void setFrstinsAdtTm(Date frstinsAdtTm) {
-        this.frstinsAdtTm = frstinsAdtTm;
-    }
-
-    /**
-     * 获取银行
-     *
-     * @return Bnk - 银行
-     */
-    public Integer getBnk() {
-        return bnk;
-    }
-
-    /**
-     * 设置银行
-     *
-     * @param bnk 银行
-     */
-    public void setBnk(Integer bnk) {
-        this.bnk = bnk;
-    }
-
-    /**
-     * 获取物流
-     *
-     * @return Lgstc - 物流
-     */
-    public Integer getLgstc() {
-        return lgstc;
-    }
-
-    /**
-     * 设置物流
-     *
-     * @param lgstc 物流
-     */
-    public void setLgstc(Integer lgstc) {
-        this.lgstc = lgstc;
-    }
-
-    /**
-     * 获取保险公司
-     *
-     * @return Ins_Co - 保险公司
-     */
-    public Integer getInsCo() {
-        return insCo;
-    }
-
-    /**
-     * 设置保险公司
-     *
-     * @param insCo 保险公司
-     */
-    public void setInsCo(Integer insCo) {
-        this.insCo = insCo;
-    }
-
-    /**
-     * 获取供应链
-     *
-     * @return SplChain - 供应链
-     */
-    public Integer getSplchain() {
-        return splchain;
-    }
-
-    /**
-     * 设置供应链
-     *
-     * @param splchain 供应链
-     */
-    public void setSplchain(Integer splchain) {
-        this.splchain = splchain;
-    }
-
-    /**
-     * 获取二审审核意见
-     *
-     * @return SndInsc_CkOp - 二审审核意见
-     */
-    public String getSndinscCkop() {
-        return sndinscCkop;
-    }
-
-    /**
-     * 设置二审审核意见
-     *
-     * @param sndinscCkop 二审审核意见
-     */
-    public void setSndinscCkop(String sndinscCkop) {
-        this.sndinscCkop = sndinscCkop;
-    }
-
-    /**
-     * 获取二审审核人
-     *
-     * @return SndIns_Adt_Psn - 二审审核人
-     */
-    public String getSndinsAdtPsn() {
-        return sndinsAdtPsn;
-    }
-
-    /**
-     * 设置二审审核人
-     *
-     * @param sndinsAdtPsn 二审审核人
-     */
-    public void setSndinsAdtPsn(String sndinsAdtPsn) {
-        this.sndinsAdtPsn = sndinsAdtPsn;
-    }
-
-    /**
-     * 获取二审审核时间
-     *
-     * @return SndIns_Adt_Tm - 二审审核时间
-     */
-    public Date getSndinsAdtTm() {
-        return sndinsAdtTm;
-    }
-
-    /**
-     * 设置二审审核时间
-     *
-     * @param sndinsAdtTm 二审审核时间
-     */
-    public void setSndinsAdtTm(Date sndinsAdtTm) {
-        this.sndinsAdtTm = sndinsAdtTm;
     }
 
     /**

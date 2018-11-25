@@ -3,7 +3,6 @@ package com.xai.tt.dc.client.service;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
-import com.xai.tt.dc.client.model.T1ARInf;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.TB0001InVo;

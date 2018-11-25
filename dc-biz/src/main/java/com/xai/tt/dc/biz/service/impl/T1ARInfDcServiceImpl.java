@@ -13,10 +13,10 @@ import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.PostAddressMapper;
-import com.xai.tt.dc.biz.mapper.T1ARInfMapper;
+import com.xai.tt.dc.biz.mapper.T1ARInfMapper_v1;
 import com.xai.tt.dc.biz.mapper.T1ARInfMapper_bak;
 import com.xai.tt.dc.client.entity.PostAddress;
-import com.xai.tt.dc.client.model.T1ARInf;
+import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.inter.PostAddressDcService;
 import com.xai.tt.dc.client.inter.T1ARInfDcService;
 import com.xai.tt.dc.client.request.PostAddressDcReq;
@@ -28,7 +28,7 @@ import com.xai.tt.dc.client.vo.T1ARInfVo;
 public class T1ARInfDcServiceImpl implements T1ARInfDcService{
 	private static final Logger logger = LoggerFactory.getLogger(T1ARInfDcServiceImpl.class);
 	@Autowired
-	private T1ARInfMapper t1ARInfMapper;
+	private T1ARInfMapper_v1 t1ARInfMapper;
 	
 	/**
 	 * 描述：根据长约id修改长约信息
@@ -36,7 +36,7 @@ public class T1ARInfDcServiceImpl implements T1ARInfDcService{
 	 * @author zhuchaobin 2018-10-26
 	 */
 	@Override
-	public Result<Boolean> save(T1ARInf req) {
+	public Result<Boolean> save(T1ArInf req) {
 	        logger.info("start update PostAddress ======> PostAddress:{}", req);
 	        try {
 	        	t1ARInfMapper.insertSelective(req);
@@ -67,7 +67,5 @@ public class T1ARInfDcServiceImpl implements T1ARInfDcService{
 	        }
 	        logger.info("query maintenanceParm list success!");
 	        return Result.createSuccessResult(new PageData<>(count, page.getResult()));
-    }
-
-	
+    }	
 }

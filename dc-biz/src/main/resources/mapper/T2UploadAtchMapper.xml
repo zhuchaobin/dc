@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T2UploadAtchMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T2UploadAtch" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Rltv_ID" property="rltvId" jdbcType="VARCHAR" />
+    <result column="Rltv_Tp" property="rltvTp" jdbcType="CHAR" />
+    <result column="Ori_File_Nm" property="oriFileNm" jdbcType="VARCHAR" />
+    <result column="Sr_File_Nm" property="srFileNm" jdbcType="VARCHAR" />
+    <result column="Sr_File_Rte" property="srFileRte" jdbcType="VARCHAR" />
+    <result column="Atch_Tp" property="atchTp" jdbcType="CHAR" />
+    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

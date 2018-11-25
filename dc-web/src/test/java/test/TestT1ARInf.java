@@ -14,9 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 import com.tianan.common.api.bean.Result;
 import com.xai.tt.dc.App;
-import com.xai.tt.dc.biz.mapper.T1ARInfMapper;
+import com.xai.tt.dc.biz.mapper.T1ARInfMapper_v1;
 import com.xai.tt.dc.biz.utils.DataConstants;
-import com.xai.tt.dc.client.model.T1ARInf;
+import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.service.TB0001DcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
@@ -35,7 +35,7 @@ public class TestT1ARInf{
 	@Autowired
 	private WfDcService wfDcService;
 	@Autowired
-	private T1ARInfMapper t1ARInfMapper;
+	private T1ARInfMapper_v1 t1ARInfMapper;
 	@Test
 	@Rollback(false)
 	public void testSave() {
@@ -104,9 +104,9 @@ public class TestT1ARInf{
 		// 二审审核时间
 		req.setSndinsAdtTm(date);
 		
-        T1ARInf t1ARInf = new T1ARInf();
-        BeanUtils.copyProperties(req, t1ARInf);
-    	t1ARInfMapper.insertSelective(t1ARInf);
+        T1ArInf t1ArInf = new T1ArInf();
+        BeanUtils.copyProperties(req, t1ArInf);
+//    	t1ARInfMapper.insertSelective(t1ArInf);
 		List<TB0001SubInVo> list = new ArrayList<TB0001SubInVo>();
 		TB0001SubInVo subInVo = new TB0001SubInVo();
 		subInVo.setArId(req.getArId());
@@ -135,13 +135,13 @@ public class TestT1ARInf{
 			rlt = tB0001DcService.save(req);
         }
 		
-		Condition condition = new Condition(T1ARInf.class);
+		Condition condition = new Condition(T1ArInf.class);
         condition.orderBy("id").desc();
         Example.Criteria criteria = condition.createCriteria();
         criteria.andCondition("id = 1");
 
-        List<T1ARInf> result = t1ARInfMapper.selectByCondition(condition);
-        System.out.println("xxxxxxxxxxxxxxxxresult =" + JSON.toJSONString(result.get(0)));
+//        List<T1ArInf> result = t1ARInfMapper.selectByCondition(condition);
+        //System.out.println("xxxxxxxxxxxxxxxxresult =" + JSON.toJSONString(result.get(0)));
         
 		System.out.println(JSON.toJSONString(rlt));
 	}

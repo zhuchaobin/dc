@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T1ArInfMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T1ArInf">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="AR_ID" jdbcType="CHAR" property="arId" />
+    <result column="PROCESS_INST_ID" jdbcType="VARCHAR" property="processInstId" />
+    <result column="AR_Tp" jdbcType="CHAR" property="arTp" />
+    <result column="Fnc_Entp" jdbcType="INTEGER" property="fncEntp" />
+    <result column="Ustrm_Splr" jdbcType="INTEGER" property="ustrmSplr" />
+    <result column="StgCo" jdbcType="INTEGER" property="stgco" />
+    <result column="Bnk" jdbcType="INTEGER" property="bnk" />
+    <result column="Lgstc_Co" jdbcType="INTEGER" property="lgstcCo" />
+    <result column="Ins_Co" jdbcType="INTEGER" property="insCo" />
+    <result column="SplChain_Co" jdbcType="INTEGER" property="splchainCo" />
+    <result column="AR_StDt" jdbcType="CHAR" property="arStdt" />
+    <result column="AR_EdDt" jdbcType="CHAR" property="arEddt" />
+    <result column="PckUpGds_Cyc" jdbcType="INTEGER" property="pckupgdsCyc" />
+    <result column="BTp" jdbcType="CHAR" property="btp" />
+    <result column="Fnc_Pctg" jdbcType="REAL" property="fncPctg" />
+    <result column="Prpy_Gld_Rto" jdbcType="REAL" property="prpyGldRto" />
+    <result column="Lmt" jdbcType="REAL" property="lmt" />
+    <result column="Crdn" jdbcType="REAL" property="crdn" />
+    <result column="Clspos_Ln" jdbcType="REAL" property="clsposLn" />
+    <result column="SvcFee_CMd" jdbcType="CHAR" property="svcfeeCmd" />
+    <result column="SplOv_CrrOv_Mod" jdbcType="CHAR" property="splovCrrovMod" />
+    <result column="AR_St" jdbcType="CHAR" property="arSt" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="Crt_Psn" jdbcType="VARCHAR" property="crtPsn" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+    <result column="Plchd" jdbcType="VARCHAR" property="plchd" />
+    <result column="Plchd_Adr" jdbcType="VARCHAR" property="plchdAdr" />
+    <result column="Insrd" jdbcType="VARCHAR" property="insrd" />
+    <result column="Insrd_Adr" jdbcType="VARCHAR" property="insrdAdr" />
+    <result column="Fst_Benf" jdbcType="VARCHAR" property="fstBenf" />
+    <result column="Fst_Benf_Adr" jdbcType="VARCHAR" property="fstBenfAdr" />
+    <result column="Ins_Pty_Adr" jdbcType="VARCHAR" property="insPtyAdr" />
+    <result column="Ins_Obj_Nm" jdbcType="VARCHAR" property="insObjNm" />
+    <result column="Ins_Amt" jdbcType="REAL" property="insAmt" />
+    <result column="Dctb_Amt" jdbcType="REAL" property="dctbAmt" />
+    <result column="EpAp" jdbcType="VARCHAR" property="epap" />
+    <result column="Ins_StDt" jdbcType="CHAR" property="insStdt" />
+    <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
+  </resultMap>
+
+</mapper>

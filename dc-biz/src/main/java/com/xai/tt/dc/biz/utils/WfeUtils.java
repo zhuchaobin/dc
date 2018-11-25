@@ -35,15 +35,12 @@ public class WfeUtils {
 	 * 保存环节流水信息
 	 * 2018-11-20
 	 */
-	public void saveLnkJrnlInf(T0LnkJrnlInf t0, String aplyPsrltCd, String aplyPcstpCd) {
+	public void saveLnkJrnlInf(T0LnkJrnlInf t0) {
 		logger.info("保存环节流水信息开始");
 		try {
 			t0.setInlzTm(new Date());
 			t0.setLnkSttm(new Date());
 			t0.setLnkEdtm(new Date());
-			t0.setBtp("01");
-			t0.setAplyPcstpCd(aplyPcstpCd);
-			t0.setAplyPsrltCd(aplyPsrltCd);
 			t0LnkJrnlInfMapper.insertSelective(t0);
 			logger.info("保存环节流水信息成功");
 		} catch (Exception e) {
