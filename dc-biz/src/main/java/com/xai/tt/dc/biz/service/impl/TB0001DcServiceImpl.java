@@ -76,6 +76,7 @@ public class TB0001DcServiceImpl implements TB0001DcService {
 			t1ARInf.setCrtPsn("刘");
 			t1ARInf.setTms(new Date());
 			t1ARInf.setCrtTm(new Date());
+			t1ARInf.setSplchain(123);
 			arId = "CY" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T1_AR_Inf_Seq", 4);
 			t1ARInf.setArId(arId);
 			t1ARInfMapper.insertSelective(t1ARInf);

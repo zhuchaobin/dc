@@ -33,6 +33,8 @@ t1_ar_inf t1,
 act_ru_task t2
 where t1.AR_ID = #{arId,jdbcType=VARCHAR}
 and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
-and t2.TASK_DEF_KEY_ = #{taskDefKey,jdbcType=VARCHAR}
+      <if test="taskDefKey  != null and taskDefKey  != ''">
+        and TASK_DEF_KEY_  = #{sndinsAdtTm ,jdbcType=VARCHAR}
+      </if>  
 	</select>
 </mapper>

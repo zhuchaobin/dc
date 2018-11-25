@@ -149,6 +149,7 @@
   
    <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.TB0001InVo" resultType="com.xai.tt.dc.client.vo.T1ARInfVo">
 	    SELECT
+	    distinct
 	    t6.ID as id,
 t6.AR_ID as arId,
 t6.PROCESS_INST_ID as processInstId,

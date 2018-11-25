@@ -5,6 +5,15 @@ import java.util.Date;
 
 public class T1ARInfVo implements Serializable {
 	private static final long serialVersionUID = 1L;
+	// 供应链
+	private Integer splchain;
+	
+	public Integer getSplchain() {
+		return splchain;
+	}
+	public void setSplchain(Integer splchain) {
+		this.splchain = splchain;
+	}
 	// ID
 	private Integer id;
 	// 长约编号
