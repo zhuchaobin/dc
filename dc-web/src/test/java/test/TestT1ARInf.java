@@ -14,13 +14,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 import com.tianan.common.api.bean.Result;
 import com.xai.tt.dc.App;
-import com.xai.tt.dc.biz.mapper.T1ARInfMapper_v1;
+import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.service.TB0001DcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
-import com.xai.tt.dc.client.vo.inVo.TB0001InVo;
+import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.TB0001SubInVo;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
@@ -35,7 +35,7 @@ public class TestT1ARInf{
 	@Autowired
 	private WfDcService wfDcService;
 	@Autowired
-	private T1ARInfMapper_v1 t1ARInfMapper;
+	private T1ArInfMapper t1ARInfMapper;
 	@Test
 	@Rollback(false)
 	public void testSave() {
@@ -43,7 +43,7 @@ public class TestT1ARInf{
 		System.out.println("deploymentId=" + deploymentId);
 //		String  processInstanceId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
 //		System.out.println("processInstanceId=" + processInstanceId);
-		TB0001InVo req = new TB0001InVo();
+		ArManagementInVo req = new ArManagementInVo();
 		// ID
 //		req.setId((long) 3);
 		// 长约编号
@@ -51,17 +51,17 @@ public class TestT1ARInf{
 		// 长约类型
 		req.setArTp("3");
 		// 采购方
-		req.setPchPrty("4");
+//		req.setPchPrty("4");
 		// 长约开始日期
 		req.setArStdt("5");
 		// 长约结束日期
 		req.setArEddt("6");
 		// 供应商
-		req.setSplr("7");
+//		req.setSplr("7");
 		// 提货周期
 		req.setPckupgdsCyc(8);
 		// 协议仓库
-		req.setAgrmStg("9");
+//		req.setAgrmStg("9");
 		// 业务类型
 		req.setBtp("10");
 		// 融资比例
@@ -88,21 +88,7 @@ public class TestT1ARInf{
 		// 创建时间
 		req.setCrtTm(date);
 		// 确认人
-		req.setCfmPsn("22");
-		// 确认时间
-		req.setCfmTm(date);
-		// 一审审核意见
-		req.setFrstinsCkop("24");
-		// 一审审核人
-		req.setFrstinsAdtPsn("25");
-		// 一审审核时间
-		req.setFrstinsAdtTm(date);
-		// 二审审核意见
-		req.setSndinscCkop("27");
-		// 二审审核人
-		req.setSndinsAdtPsn("28");
-		// 二审审核时间
-		req.setSndinsAdtTm(date);
+
 		
         T1ArInf t1ArInf = new T1ArInf();
         BeanUtils.copyProperties(req, t1ArInf);
@@ -127,7 +113,6 @@ public class TestT1ARInf{
 		list.add(subInVo);
 
 		list.add(subInVo);
-		req.setList(list);
 				
     	System.out.println("xxxxxxxxxxxxxxxxresult =" );
     	Result<Boolean> rlt = new Result<Boolean>();

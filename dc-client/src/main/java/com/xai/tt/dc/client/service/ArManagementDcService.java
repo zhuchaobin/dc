@@ -14,7 +14,7 @@ import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
  * @author zhuchaobin
  *
  */
-public interface TB0001DcService {
+public interface ArManagementDcService {
 	/**
 	 * 描述：保存长约信息
 	 * 
@@ -31,4 +31,6 @@ public interface TB0001DcService {
 //	Result<PageData<PostAddressDcReq>> queryPostAddressPage(PostAddressDcReq query, PageParam pageParam);
 
 	Result<PageData<T0LnkJrnlInf>> queryLnkJrnlInfPage(ArManagementInVo query, PageParam pageParam);
+
+	Result<Boolean> deleteAr(String id);
 }

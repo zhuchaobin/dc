@@ -1,9 +1,7 @@
 package com.xai.tt.dc.biz.service.impl;
 
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +10,9 @@ import com.github.pagehelper.PageHelper;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
-import com.xai.tt.dc.biz.mapper.PostAddressMapper;
-import com.xai.tt.dc.biz.mapper.T1ARInfMapper_v1;
-import com.xai.tt.dc.biz.mapper.T1ARInfMapper_bak;
-import com.xai.tt.dc.client.entity.PostAddress;
+import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.client.model.T1ArInf;
-import com.xai.tt.dc.client.inter.PostAddressDcService;
 import com.xai.tt.dc.client.inter.T1ARInfDcService;
-import com.xai.tt.dc.client.request.PostAddressDcReq;
-import com.xai.tt.dc.client.vo.PostAddressVo;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 
 @SuppressWarnings("deprecation")
@@ -28,7 +20,7 @@ import com.xai.tt.dc.client.vo.T1ARInfVo;
 public class T1ARInfDcServiceImpl implements T1ARInfDcService{
 	private static final Logger logger = LoggerFactory.getLogger(T1ARInfDcServiceImpl.class);
 	@Autowired
-	private T1ARInfMapper_v1 t1ARInfMapper;
+	private T1ArInfMapper t1ARInfMapper;
 	
 	/**
 	 * 描述：根据长约id修改长约信息

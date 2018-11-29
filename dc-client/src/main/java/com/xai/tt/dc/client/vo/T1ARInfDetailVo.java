@@ -2,9 +2,30 @@ package com.xai.tt.dc.client.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class T1ARInfVo implements Serializable {
+import com.xai.tt.dc.client.model.T0LnkJrnlInf;
+import com.xai.tt.dc.client.model.T2UploadAtch;
+
+public class T1ARInfDetailVo implements Serializable{
 	private static final long serialVersionUID = 1L;
+	// 附件信息
+	private List<T2UploadAtch> t2UploadAtch01List;	
+
+	public List<T2UploadAtch> getT2UploadAtch01List() {
+		return t2UploadAtch01List;
+	}
+	public void setT2UploadAtch01List(List<T2UploadAtch> t2UploadAtch01List) {
+		this.t2UploadAtch01List = t2UploadAtch01List;
+	}
+	// 环节流转信息
+	List<T0LnkJrnlInf> list;
+	public List<T0LnkJrnlInf> getList() {
+		return list;
+	}
+	public void setList(List<T0LnkJrnlInf> list) {
+		this.list = list;
+	}
 	/**
      * ID
      */

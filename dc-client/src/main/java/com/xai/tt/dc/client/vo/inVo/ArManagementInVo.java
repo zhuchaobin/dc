@@ -3,10 +3,13 @@ package com.xai.tt.dc.client.vo.inVo;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
-public class TB0001InVo extends UserInfoQuery {
-    /**
+public class ArManagementInVo extends UserInfoQuery {
+	/**
      * ID
      */
     private Long id;
@@ -17,14 +20,49 @@ public class TB0001InVo extends UserInfoQuery {
     private String arId;
 
     /**
+     * 流程实例ID
+     */
+    private String processInstId;
+
+    /**
      * 长约类型
      */
     private String arTp;
 
     /**
-     * 采购方
+     * 融资企业
      */
-    private String pchPrty;
+    private Integer fncEntp;
+
+    /**
+     * 上游供应商
+     */
+    private Integer ustrmSplr;
+
+    /**
+     * 仓储公司
+     */
+    private Integer stgco;
+
+    /**
+     * 银行
+     */
+    private Integer bnk;
+
+    /**
+     * 物流公司
+     */
+    private Integer lgstcCo;
+
+    /**
+     * 保险公司
+     */
+    private Integer insCo;
+
+    /**
+     * 供应链公司
+     */
+    private Integer splchainCo;
 
     /**
      * 长约开始日期
@@ -37,19 +75,9 @@ public class TB0001InVo extends UserInfoQuery {
     private String arEddt;
 
     /**
-     * 供应商
-     */
-    private String splr;
-
-    /**
      * 提货周期
      */
     private Integer pckupgdsCyc;
-
-    /**
-     * 协议仓库
-     */
-    private String agrmStg;
 
     /**
      * 业务类型
@@ -110,46 +138,6 @@ public class TB0001InVo extends UserInfoQuery {
      * 创建时间
      */
     private Date crtTm;
-
-    /**
-     * 确认人
-     */
-    private String cfmPsn;
-
-    /**
-     * 确认时间
-     */
-    private Date cfmTm;
-
-    /**
-     * 一审审核意见
-     */
-    private String frstinsCkop;
-
-    /**
-     * 一审审核人
-     */
-    private String frstinsAdtPsn;
-
-    /**
-     * 一审审核时间
-     */
-    private Date frstinsAdtTm;
-
-    /**
-     * 二审审核意见
-     */
-    private String sndinscCkop;
-
-    /**
-     * 二审审核人
-     */
-    private String sndinsAdtPsn;
-
-    /**
-     * 二审审核时间
-     */
-    private Date sndinsAdtTm;
 
     /**
      * 投保人
@@ -216,31 +204,16 @@ public class TB0001InVo extends UserInfoQuery {
      */
     private String insEddt;
     
-    /**
-     * 长约附件信息
-     */
-    private List<TB0001SubInVo> list;
-    
-    /**
-     * 结果排序
-     */
-    private String orderBy;
-        
-	public String getOrderBy() {
-		return orderBy;
-	}
+    // 附件文件名信息
+    private String fileNames;
 
-	public void setOrderBy(String orderBy) {
-		this.orderBy = orderBy;
-	}
+    public String getFileNames() {
+        return fileNames;
+    }
 
-	public List<TB0001SubInVo> getList() {
-		return list;
-	}
-
-	public void setList(List<TB0001SubInVo> list) {
-		this.list = list;
-	}
+    public void setFileNames(String fileNames) {
+        this.fileNames = fileNames;
+    }
 
 	/**
      * 获取ID
@@ -279,6 +252,24 @@ public class TB0001InVo extends UserInfoQuery {
     }
 
     /**
+     * 获取流程实例ID
+     *
+     * @return PROCESS_INST_ID - 流程实例ID
+     */
+    public String getProcessInstId() {
+        return processInstId;
+    }
+
+    /**
+     * 设置流程实例ID
+     *
+     * @param processInstId 流程实例ID
+     */
+    public void setProcessInstId(String processInstId) {
+        this.processInstId = processInstId;
+    }
+
+    /**
      * 获取长约类型
      *
      * @return AR_Tp - 长约类型
@@ -297,21 +288,129 @@ public class TB0001InVo extends UserInfoQuery {
     }
 
     /**
-     * 获取采购方
+     * 获取融资企业
      *
-     * @return Pch_Prty - 采购方
+     * @return Fnc_Entp - 融资企业
      */
-    public String getPchPrty() {
-        return pchPrty;
+    public Integer getFncEntp() {
+        return fncEntp;
     }
 
     /**
-     * 设置采购方
+     * 设置融资企业
      *
-     * @param pchPrty 采购方
+     * @param fncEntp 融资企业
      */
-    public void setPchPrty(String pchPrty) {
-        this.pchPrty = pchPrty;
+    public void setFncEntp(Integer fncEntp) {
+        this.fncEntp = fncEntp;
+    }
+
+    /**
+     * 获取上游供应商
+     *
+     * @return Ustrm_Splr - 上游供应商
+     */
+    public Integer getUstrmSplr() {
+        return ustrmSplr;
+    }
+
+    /**
+     * 设置上游供应商
+     *
+     * @param ustrmSplr 上游供应商
+     */
+    public void setUstrmSplr(Integer ustrmSplr) {
+        this.ustrmSplr = ustrmSplr;
+    }
+
+    /**
+     * 获取仓储公司
+     *
+     * @return StgCo - 仓储公司
+     */
+    public Integer getStgco() {
+        return stgco;
+    }
+
+    /**
+     * 设置仓储公司
+     *
+     * @param stgco 仓储公司
+     */
+    public void setStgco(Integer stgco) {
+        this.stgco = stgco;
+    }
+
+    /**
+     * 获取银行
+     *
+     * @return Bnk - 银行
+     */
+    public Integer getBnk() {
+        return bnk;
+    }
+
+    /**
+     * 设置银行
+     *
+     * @param bnk 银行
+     */
+    public void setBnk(Integer bnk) {
+        this.bnk = bnk;
+    }
+
+    /**
+     * 获取物流公司
+     *
+     * @return Lgstc_Co - 物流公司
+     */
+    public Integer getLgstcCo() {
+        return lgstcCo;
+    }
+
+    /**
+     * 设置物流公司
+     *
+     * @param lgstcCo 物流公司
+     */
+    public void setLgstcCo(Integer lgstcCo) {
+        this.lgstcCo = lgstcCo;
+    }
+
+    /**
+     * 获取保险公司
+     *
+     * @return Ins_Co - 保险公司
+     */
+    public Integer getInsCo() {
+        return insCo;
+    }
+
+    /**
+     * 设置保险公司
+     *
+     * @param insCo 保险公司
+     */
+    public void setInsCo(Integer insCo) {
+        this.insCo = insCo;
+    }
+
+    /**
+     * 获取供应链公司
+     *
+     * @return SplChain_Co - 供应链公司
+     */
+    public Integer getSplchainCo() {
+        return splchainCo;
+    }
+
+    /**
+     * 设置供应链公司
+     *
+     * @param splchainCo 供应链公司
+     */
+    public void setSplchainCo(Integer splchainCo) {
+        this.splchainCo = splchainCo;
     }
 
     /**
@@ -351,24 +450,6 @@ public class TB0001InVo extends UserInfoQuery {
     }
 
     /**
-     * 获取供应商
-     *
-     * @return Splr - 供应商
-     */
-    public String getSplr() {
-        return splr;
-    }
-
-    /**
-     * 设置供应商
-     *
-     * @param splr 供应商
-     */
-    public void setSplr(String splr) {
-        this.splr = splr;
-    }
-
-    /**
      * 获取提货周期
      *
      * @return PckUpGds_Cyc - 提货周期
@@ -384,24 +465,6 @@ public class TB0001InVo extends UserInfoQuery {
      */
     public void setPckupgdsCyc(Integer pckupgdsCyc) {
         this.pckupgdsCyc = pckupgdsCyc;
-    }
-
-    /**
-     * 获取协议仓库
-     *
-     * @return Agrm_Stg - 协议仓库
-     */
-    public String getAgrmStg() {
-        return agrmStg;
-    }
-
-    /**
-     * 设置协议仓库
-     *
-     * @param agrmStg 协议仓库
-     */
-    public void setAgrmStg(String agrmStg) {
-        this.agrmStg = agrmStg;
     }
 
     /**
@@ -618,150 +681,6 @@ public class TB0001InVo extends UserInfoQuery {
      */
     public void setCrtTm(Date crtTm) {
         this.crtTm = crtTm;
-    }
-
-    /**
-     * 获取确认人
-     *
-     * @return Cfm_Psn - 确认人
-     */
-    public String getCfmPsn() {
-        return cfmPsn;
-    }
-
-    /**
-     * 设置确认人
-     *
-     * @param cfmPsn 确认人
-     */
-    public void setCfmPsn(String cfmPsn) {
-        this.cfmPsn = cfmPsn;
-    }
-
-    /**
-     * 获取确认时间
-     *
-     * @return Cfm_Tm - 确认时间
-     */
-    public Date getCfmTm() {
-        return cfmTm;
-    }
-
-    /**
-     * 设置确认时间
-     *
-     * @param cfmTm 确认时间
-     */
-    public void setCfmTm(Date cfmTm) {
-        this.cfmTm = cfmTm;
-    }
-
-    /**
-     * 获取一审审核意见
-     *
-     * @return FrstIns_CkOp - 一审审核意见
-     */
-    public String getFrstinsCkop() {
-        return frstinsCkop;
-    }
-
-    /**
-     * 设置一审审核意见
-     *
-     * @param frstinsCkop 一审审核意见
-     */
-    public void setFrstinsCkop(String frstinsCkop) {
-        this.frstinsCkop = frstinsCkop;
-    }
-
-    /**
-     * 获取一审审核人
-     *
-     * @return FrstIns_Adt_Psn - 一审审核人
-     */
-    public String getFrstinsAdtPsn() {
-        return frstinsAdtPsn;
-    }
-
-    /**
-     * 设置一审审核人
-     *
-     * @param frstinsAdtPsn 一审审核人
-     */
-    public void setFrstinsAdtPsn(String frstinsAdtPsn) {
-        this.frstinsAdtPsn = frstinsAdtPsn;
-    }
-
-    /**
-     * 获取一审审核时间
-     *
-     * @return FrstIns_Adt_Tm - 一审审核时间
-     */
-    public Date getFrstinsAdtTm() {
-        return frstinsAdtTm;
-    }
-
-    /**
-     * 设置一审审核时间
-     *
-     * @param frstinsAdtTm 一审审核时间
-     */
-    public void setFrstinsAdtTm(Date frstinsAdtTm) {
-        this.frstinsAdtTm = frstinsAdtTm;
-    }
-
-    /**
-     * 获取二审审核意见
-     *
-     * @return SndInsc_CkOp - 二审审核意见
-     */
-    public String getSndinscCkop() {
-        return sndinscCkop;
-    }
-
-    /**
-     * 设置二审审核意见
-     *
-     * @param sndinscCkop 二审审核意见
-     */
-    public void setSndinscCkop(String sndinscCkop) {
-        this.sndinscCkop = sndinscCkop;
-    }
-
-    /**
-     * 获取二审审核人
-     *
-     * @return SndIns_Adt_Psn - 二审审核人
-     */
-    public String getSndinsAdtPsn() {
-        return sndinsAdtPsn;
-    }
-
-    /**
-     * 设置二审审核人
-     *
-     * @param sndinsAdtPsn 二审审核人
-     */
-    public void setSndinsAdtPsn(String sndinsAdtPsn) {
-        this.sndinsAdtPsn = sndinsAdtPsn;
-    }
-
-    /**
-     * 获取二审审核时间
-     *
-     * @return SndIns_Adt_Tm - 二审审核时间
-     */
-    public Date getSndinsAdtTm() {
-        return sndinsAdtTm;
-    }
-
-    /**
-     * 设置二审审核时间
-     *
-     * @param sndinsAdtTm 二审审核时间
-     */
-    public void setSndinsAdtTm(Date sndinsAdtTm) {
-        this.sndinsAdtTm = sndinsAdtTm;
     }
 
     /**

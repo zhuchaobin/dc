@@ -45,5 +45,245 @@
     <result column="Ins_StDt" jdbcType="CHAR" property="insStdt" />
     <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
   </resultMap>
+  <sql id="query_criteria">  
+  	 	  <if test="id  != null and id  != ''">
+        and ID  = #{id ,jdbcType=INTEGER}
+      </if>
+	  <if test="arId  != null and arId  != ''">
+        and AR_ID  = #{arId ,jdbcType=CHAR}
+      </if>
+	  <if test="processInstId  != null and processInstId  != ''">
+        and PROCESS_INST_ID  = #{processInstId ,jdbcType=VARCHAR}
+      </if>
+	  <if test="arTp  != null and arTp  != ''">
+        and AR_Tp  = #{arTp ,jdbcType=CHAR}
+      </if>
+	  <if test="fncEntp  != null and fncEntp  != ''">
+        and Fnc_Entp  = #{fncEntp ,jdbcType=INTEGER}
+      </if>
+	  <if test="ustrmSplr  != null and ustrmSplr  != ''">
+        and Ustrm_Splr  = #{ustrmSplr ,jdbcType=INTEGER}
+      </if>
+	  <if test="stgco  != null and stgco  != ''">
+        and StgCo  = #{stgco ,jdbcType=INTEGER}
+      </if>
+	  <if test="bnk  != null and bnk  != ''">
+        and Bnk  = #{bnk ,jdbcType=INTEGER}
+      </if>
+	  <if test="lgstcCo  != null and lgstcCo  != ''">
+        and Lgstc_Co  = #{lgstcCo ,jdbcType=INTEGER}
+      </if>
+	  <if test="insCo  != null and insCo  != ''">
+        and Ins_Co  = #{insCo ,jdbcType=INTEGER}
+      </if>
+	  <if test="splchainCo  != null and splchainCo  != ''">
+        and SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
+      </if>
+	  <if test="arStdt  != null and arStdt  != ''">
+        and AR_StDt  = #{arStdt ,jdbcType=CHAR}
+      </if>
+	  <if test="arEddt  != null and arEddt  != ''">
+        and AR_EdDt  = #{arEddt ,jdbcType=CHAR}
+      </if>
+	  <if test="pckupgdsCyc  != null and pckupgdsCyc  != ''">
+        and PckUpGds_Cyc  = #{pckupgdsCyc ,jdbcType=INTEGER}
+      </if>
+	  <if test="btp  != null and btp  != ''">
+        and BTp  = #{btp ,jdbcType=CHAR}
+      </if>
+	  <if test="fncPctg  != null and fncPctg  != ''">
+        and Fnc_Pctg  = #{fncPctg ,jdbcType=REAL}
+      </if>
+	  <if test="prpyGldRto  != null and prpyGldRto  != ''">
+        and Prpy_Gld_Rto  = #{prpyGldRto ,jdbcType=REAL}
+      </if>
+	  <if test="lmt  != null and lmt  != ''">
+        and Lmt  = #{lmt ,jdbcType=REAL}
+      </if>
+	  <if test="crdn  != null and crdn  != ''">
+        and Crdn  = #{crdn ,jdbcType=REAL}
+      </if>
+	  <if test="clsposLn  != null and clsposLn  != ''">
+        and Clspos_Ln  = #{clsposLn ,jdbcType=REAL}
+      </if>
+	  <if test="svcfeeCmd  != null and svcfeeCmd  != ''">
+        and SvcFee_CMd  = #{svcfeeCmd ,jdbcType=CHAR}
+      </if>
+	  <if test="splovCrrovMod  != null and splovCrrovMod  != ''">
+        and SplOv_CrrOv_Mod  = #{splovCrrovMod ,jdbcType=CHAR}
+      </if>
+	  <if test="arSt  != null and arSt  != ''">
+        and AR_St  = #{arSt ,jdbcType=CHAR}
+      </if>
+	  <if test="tms  != null and tms  != ''">
+        and Tms  = #{tms ,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="crtPsn  != null and crtPsn  != ''">
+        and Crt_Psn  = #{crtPsn ,jdbcType=VARCHAR}
+      </if>
+	  <if test="crtTm  != null and crtTm  != ''">
+        and Crt_Tm  = #{crtTm ,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="plchd  != null and plchd  != ''">
+        and Plchd  = #{plchd ,jdbcType=VARCHAR}
+      </if>
+	  <if test="plchdAdr  != null and plchdAdr  != ''">
+        and Plchd_Adr  = #{plchdAdr ,jdbcType=VARCHAR}
+      </if>
+	  <if test="insrd  != null and insrd  != ''">
+        and Insrd  = #{insrd ,jdbcType=VARCHAR}
+      </if>
+	  <if test="insrdAdr  != null and insrdAdr  != ''">
+        and Insrd_Adr  = #{insrdAdr ,jdbcType=VARCHAR}
+      </if>
+	  <if test="fstBenf  != null and fstBenf  != ''">
+        and Fst_Benf  = #{fstBenf ,jdbcType=VARCHAR}
+      </if>
+	  <if test="fstBenfAdr  != null and fstBenfAdr  != ''">
+        and Fst_Benf_Adr  = #{fstBenfAdr ,jdbcType=VARCHAR}
+      </if>
+	  <if test="insPtyAdr  != null and insPtyAdr  != ''">
+        and Ins_Pty_Adr  = #{insPtyAdr ,jdbcType=VARCHAR}
+      </if>
+	  <if test="insObjNm  != null and insObjNm  != ''">
+        and Ins_Obj_Nm  = #{insObjNm ,jdbcType=VARCHAR}
+      </if>
+	  <if test="insAmt  != null and insAmt  != ''">
+        and Ins_Amt  = #{insAmt ,jdbcType=REAL}
+      </if>
+	  <if test="dctbAmt  != null and dctbAmt  != ''">
+        and Dctb_Amt  = #{dctbAmt ,jdbcType=REAL}
+      </if>
+	  <if test="epap  != null and epap  != ''">
+        and EpAp  = #{epap ,jdbcType=VARCHAR}
+      </if>
+	  <if test="insStdt  != null and insStdt  != ''">
+        and Ins_StDt  = #{insStdt ,jdbcType=CHAR}
+      </if>
+	  <if test="insEddt  != null and insEddt  != ''">
+        and Ins_EdDt  = #{insEddt ,jdbcType=CHAR}
+      </if>
+	</sql>
+  
+  
+   <sql id="Base_Column_List">
+     ID,AR_ID,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt
+   </sql>
+  
+   <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.ArManagementInVo" resultType="com.xai.tt.dc.client.vo.T1ARInfVo">
+	    SELECT
+	    t6.ID as id,
+t6.AR_ID as arId,
+t6.PROCESS_INST_ID as processInstId,
+t6.AR_Tp as arTp,
+t6.Fnc_Entp as fncEntp,
+t6.Ustrm_Splr as ustrmSplr,
+t6.StgCo as stgco,
+t6.Bnk as bnk,
+t6.Lgstc_Co as lgstcCo,
+t6.Ins_Co as insCo,
+t6.SplChain_Co as splchainCo,
+t6.AR_StDt as arStdt,
+t6.AR_EdDt as arEddt,
+t6.PckUpGds_Cyc as pckupgdsCyc,
+t6.BTp as btp,
+t6.Fnc_Pctg as fncPctg,
+t6.Prpy_Gld_Rto as prpyGldRto,
+t6.Lmt as lmt,
+t6.Crdn as crdn,
+t6.Clspos_Ln as clsposLn,
+t6.SvcFee_CMd as svcfeeCmd,
+t6.SplOv_CrrOv_Mod as splovCrrovMod,
+t6.AR_St as arSt,
+t6.Tms as tms,
+t6.Crt_Psn as crtPsn,
+t6.Crt_Tm as crtTm,
+t6.Plchd as plchd,
+t6.Plchd_Adr as plchdAdr,
+t6.Insrd as insrd,
+t6.Insrd_Adr as insrdAdr,
+t6.Fst_Benf as fstBenf,
+t6.Fst_Benf_Adr as fstBenfAdr,
+t6.Ins_Pty_Adr as insPtyAdr,
+t6.Ins_Obj_Nm as insObjNm,
+t6.Ins_Amt as insAmt,
+t6.Dctb_Amt as dctbAmt,
+t6.EpAp as epap,
+t6.Ins_StDt as insStdt,
+t6.Ins_EdDt as insEddt,
+		CASE t4.TASK_DEF_KEY_
+WHEN 'AR_Itt_Pltfrm' THEN
+	'01'
+WHEN 'AR_Cfm_SplChain' THEN
+	'02'
+WHEN 'AR_Cfm_Dwstr_Entp' THEN
+	'03'
+WHEN 'AR_Cfm_Ins_Co' THEN
+	'04'
+WHEN 'AR_FrstIns_Pltfrm' THEN
+	'05'
+WHEN 'AR_SndInsc_Pltfrm' THEN
+	'06'
+WHEN 'AR_Tmt_Pltfrm' THEN
+	'07'
+ELSE
+	''
+END AS aplyPcstpCd
+FROM
+	(
+		SELECT
+			DISTINCT t3.*
+		FROM
+			t1_ar_inf t3,
+			USER t5
+		WHERE
+			t3.SplChain_Co = t5.SplChain_Co
+			<include refid="query_criteria"></include>
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+#	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+ORDER BY
+	aplyPcstpCd,
+	crt_tm DESC
+		    
+  </select>
+  
+  <select id="count" resultType="java.lang.Integer">
+ SELECT
+	   COUNT(*)
+FROM
+	(
+		SELECT
+			DISTINCT t3.*
+		FROM
+			t1_ar_inf t3,
+			USER t5
+		WHERE
+			t3.SplChain_Co = t5.SplChain_Co
+			<include refid="query_criteria"></include>
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
 
+  </select>
 </mapper>

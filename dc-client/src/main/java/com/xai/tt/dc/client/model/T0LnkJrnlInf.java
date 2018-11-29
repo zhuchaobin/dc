@@ -3,6 +3,8 @@ package com.xai.tt.dc.client.model;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Table(name = "t0_lnk_jrnl_inf")
 public class T0LnkJrnlInf {
     /**
@@ -249,6 +251,8 @@ public class T0LnkJrnlInf {
      *
      * @return Inlz_Tm - #初始化时间
      */
+    @Temporal(TemporalType.TIMESTAMP)  
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getInlzTm() {
         return inlzTm;
     }
@@ -267,6 +271,8 @@ public class T0LnkJrnlInf {
      *
      * @return Lnk_StTm - #环节开始时间
      */
+    @Temporal(TemporalType.TIMESTAMP)  
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getLnkSttm() {
         return lnkSttm;
     }
@@ -285,6 +291,8 @@ public class T0LnkJrnlInf {
      *
      * @return Lnk_EdTm - #环节结束时间
      */
+    @Temporal(TemporalType.TIMESTAMP)  
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getLnkEdtm() {
         return lnkEdtm;
     }

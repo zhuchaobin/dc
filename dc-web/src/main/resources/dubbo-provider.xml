@@ -16,6 +16,6 @@
     <dubbo:service interface="com.xai.tt.dc.client.inter.UserProtocolService" ref="userProtocolService" version="1.0"/>
     <dubbo:service interface="com.xai.tt.dc.client.inter.UserInfoService" ref="userInfoService" version="1.0"/>
     <dubbo:service interface="com.xai.tt.dc.client.service.FactoryService" ref="factoryServiceImpl" version="1.0"/>
-    <!--长约管理，zhuchaobin, 20181022-->
-    <dubbo:service interface="com.xai.tt.dc.client.service.TB0001DcService" ref="tB0001DcService" version="1.0"/>
+    <!--长约管理, 20181022-->
+    <dubbo:service interface="com.xai.tt.dc.client.service.ArManagementDcService" ref="arManagementDcService" version="1.0"/>
 </beans>

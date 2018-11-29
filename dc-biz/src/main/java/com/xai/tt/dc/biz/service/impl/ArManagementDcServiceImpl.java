@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -29,21 +27,18 @@ import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.model.T2UploadAtch;
 import com.xai.tt.dc.client.query.SubmitArQuery;
-import com.xai.tt.dc.client.service.TB0001DcService;
+import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
-import com.xai.tt.dc.client.vo.inVo.TB0001SubInVo;
-
-import tk.mybatis.mapper.common.condition.SelectByConditionMapper;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
 @SuppressWarnings("deprecation")
-@Service("tB0001DcService")
-public class TB0001DcServiceImpl implements TB0001DcService {
-	private static final Logger logger = LoggerFactory.getLogger(TB0001DcServiceImpl.class);
+@Service("arManagementDcService")
+public class ArManagementDcServiceImpl implements ArManagementDcService {
+	private static final Logger logger = LoggerFactory.getLogger(ArManagementDcServiceImpl.class);
 	@Autowired
 	private T1ArInfMapper t1ARInfMapper;
 	
@@ -138,6 +133,24 @@ public class TB0001DcServiceImpl implements TB0001DcService {
 			return Result.createFailResult("保存长约信息发生异常" + e);
 		}
 		return Result.createSuccessResult(true);
+	}
+	
+	/**
+	 * 描述：删除长约
+	 * 
+	 * @author zhuchaobin 2018-11-21
+	 */
+	@Override
+	public Result<Boolean> deleteAr(String id) {
+		logger.info("删除长约,请求参数:{}", id);
+		try {
+			t1ARInfMapper.deleteByPrimaryKey(Long.parseLong(id));	
+			logger.info("删除长约成功!");
+			return Result.createSuccessResult(true);
+		} catch (Exception e) {
+			logger.error("删除长约异常 {}", e);
+			return Result.createFailResult("删除长约异常" + e);
+		}
 	}
 	
 	// 保存附件信息

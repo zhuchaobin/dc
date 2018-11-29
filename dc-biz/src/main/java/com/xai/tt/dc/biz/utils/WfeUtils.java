@@ -16,7 +16,7 @@ import com.xai.tt.dc.biz.mapper.TSequenceMapper;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.TSequence;
 import com.xai.tt.dc.client.query.WfeQuery;
-import com.xai.tt.dc.client.vo.inVo.TB0001InVo;
+import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 
 /**
  * 工作流相关功能
@@ -44,7 +44,7 @@ public class WfeUtils {
 			t0LnkJrnlInfMapper.insertSelective(t0);
 			logger.info("保存环节流水信息成功");
 		} catch (Exception e) {
-			logger.error("保存环节流水信息成功" + e);
+			logger.error("保存环节流水信息发生异常" + e);
 		}		
 	}
 		
