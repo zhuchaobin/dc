@@ -37,6 +37,20 @@ public class T1ArInf {
     private Integer fncEntp;
 
     /**
+     * 是否投保
+     */
+    @Column(name = "Is_Need_Ins")
+    private Integer isNeedIns;
+
+    public Integer getIsNeedIns() {
+		return isNeedIns;
+	}
+
+	public void setIsNeedIns(Integer isNeedIns) {
+		this.isNeedIns = isNeedIns;
+	}
+
+	/**
      * 上游供应商
      */
     @Column(name = "Ustrm_Splr")

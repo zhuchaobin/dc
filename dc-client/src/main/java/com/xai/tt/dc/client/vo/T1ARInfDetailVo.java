@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T2UploadAtch;
 
@@ -30,6 +32,19 @@ public class T1ARInfDetailVo implements Serializable{
      * ID
      */
     private Long id;
+    
+    /**
+     * 是否投保
+     */
+    private Integer isNeedIns;
+
+    public Integer getIsNeedIns() {
+		return isNeedIns;
+	}
+
+	public void setIsNeedIns(Integer isNeedIns) {
+		this.isNeedIns = isNeedIns;
+	}
 
     /**
      * 长约编号

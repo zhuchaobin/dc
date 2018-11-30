@@ -9,6 +9,20 @@ import javax.persistence.Id;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class ArManagementInVo extends UserInfoQuery {
+	
+    /**
+     * 是否投保
+     */
+    private Integer isNeedIns;
+
+    public Integer getIsNeedIns() {
+		return isNeedIns;
+	}
+
+	public void setIsNeedIns(Integer isNeedIns) {
+		this.isNeedIns = isNeedIns;
+	}
+	
 	/**
      * ID
      */
