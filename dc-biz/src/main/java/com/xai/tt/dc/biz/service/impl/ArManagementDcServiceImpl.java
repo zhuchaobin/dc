@@ -286,8 +286,6 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			return Result.createFailResult("查询长约详情异常" + e);
 		}
 	}
-	
-
 
 	/**
 	 * 描述：长约提交

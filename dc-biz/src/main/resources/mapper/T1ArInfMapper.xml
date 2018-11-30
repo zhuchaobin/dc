@@ -44,6 +44,7 @@
     <result column="EpAp" jdbcType="VARCHAR" property="epap" />
     <result column="Ins_StDt" jdbcType="CHAR" property="insStdt" />
     <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
+    <result column="Is_Need_Ins" jdbcType="INTEGER" property="isNeedIns" />
   </resultMap>
   <sql id="query_criteria">  
   	 	  <if test="id  != null and id  != ''">
@@ -57,6 +58,9 @@
       </if>
 	  <if test="arTp  != null and arTp  != ''">
         and AR_Tp  = #{arTp ,jdbcType=CHAR}
+      </if>
+      <if test="isNeedIns  != null and isNeedIns  != ''">
+        and Is_Need_Ins  = #{isNeedIns ,jdbcType=INTEGER}
       </if>
 	  <if test="fncEntp  != null and fncEntp  != ''">
         and Fnc_Entp  = #{fncEntp ,jdbcType=INTEGER}
@@ -167,12 +171,13 @@
   
   
    <sql id="Base_Column_List">
-     ID,AR_ID,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt
+     ID,AR_ID,Is_Need_Ins,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt
    </sql>
   
    <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.ArManagementInVo" resultType="com.xai.tt.dc.client.vo.T1ARInfVo">
 	    SELECT
 	    t6.ID as id,
+	    t6.Is_Need_Ins as isNeedIns,
 t6.AR_ID as arId,
 t6.PROCESS_INST_ID as processInstId,
 t6.AR_Tp as arTp,
