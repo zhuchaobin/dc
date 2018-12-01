@@ -187,7 +187,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 	 */
 	@Override
 	public Result<PageData<T1ARInfVo>> queryPage(ArManagementInVo query, PageParam pageParam) {
-		logger.info("start query MaintenanceParm List =======> query:{},page:{}", query, pageParam);
+		logger.info("start query 长约信息 List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
 		Page<T1ARInfVo> page = null;
 		int count = 0;

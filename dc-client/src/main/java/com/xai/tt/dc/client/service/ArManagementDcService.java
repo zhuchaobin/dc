@@ -10,7 +10,7 @@ import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 
 /**
- * 收货地址dc服务
+ * 长约信息dc服务
  * @author zhuchaobin
  *
  */
