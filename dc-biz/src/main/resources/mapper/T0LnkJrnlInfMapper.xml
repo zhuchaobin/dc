@@ -22,4 +22,39 @@
     <result column="Txn_Itt_Chnl_ID" jdbcType="CHAR" property="txnIttChnlId" />
     <result column="Aply_PsRlt" jdbcType="LONGVARBINARY" property="aplyPsrlt" />
   </resultMap>
+  	
+    <select id="QueryLnkJrnlInfList" parameterType="com.xai.tt.dc.client.model.T0LnkJrnlInf" resultType="com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo">
+	SELECT
+	t.id AS id,
+	t.Rltv_ID AS rltvId,
+	t.PROCESS_TYPE AS processType,
+	t.PROCESS_INST_ID AS processInstId,
+	t.Aply_PcStp_Cd AS aplyPcstpCd,
+	t.Aply_PsRlt_Cd AS aplyPsrltCd,
+	t.username AS username,
+	t.Rmrk AS rmrk,
+	t.Aply_PsRlt AS aplyPsrlt,
+	t.Inlz_Tm AS inlzTm,
+	t.Lnk_StTm AS lnkSttm,
+	t.Lnk_EdTm AS lnkEdtm,
+	t.Aply_Pcs_OdSt_Cd AS aplyPcsOdstCd,
+	_get_coname_func (t.company_id) AS companyName,
+	t.Tms AS tms,
+	t.Txn_Itt_Chnl_ID AS txnIttChnlId
+FROM
+	T0_Lnk_Jrnl_Inf t
+WHERE
+	1 = 1 
+	<if test="id  != null and id  != ''">
+        and ID  = #{id ,jdbcType=INTEGER}
+      </if>
+	  <if test="rltvId  != null and rltvId  != ''">
+        and Rltv_ID  = #{rltvId ,jdbcType=CHAR}
+      </if>
+	  <if test="processType  != null and processType  != ''">
+        and PROCESS_TYPE  = #{processType ,jdbcType=CHAR}
+      </if>
+ORDER BY
+	t.Lnk_EdTm ASC    
+  	</select>
 </mapper>

@@ -1,50 +1,72 @@
-package com.xai.tt.dc.client.vo;
+package com.xai.tt.dc.client.vo.outVo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.Column;
-
-import com.xai.tt.dc.client.model.T2UploadAtch;
-import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
-
-public class T1ARInfDetailVo implements Serializable{
+public class QueryPageArOutVo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	// 附件信息
-	private List<T2UploadAtch> t2UploadAtch01List;	
-
-	public List<T2UploadAtch> getT2UploadAtch01List() {
-		return t2UploadAtch01List;
+	private String fncEntpName;
+	private String ustrmSplrName;
+	private String stgcoName;
+	private String bnkName;
+	private String lgstcCoName;
+	private String insCoName;
+	private String splchainCoName;
+	private String aplyPcstpCdName;
+	
+	
+	public String getAplyPcstpCdName() {
+		return aplyPcstpCdName;
 	}
-	public void setT2UploadAtch01List(List<T2UploadAtch> t2UploadAtch01List) {
-		this.t2UploadAtch01List = t2UploadAtch01List;
+	public void setAplyPcstpCdName(String aplyPcstpCdName) {
+		this.aplyPcstpCdName = aplyPcstpCdName;
 	}
-	// 环节流转信息
-	List<QueryLnkJrnlInfOutVo> list;
-	public List<QueryLnkJrnlInfOutVo> getList() {
-		return list;
+	public String getFncEntpName() {
+		return fncEntpName;
 	}
-	public void setList(List<QueryLnkJrnlInfOutVo> list) {
-		this.list = list;
+	public void setFncEntpName(String fncEntpName) {
+		this.fncEntpName = fncEntpName;
+	}
+	public String getUstrmSplrName() {
+		return ustrmSplrName;
+	}
+	public void setUstrmSplrName(String ustrmSplrName) {
+		this.ustrmSplrName = ustrmSplrName;
+	}
+	public String getStgcoName() {
+		return stgcoName;
+	}
+	public void setStgcoName(String stgcoName) {
+		this.stgcoName = stgcoName;
+	}
+	public String getBnkName() {
+		return bnkName;
+	}
+	public void setBnkName(String bnkName) {
+		this.bnkName = bnkName;
+	}
+	public String getLgstcCoName() {
+		return lgstcCoName;
+	}
+	public void setLgstcCoName(String lgstcCoName) {
+		this.lgstcCoName = lgstcCoName;
+	}
+	public String getInsCoName() {
+		return insCoName;
+	}
+	public void setInsCoName(String insCoName) {
+		this.insCoName = insCoName;
+	}
+	public String getSplchainCoName() {
+		return splchainCoName;
+	}
+	public void setSplchainCoName(String splchainCoName) {
+		this.splchainCoName = splchainCoName;
 	}
 	/**
      * ID
      */
     private Long id;
-    
-    /**
-     * 是否投保
-     */
-    private Integer isNeedIns;
-
-    public Integer getIsNeedIns() {
-		return isNeedIns;
-	}
-
-	public void setIsNeedIns(Integer isNeedIns) {
-		this.isNeedIns = isNeedIns;
-	}
 
     /**
      * 长约编号

@@ -51,7 +51,7 @@
         and ID  = #{id ,jdbcType=INTEGER}
       </if>
 	  <if test="arId  != null and arId  != ''">
-        and AR_ID  = #{arId ,jdbcType=CHAR}
+        and t3.AR_ID like binary CONCAT('%', #{arId ,jdbcType=CHAR},'%')       
       </if>
 	  <if test="processInstId  != null and processInstId  != ''">
         and PROCESS_INST_ID  = #{processInstId ,jdbcType=VARCHAR}
@@ -166,57 +166,199 @@
       </if>
 	  <if test="insEddt  != null and insEddt  != ''">
         and Ins_EdDt  = #{insEddt ,jdbcType=CHAR}
-      </if>
+      </if>    
 	</sql>
   
   
    <sql id="Base_Column_List">
      ID,AR_ID,Is_Need_Ins,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt
    </sql>
+   
+   <sql id="query_criteria_t8"> 
+   <if test="keyWorlds  != null and keyWorlds  != ''">
+ and (t8.arId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.processInstId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.arTp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.fncEntpName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ustrmSplrName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.stgcoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.bnkName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.lgstcCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.splchainCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.arStdt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.arEddt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.pckupgdsCyc like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.btp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.fncPctg like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.prpyGldRto like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.lmt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.crdn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.clsposLn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.svcfeeCmd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.splovCrrovMod like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.arSt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.tms like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.crtPsn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.crtTm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.plchd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.plchdAdr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insrd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insrdAdr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.fstBenf like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.fstBenfAdr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insPtyAdr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insObjNm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insAmt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.dctbAmt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.epap like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insStdt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insEddt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.isNeedIns like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ )
+      </if>	
+              
+      </sql>
   
-   <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.ArManagementInVo" resultType="com.xai.tt.dc.client.vo.T1ARInfVo">
-	    SELECT
-	    t6.ID as id,
-	    t6.Is_Need_Ins as isNeedIns,
-t6.AR_ID as arId,
-t6.PROCESS_INST_ID as processInstId,
-t6.AR_Tp as arTp,
-t6.Fnc_Entp as fncEntp,
-t6.Ustrm_Splr as ustrmSplr,
-t6.StgCo as stgco,
-t6.Bnk as bnk,
-t6.Lgstc_Co as lgstcCo,
-t6.Ins_Co as insCo,
-t6.SplChain_Co as splchainCo,
-t6.AR_StDt as arStdt,
-t6.AR_EdDt as arEddt,
-t6.PckUpGds_Cyc as pckupgdsCyc,
-t6.BTp as btp,
-t6.Fnc_Pctg as fncPctg,
-t6.Prpy_Gld_Rto as prpyGldRto,
-t6.Lmt as lmt,
-t6.Crdn as crdn,
-t6.Clspos_Ln as clsposLn,
-t6.SvcFee_CMd as svcfeeCmd,
-t6.SplOv_CrrOv_Mod as splovCrrovMod,
-t6.AR_St as arSt,
-t6.Tms as tms,
-t6.Crt_Psn as crtPsn,
-t6.Crt_Tm as crtTm,
-t6.Plchd as plchd,
-t6.Plchd_Adr as plchdAdr,
-t6.Insrd as insrd,
-t6.Insrd_Adr as insrdAdr,
-t6.Fst_Benf as fstBenf,
-t6.Fst_Benf_Adr as fstBenfAdr,
-t6.Ins_Pty_Adr as insPtyAdr,
-t6.Ins_Obj_Nm as insObjNm,
-t6.Ins_Amt as insAmt,
-t6.Dctb_Amt as dctbAmt,
-t6.EpAp as epap,
-t6.Ins_StDt as insStdt,
-t6.Ins_EdDt as insEddt,
-		CASE t4.TASK_DEF_KEY_
+   <select id="selectByT1ARInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.ArManagementInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo">
+		SELECT t8.* FROM (
+		SELECT
+	t6.ID AS id,
+	t6.Is_Need_Ins AS isNeedIns,
+	t6.AR_ID AS arId,
+	t6.PROCESS_INST_ID AS processInstId,
+	t6.AR_Tp AS arTp,
+	_get_coname_func (t6.Fnc_Entp) AS fncEntpName,
+	_get_coname_func (t6.Ustrm_Splr) AS ustrmSplrName,
+	_get_coname_func (t6.StgCo) AS stgcoName,
+	_get_coname_func (t6.Bnk) AS bnkName,
+	_get_coname_func (t6.Lgstc_Co) AS lgstcCoName,
+	_get_coname_func (t6.Ins_Co) AS insCoName,
+	_get_coname_func (t6.SplChain_Co) AS splchainCoName,
+	t6.AR_StDt AS arStdt,
+	t6.AR_EdDt AS arEddt,
+	t6.PckUpGds_Cyc AS pckupgdsCyc,
+	t6.BTp AS btp,
+	t6.Fnc_Pctg AS fncPctg,
+	t6.Prpy_Gld_Rto AS prpyGldRto,
+	t6.Lmt AS lmt,
+	t6.Crdn AS crdn,
+	t6.Clspos_Ln AS clsposLn,
+	t6.SvcFee_CMd AS svcfeeCmd,
+	t6.SplOv_CrrOv_Mod AS splovCrrovMod,
+	t6.AR_St AS arSt,
+	t6.Tms AS tms,
+	t6.Crt_Psn AS crtPsn,
+	t6.Crt_Tm AS crtTm,
+	t6.Plchd AS plchd,
+	t6.Plchd_Adr AS plchdAdr,
+	t6.Insrd AS insrd,
+	t6.Insrd_Adr AS insrdAdr,
+	t6.Fst_Benf AS fstBenf,
+	t6.Fst_Benf_Adr AS fstBenfAdr,
+	t6.Ins_Pty_Adr AS insPtyAdr,
+	t6.Ins_Obj_Nm AS insObjNm,
+	t6.Ins_Amt AS insAmt,
+	t6.Dctb_Amt AS dctbAmt,
+	t6.EpAp AS epap,
+	t6.Ins_StDt AS insStdt,
+	t6.Ins_EdDt AS insEddt,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+	CASE t4.TASK_DEF_KEY_
+WHEN 'AR_Itt_Pltfrm' THEN
+	'01'
+WHEN 'AR_Cfm_SplChain' THEN
+	'02'
+WHEN 'AR_Cfm_Dwstr_Entp' THEN
+	'03'
+WHEN 'AR_Cfm_Ins_Co' THEN
+	'04'
+WHEN 'AR_FrstIns_Pltfrm' THEN
+	'05'
+WHEN 'AR_SndInsc_Pltfrm' THEN
+	'06'
+WHEN 'AR_Tmt_Pltfrm' THEN
+	'07'
+ELSE
+	''
+END AS aplyPcstpCd
+
+FROM
+	(
+		SELECT DISTINCT
+			t3.*
+		FROM
+			t1_ar_inf t3,
+			USER t5
+		WHERE
+						t3.SplChain_Co = t5.SplChain_Co
+			<include refid="query_criteria"></include>
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_ 
+
+    <if test="orderBy != null and orderBy != ''">
+	   ORDER BY ${orderBy}
+    </if>
+) t8 
+where 1=1 
+<include refid="query_criteria_t8"></include>
+ 
+  </select>
+  
+  <select id="count" resultType="java.lang.Integer">
+ 	SELECT count(*) FROM (
+		SELECT
+	t6.ID AS id,
+	t6.Is_Need_Ins AS isNeedIns,
+	t6.AR_ID AS arId,
+	t6.PROCESS_INST_ID AS processInstId,
+	t6.AR_Tp AS arTp,
+	_get_coname_func (t6.Fnc_Entp) AS fncEntpName,
+	_get_coname_func (t6.Ustrm_Splr) AS ustrmSplrName,
+	_get_coname_func (t6.StgCo) AS stgcoName,
+	_get_coname_func (t6.Bnk) AS bnkName,
+	_get_coname_func (t6.Lgstc_Co) AS lgstcCoName,
+	_get_coname_func (t6.Ins_Co) AS insCoName,
+	_get_coname_func (t6.SplChain_Co) AS splchainCoName,
+	t6.AR_StDt AS arStdt,
+	t6.AR_EdDt AS arEddt,
+	t6.PckUpGds_Cyc AS pckupgdsCyc,
+	t6.BTp AS btp,
+	t6.Fnc_Pctg AS fncPctg,
+	t6.Prpy_Gld_Rto AS prpyGldRto,
+	t6.Lmt AS lmt,
+	t6.Crdn AS crdn,
+	t6.Clspos_Ln AS clsposLn,
+	t6.SvcFee_CMd AS svcfeeCmd,
+	t6.SplOv_CrrOv_Mod AS splovCrrovMod,
+	t6.AR_St AS arSt,
+	t6.Tms AS tms,
+	t6.Crt_Psn AS crtPsn,
+	t6.Crt_Tm AS crtTm,
+	t6.Plchd AS plchd,
+	t6.Plchd_Adr AS plchdAdr,
+	t6.Insrd AS insrd,
+	t6.Insrd_Adr AS insrdAdr,
+	t6.Fst_Benf AS fstBenf,
+	t6.Fst_Benf_Adr AS fstBenfAdr,
+	t6.Ins_Pty_Adr AS insPtyAdr,
+	t6.Ins_Obj_Nm AS insObjNm,
+	t6.Ins_Amt AS insAmt,
+	t6.Dctb_Amt AS dctbAmt,
+	t6.EpAp AS epap,
+	t6.Ins_StDt AS insStdt,
+	t6.Ins_EdDt AS insEddt,
+	CASE t4.TASK_DEF_KEY_
 WHEN 'AR_Itt_Pltfrm' THEN
 	'01'
 WHEN 'AR_Cfm_SplChain' THEN
@@ -236,13 +378,13 @@ ELSE
 END AS aplyPcstpCd
 FROM
 	(
-		SELECT
-			DISTINCT t3.*
+		SELECT DISTINCT
+			t3.*
 		FROM
 			t1_ar_inf t3,
 			USER t5
 		WHERE
-			t3.SplChain_Co = t5.SplChain_Co
+						t3.SplChain_Co = t5.SplChain_Co
 			<include refid="query_criteria"></include>
 	) t6
 LEFT JOIN (
@@ -254,41 +396,14 @@ LEFT JOIN (
 		act_ru_task t1,
 		act_ru_identitylink t2
 	WHERE
-		t1.ID_ = t2.TASK_ID_
-#	AND t2.GROUP_ID_ = '01'
-) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
-ORDER BY
-	aplyPcstpCd,
-	crt_tm DESC
-		    
-  </select>
-  
-  <select id="count" resultType="java.lang.Integer">
- SELECT
-	   COUNT(*)
-FROM
-	(
-		SELECT
-			DISTINCT t3.*
-		FROM
-			t1_ar_inf t3,
-			USER t5
-		WHERE
-			t3.SplChain_Co = t5.SplChain_Co
-			<include refid="query_criteria"></include>
-	) t6
-LEFT JOIN (
-	SELECT
-		t1.PROC_INST_ID_,
-		t2.GROUP_ID_,
-		t1.TASK_DEF_KEY_
-	FROM
-		act_ru_task t1,
-		act_ru_identitylink t2
-	WHERE
-		t1.ID_ = t2.TASK_ID_
-	AND t2.GROUP_ID_ = '01'
-) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+		t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_ 
 
+    <if test="orderBy != null and orderBy != ''">
+	   ORDER BY ${orderBy}
+    </if>
+) t8	
+where 1=1 
+<include refid="query_criteria_t8"></include>
   </select>
 </mapper>

@@ -10,7 +10,20 @@ import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class ArManagementInVo extends UserInfoQuery {
 	
-    /**
+	/**
+     * 全字段模糊检索关键字
+     */
+	private String keyWorlds;
+	
+    public String getKeyWorlds() {
+		return keyWorlds;
+	}
+
+	public void setKeyWorlds(String keyWorlds) {
+		this.keyWorlds = keyWorlds;
+	}
+
+	/**
      * 是否投保
      */
     private Integer isNeedIns;

@@ -2,49 +2,13 @@ package com.xai.tt.dc.client.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.Column;
-
-import com.xai.tt.dc.client.model.T2UploadAtch;
-import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
-
-public class T1ARInfDetailVo implements Serializable{
+public class QueryArDetailOutVo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	// 附件信息
-	private List<T2UploadAtch> t2UploadAtch01List;	
-
-	public List<T2UploadAtch> getT2UploadAtch01List() {
-		return t2UploadAtch01List;
-	}
-	public void setT2UploadAtch01List(List<T2UploadAtch> t2UploadAtch01List) {
-		this.t2UploadAtch01List = t2UploadAtch01List;
-	}
-	// 环节流转信息
-	List<QueryLnkJrnlInfOutVo> list;
-	public List<QueryLnkJrnlInfOutVo> getList() {
-		return list;
-	}
-	public void setList(List<QueryLnkJrnlInfOutVo> list) {
-		this.list = list;
-	}
 	/**
      * ID
      */
     private Long id;
-    
-    /**
-     * 是否投保
-     */
-    private Integer isNeedIns;
-
-    public Integer getIsNeedIns() {
-		return isNeedIns;
-	}
-
-	public void setIsNeedIns(Integer isNeedIns) {
-		this.isNeedIns = isNeedIns;
-	}
 
     /**
      * 长约编号

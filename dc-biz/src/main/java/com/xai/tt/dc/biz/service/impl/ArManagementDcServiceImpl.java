@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
+import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
 import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
@@ -23,6 +24,7 @@ import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
+import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.model.T2UploadAtch;
@@ -32,6 +34,10 @@ import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
+import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
+import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
+
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -56,6 +62,9 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 
 	@Autowired
 	private WfDcService wfDcService;
+	
+	@Autowired
+	private CompanyMapper companyMapper;
 
 	/**
 	 * 描述：保存长约信息
@@ -76,7 +85,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			BeanUtils.copyProperties(inVo, t1ArInf);
 			// 长约新建后记录长约状态
 			t1ArInf.setArSt("01");
-			t1ArInf.setCrtPsn("刘");
+			t1ArInf.setCrtPsn(inVo.getUsername());
 			t1ArInf.setTms(new Date());
 			t1ArInf.setCrtTm(new Date());
 			t1ArInf.setSplchainCo(123);
@@ -186,10 +195,13 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 	 * @author zhuchaobin 2018-10-26
 	 */
 	@Override
-	public Result<PageData<T1ARInfVo>> queryPage(ArManagementInVo query, PageParam pageParam) {
+	public Result<PageData<QueryPageArOutVo>> queryPage(ArManagementInVo query, PageParam pageParam) {
 		logger.info("start query 长约信息 List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
-		Page<T1ARInfVo> page = null;
+		logger.info("orderBy:" + query.getOrderBy());
+		logger.info("getSortName:" + query.getSortName());
+		logger.info("getSortOrder:" + query.getSortOrder());
+		Page<QueryPageArOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
@@ -208,16 +220,16 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 	
 	
 	/**
-	 * 描述：查询长约列表（分页）
+	 * 描述：查询长约流转信息列表（分页）
 	 * 
-	 * @author zhuchaobin 2018-10-26
+	 * @author 2018-11-26
 	 */
 	@SuppressWarnings("null")
 	@Override
-	public Result<PageData<T0LnkJrnlInf>> queryLnkJrnlInfPage(ArManagementInVo query, PageParam pageParam) {
+	public Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(ArManagementInVo query, PageParam pageParam) {
 		logger.info("start query MaintenanceParm List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
-		Page<T0LnkJrnlInf> page = null;
+		Page<QueryLnkJrnlInfOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
@@ -228,10 +240,10 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			Example.Criteria criteria = condition.createCriteria(); 
 			criteria.andCondition("Rltv_ID = 'CY201811250116'");
 			criteria.andCondition("PROCESS_TYPE= '01'");
-			List<T0LnkJrnlInf> t0LnkJrnlInfList= t0LnkJrnlInfMapper.selectByCondition(condition);
+		//	List<QueryPageLnkJrnlInfOutVo> t0LnkJrnlInfList= t0LnkJrnlInfMapper.selectByCondition(condition);
 			/*			page.addAll(t0LnkJrnlInfList);*/
-			page = (Page<T0LnkJrnlInf>) t0LnkJrnlInfList;
-			count = t0LnkJrnlInfList.size();
+	//		page = (Page<QueryPageLnkJrnlInfOutVo>) t0LnkJrnlInfList;
+	//		count = t0LnkJrnlInfList.size();
 		} catch (Exception e) {
 
 			logger.error("查询长约列表异常 {}", e);
@@ -258,11 +270,11 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			 * t1ARInf = t1ARInfMapper.selectByCondition(condition).get(0);
 			 */
 			t1ARInf = t1ARInfMapper.selectByPrimaryKey(Long.parseLong(id));
-			BeanUtils.copyProperties(t1ARInf, t1ARInfDetailVo);
-			if (t1ARInfDetailVo == null) {
+			if (t1ARInf == null) {
 				logger.error("查询长约详情无数据");
 				return Result.createFailResult("查询长约详情无数据");
-			}
+			} else
+				BeanUtils.copyProperties(t1ARInf, t1ARInfDetailVo);
 			// 查询长约附件信息
 			Condition condition0 = new Condition(T2UploadAtch.class); 
 			Example.Criteria criteria0 = condition0.createCriteria(); 
@@ -272,11 +284,10 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			t1ARInfDetailVo.setT2UploadAtch01List(t2UploadAtch01List);
 			logger.info("查询长约附件信息成功!");
 			// 查询长约流转信息
-			Condition condition = new Condition(T0LnkJrnlInf.class); 
-			Example.Criteria criteria = condition.createCriteria(); 
-			criteria.andCondition("Rltv_ID = '" + t1ARInfDetailVo.getArId() + "'");
-			criteria.andCondition("PROCESS_TYPE= '01'");
-			List<T0LnkJrnlInf> t0LnkJrnlInfList= t0LnkJrnlInfMapper.selectByCondition(condition);
+			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
+			t0.setRltvId(t1ARInf.getArId());
+			t0.setProcessType("01");			
+			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList= t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
 			t1ARInfDetailVo.setList(t0LnkJrnlInfList);
 			logger.info("查询长约流转详情成功!");
 			logger.info("查询长约详情成功!");
@@ -297,7 +308,6 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 		String fucNm = "长约提交";
 		logger.info(fucNm + ",请求参数:{}", JSON.toJSONString(query));
 
-		T1ARInfVo t1ARInfVo = new T1ARInfVo();
 		try {
 			//判断当前用户是否有权限处理该件
 			// todo()
@@ -311,6 +321,23 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			logger.error("长约提交异常 {}", e);
 			return Result.createFailResult("拾取并完成任务异常:" + e);
 		}
+		
+		// 保存附件信息
+		try {
+            if (StringUtils.isNotEmpty(query.getFileNames())) {
+                T2UploadAtch t2UploadAtch = new T2UploadAtch();
+                t2UploadAtch.setRltvTp(query.getAplyPcstpCd());
+                t2UploadAtch.setUsername(query.getUsername());
+                t2UploadAtch.setRltvId(query.getArId());
+                insertFile(t2UploadAtch, query.getFileNames());
+            } else {
+				logger.debug("保存长约提交信息，附件为空！");
+			}
+		} catch (Exception e) {
+			logger.error("提交长约，保存附件信息异常 {}", e);
+			return Result.createFailResult("提交长约，保存附件信息异常" + e);
+		}
+		
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
@@ -322,7 +349,62 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			logger.error("长约提交保存环节流水异常 {}", e);
 			return Result.createFailResult("长约提交保存环节流水异常:" + e);
 		}
+		
+		try {
+			T1ArInf t1 = new T1ArInf();
+			// 更新长约状态
+			t1.setArSt(query.getAplyPcstpCd());
+			t1.setTms(new Date());
+			Condition condition0 = new Condition(T1ArInf.class); 
+			Example.Criteria criteria0 = condition0.createCriteria(); 
+			criteria0.andCondition("AR_ID = '" + query.getArId() + "'");
+			int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
+			logger.info("更新长约状态，更新记录数：" + rltNum);
+		} catch (Exception e) {
+			logger.error("更新长约状态异常 {}", e);
+			return Result.createFailResult("更新长约状态异常:" + e);
+		}
+		
 		return Result.createSuccessResult(true);
+	}
+	
+	/**
+	 * 描述：查询长约详情
+	 * 
+	 * @author zhuchaobin 2018-11-21
+	 */
+	@Override
+	public Result<QueryArSubmmitDetailOutVo> getArSubmmitDetail(String id, String arId, String aplyPcstpCd) {
+		logger.info("查询长约提交详情,请求参数:arId={} aplyPcstpCd={}", arId, aplyPcstpCd);
+		QueryArSubmmitDetailOutVo outVo = new QueryArSubmmitDetailOutVo();
+		try {
+			T0LnkJrnlInf t0 = null;
+			t0 = t0LnkJrnlInfMapper.selectByPrimaryKey(Long.parseLong(id));
+			if (t0 == null) {
+				logger.error("查询长约提交详情无数据");
+				return Result.createFailResult("查询长约提交详情无数据");
+			} else 
+				BeanUtils.copyProperties(t0, outVo);
+			// 查询公司名称
+			if(null != outVo.getCompanyId()) {
+				Company company = new Company();
+				company = companyMapper.selectByPrimaryKey(outVo.getCompanyId());
+				outVo.setName(company.getName());
+			}
+
+			// 查询长约提交附件信息
+			Condition condition0 = new Condition(T2UploadAtch.class); 
+			Example.Criteria criteria0 = condition0.createCriteria(); 
+			criteria0.andCondition("Rltv_ID = '" + arId + "'");
+			criteria0.andCondition("Rltv_Tp = '" + aplyPcstpCd + "'");
+			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
+			outVo.setT2UploadAtch01List(t2UploadAtch01List);
+			logger.info("查询长约提交附件信息成功!");
+			return Result.createSuccessResult(outVo);
+		} catch (Exception e) {
+			logger.error("查询长约提交详情异常 {}", e);
+			return Result.createFailResult("查询长约提交详情异常" + e);
+		}
 	}
 
 }

@@ -17,7 +17,6 @@ import com.xai.tt.dc.App;
 import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.client.model.T1ArInf;
-import com.xai.tt.dc.client.service.TB0001DcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
@@ -29,9 +28,7 @@ import tk.mybatis.mapper.entity.Example;
 @SpringBootTest(classes = App.class) 
 //@ContextConfiguration({ "classpath*:*dubbo-reference.xml" })
 public class TestT1ARInf{
-	
-	@Autowired
-	private TB0001DcService tB0001DcService;
+
 	@Autowired
 	private WfDcService wfDcService;
 	@Autowired
@@ -117,7 +114,7 @@ public class TestT1ARInf{
     	System.out.println("xxxxxxxxxxxxxxxxresult =" );
     	Result<Boolean> rlt = new Result<Boolean>();
         for(int i = 0; i < 10; i++ ) {
-			rlt = tB0001DcService.save(req);
+/*			rlt = tB0001DcService.save(req);*/
         }
 		
 		Condition condition = new Condition(T1ArInf.class);
