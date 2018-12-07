@@ -233,8 +233,19 @@ public class ArManagementInVo extends UserInfoQuery {
     
     // 附件文件名信息
     private String fileNames;
+    
+    // 待删除附件文件名信息（修改长约）
+    private String filesToDelete;
 
-    public String getFileNames() {
+    public String getFilesToDelete() {
+		return filesToDelete;
+	}
+
+	public void setFilesToDelete(String filesToDelete) {
+		this.filesToDelete = filesToDelete;
+	}
+
+	public String getFileNames() {
         return fileNames;
     }
 
