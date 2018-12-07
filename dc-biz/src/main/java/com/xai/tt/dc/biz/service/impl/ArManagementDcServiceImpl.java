@@ -91,7 +91,13 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			t1ArInf.setSplchainCo(123);
 			arId = "CY" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T1_AR_Inf_Seq", 4);
 			t1ArInf.setArId(arId);
-			t1ARInfMapper.insertSelective(t1ArInf);
+			if(null != inVo.getId()) {
+				int num = t1ARInfMapper.updateByPrimaryKeySelective(t1ArInf);
+				logger.info("更新长约信息成功：长约id" + t1ArInf.getArId() + "更新条数：" + num);
+			} else {
+				int num = t1ARInfMapper.insertSelective(t1ArInf);
+				logger.info("更新长约信息成功，插入记录数：" + num);
+			}
 			// 保存长约附件信息
 			try {
 	            if (StringUtils.isNotEmpty(inVo.getFileNames())) {
@@ -117,14 +123,16 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 				logger.error("保存长约附件信息异常 {}", e);
 				return Result.createFailResult("保存长约附件信息发生异常" + e);
 			}
-			// 保存流程实例id到长约信息表
-			String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
-			t1ArInf.setProcessInstId(processInstId);
-			Condition condition = new Condition(T1ArInf.class);
-			Example.Criteria criteria = condition.createCriteria();
-			criteria.andCondition("AR_ID = '" + arId + "'");
-			t1ARInfMapper.updateByConditionSelective(t1ArInf, condition);
-			logger.info("processInstId =" + processInstId);
+			// 如果是发起，保存流程实例id到长约信息表
+			if(null == inVo.getId()) {
+				String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
+				t1ArInf.setProcessInstId(processInstId);
+				Condition condition = new Condition(T1ArInf.class);
+				Example.Criteria criteria = condition.createCriteria();
+				criteria.andCondition("AR_ID = '" + arId + "'");
+				t1ARInfMapper.updateByConditionSelective(t1ArInf, condition);
+				logger.info("processInstId =" + processInstId);
+			}
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 			BeanUtils.copyProperties(t1ArInf, t0);
@@ -135,6 +143,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			t0.setAplyPsrltCd("01");
 			t0.setProcessType("01");
 			wfeUtils.saveLnkJrnlInf(t0);
+			t0.setId(null);
 			// 拾取并完成发起任务
 			wfDcService.claimAndCompleteTask(arId, inVo.getUsername(), "01", "01");
 		} catch (Exception e) {
@@ -181,6 +190,17 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
                 t2.setTms(new Date());
                 return t2;
             }).collect(Collectors.toList());
+            for(T2UploadAtch t2 : t2UploadAtchs) {
+            	if(null != t2UploadAtchMapper.selectByPrimaryKey(t2.getId())) {
+            		// 更新记录
+            		logger.debug("保存长约附件信息");
+            		t2UploadAtchMapper.updateByPrimaryKeySelective(t2);
+            	} else {
+            		// 插入记录
+            		logger.debug("更新长约附件信息");
+            		t2UploadAtchMapper.insert(t2);
+            	}
+            }
             t2UploadAtchMapper.insertList(t2UploadAtchs);
         } catch (Exception e) {
             logger.info("保存附件信息发生异常：",e);
@@ -261,37 +281,35 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 	@Override
 	public Result<T1ARInfDetailVo> queryArDetail(String id) {
 		logger.info("查询长约详情,请求参数:{}", id);
-		T1ARInfDetailVo t1ARInfDetailVo = new T1ARInfDetailVo();
 		try {
-			T1ArInf t1ARInf = null;
+			T1ARInfDetailVo t1 = null;
 			/*
 			 * Condition condition = new Condition(T1ARInf.class); Example.Criteria criteria
 			 * = condition.createCriteria(); criteria.andCondition("AR_ID = '" + id + "'");
 			 * t1ARInf = t1ARInfMapper.selectByCondition(condition).get(0);
 			 */
-			t1ARInf = t1ARInfMapper.selectByPrimaryKey(Long.parseLong(id));
-			if (t1ARInf == null) {
+			t1 = t1ARInfMapper.queryArDetail(Integer.parseInt(id));
+			if (t1 == null) {
 				logger.error("查询长约详情无数据");
 				return Result.createFailResult("查询长约详情无数据");
-			} else
-				BeanUtils.copyProperties(t1ARInf, t1ARInfDetailVo);
+			}
 			// 查询长约附件信息
 			Condition condition0 = new Condition(T2UploadAtch.class); 
 			Example.Criteria criteria0 = condition0.createCriteria(); 
-			criteria0.andCondition("Rltv_ID = '" + t1ARInfDetailVo.getArId() + "'");
+			criteria0.andCondition("Rltv_ID = '" + t1.getArId() + "'");
 			criteria0.andCondition("Rltv_Tp = '01'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
-			t1ARInfDetailVo.setT2UploadAtch01List(t2UploadAtch01List);
+			t1.setT2UploadAtch01List(t2UploadAtch01List);
 			logger.info("查询长约附件信息成功!");
 			// 查询长约流转信息
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-			t0.setRltvId(t1ARInf.getArId());
+			t0.setRltvId(t1.getArId());
 			t0.setProcessType("01");			
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList= t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
-			t1ARInfDetailVo.setList(t0LnkJrnlInfList);
+			t1.setList(t0LnkJrnlInfList);
 			logger.info("查询长约流转详情成功!");
 			logger.info("查询长约详情成功!");
-			return Result.createSuccessResult(t1ARInfDetailVo);
+			return Result.createSuccessResult(t1);
 		} catch (Exception e) {
 			logger.error("查询长约详情异常 {}", e);
 			return Result.createFailResult("查询长约详情异常" + e);

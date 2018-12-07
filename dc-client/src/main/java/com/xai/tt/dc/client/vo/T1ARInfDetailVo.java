@@ -11,6 +11,7 @@ import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 
 public class T1ARInfDetailVo implements Serializable{
 	private static final long serialVersionUID = 1L;
+		
 	// 附件信息
 	private List<T2UploadAtch> t2UploadAtch01List;	
 
