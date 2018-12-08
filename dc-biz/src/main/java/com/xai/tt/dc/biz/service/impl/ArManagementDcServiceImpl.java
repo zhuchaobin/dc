@@ -143,6 +143,12 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			// 如果是发起，保存流程实例id到长约信息表
 			if (null == inVo.getId()) {
 				String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
+				if(StringUtils.isBlank(processInstId)) {
+					logger.error("发起长约，启动流程失败!");
+					return Result.createFailResult("发起长约，启动流程失败!");
+				} else {
+					logger.error("发起长约，启动流程成功，processInstId:" + processInstId);
+				}
 				t1ArInf.setProcessInstId(processInstId);
 				Condition condition = new Condition(T1ArInf.class);
 				Example.Criteria criteria = condition.createCriteria();
@@ -405,7 +411,6 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 	/**
 	 * 描述：查询长约详情
 	 * 
-	 * @author zhuchaobin 2018-11-21
 	 */
 	@Override
 	public Result<QueryArSubmmitDetailOutVo> getArSubmmitDetail(String id, String arId, String aplyPcstpCd) {
