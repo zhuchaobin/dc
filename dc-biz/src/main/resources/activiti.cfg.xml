@@ -8,7 +8,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 		ProcessEngineConfiguration processEngineConfiguration = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
 		//连接数据库的配置
 		processEngineConfiguration.setJdbcDriver("com.mysql.jdbc.Driver");
-		processEngineConfiguration.setJdbcUrl("jdbc:mysql://localhost:3306/xlink2?useUnicode=true&characterEncoding=utf8");
+		processEngineConfiguration.setJdbcUrl("jdbc:mysql://localhost:3306/xlink2?useUnicode=true&characterEncoding=utf8&autoReconnect=true");
 		processEngineConfiguration.setJdbcUsername("root");
 		processEngineConfiguration.setJdbcPassword("root");
 		
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
 		<!-- 连接数据的配置 -->
 		<property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/xlink2?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3309/xlink2?useUnicode=true&amp;characterEncoding=utf8&autoReconnect=true"></property>
 		<property name="jdbcUsername" value="root"></property>
 		<property name="jdbcPassword" value="123456"></property>
 		<!-- 没有表创建表 -->
