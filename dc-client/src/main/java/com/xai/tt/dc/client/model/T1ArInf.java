@@ -255,6 +255,21 @@ public class T1ArInf {
     private String insEddt;
 
     /**
+     * 预警线
+     */
+    @Column(name = "WnLn")
+    private Float wnln;
+    
+    
+    public Float getWnln() {
+		return wnln;
+	}
+
+	public void setWnln(Float wnln) {
+		this.wnln = wnln;
+	}
+
+	/**
      * 获取ID
      *
      * @return ID - ID

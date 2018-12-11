@@ -236,8 +236,30 @@ public class ArManagementInVo extends UserInfoQuery {
     
     // 待删除附件文件名信息（修改长约）
     private String filesToDelete;
+    
+    // 预警线
+    private Float wnln;
+    
+    // 查询类型
+    private Integer queryType;
+    
+    public Integer getQueryType() {
+		return queryType;
+	}
 
-    public String getFilesToDelete() {
+	public void setQueryType(Integer queryType) {
+		this.queryType = queryType;
+	}
+
+	public Float getWnln() {
+		return wnln;
+	}
+
+	public void setWnln(Float wnln) {
+		this.wnln = wnln;
+	}
+
+	public String getFilesToDelete() {
 		return filesToDelete;
 	}
 

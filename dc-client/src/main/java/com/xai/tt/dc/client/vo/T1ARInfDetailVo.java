@@ -236,6 +236,20 @@ public class T1ARInfDetailVo implements Serializable{
      * 保险结束日期
      */
     private String insEddt;
+    
+    /**
+     * 预警线
+     */
+    private Float wnln;
+        
+    public Float getWnln() {
+		return wnln;
+	}
+
+	public void setWnln(Float wnln) {
+		this.wnln = wnln;
+	}
+	
 	// 环节信息
 	private String aplyPcstpCd;
 	public Long getId() {

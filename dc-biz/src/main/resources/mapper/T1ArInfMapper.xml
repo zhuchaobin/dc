@@ -45,6 +45,7 @@
     <result column="Ins_StDt" jdbcType="CHAR" property="insStdt" />
     <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
     <result column="Is_Need_Ins" jdbcType="INTEGER" property="isNeedIns" />
+    <result column="WnLn" jdbcType="REAL" property="wnln" />
   </resultMap>
   <sql id="query_criteria">  
   	 	  <if test="id  != null and id  != ''">
@@ -166,12 +167,23 @@
       </if>
 	  <if test="insEddt  != null and insEddt  != ''">
         and Ins_EdDt  = #{insEddt ,jdbcType=CHAR}
-      </if>    
+      </if>
+      <if test="queryType  != null and queryType  == 1">
+        and AR_St  = '06'
+      </if>
+      <if test="queryType  != null and queryType  == 2">
+        and AR_St  in ('02', '03', '04', '05')
+      </if>  
+      <if test="queryType  != null and queryType  == 3">
+        and AR_St  = '07'
+      </if>
+      <if test="queryType  != null and queryType  == 4">
+        and AR_St  = '01'
+      </if> 
 	</sql>
-  
-  
+   
    <sql id="Base_Column_List">
-     ID,AR_ID,Is_Need_Ins,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt
+     ID,AR_ID,Is_Need_Ins,PROCESS_INST_ID,AR_Tp,Pch_Prty,AR_StDt,AR_EdDt,Splr,PckUpGds_Cyc,Agrm_Stg,BTp,Fnc_Pctg,Prpy_Gld_Rto,Lmt,Crdn,Clspos_Ln,SvcFee_CMd,SplOv_CrrOv_Mod,AR_St,Tms,Crt_Psn,Crt_Tm,Cfm_Psn,Cfm_Tm,FrstIns_CkOp,FrstIns_Adt_Psn,FrstIns_Adt_Tm,Bnk,Lgstc,Ins_Co,SplChain,SndInsc_CkOp,SndIns_Adt_Psn,SndIns_Adt_Tm,Plchd,Plchd_Adr,Insrd,Insrd_Adr,Fst_Benf,Fst_Benf_Adr,Ins_Pty_Adr,Ins_Obj_Nm,Ins_Amt,Dctb_Amt,EpAp,Ins_StDt,Ins_EdDt,WnLn,Is_Need_Ins
    </sql>
    
    <sql id="query_criteria_t8"> 
@@ -281,7 +293,8 @@ WHEN 'AR_Tmt_Pltfrm' THEN
 	'07'
 ELSE
 	''
-END AS aplyPcstpCd
+END AS aplyPcstpCd,
+t6.WnLn as wnln
 
 FROM
 	(
@@ -468,7 +481,8 @@ WHEN 'AR_Tmt_Pltfrm' THEN
 	'07'
 ELSE
 	''
-END AS aplyPcstpCd
+END AS aplyPcstpCd,
+t3.WnLn as wnln
 FROM
 	(
 		SELECT
