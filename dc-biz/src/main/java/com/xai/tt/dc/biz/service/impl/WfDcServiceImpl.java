@@ -70,7 +70,6 @@ public class WfDcServiceImpl implements WfDcService{
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 			ProcessInstance pi = processEngine.getRuntimeService()
 					.startProcessInstanceByKey(processDefinitionKey);//使用流程定义的key启动流程，key对应bpmn文件中id的属性，使用key启动默认启动的是版本最新的流程
-					
 			if(null != pi && StringUtils.isNotBlank(pi.getId())) {
 				logger.debug("启动流程实例结束,流程实例id：" + pi.getId() + ",流程名:" + processDefinitionKey);
 				return pi.getId();
@@ -83,6 +82,25 @@ public class WfDcServiceImpl implements WfDcService{
 			return null;
 		}	
 	}	
+	
+	/**
+	 * 描述：挂起流程实例
+	 * 成功：返回true；失败：返回false
+	 * @author zhuchaobin 2018-12-13
+	 */
+	@Override
+	public boolean suspendProcessInstanceById(String processInstanceId) {
+		// TODO Auto-generated method stub
+		logger.debug("挂起流程实例,processInstanceId：" + processInstanceId);
+		try {
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+			processEngine.getRuntimeService().suspendProcessInstanceById(processInstanceId);
+			return true;
+		} catch (Exception e) {
+			logger.error("挂起流程实例异常,processInstanceId:" + processInstanceId + e);
+			return false;
+		}	
+	}	
 	/*
 	 * 拾取并提交任务
 	 * 2018-11-21
@@ -91,7 +109,6 @@ public class WfDcServiceImpl implements WfDcService{
 	public void claimAndCompleteTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd) {
 		logger.info("拾取并完成发起任务开始");
 		// 拾取并完成发起任务
-		try {
 			// 查询任务id
 			WfeQuery wfeQuery = new WfeQuery();
 			wfeQuery.setArId(id);
@@ -112,9 +129,6 @@ public class WfDcServiceImpl implements WfDcService{
 			processEngine.getTaskService()
 			.complete(taskId, variables);
 			
-			logger.info("拾取并完成发起任务成功");
-		} catch (Exception e) {
-			logger.error("拾取并完成发起任务异常:" + e);
-		}		
+			logger.info("拾取并完成发起任务成功");		
 	}
 }

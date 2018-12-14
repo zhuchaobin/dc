@@ -178,7 +178,7 @@
         and AR_St  = '07'
       </if>
       <if test="queryType  != null and queryType  == 4">
-        and AR_St  = '01'
+        and AR_St  in ('01', '10', '11')
       </if> 
 	</sql>
    
@@ -490,6 +490,89 @@ FROM
 		FROM
 			t1_ar_inf
 		where ID=#{id,jdbcType=INTEGER}
+	) t3
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+) t4 ON t3.PROCESS_INST_ID = t4.PROC_INST_ID_
+  </select>
+  
+      <select id="queryArDetailByArId" parameterType="java.lang.String" resultType="com.xai.tt.dc.client.vo.T1ARInfDetailVo">
+SELECT
+	t3.ID AS id,
+	t3.Is_Need_Ins AS isNeedIns,
+	t3.AR_ID AS arId,
+	t3.PROCESS_INST_ID AS processInstId,
+	t3.AR_Tp AS arTp,
+	t3.Fnc_Entp AS fncEntp,
+	t3.Ustrm_Splr AS ustrmSplr,
+	t3.StgCo AS stgco,
+	t3.Bnk AS bnk,
+	t3.Lgstc_Co AS lgstcCo,
+	t3.Ins_Co AS insCo,
+	t3.SplChain_Co AS splchainCo,
+	t3.AR_StDt AS arStdt,
+	t3.AR_EdDt AS arEddt,
+	t3.PckUpGds_Cyc AS pckupgdsCyc,
+	t3.BTp AS btp,
+	t3.Fnc_Pctg AS fncPctg,
+	t3.Prpy_Gld_Rto AS prpyGldRto,
+	t3.Lmt AS lmt,
+	t3.Crdn AS crdn,
+	t3.Clspos_Ln AS clsposLn,
+	t3.SvcFee_CMd AS svcfeeCmd,
+	t3.SplOv_CrrOv_Mod AS splovCrrovMod,
+	t3.AR_St AS arSt,
+	t3.Tms AS tms,
+	t3.Crt_Psn AS crtPsn,
+	t3.Crt_Tm AS crtTm,
+	t3.Plchd AS plchd,
+	t3.Plchd_Adr AS plchdAdr,
+	t3.Insrd AS insrd,
+	t3.Insrd_Adr AS insrdAdr,
+	t3.Fst_Benf AS fstBenf,
+	t3.Fst_Benf_Adr AS fstBenfAdr,
+	t3.Ins_Pty_Adr AS insPtyAdr,
+	t3.Ins_Obj_Nm AS insObjNm,
+	t3.Ins_Amt AS insAmt,
+	t3.Dctb_Amt AS dctbAmt,
+	t3.EpAp AS epap,
+	t3.Ins_StDt AS insStdt,
+	t3.Ins_EdDt AS insEddt,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+	CASE t4.TASK_DEF_KEY_
+WHEN 'AR_Itt_Pltfrm' THEN
+	'01'
+WHEN 'AR_Cfm_SplChain' THEN
+	'02'
+WHEN 'AR_Cfm_Dwstr_Entp' THEN
+	'03'
+WHEN 'AR_Cfm_Ins_Co' THEN
+	'04'
+WHEN 'AR_FrstIns_Pltfrm' THEN
+	'05'
+WHEN 'AR_SndInsc_Pltfrm' THEN
+	'06'
+WHEN 'AR_Tmt_Pltfrm' THEN
+	'07'
+ELSE
+	''
+END AS aplyPcstpCd,
+t3.WnLn as wnln
+FROM
+	(
+		SELECT
+			*
+		FROM
+			t1_ar_inf
+		where AR_ID=#{arId,jdbcType=VARCHAR}
 	) t3
 LEFT JOIN (
 	SELECT

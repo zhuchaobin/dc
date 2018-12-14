@@ -243,7 +243,18 @@ public class ArManagementInVo extends UserInfoQuery {
     // 查询类型
     private Integer queryType;
     
-    public Integer getQueryType() {
+    // 二级服务码
+    private String secSrvCd;
+    
+    public String getSecSrvCd() {
+		return secSrvCd;
+	}
+
+	public void setSecSrvCd(String secSrvCd) {
+		this.secSrvCd = secSrvCd;
+	}
+
+	public Integer getQueryType() {
 		return queryType;
 	}
 

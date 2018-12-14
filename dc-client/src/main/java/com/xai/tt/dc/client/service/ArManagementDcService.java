@@ -43,4 +43,6 @@ public interface ArManagementDcService {
 	 * @author zhuchaobin 2018-11-21
 	 */
 	Result<QueryArSubmmitDetailOutVo> getArSubmmitDetail(String id, String arId, String aplyPcstpCd);
+
+	Result<Boolean> unDoAr(ArManagementInVo inVo);
 }

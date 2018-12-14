@@ -24,4 +24,10 @@ public interface WfDcService {
 	 * @author zhuchaobin
 	 */
 	void claimAndCompleteTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd);
+	/**
+	 * 描述：挂起流程实例
+	 * 成功：返回true；失败：返回false
+	 * @author zhuchaobin 2018-12-13
+	 */	
+	boolean suspendProcessInstanceById(String processInstanceId);
 }
