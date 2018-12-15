@@ -108,7 +108,6 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 					solveType = "01";
 					inVo.setArSt("10");
 				}
-				inVo.setArSt("10");//状态为保存
 			} else if ("02".equals(inVo.getSecSrvCd())) {
 				if(null != inVo.getId()) {		
 					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
@@ -152,7 +151,9 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
 			// 
 			if(StringUtils.isBlank(t1ArInf.getArSt())){
-				t1ArInf.setArSt("01");
+				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
+					t1ArInf.setArSt("01");
+				}
 			}
 			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
 				t1ArInf.setId(null);
@@ -203,7 +204,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 
 			// 如果是发起，保存流程实例id到长约信息表
 			// 05:新发起发起     07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)) {
+			if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
 				String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
 				if(StringUtils.isBlank(processInstId)) {
 					logger.error("发起长约，启动流程失败!");
