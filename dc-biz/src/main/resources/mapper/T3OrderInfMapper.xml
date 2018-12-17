@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T3OrderInfMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T3OrderInf">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="Ar_ID" jdbcType="CHAR" property="arId" />
+    <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
+    <result column="Pd_Nm" jdbcType="VARCHAR" property="pdNm" />
+    <result column="Spec" jdbcType="VARCHAR" property="spec" />
+    <result column="Qly_Std" jdbcType="VARCHAR" property="qlyStd" />
+    <result column="Brnd" jdbcType="VARCHAR" property="brnd" />
+    <result column="Ordr_StDt" jdbcType="CHAR" property="ordrStdt" />
+    <result column="Ordr_EdDt" jdbcType="CHAR" property="ordrEddt" />
+    <result column="Pd_Fctr" jdbcType="VARCHAR" property="pdFctr" />
+    <result column="Pch_UnitPrc" jdbcType="REAL" property="pchUnitprc" />
+    <result column="Wght" jdbcType="REAL" property="wght" />
+    <result column="Pch_PymFrGds_TAmt" jdbcType="REAL" property="pchPymfrgdsTamt" />
+    <result column="Txn_PrcDif" jdbcType="REAL" property="txnPrcdif" />
+    <result column="Sale_Tntv_Prc" jdbcType="REAL" property="saleTntvPrc" />
+    <result column="Fnc_Rto" jdbcType="REAL" property="fncRto" />
+    <result column="Fnc_Amt" jdbcType="REAL" property="fncAmt" />
+    <result column="Ctr_TAmt" jdbcType="REAL" property="ctrTamt" />
+    <result column="Prpy_Gld_Rto" jdbcType="REAL" property="prpyGldRto" />
+    <result column="Rskctr_UnitPrc" jdbcType="REAL" property="rskctrUnitprc" />
+    <result column="Rskctr_Prc_Ref" jdbcType="CHAR" property="rskctrPrcRef" />
+    <result column="WnLn" jdbcType="REAL" property="wnln" />
+    <result column="Crdn" jdbcType="REAL" property="crdn" />
+    <result column="Clspos_Ln" jdbcType="REAL" property="clsposLn" />
+    <result column="SplOv_CrrOv_Mod" jdbcType="CHAR" property="splovCrrovMod" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="Ordr_St" jdbcType="CHAR" property="ordrSt" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+    <result column="Fnc_SvcFee_Rate" jdbcType="REAL" property="fncSvcfeeRate" />
+    <result column="Gds_Nm" jdbcType="VARCHAR" property="gdsNm" />
+    <result column="Gds_Pts_Num" jdbcType="INTEGER" property="gdsPtsNum" />
+    <result column="Gds_Wght" jdbcType="REAL" property="gdsWght" />
+    <result column="Ins_Amt" jdbcType="REAL" property="insAmt" />
+    <result column="Dctb_Amt" jdbcType="REAL" property="dctbAmt" />
+    <result column="EpAp" jdbcType="VARCHAR" property="epap" />
+    <result column="Tprt_Dt" jdbcType="CHAR" property="tprtDt" />
+    <result column="Pps_Lnd" jdbcType="VARCHAR" property="ppsLnd" />
+    <result column="Tprt_Mod_And_Imt" jdbcType="VARCHAR" property="tprtModAndImt" />
+    <result column="PymtMod" jdbcType="CHAR" property="pymtmod" />
+  </resultMap>
+ 
+</mapper>

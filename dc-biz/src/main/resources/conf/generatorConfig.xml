@@ -23,7 +23,9 @@
 	<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
 	<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-<table schema="xlink2" tableName="company" domainObjectName="Company" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="T3_Order_Inf" domainObjectName="T3OrderInf" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+
+
 
 
 

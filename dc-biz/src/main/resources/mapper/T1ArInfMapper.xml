@@ -180,6 +180,9 @@
       <if test="queryType  != null and queryType  == 4">
         and AR_St  in ('01', '10', '11')
       </if> 
+      <if test="queryType  != null and queryType  == 5">
+        and t3.AR_ID  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR})
+      </if> 
 	</sql>
    
    <sql id="Base_Column_List">

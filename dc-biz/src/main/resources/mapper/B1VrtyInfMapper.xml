@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.B1VrtyInfMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B1VrtyInf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Vrty_Nm" property="vrtyNm" jdbcType="VARCHAR" />
+    <result column="Comm_Nm" property="commNm" jdbcType="VARCHAR" />
+    <result column="Ty_Nm" property="tyNm" jdbcType="VARCHAR" />
+    <result column="Wthr_CmnUsed" property="wthrCmnused" jdbcType="INTEGER" />
+    <result column="Prn_Vrtyid" property="prnVrtyid" jdbcType="BIGINT" />
+    <result column="Vrty_Intd" property="vrtyIntd" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="Udt_Tm" property="udtTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

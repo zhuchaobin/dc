@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T5FncAplyMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T5FncAply" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="CtcPsn" property="ctcpsn" jdbcType="VARCHAR" />
+    <result column="Ctc_Tel" property="ctcTel" jdbcType="VARCHAR" />
+    <result column="Fnc_Rqm_Dsc" property="fncRqmDsc" jdbcType="VARCHAR" />
+    <result column="Aply_Tm" property="aplyTm" jdbcType="TIMESTAMP" />
+    <result column="Aply_Chnl" property="aplyChnl" jdbcType="CHAR" />
+    <result column="Mod_Tm" property="modTm" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="Pcs_Tm" property="pcsTm" jdbcType="TIMESTAMP" />
+    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
