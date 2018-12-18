@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
-import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
+import com.xai.tt.dc.biz.mapper.T3OrderInfMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
@@ -27,19 +26,15 @@ import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
-import com.xai.tt.dc.client.model.T1ArInf;
+import com.xai.tt.dc.client.model.T3OrderInf;
 import com.xai.tt.dc.client.model.T2UploadAtch;
-import com.xai.tt.dc.client.query.SubmitArQuery;
-import com.xai.tt.dc.client.service.ArManagementDcService;
+import com.xai.tt.dc.client.query.SubmitOrderQuery;
 import com.xai.tt.dc.client.service.OrderManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
-import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
-import com.xai.tt.dc.client.vo.T1ARInfVo;
-import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
+import com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo;
 
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
@@ -49,7 +44,7 @@ import tk.mybatis.mapper.entity.Example;
 public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	private static final Logger logger = LoggerFactory.getLogger(OrderManagementDcServiceImpl.class);
 	@Autowired
-	private T1ArInfMapper t1ARInfMapper;
+	private T3OrderInfMapper t3OrderInfMapper;
 
 	@Autowired
 	private T0LnkJrnlInfMapper t0LnkJrnlInfMapper;
@@ -72,117 +67,107 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	/**
 	 * 描述：保存订单信息
 	 * 
-	 * @author zhuchaobin 2018-12-17
-	 * 二级服务码secSrvCd 01:保存  02:发起
+	 * @author zhuchaobin 2018-12-17 二级服务码secSrvCd 01:保存 02:发起
 	 */
 	@Override
 	public Result<Boolean> save(OrderManagementInVo inVo) {
 		logger.info("保存订单信息请求报文", JSON.toJSONString(inVo));
 		logger.info("二级服务码secSrvCd：" + inVo.getSecSrvCd());
 		// 保存订单信息
-		T1ArInf t1ArInf = new T1ArInf();
-		String arId = "";
+		T3OrderInf t3OrderInf = new T3OrderInf();
+		String orderId = "";
 		try {
 			if (null == inVo) {
 				logger.error("保存订单信息请求报文不能为空");
 				return Result.createFailResult("保存订单信息请求报文不能为空");
 			}
 			String solveType = "";
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
 			// 判断处理类别
 			if ("01".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {		
-					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
-					if((null != rltT1)){
-						//撤销件	
-						if("11".equals(rltT1.getArSt())) {
+				if (null != inVo.getId()) {
+					T3OrderInf rltT3 = t3OrderInfMapper.selectByPrimaryKey(inVo.getId());
+					if ((null != rltT3)) {
+						// 撤销件
+						if ("11".equals(rltT3.getOrdrSt())) {
 							solveType = "03";
-						} else if("10".equals(rltT1.getArSt())){
+						} else if ("10".equals(rltT3.getOrdrSt())) {
 							solveType = "04";
-						} else if("01".equals(rltT1.getArSt())){
+						} else if ("01".equals(rltT3.getOrdrSt())) {
 							solveType = "02";
 						}
 					} else {
 						solveType = "01";
-						inVo.setArSt("10");
-					}					
+						inVo.setOrdrSt("10");
+					}
 				} else {
 					solveType = "01";
-					inVo.setArSt("10");
+					inVo.setOrdrSt("10");
 				}
 			} else if ("02".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {		
-					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
-					if((null != rltT1)){
-						//撤销件	
-						if("11".equals(rltT1.getArSt())) {
+				if (null != inVo.getId()) {
+					T3OrderInf rltT3 = t3OrderInfMapper.selectByPrimaryKey(inVo.getId());
+					if ((null != rltT3)) {
+						// 撤销件
+						if ("11".equals(rltT3.getOrdrSt())) {
 							solveType = "07";
-						} else if("10".equals(rltT1.getArSt())){
+						} else if ("10".equals(rltT3.getOrdrSt())) {
 							solveType = "08";
-						} else if("01".equals(rltT1.getArSt())){
+						} else if ("01".equals(rltT3.getOrdrSt())) {
 							solveType = "06";
 						}
 					} else {
 						solveType = "05";
-					}					
+					}
 				} else {
 					solveType = "05";
 				}
 			}
 			logger.info("处理类型solveType：" + solveType);
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
-				arId = "CY" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T1_AR_Inf_Seq", 4);
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			if ("01".equals(solveType) || "05".equals(solveType) || "07".equals(solveType)) {
+				orderId = "DD" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T3_Order_Inf_Seq", 4);
 			} else {
-				arId = inVo.getArId();
-			}			
-			if(StringUtils.isBlank(arId)) {
+				orderId = inVo.getArId();
+			}
+			if (StringUtils.isBlank(orderId)) {
 				logger.error("订单编号不能为空！");
 				return Result.createFailResult("订单编号不能为空！");
 			}
-			BeanUtils.copyProperties(inVo, t1ArInf);
+			BeanUtils.copyProperties(inVo, t3OrderInf);
 			// 订单新建后记录订单状态
-			t1ArInf.setArId(arId);
-			t1ArInf.setCrtPsn(inVo.getUsername());
-			t1ArInf.setTms(new Date());
-			t1ArInf.setCrtTm(new Date());
-			t1ArInf.setSplchainCo(123);
-			
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			// 
-			if(StringUtils.isBlank(t1ArInf.getArSt())){
-				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
-					t1ArInf.setArSt("01");
+			t3OrderInf.setArId(orderId);
+			t3OrderInf.setTms(new Date());
+			t3OrderInf.setCrtTm(new Date());
+
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			//
+			if (StringUtils.isBlank(t3OrderInf.getOrdrSt())) {
+				if ("05".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
+					t3OrderInf.setOrdrSt("01");
 				}
 			}
-			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
-				t1ArInf.setId(null);
-				int num = t1ARInfMapper.insertSelective(t1ArInf);
+			if ("01".equals(solveType) || "05".equals(solveType) || "07".equals(solveType)) {
+				t3OrderInf.setId(null);
+				int num = t3OrderInfMapper.insertSelective(t3OrderInf);
 				logger.info("更新订单信息成功，插入记录数：" + num);
 			} else {
-				int num = t1ARInfMapper.updateByPrimaryKeySelective(t1ArInf);
-				logger.info("更新订单信息成功：订单id" + t1ArInf.getArId() + "更新条数：" + num);
+				int num = t3OrderInfMapper.updateByPrimaryKeySelective(t3OrderInf);
+				logger.info("更新订单信息成功：订单id" + t3OrderInf.getArId() + "更新条数：" + num);
 			}
 
 			// 保存订单附件信息
 			try {
 				if (StringUtils.isNotEmpty(inVo.getFileNames())) {
 					T2UploadAtch t2UploadAtch = new T2UploadAtch();
-					t2UploadAtch.setRltvTp("01");
+					t2UploadAtch.setRltvTp("02");
 					t2UploadAtch.setUsername(inVo.getUsername());
-					t2UploadAtch.setRltvId(arId);
+					t2UploadAtch.setRltvId(orderId);
 					insertFile(t2UploadAtch, inVo.getFileNames());
-				}
-				/*
-				 * if (null != inVo.getList()) { for (TB0001SubInVo subInvo : inVo.getList()) {
-				 * if (null != subInvo) { T2UploadAtch t2UploadAtch = new T2UploadAtch();
-				 * BeanUtils.copyProperties(subInvo, t2UploadAtch);
-				 * t2UploadAtch.setRltvId(t1ArInf.getArId());
-				 * t2UploadAtchMapper.insertSelective(t2UploadAtch); } } }
-				 */ else {
+				} else {
 					logger.error("保存订单信息，订单附件为空！");
 				}
 			} catch (Exception e) {
@@ -194,7 +179,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			if (StringUtils.isNotBlank(inVo.getFilesToDelete())) {
 				try {
 					String[] files = inVo.getFilesToDelete().split("\\|\\|");
-					for(String fileId : files) {
+					for (String fileId : files) {
 						logger.info("删除附件开始，附件id:" + fileId);
 						t2UploadAtchMapper.deleteByPrimaryKey(Long.parseLong(fileId));
 						logger.info("删除附件结束，附件id:" + fileId);
@@ -206,61 +191,61 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			}
 
 			// 如果是发起，保存流程实例id到订单信息表
-			// 05:新发起发起     07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
-				String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
-				if(StringUtils.isBlank(processInstId)) {
+			// 05:新发起发起 07：撤销件发起 08：保存件发起
+			if ("05".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
+				String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_ORDER);
+				if (StringUtils.isBlank(processInstId)) {
 					logger.error("发起订单，启动流程失败!");
 					return Result.createFailResult("发起订单，启动流程失败!");
 				} else {
 					logger.error("发起订单，启动流程成功，processInstId:" + processInstId);
 				}
-				t1ArInf.setProcessInstId(processInstId);
-				Condition condition = new Condition(T1ArInf.class);
+				t3OrderInf.setProcessInstId(processInstId);
+				Condition condition = new Condition(T3OrderInf.class);
 				Example.Criteria criteria = condition.createCriteria();
-				criteria.andCondition("AR_ID = '" + arId + "'");
-				t1ARInfMapper.updateByConditionSelective(t1ArInf, condition);
+				criteria.andCondition("Ordr_ID = '" + orderId + "'");
+				t3OrderInfMapper.updateByConditionSelective(t3OrderInf, condition);
 				logger.info("processInstId =" + processInstId);
 			}
-			
+
 			// 保存环节流水
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			if ("05".equals(solveType) || "06".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 				T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-				BeanUtils.copyProperties(t1ArInf, t0);
+				BeanUtils.copyProperties(t3OrderInf, t0);
 				t0.setUsername(inVo.getUsername());
 				t0.setCompanyId(inVo.getCompanyId());
-				t0.setRltvId(t1ArInf.getArId());
+				t0.setRltvId(t3OrderInf.getArId());
 				t0.setAplyPcstpCd("01");
 				t0.setAplyPsrltCd("01");
-				t0.setProcessType("01");
+				t0.setProcessType("02");
 				t0.setId(null);
 				wfeUtils.saveLnkJrnlInf(t0);
 				// 拾取并完成发起任务
-				wfDcService.claimAndCompleteTask(arId, inVo.getUsername(), "01", "01");
+				wfDcService.claimAndCompleteTask(orderId, inVo.getUsername(), "01", "01");
 			}
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			if ("05".equals(solveType) || "06".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 				// 更新订单状态为新状态
 				try {
-					T1ArInf t1 = new T1ArInf();
+					T3OrderInf t3 = new T3OrderInf();
 					// 更新订单状态
-					//t1.setArSt(query.getAplyPcstpCd());
-					//从工作流记录表中获取订单最新状态
-					T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(arId);
-					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
-						t1.setArSt(t1Vo.getAplyPcstpCd());
+					// t1.setOrdrSt(query.getAplyPcstpCd());
+					// 从工作流记录表中获取订单最新状态
+					QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(orderId);
+					if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+						t3.setOrdrSt(t1Vo.getAplyPcstpCd());
 					} else {
 						logger.error("更新订单信息，获取订单状态失败");
 						return Result.createFailResult("更新订单信息，获取订单状态失败");
 					}
-					t1.setTms(new Date());
-					Condition condition0 = new Condition(T1ArInf.class);
+					t3.setTms(new Date());
+					Condition condition0 = new Condition(T3OrderInf.class);
 					Example.Criteria criteria0 = condition0.createCriteria();
-					criteria0.andCondition("AR_ID = '" + arId + "'");
-					int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
+					criteria0.andCondition("AR_ID = '" + orderId + "'");
+					int rltNum = t3OrderInfMapper.updateByConditionSelective(t3, condition0);
 					logger.info("更新订单状态，更新记录数：" + rltNum);
 				} catch (Exception e) {
 					logger.error("更新订单状态异常 {}", e);
@@ -277,13 +262,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	/**
 	 * 描述：删除订单
 	 * 
-	 * @author zhuchaobin 2018-11-21
+	 * @author zhuchaobin 2018-12-18
 	 */
-/*	@Override
-	public Result<Boolean> deleteAr(String id) {
+	@Override
+	public Result<Boolean> deleteOrder(String id) {
 		logger.info("删除订单,请求参数:{}", id);
 		try {
-			t1ARInfMapper.deleteByPrimaryKey(Long.parseLong(id));
+			t3OrderInfMapper.deleteByPrimaryKey(Long.parseLong(id));
 			logger.info("删除订单成功!");
 			return Result.createSuccessResult(true);
 		} catch (Exception e) {
@@ -291,7 +276,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			return Result.createFailResult("删除订单异常" + e);
 		}
 	}
-*/
+
 	// 保存附件信息
 	private void insertFile(T2UploadAtch t2UploadAtch, String fileNames) {
 		try {
@@ -332,23 +317,23 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	/**
 	 * 描述：查询订单列表（分页）
 	 * 
-	 * @author zhuchaobin 2018-10-26
+	 * @author zhuchaobin 2018-12-18
 	 */
-/*	@Override
-	public Result<PageData<QueryPageArOutVo>> queryPage(ArManagementInVo query, PageParam pageParam) {
+	@Override
+	public Result<PageData<QueryOrderInfDetailOutVo>> queryPage(OrderManagementInVo query, PageParam pageParam) {
 		logger.info("start query 订单信息 List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
 		logger.info("getSortOrder:" + query.getSortOrder());
-		Page<QueryPageArOutVo> page = null;
+		Page<QueryOrderInfDetailOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
 		}
 		try {
-			page = t1ARInfMapper.selectByT1ARInfDcQuery(query);
-			count = t1ARInfMapper.count(query);
+			page = t3OrderInfMapper.selectByT3OrderInfDcQuery(query);
+			count = t3OrderInfMapper.count(query);
 		} catch (Exception e) {
 
 			logger.error("查询订单列表异常 {}", e);
@@ -358,93 +343,53 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
 	}
 
-	*//**
-	 * 描述：查询订单流转信息列表（分页）
-	 * 
-	 * @author 2018-11-26
-	 *//*
-	@SuppressWarnings("null")
-	@Override
-	public Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(ArManagementInVo query, PageParam pageParam) {
-		logger.info("start query MaintenanceParm List =======> query:{},page:{}", query, pageParam);
-		logger.info("userType:" + query.getUserType());
-		Page<QueryLnkJrnlInfOutVo> page = null;
-		int count = 0;
-		if (pageParam != null) {
-			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
-		}
-		try {
-			// 查询订单流转信息
-			Condition condition = new Condition(T0LnkJrnlInf.class);
-			Example.Criteria criteria = condition.createCriteria();
-			criteria.andCondition("Rltv_ID = 'CY201811250116'");
-			criteria.andCondition("PROCESS_TYPE= '01'");
-			// List<QueryPageLnkJrnlInfOutVo> t0LnkJrnlInfList=
-			// t0LnkJrnlInfMapper.selectByCondition(condition);
-			 page.addAll(t0LnkJrnlInfList); 
-			// page = (Page<QueryPageLnkJrnlInfOutVo>) t0LnkJrnlInfList;
-			// count = t0LnkJrnlInfList.size();
-		} catch (Exception e) {
-
-			logger.error("查询订单列表异常 {}", e);
-			return Result.createFailResult("查询异常");
-		}
-		logger.info("query maintenanceParm list success!");
-		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
-	}
-
-	*//**
+	/**
 	 * 描述：查询订单详情
 	 * 
-	 * @author zhuchaobin 2018-11-21
-	 *//*
+	 * @author zhuchaobin 2018-12-18
+	 */
 	@Override
-	public Result<T1ARInfDetailVo> queryArDetail(String id) {
+	public Result<QueryOrderInfDetailOutVo> queryArDetail(String id) {
 		logger.info("查询订单详情,请求参数:{}", id);
 		try {
-			T1ARInfDetailVo t1 = null;
-			
-			 * Condition condition = new Condition(T1ARInf.class); Example.Criteria criteria
-			 * = condition.createCriteria(); criteria.andCondition("AR_ID = '" + id + "'");
-			 * t1ARInf = t1ARInfMapper.selectByCondition(condition).get(0);
-			 
-			t1 = t1ARInfMapper.queryArDetail(Integer.parseInt(id));
-			if (t1 == null) {
+			QueryOrderInfDetailOutVo t3 = null;
+			t3 = t3OrderInfMapper.queryOrderDetail(Integer.parseInt(id));
+			if (t3 == null) {
 				logger.error("查询订单详情无数据");
 				return Result.createFailResult("查询订单详情无数据");
 			}
 			// 查询订单附件信息
 			Condition condition0 = new Condition(T2UploadAtch.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Rltv_ID = '" + t1.getArId() + "'");
-			criteria0.andCondition("Rltv_Tp = '01'");
+			criteria0.andCondition("Rltv_ID = '" + t3.getOrdrId() + "'");
+			criteria0.andCondition("Rltv_Tp = '02'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
-			t1.setT2UploadAtch01List(t2UploadAtch01List);
+			t3.setT2UploadAtch01List(t2UploadAtch01List);
 			logger.info("查询订单附件信息成功!");
 			// 查询订单流转信息
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-			t0.setRltvId(t1.getArId());
-			t0.setProcessType("01");
+			t0.setRltvId(t3.getArId());
+			t0.setProcessType("02");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
-			t1.setList(t0LnkJrnlInfList);
+			t3.setList(t0LnkJrnlInfList);
 			logger.info("查询订单流转详情成功!");
 			logger.info("查询订单详情成功!");
-			return Result.createSuccessResult(t1);
+			return Result.createSuccessResult(t3);
 		} catch (Exception e) {
 			logger.error("查询订单详情异常 {}", e);
 			return Result.createFailResult("查询订单详情异常" + e);
 		}
 	}
-	
-	*//**
+
+	/**
 	 * 描述：撤销订单
 	 * 
-	 * @author zhuchaobin 2018-12-13
-	 *//*
+	 * @author zhuchaobin 2018-12-18
+	 */
 	@Override
-	public Result<Boolean> unDoAr(ArManagementInVo inVo) {
+	public Result<Boolean> unDoOrder(OrderManagementInVo inVo) {
 		logger.info("撤销订单请求报文", JSON.toJSONString(inVo));
-		T1ArInf t1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
+		T3OrderInf t1 = t3OrderInfMapper.selectByPrimaryKey(inVo.getId());
 		if (t1 == null) {
 			logger.error("查询订单详情无数据");
 			return Result.createFailResult("查询订单详情无数据");
@@ -456,7 +401,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.error("撤销订单休眠流程实例异常 {}", e);
 			return Result.createFailResult("撤销订单休眠流程实例异常:" + e);
 		}
-		
+
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
@@ -464,7 +409,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			t0.setUsername(inVo.getUsername());
 			t0.setCompanyId(inVo.getCompanyId());
 			t0.setRltvId(t1.getArId());
-			t0.setProcessType("01");
+			t0.setProcessType("02");
 			t0.setAplyPcstpCd("11");
 			t0.setAplyPsrltCd("04");
 			t0.setId(null);
@@ -476,12 +421,12 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 
 		try {
 			// 更新订单状态
-			t1.setArSt("11");
+			t1.setOrdrSt("11");
 			t1.setTms(new Date());
-			Condition condition0 = new Condition(T1ArInf.class);
+			Condition condition0 = new Condition(T3OrderInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
-			int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
+			criteria0.andCondition("Order_ID = '" + t1.getOrdrId() + "'");
+			int rltNum = t3OrderInfMapper.updateByConditionSelective(t1, condition0);
 			logger.info("更新订单状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
 			logger.error("更新订单状态异常 {}", e);
@@ -490,13 +435,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		return Result.createSuccessResult(true);
 	}
 
-	*//**
+	/**
 	 * 描述：订单提交
 	 * 
-	 * @author zhuchaobin 2018-11-21
-	 *//*
+	 * @author zhuchaobin 2018-12-18
+	 */
 	@Override
-	public Result<Boolean> submitAr(SubmitArQuery query) {
+	public Result<Boolean> submitOrder(SubmitOrderQuery query) {
 		String fucNm = "订单提交";
 		logger.info(fucNm + ",请求参数:{}", JSON.toJSONString(query));
 
@@ -535,7 +480,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 			BeanUtils.copyProperties(query, t0);
 			t0.setRltvId(query.getArId());
-			t0.setProcessType("01");
+			t0.setProcessType("02");
 			wfeUtils.saveLnkJrnlInf(t0);
 		} catch (Exception e) {
 			logger.error("订单提交保存环节流水异常 {}", e);
@@ -543,22 +488,22 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		}
 
 		try {
-			T1ArInf t1 = new T1ArInf();
+			T3OrderInf t1 = new T3OrderInf();
 			// 更新订单状态
-			//t1.setArSt(query.getAplyPcstpCd());
-			//从工作流记录表中获取订单最新状态
-			T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(query.getArId());
-			if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
-				t1.setArSt(t1Vo.getAplyPcstpCd());
+			// t1.setOrdrSt(query.getAplyPcstpCd());
+			// 从工作流记录表中获取订单最新状态
+			QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(query.getOrderId());
+			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+				t1.setOrdrSt(t1Vo.getAplyPcstpCd());
 			} else {
 				logger.error("更新订单信息，获取订单状态失败");
 				return Result.createFailResult("更新订单信息，获取订单状态失败");
 			}
 			t1.setTms(new Date());
-			Condition condition0 = new Condition(T1ArInf.class);
+			Condition condition0 = new Condition(T3OrderInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("AR_ID = '" + query.getArId() + "'");
-			int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
+			criteria0.andCondition("Ordr_ID = '" + query.getOrderId() + "'");
+			int rltNum = t3OrderInfMapper.updateByConditionSelective(t1, condition0);
 			logger.info("更新订单状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
 			logger.error("更新订单状态异常 {}", e);
@@ -567,13 +512,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		return Result.createSuccessResult(true);
 	}
 
-	*//**
-	 * 描述：查询订单详情
-	 * 
-	 *//*
+	/**
+	 * 描述：查询订单提交详情
+	 * 2018-12-18
+	 */
 	@Override
-	public Result<QueryArSubmmitDetailOutVo> getArSubmmitDetail(String id, String arId, String aplyPcstpCd) {
-		logger.info("查询订单提交详情,请求参数:arId={} aplyPcstpCd={}", arId, aplyPcstpCd);
+	public Result<QueryArSubmmitDetailOutVo> getOrderSubmmitDetail(String id, String orderId, String aplyPcstpCd) {
+		logger.info("查询订单提交详情,请求参数:orderId={} aplyPcstpCd={}", orderId, aplyPcstpCd);
 		QueryArSubmmitDetailOutVo outVo = new QueryArSubmmitDetailOutVo();
 		try {
 			T0LnkJrnlInf t0 = null;
@@ -593,7 +538,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 查询订单提交附件信息
 			Condition condition0 = new Condition(T2UploadAtch.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Rltv_ID = '" + arId + "'");
+			criteria0.andCondition("Rltv_ID = '" + orderId + "'");
 			criteria0.andCondition("Rltv_Tp = '" + aplyPcstpCd + "'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
 			outVo.setT2UploadAtch01List(t2UploadAtch01List);
@@ -603,6 +548,5 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.error("查询订单提交详情异常 {}", e);
 			return Result.createFailResult("查询订单提交详情异常" + e);
 		}
-	}*/
-
+	}
 }

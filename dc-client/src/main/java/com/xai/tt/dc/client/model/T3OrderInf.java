@@ -24,6 +24,12 @@ public class T3OrderInf {
     private String ordrId;
 
     /**
+     * 流程实例ID
+     */
+    @Column(name = "PROCESS_INST_ID")
+    private String processInstId;
+
+    /**
      * 品名
      */
     @Column(name = "Pd_Nm")
@@ -179,7 +185,7 @@ public class T3OrderInf {
     private Date crtTm;
 
     /**
-     * 融资服务费率
+     * 服务费率
      */
     @Column(name = "Fnc_SvcFee_Rate")
     private Float fncSvcfeeRate;
@@ -296,6 +302,24 @@ public class T3OrderInf {
      */
     public void setOrdrId(String ordrId) {
         this.ordrId = ordrId;
+    }
+
+    /**
+     * 获取流程实例ID
+     *
+     * @return PROCESS_INST_ID - 流程实例ID
+     */
+    public String getProcessInstId() {
+        return processInstId;
+    }
+
+    /**
+     * 设置流程实例ID
+     *
+     * @param processInstId 流程实例ID
+     */
+    public void setProcessInstId(String processInstId) {
+        this.processInstId = processInstId;
     }
 
     /**
@@ -767,18 +791,18 @@ public class T3OrderInf {
     }
 
     /**
-     * 获取融资服务费率
+     * 获取服务费率
      *
-     * @return Fnc_SvcFee_Rate - 融资服务费率
+     * @return Fnc_SvcFee_Rate - 服务费率
      */
     public Float getFncSvcfeeRate() {
         return fncSvcfeeRate;
     }
 
     /**
-     * 设置融资服务费率
+     * 设置服务费率
      *
-     * @param fncSvcfeeRate 融资服务费率
+     * @param fncSvcfeeRate 服务费率
      */
     public void setFncSvcfeeRate(Float fncSvcfeeRate) {
         this.fncSvcfeeRate = fncSvcfeeRate;

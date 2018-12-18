@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="OrderFlow" name="OrderProcess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="Ordr_Itt_SplChain" name="订单发起_供应链" activiti:candidateGroups="03"></userTask>
+    <userTask id="Ordr_Adt_Pltfrm" name="订单审核_平台" activiti:candidateGroups="01"></userTask>
+    <userTask id="Ordr_Mrgn_Py_Dwstr" name="保证金支付_下游" activiti:candidateGroups="04"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="Ordr_Itt_SplChain"></sequenceFlow>
+    <exclusiveGateway id="Ordr_Adt_Pltfrm_Gw" name="订单审核_平台_网关"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="Ordr_Adt_Pltfrm" targetRef="Ordr_Adt_Pltfrm_Gw"></sequenceFlow>
+    <userTask id="Ordr_Fnc_Dstr_Bnk" name="融资发放_银行" activiti:candidateGroups="06"></userTask>
+    <exclusiveGateway id="Ordr_Mrgn_Py_Dwstr_Gw" name="保证金支付_下游_网关"></exclusiveGateway>
+    <sequenceFlow id="flow8" sourceRef="Ordr_Mrgn_Py_Dwstr" targetRef="Ordr_Mrgn_Py_Dwstr_Gw"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="Ordr_Mrgn_Py_Dwstr_Gw" targetRef="Ordr_Adt_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="Ordr_Mrgn_Py_Dwstr_Gw" targetRef="Ordr_Fnc_Dstr_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Ordr_PymFrGds_Py_Dwstr" name="货款支付_下游" activiti:candidateGroups="04"></userTask>
+    <userTask id="Ordr_Cfm_Ins_Co" name="确认承保_保险公司" activiti:candidateGroups="05"></userTask>
+    <exclusiveGateway id="Ordr_Fnc_Dstr_Bnk_Gw" name="融资发放_银行_网关"></exclusiveGateway>
+    <exclusiveGateway id="Ordr_PymFrGds_Py_Dwstr_Gw" name="货款支付_下游_网关"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="Ordr_Fnc_Dstr_Bnk" targetRef="Ordr_Fnc_Dstr_Bnk_Gw"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="Ordr_Fnc_Dstr_Bnk_Gw" targetRef="Ordr_Mrgn_Py_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="Ordr_Fnc_Dstr_Bnk_Gw" targetRef="Ordr_PymFrGds_Py_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="Ordr_PymFrGds_Py_Dwstr" targetRef="Ordr_PymFrGds_Py_Dwstr_Gw"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="Ordr_PymFrGds_Py_Dwstr_Gw" targetRef="Ordr_Fnc_Dstr_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Ordr_Cfm_Rcpt_SplChain" name="确认收款_供应链" activiti:candidateGroups="03"></userTask>
+    <userTask id="Ordr_PymFrGds_Py_SplChain" name="货款支付_供应链" activiti:candidateGroups="03"></userTask>
+    <userTask id="Ordr_Cfm_Rcpt_SplChain2" name="确认收款_供应链" activiti:candidateGroups="03"></userTask>
+    <exclusiveGateway id="Ordr_Cfm_Rcpt_2_SplChain_GW" name="确认收款_2_供应链_网关"></exclusiveGateway>
+    <sequenceFlow id="flow16" sourceRef="Ordr_PymFrGds_Py_Dwstr_Gw" targetRef="Ordr_Cfm_Rcpt_SplChain2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&pymtmod==3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="Ordr_PymFrGds_Py_Dwstr_Gw" targetRef="Ordr_Cfm_Rcpt_3_SplChain_GW">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&pymtmod==2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="Ordr_PymFrGds_Py_Dwstr_Gw" targetRef="Ordr_PymFrGds_Py_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&pymtmod==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="Ordr_Cfm_Rcpt_3_SplChain_GW" targetRef="Ordr_Cfm_Rcpt_2_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="Ordr_Cfm_Rcpt_2_SplChain_GW" targetRef="Ordr_PymFrGds_Py_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="Ordr_Cfm_Rcpt_2_SplChain_GW" targetRef="Ordr_Cfm_Ins_Co">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Ordr_PymFrGds_Py_1_SplChain_GW" name="货款支付_1_供应链_网关"></exclusiveGateway>
+    <sequenceFlow id="flow22" sourceRef="Ordr_PymFrGds_Py_SplChain" targetRef="Ordr_PymFrGds_Py_1_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="Ordr_PymFrGds_Py_1_SplChain_GW" targetRef="Ordr_PymFrGds_Py_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="Ordr_PymFrGds_Py_1_SplChain_GW" targetRef="Ordr_Cfm_Ins_Co">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Ordr_Cfm_Ins_Co_GW" name="确认承保_保险公司_网关"></exclusiveGateway>
+    <sequenceFlow id="flow25" sourceRef="Ordr_Cfm_Ins_Co" targetRef="Ordr_Cfm_Ins_Co_GW"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="Ordr_Cfm_Ins_Co_GW" targetRef="Ordr_Cfm_Rcpt_3_SplChain_GW">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&pymtmod==2}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Ordr_Cfm_Rcpt_3_SplChain_GW" name="确认收款_3_供应链_网关"></exclusiveGateway>
+    <sequenceFlow id="flow31" sourceRef="Ordr_Cfm_Rcpt_SplChain2" targetRef="Ordr_Cfm_Rcpt_3_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="Ordr_Cfm_Rcpt_3_SplChain_GW" targetRef="Ordr_PymFrGds_Py_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Ordr_Tmt_Pltfrm" name="订单终止_供应链" activiti:candidateGroups="03"></userTask>
+    <sequenceFlow id="flow33" sourceRef="Ordr_Cfm_Ins_Co_GW" targetRef="Ordr_Tmt_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Ordr_Tmt_Pltfrm_GW" name="订单终止_供应链_网关"></exclusiveGateway>
+    <sequenceFlow id="flow36" sourceRef="Ordr_Tmt_Pltfrm" targetRef="Ordr_Tmt_Pltfrm_GW"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="Ordr_Tmt_Pltfrm_GW" targetRef="Ordr_Cfm_Ins_Co">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&(pymtmod==1||pymtmod==2)}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="Ordr_Tmt_Pltfrm_GW" targetRef="Ordr_Cfm_Rcpt_SplChain2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&pymtmod==3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="Ordr_Tmt_Pltfrm_GW" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="Ordr_Cfm_Rcpt_3_SplChain_GW" targetRef="Ordr_Tmt_Pltfrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="Ordr_Cfm_Ins_Co_GW" targetRef="Ordr_PymFrGds_Py_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&pymtmod==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="Ordr_Adt_Pltfrm_Gw" targetRef="Ordr_Itt_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow43" sourceRef="Ordr_Adt_Pltfrm_Gw" targetRef="Ordr_Mrgn_Py_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_OrderFlow">
+    <bpmndi:BPMNPlane bpmnElement="OrderFlow" id="BPMNPlane_OrderFlow">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="642.0" y="38.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="642.0" y="1020.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Itt_SplChain" id="BPMNShape_Ordr_Itt_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="580.0" y="119.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Adt_Pltfrm" id="BPMNShape_Ordr_Adt_Pltfrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="580.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Mrgn_Py_Dwstr" id="BPMNShape_Ordr_Mrgn_Py_Dwstr">
+        <omgdc:Bounds height="55.0" width="160.0" x="580.0" y="313.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Adt_Pltfrm_Gw" id="BPMNShape_Ordr_Adt_Pltfrm_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="867.0" y="227.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Fnc_Dstr_Bnk" id="BPMNShape_Ordr_Fnc_Dstr_Bnk">
+        <omgdc:Bounds height="55.0" width="160.0" x="580.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Mrgn_Py_Dwstr_Gw" id="BPMNShape_Ordr_Mrgn_Py_Dwstr_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="407.0" y="323.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_PymFrGds_Py_Dwstr" id="BPMNShape_Ordr_PymFrGds_Py_Dwstr">
+        <omgdc:Bounds height="55.0" width="160.0" x="580.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Cfm_Ins_Co" id="BPMNShape_Ordr_Cfm_Ins_Co">
+        <omgdc:Bounds height="55.0" width="160.0" x="580.0" y="778.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Fnc_Dstr_Bnk_Gw" id="BPMNShape_Ordr_Fnc_Dstr_Bnk_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="867.0" y="426.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_PymFrGds_Py_Dwstr_Gw" id="BPMNShape_Ordr_PymFrGds_Py_Dwstr_Gw">
+        <omgdc:Bounds height="40.0" width="40.0" x="419.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Cfm_Rcpt_SplChain" id="BPMNShape_Ordr_Cfm_Rcpt_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="360.0" y="640.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_PymFrGds_Py_SplChain" id="BPMNShape_Ordr_PymFrGds_Py_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="770.0" y="640.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Cfm_Rcpt_SplChain2" id="BPMNShape_Ordr_Cfm_Rcpt_SplChain2">
+        <omgdc:Bounds height="55.0" width="160.0" x="20.0" y="640.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Cfm_Rcpt_2_SplChain_GW" id="BPMNShape_Ordr_Cfm_Rcpt_2_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="598.0" y="647.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_PymFrGds_Py_1_SplChain_GW" id="BPMNShape_Ordr_PymFrGds_Py_1_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="676.0" y="647.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Cfm_Ins_Co_GW" id="BPMNShape_Ordr_Cfm_Ins_Co_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="419.0" y="785.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Cfm_Rcpt_3_SplChain_GW" id="BPMNShape_Ordr_Cfm_Rcpt_3_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="270.0" y="647.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Tmt_Pltfrm" id="BPMNShape_Ordr_Tmt_Pltfrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="360.0" y="900.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Ordr_Tmt_Pltfrm_GW" id="BPMNShape_Ordr_Tmt_Pltfrm_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="639.0" y="907.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="659.0" y="73.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="119.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="740.0" y="247.0"></omgdi:waypoint>
+        <omgdi:waypoint x="867.0" y="247.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="580.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="447.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="427.0" y="323.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="275.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="427.0" y="363.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="740.0" y="447.0"></omgdi:waypoint>
+        <omgdi:waypoint x="867.0" y="446.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="887.0" y="426.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="368.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="887.0" y="466.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="520.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="580.0" y="547.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="540.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="439.0" y="520.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="475.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="439.0" y="560.0"></omgdi:waypoint>
+        <omgdi:waypoint x="100.0" y="640.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="439.0" y="560.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="647.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="439.0" y="560.0"></omgdi:waypoint>
+        <omgdi:waypoint x="511.0" y="598.0"></omgdi:waypoint>
+        <omgdi:waypoint x="688.0" y="598.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="598.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="640.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="310.0" y="667.0"></omgdi:waypoint>
+        <omgdi:waypoint x="598.0" y="667.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="618.0" y="647.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="575.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="618.0" y="687.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="778.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="770.0" y="667.0"></omgdi:waypoint>
+        <omgdi:waypoint x="716.0" y="667.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="696.0" y="647.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="575.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="696.0" y="687.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="778.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="580.0" y="805.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="805.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="439.0" y="785.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="687.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="180.0" y="667.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="667.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="290.0" y="647.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="625.0"></omgdi:waypoint>
+        <omgdi:waypoint x="501.0" y="557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="547.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="439.0" y="825.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="900.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="520.0" y="927.0"></omgdi:waypoint>
+        <omgdi:waypoint x="639.0" y="927.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="659.0" y="907.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="833.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="659.0" y="947.0"></omgdi:waypoint>
+        <omgdi:waypoint x="625.0" y="1001.0"></omgdi:waypoint>
+        <omgdi:waypoint x="100.0" y="1001.0"></omgdi:waypoint>
+        <omgdi:waypoint x="100.0" y="695.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="659.0" y="947.0"></omgdi:waypoint>
+        <omgdi:waypoint x="659.0" y="1020.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="290.0" y="687.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="928.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="927.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="439.0" y="785.0"></omgdi:waypoint>
+        <omgdi:waypoint x="516.0" y="728.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="728.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="695.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="887.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="174.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="887.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="313.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

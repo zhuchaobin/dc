@@ -32,7 +32,6 @@
     <exclusiveGateway id="AR_FrstIns_Pltfrm_Gw" name="长约一审(平台)网关"></exclusiveGateway>
     <exclusiveGateway id="AR_SndInsc_Pltfrm_Gw" name="长约二审(平台)网关"></exclusiveGateway>
     <exclusiveGateway id="AR_Tmt_Pltfrm_Gw" name="长约终止(平台)网关"></exclusiveGateway>
-    <sequenceFlow id="flow11" sourceRef="AR_Cfm_Ins_Co" targetRef="AR_Cfm_Ins_Co_Gw"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="AR_Cfm_Ins_Co_Gw" targetRef="AR_Cfm_Dwstr_Entp">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
     </sequenceFlow>
@@ -139,10 +138,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="151.0" y="344.0"></omgdi:waypoint>
         <omgdi:waypoint x="384.0" y="401.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="464.0" y="428.0"></omgdi:waypoint>
-        <omgdi:waypoint x="591.0" y="427.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="611.0" y="407.0"></omgdi:waypoint>

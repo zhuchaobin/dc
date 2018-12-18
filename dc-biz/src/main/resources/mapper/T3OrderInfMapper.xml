@@ -8,6 +8,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="Ar_ID" jdbcType="CHAR" property="arId" />
     <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
+    <result column="PROCESS_INST_ID" jdbcType="VARCHAR" property="processInstId" />
     <result column="Pd_Nm" jdbcType="VARCHAR" property="pdNm" />
     <result column="Spec" jdbcType="VARCHAR" property="spec" />
     <result column="Qly_Std" jdbcType="VARCHAR" property="qlyStd" />
@@ -46,5 +47,519 @@
     <result column="Tprt_Mod_And_Imt" jdbcType="VARCHAR" property="tprtModAndImt" />
     <result column="PymtMod" jdbcType="CHAR" property="pymtmod" />
   </resultMap>
+  
+    <sql id="query_criteria">  
+    
+    <if test="id  != null">
+        and id  = #{id ,jdbcType=INTEGER}
+      </if>
+<if test="pchUnitprc  != null">
+        and Pch_UnitPrc  = #{pchUnitprc ,jdbcType=INTEGER}
+      </if>
+<if test="wght  != null">
+        and Wght  = #{wght ,jdbcType=INTEGER}
+      </if>
+<if test="pchPymfrgdsTamt  != null">
+        and Pch_PymFrGds_TAmt  = #{pchPymfrgdsTamt ,jdbcType=INTEGER}
+      </if>
+<if test="txnPrcdif  != null">
+        and Txn_PrcDif  = #{txnPrcdif ,jdbcType=INTEGER}
+      </if>
+<if test="saleTntvPrc  != null">
+        and Sale_Tntv_Prc  = #{saleTntvPrc ,jdbcType=INTEGER}
+      </if>
+<if test="fncRto  != null">
+        and Fnc_Rto  = #{fncRto ,jdbcType=INTEGER}
+      </if>
+<if test="fncAmt  != null">
+        and Fnc_Amt  = #{fncAmt ,jdbcType=INTEGER}
+      </if>
+<if test="ctrTamt  != null">
+        and Ctr_TAmt  = #{ctrTamt ,jdbcType=INTEGER}
+      </if>
+<if test="prpyGldRto  != null">
+        and Prpy_Gld_Rto  = #{prpyGldRto ,jdbcType=INTEGER}
+      </if>
+<if test="rskctrUnitprc  != null">
+        and Rskctr_UnitPrc  = #{rskctrUnitprc ,jdbcType=INTEGER}
+      </if>
+<if test="wnln  != null">
+        and WnLn  = #{wnln ,jdbcType=INTEGER}
+      </if>
+<if test="crdn  != null">
+        and Crdn  = #{crdn ,jdbcType=INTEGER}
+      </if>
+<if test="clsposLn  != null">
+        and Clspos_Ln  = #{clsposLn ,jdbcType=INTEGER}
+      </if>
+<if test="fncSvcfeeRate  != null">
+        and Fnc_SvcFee_Rate  = #{fncSvcfeeRate ,jdbcType=INTEGER}
+      </if>
+<if test="gdsWght  != null">
+        and Gds_Wght  = #{gdsWght ,jdbcType=INTEGER}
+      </if>
+<if test="insAmt  != null">
+        and Ins_Amt  = #{insAmt ,jdbcType=INTEGER}
+      </if>
+<if test="dctbAmt  != null">
+        and Dctb_Amt  = #{dctbAmt ,jdbcType=INTEGER}
+      </if>
+<if test="gdsPtsNum  != null">
+        and Gds_Pts_Num  = #{gdsPtsNum ,jdbcType=INTEGER}
+      </if>
+<if test="tms  != null">
+        and Tms  = #{tms ,jdbcType=INTEGER}
+      </if>
+<if test="crtTm  != null">
+        and Crt_Tm  = #{crtTm ,jdbcType=INTEGER}
+      </if>
+    	  <if test="arId  != null and arId  != ''">
+        and t3.Ar_ID like binary CONCAT('%', #{arId ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="ordrId  != null and ordrId  != ''">
+        and t3.Ordr_ID like binary CONCAT('%', #{ordrId ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="rskctrPrcRef  != null and rskctrPrcRef  != ''">
+        and t3.Rskctr_Prc_Ref like binary CONCAT('%', #{rskctrPrcRef ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="splovCrrovMod  != null and splovCrrovMod  != ''">
+        and t3.SplOv_CrrOv_Mod like binary CONCAT('%', #{splovCrrovMod ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="ordrSt  != null and ordrSt  != ''">
+        and t3.Ordr_St like binary CONCAT('%', #{ordrSt ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="pymtmod  != null and pymtmod  != ''">
+        and t3.PymtMod like binary CONCAT('%', #{pymtmod ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="ordrStdt  != null and ordrStdt  != ''">
+        and t3.Ordr_StDt like binary CONCAT('%', #{ordrStdt ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="ordrEddt  != null and ordrEddt  != ''">
+        and t3.Ordr_EdDt like binary CONCAT('%', #{ordrEddt ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="tprtDt  != null and tprtDt  != ''">
+        and t3.Tprt_Dt like binary CONCAT('%', #{tprtDt ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="epap  != null and epap  != ''">
+        and t3.EpAp like binary CONCAT('%', #{epap ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="processInstId  != null and processInstId  != ''">
+        and t3.PROCESS_INST_ID like binary CONCAT('%', #{processInstId ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="pdNm  != null and pdNm  != ''">
+        and t3.Pd_Nm like binary CONCAT('%', #{pdNm ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="spec  != null and spec  != ''">
+        and t3.Spec like binary CONCAT('%', #{spec ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="qlyStd  != null and qlyStd  != ''">
+        and t3.Qly_Std like binary CONCAT('%', #{qlyStd ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="brnd  != null and brnd  != ''">
+        and t3.Brnd like binary CONCAT('%', #{brnd ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="pdFctr  != null and pdFctr  != ''">
+        and t3.Pd_Fctr like binary CONCAT('%', #{pdFctr ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="username  != null and username  != ''">
+        and t3.username like binary CONCAT('%', #{username ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="gdsNm  != null and gdsNm  != ''">
+        and t3.Gds_Nm like binary CONCAT('%', #{gdsNm ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="ppsLnd  != null and ppsLnd  != ''">
+        and t3.Pps_Lnd like binary CONCAT('%', #{ppsLnd ,jdbcType=CHAR},'%')       
+      </if>
+	  <if test="tprtModAndImt  != null and tprtModAndImt  != ''">
+        and t3.Tprt_Mod_And_Imt like binary CONCAT('%', #{tprtModAndImt ,jdbcType=CHAR},'%')       
+      </if>
+	</sql>
+      
+   <sql id="query_criteria_t8"> 
+   <if test="keyWorlds  != null and keyWorlds  != ''">
+ and (t8.arId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.processInstId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.arTp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.fncEntpName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ustrmSplrName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.stgcoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.bnkName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.lgstcCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.insCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.splchainCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+  or t8.arId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ordrId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.rskctrPrcRef like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.splovCrrovMod like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ordrSt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.pymtmod like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ordrStdt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ordrEddt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.tprtDt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.epap like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.processInstId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.pdNm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.spec like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.qlyStd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.brnd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.pdFctr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.username like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.gdsNm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.ppsLnd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t8.tprtModAndImt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ )
+      </if>	
+              
+      </sql>
+  
+   <select id="selectByT3OrderInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.OrderManagementInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo">
+		SELECT t8.* FROM (
+		SELECT
+	t6.id AS id,
+t6.Ar_ID AS arId,
+t6.Ordr_ID AS ordrId,
+t6.PROCESS_INST_ID AS processInstId,
+t6.Pd_Nm AS pdNm,
+t6.Spec AS spec,
+t6.Qly_Std AS qlyStd,
+t6.Brnd AS brnd,
+t6.Ordr_StDt AS ordrStdt,
+t6.Ordr_EdDt AS ordrEddt,
+t6.Pd_Fctr AS pdFctr,
+t6.Pch_UnitPrc AS pchUnitprc,
+t6.Wght AS wght,
+t6.Pch_PymFrGds_TAmt AS pchPymfrgdsTamt,
+t6.Txn_PrcDif AS txnPrcdif,
+t6.Sale_Tntv_Prc AS saleTntvPrc,
+t6.Fnc_Rto AS fncRto,
+t6.Fnc_Amt AS fncAmt,
+t6.Ctr_TAmt AS ctrTamt,
+t6.Prpy_Gld_Rto AS prpyGldRto,
+t6.Rskctr_UnitPrc AS rskctrUnitprc,
+t6.Rskctr_Prc_Ref AS rskctrPrcRef,
+t6.WnLn AS wnln,
+t6.Crdn AS crdn,
+t6.Clspos_Ln AS clsposLn,
+t6.SplOv_CrrOv_Mod AS splovCrrovMod,
+t6.Tms AS tms,
+t6.Ordr_St AS ordrSt,
+t6.username AS username,
+t6.Crt_Tm AS crtTm,
+t6.Fnc_SvcFee_Rate AS fncSvcfeeRate,
+t6.Gds_Nm AS gdsNm,
+t6.Gds_Pts_Num AS gdsPtsNum,
+t6.Gds_Wght AS gdsWght,
+t6.Ins_Amt AS insAmt,
+t6.Dctb_Amt AS dctbAmt,
+t6.EpAp AS epap,
+t6.Tprt_Dt AS tprtDt,
+t6.Pps_Lnd AS ppsLnd,
+t6.Tprt_Mod_And_Imt AS tprtModAndImt,
+t6.PymtMod AS pymtmod,
+	_get_coname_func (t6.Fnc_Entp) AS fncEntpName,
+	_get_coname_func (t6.Ustrm_Splr) AS ustrmSplrName,
+	_get_coname_func (t6.StgCo) AS stgcoName,
+	_get_coname_func (t6.Bnk) AS bnkName,
+	_get_coname_func (t6.Lgstc_Co) AS lgstcCoName,
+	_get_coname_func (t6.Ins_Co) AS insCoName,
+	_get_coname_func (t6.SplChain_Co) AS splchainCoName,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+	t6.Fnc_Entp AS fncEntp,
+	t6.Ustrm_Splr AS ustrmSplr,
+	t6.StgCo AS stgco,
+	t6.Bnk AS bnk,
+	t6.Lgstc_Co AS lgstcCo,
+	t6.Ins_Co AS insCo,
+	t6.SplChain_Co AS splchainCo,
+	t6.BTp as btp,
+	t6.SvcFee_CMd as svcfeeCmd
+FROM
+	(
+		select t3.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd from
+		T3_Order_Inf t3 
+		left join(
+		SELECT DISTINCT
+			t1.*
+		FROM
+			t1_ar_inf t1,
+			USER t5
+		WHERE
+			t1.SplChain_Co = t5.SplChain_Co
+		) t10
+		on
+		t3.Ar_Id = t10.Ar_id
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_ 
+
+    <if test="orderBy != null and orderBy != ''">
+	   ORDER BY ${orderBy}
+    </if>
+) t8 
+where 1=1 
+<include refid="query_criteria_t8"></include>
  
+  </select>
+  
+  <select id="count" resultType="java.lang.Integer">
+ 	SELECT count(*) FROM (
+		SELECT
+	t6.id AS id,
+t6.Ar_ID AS arId,
+t6.Ordr_ID AS ordrId,
+t6.PROCESS_INST_ID AS processInstId,
+t6.Pd_Nm AS pdNm,
+t6.Spec AS spec,
+t6.Qly_Std AS qlyStd,
+t6.Brnd AS brnd,
+t6.Ordr_StDt AS ordrStdt,
+t6.Ordr_EdDt AS ordrEddt,
+t6.Pd_Fctr AS pdFctr,
+t6.Pch_UnitPrc AS pchUnitprc,
+t6.Wght AS wght,
+t6.Pch_PymFrGds_TAmt AS pchPymfrgdsTamt,
+t6.Txn_PrcDif AS txnPrcdif,
+t6.Sale_Tntv_Prc AS saleTntvPrc,
+t6.Fnc_Rto AS fncRto,
+t6.Fnc_Amt AS fncAmt,
+t6.Ctr_TAmt AS ctrTamt,
+t6.Prpy_Gld_Rto AS prpyGldRto,
+t6.Rskctr_UnitPrc AS rskctrUnitprc,
+t6.Rskctr_Prc_Ref AS rskctrPrcRef,
+t6.WnLn AS wnln,
+t6.Crdn AS crdn,
+t6.Clspos_Ln AS clsposLn,
+t6.SplOv_CrrOv_Mod AS splovCrrovMod,
+t6.Tms AS tms,
+t6.Ordr_St AS ordrSt,
+t6.username AS username,
+t6.Crt_Tm AS crtTm,
+t6.Fnc_SvcFee_Rate AS fncSvcfeeRate,
+t6.Gds_Nm AS gdsNm,
+t6.Gds_Pts_Num AS gdsPtsNum,
+t6.Gds_Wght AS gdsWght,
+t6.Ins_Amt AS insAmt,
+t6.Dctb_Amt AS dctbAmt,
+t6.EpAp AS epap,
+t6.Tprt_Dt AS tprtDt,
+t6.Pps_Lnd AS ppsLnd,
+t6.Tprt_Mod_And_Imt AS tprtModAndImt,
+t6.PymtMod AS pymtmod,
+	_get_coname_func (t6.Fnc_Entp) AS fncEntpName,
+	_get_coname_func (t6.Ustrm_Splr) AS ustrmSplrName,
+	_get_coname_func (t6.StgCo) AS stgcoName,
+	_get_coname_func (t6.Bnk) AS bnkName,
+	_get_coname_func (t6.Lgstc_Co) AS lgstcCoName,
+	_get_coname_func (t6.Ins_Co) AS insCoName,
+	_get_coname_func (t6.SplChain_Co) AS splchainCoName,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+	t6.Fnc_Entp AS fncEntp,
+	t6.Ustrm_Splr AS ustrmSplr,
+	t6.StgCo AS stgco,
+	t6.Bnk AS bnk,
+	t6.Lgstc_Co AS lgstcCo,
+	t6.Ins_Co AS insCo,
+	t6.SplChain_Co AS splchainCo,
+	t6.BTp as btp,
+	t6.SvcFee_CMd as svcfeeCmd
+FROM
+	(
+		select t3.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd from
+		T3_Order_Inf t3 
+		left join(
+		SELECT DISTINCT
+			t1.*
+		FROM
+			t1_ar_inf t1,
+			USER t5
+		WHERE
+			t1.SplChain_Co = t5.SplChain_Co
+		) t10
+		on
+		t3.Ar_Id = t10.Ar_id
+	) t6
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
+) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_ 
+
+    <if test="orderBy != null and orderBy != ''">
+	   ORDER BY ${orderBy}
+    </if>
+) t8 
+where 1=1 
+<include refid="query_criteria_t8"></include>
+  </select>
+  
+  
+    <select id="queryOrderDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo">
+SELECT
+	t3.Fnc_Entp AS fncEntp,
+	t3.Ustrm_Splr AS ustrmSplr,
+	t3.StgCo AS stgco,
+	t3.Bnk AS bnk,
+	t3.Lgstc_Co AS lgstcCo,
+	t3.Ins_Co AS insCo,
+	t3.SplChain_Co AS splchainCo,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+	t3.BTp as btp,
+	t3.SvcFee_CMd as svcfeeCmd,
+	t3.id AS id,
+t3.Ar_ID AS arId,
+t3.Ordr_ID AS ordrId,
+t3.PROCESS_INST_ID AS processInstId,
+t3.Pd_Nm AS pdNm,
+t3.Spec AS spec,
+t3.Qly_Std AS qlyStd,
+t3.Brnd AS brnd,
+t3.Ordr_StDt AS ordrStdt,
+t3.Ordr_EdDt AS ordrEddt,
+t3.Pd_Fctr AS pdFctr,
+t3.Pch_UnitPrc AS pchUnitprc,
+t3.Wght AS wght,
+t3.Pch_PymFrGds_TAmt AS pchPymfrgdsTamt,
+t3.Txn_PrcDif AS txnPrcdif,
+t3.Sale_Tntv_Prc AS saleTntvPrc,
+t3.Fnc_Rto AS fncRto,
+t3.Fnc_Amt AS fncAmt,
+t3.Ctr_TAmt AS ctrTamt,
+t3.Prpy_Gld_Rto AS prpyGldRto,
+t3.Rskctr_UnitPrc AS rskctrUnitprc,
+t3.Rskctr_Prc_Ref AS rskctrPrcRef,
+t3.WnLn AS wnln,
+t3.Crdn AS crdn,
+t3.Clspos_Ln AS clsposLn,
+t3.SplOv_CrrOv_Mod AS splovCrrovMod,
+t3.Tms AS tms,
+t3.Ordr_St AS ordrSt,
+t3.username AS username,
+t3.Crt_Tm AS crtTm,
+t3.Fnc_SvcFee_Rate AS fncSvcfeeRate,
+t3.Gds_Nm AS gdsNm,
+t3.Gds_Pts_Num AS gdsPtsNum,
+t3.Gds_Wght AS gdsWght,
+t3.Ins_Amt AS insAmt,
+t3.Dctb_Amt AS dctbAmt,
+t3.EpAp AS epap,
+t3.Tprt_Dt AS tprtDt,
+t3.Pps_Lnd AS ppsLnd,
+t3.Tprt_Mod_And_Imt AS tprtModAndImt,
+t3.PymtMod AS pymtmod
+	
+FROM
+	(
+		SELECT
+			t13.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd 
+		FROM
+			T3_Order_Inf t13, T1_AR_Inf t10
+		where t13.id=#{id,jdbcType=INTEGER}
+		and t13.Ar_Id = t10.Ar_Id
+	) t3
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+) t4 ON t3.PROCESS_INST_ID = t4.PROC_INST_ID_
+  </select>
+  
+      <select id="queryOrderDetailByOrderId" parameterType="java.lang.String" resultType="com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo">
+SELECT
+	t3.Fnc_Entp AS fncEntp,
+	t3.Ustrm_Splr AS ustrmSplr,
+	t3.StgCo AS stgco,
+	t3.Bnk AS bnk,
+	t3.Lgstc_Co AS lgstcCo,
+	t3.Ins_Co AS insCo,
+	t3.SplChain_Co AS splchainCo,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+	_trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+	t3.BTp as btp,
+	t3.SvcFee_CMd as svcfeeCmd,
+	t3.id AS id,
+t3.Ar_ID AS arId,
+t3.Ordr_ID AS ordrId,
+t3.PROCESS_INST_ID AS processInstId,
+t3.Pd_Nm AS pdNm,
+t3.Spec AS spec,
+t3.Qly_Std AS qlyStd,
+t3.Brnd AS brnd,
+t3.Ordr_StDt AS ordrStdt,
+t3.Ordr_EdDt AS ordrEddt,
+t3.Pd_Fctr AS pdFctr,
+t3.Pch_UnitPrc AS pchUnitprc,
+t3.Wght AS wght,
+t3.Pch_PymFrGds_TAmt AS pchPymfrgdsTamt,
+t3.Txn_PrcDif AS txnPrcdif,
+t3.Sale_Tntv_Prc AS saleTntvPrc,
+t3.Fnc_Rto AS fncRto,
+t3.Fnc_Amt AS fncAmt,
+t3.Ctr_TAmt AS ctrTamt,
+t3.Prpy_Gld_Rto AS prpyGldRto,
+t3.Rskctr_UnitPrc AS rskctrUnitprc,
+t3.Rskctr_Prc_Ref AS rskctrPrcRef,
+t3.WnLn AS wnln,
+t3.Crdn AS crdn,
+t3.Clspos_Ln AS clsposLn,
+t3.SplOv_CrrOv_Mod AS splovCrrovMod,
+t3.Tms AS tms,
+t3.Ordr_St AS ordrSt,
+t3.username AS username,
+t3.Crt_Tm AS crtTm,
+t3.Fnc_SvcFee_Rate AS fncSvcfeeRate,
+t3.Gds_Nm AS gdsNm,
+t3.Gds_Pts_Num AS gdsPtsNum,
+t3.Gds_Wght AS gdsWght,
+t3.Ins_Amt AS insAmt,
+t3.Dctb_Amt AS dctbAmt,
+t3.EpAp AS epap,
+t3.Tprt_Dt AS tprtDt,
+t3.Pps_Lnd AS ppsLnd,
+t3.Tprt_Mod_And_Imt AS tprtModAndImt,
+t3.PymtMod AS pymtmod	
+FROM
+	(
+		SELECT
+			t13.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd 
+		FROM
+			T3_Order_Inf t13, T1_AR_Inf t10
+		where t13.Ordr_ID=#{ordrId,jdbcType=CHAR}
+		and t13.Ar_Id = t10.Ar_Id
+	) t3
+LEFT JOIN (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_
+) t4 ON t3.PROCESS_INST_ID = t4.PROC_INST_ID_
+  </select>
 </mapper>
