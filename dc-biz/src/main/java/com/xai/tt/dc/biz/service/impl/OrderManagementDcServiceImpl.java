@@ -138,7 +138,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			}
 			BeanUtils.copyProperties(inVo, t3OrderInf);
 			// 订单新建后记录订单状态
-			t3OrderInf.setArId(orderId);
+			t3OrderInf.setOrdrId(orderId);
 			t3OrderInf.setTms(new Date());
 			t3OrderInf.setCrtTm(new Date());
 
@@ -208,10 +208,12 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				logger.info("processInstId =" + processInstId);
 			}
 
-			// 保存环节流水
 			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
 			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
 			if ("05".equals(solveType) || "06".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
+				// 拾取并完成发起任务
+				wfDcService.claimAndCompleteOrderTask(orderId, inVo.getUsername(), "01", "01");
+				// 保存环节流水
 				T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 				BeanUtils.copyProperties(t3OrderInf, t0);
 				t0.setUsername(inVo.getUsername());
@@ -222,8 +224,6 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				t0.setProcessType("02");
 				t0.setId(null);
 				wfeUtils.saveLnkJrnlInf(t0);
-				// 拾取并完成发起任务
-				wfDcService.claimAndCompleteTask(orderId, inVo.getUsername(), "01", "01");
 			}
 			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
 			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
@@ -244,7 +244,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					t3.setTms(new Date());
 					Condition condition0 = new Condition(T3OrderInf.class);
 					Example.Criteria criteria0 = condition0.createCriteria();
-					criteria0.andCondition("AR_ID = '" + orderId + "'");
+					criteria0.andCondition("Order_ID = '" + orderId + "'");
 					int rltNum = t3OrderInfMapper.updateByConditionSelective(t3, condition0);
 					logger.info("更新订单状态，更新记录数：" + rltNum);
 				} catch (Exception e) {

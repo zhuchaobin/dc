@@ -7,10 +7,11 @@ public class WfeQuery extends SortQuery {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	// 长约编号
 	private String arId;
 	// 订单编号
-	private String ordrId;
+	private String orderId;
 	// 订单编号
 	private String username;
 	// 任务名称KEY
@@ -37,11 +38,12 @@ public class WfeQuery extends SortQuery {
 	public void setArId(String arId) {
 		this.arId = arId;
 	}
-	public String getOrdrId() {
-		return ordrId;
+
+	public String getOrderId() {
+		return orderId;
 	}
-	public void setOrdrId(String ordrId) {
-		this.ordrId = ordrId;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 	public String getUsername() {
 		return username;

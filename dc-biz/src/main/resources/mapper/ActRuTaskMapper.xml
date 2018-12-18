@@ -38,5 +38,15 @@ and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
       </if>  
 	</select>
 	
+  	<select id="queryOrderTaskId" parameterType="com.xai.tt.dc.client.query.WfeQuery" resultType="java.lang.String">
+select t2.ID_ from 
+T3_Order_Inf t1,
+act_ru_task t2
+where t1.Ordr_ID = #{orderId,jdbcType=VARCHAR}
+and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
+      <if test="taskDefKey  != null and taskDefKey  != ''">
+        and TASK_DEF_KEY_  = #{sndinsAdtTm ,jdbcType=VARCHAR}
+      </if>  
+	</select>	
 
 </mapper>

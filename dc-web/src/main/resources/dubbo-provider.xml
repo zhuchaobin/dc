@@ -20,4 +20,6 @@
     <dubbo:service interface="com.xai.tt.dc.client.service.ArManagementDcService" ref="arManagementDcService" version="1.0"/>
     <!--公司信息, 20181130-->
     <dubbo:service interface="com.xai.tt.dc.client.service.CompanyDcService" ref="companyDcService" version="1.0"/>
+    <!--订单管理, 20181218-->
+    <dubbo:service interface="com.xai.tt.dc.client.service.OrderManagementDcService" ref="orderManagementDcService" version="1.0"/>
 </beans>

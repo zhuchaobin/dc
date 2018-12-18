@@ -30,4 +30,10 @@ public interface WfDcService {
 	 * @author zhuchaobin 2018-12-13
 	 */	
 	boolean suspendProcessInstanceById(String processInstanceId);
+	/*
+	 * 拾取并提交任务（订单）
+	 * 2018-12-18
+	 * lingyun
+	 */
+	void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd);
 }

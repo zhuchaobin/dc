@@ -102,7 +102,7 @@ public class WfDcServiceImpl implements WfDcService{
 		}	
 	}	
 	/*
-	 * 拾取并提交任务
+	 * 拾取并提交任务（长约）
 	 * 2018-11-21
 	 */
 	@Override
@@ -114,6 +114,38 @@ public class WfDcServiceImpl implements WfDcService{
 			wfeQuery.setArId(id);
 //			wfeQuery.setTaskDefKey(DataConstants.TASK_DEF_KEY.get(aplyPcstpCd));
 			String taskId = actRuTaskMapper.queryTaskId(wfeQuery);
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+			processEngine.getTaskService()
+			.claim(taskId, username);
+			System.out.println("拾取任务完成");
+/*			processEngine.getTaskService()
+			.complete(taskId);*/
+			
+			Map<String, Object> variables= new HashMap<String, Object>();
+			if("01".equals(aplyPsrltCd))
+				variables.put("flag", 1);
+			else
+				variables.put("flag", 0);
+			processEngine.getTaskService()
+			.complete(taskId, variables);
+			
+			logger.info("拾取并完成发起任务成功");		
+	}
+	
+	/*
+	 * 拾取并提交任务（订单）
+	 * 2018-12-18
+	 * lingyun
+	 */
+	@Override
+	public void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd) {
+		logger.info("拾取并完成发起任务开始");
+		// 拾取并完成发起任务
+			// 查询任务id
+			WfeQuery wfeQuery = new WfeQuery();
+			wfeQuery.setOrderId(id);
+//			wfeQuery.setTaskDefKey(DataConstants.TASK_DEF_KEY.get(aplyPcstpCd));
+			String taskId = actRuTaskMapper.queryOrderTaskId(wfeQuery);
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 			processEngine.getTaskService()
 			.claim(taskId, username);
