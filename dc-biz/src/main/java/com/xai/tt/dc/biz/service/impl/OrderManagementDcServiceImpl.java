@@ -474,7 +474,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.error("提交订单，保存附件信息异常 {}", e);
 			return Result.createFailResult("提交订单，保存附件信息异常" + e);
 		}
-
+ 
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
