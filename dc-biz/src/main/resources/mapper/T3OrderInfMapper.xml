@@ -51,67 +51,67 @@
     <sql id="query_criteria">  
     
     <if test="id  != null">
-        and id  = #{id ,jdbcType=INTEGER}
+        and t3.id  = #{id ,jdbcType=INTEGER}
       </if>
 <if test="pchUnitprc  != null">
-        and Pch_UnitPrc  = #{pchUnitprc ,jdbcType=INTEGER}
+        and t3.Pch_UnitPrc  = #{pchUnitprc ,jdbcType=INTEGER}
       </if>
 <if test="wght  != null">
-        and Wght  = #{wght ,jdbcType=INTEGER}
+        and t3.Wght  = #{wght ,jdbcType=INTEGER}
       </if>
 <if test="pchPymfrgdsTamt  != null">
-        and Pch_PymFrGds_TAmt  = #{pchPymfrgdsTamt ,jdbcType=INTEGER}
+        and t3.Pch_PymFrGds_TAmt  = #{pchPymfrgdsTamt ,jdbcType=INTEGER}
       </if>
 <if test="txnPrcdif  != null">
-        and Txn_PrcDif  = #{txnPrcdif ,jdbcType=INTEGER}
+        and t3.Txn_PrcDif  = #{txnPrcdif ,jdbcType=INTEGER}
       </if>
 <if test="saleTntvPrc  != null">
-        and Sale_Tntv_Prc  = #{saleTntvPrc ,jdbcType=INTEGER}
+        and t3.Sale_Tntv_Prc  = #{saleTntvPrc ,jdbcType=INTEGER}
       </if>
 <if test="fncRto  != null">
-        and Fnc_Rto  = #{fncRto ,jdbcType=INTEGER}
+        and t3.Fnc_Rto  = #{fncRto ,jdbcType=INTEGER}
       </if>
 <if test="fncAmt  != null">
-        and Fnc_Amt  = #{fncAmt ,jdbcType=INTEGER}
+        and t3.Fnc_Amt  = #{fncAmt ,jdbcType=INTEGER}
       </if>
 <if test="ctrTamt  != null">
-        and Ctr_TAmt  = #{ctrTamt ,jdbcType=INTEGER}
+        and t3.Ctr_TAmt  = #{ctrTamt ,jdbcType=INTEGER}
       </if>
 <if test="prpyGldRto  != null">
-        and Prpy_Gld_Rto  = #{prpyGldRto ,jdbcType=INTEGER}
+        and t3.Prpy_Gld_Rto  = #{prpyGldRto ,jdbcType=INTEGER}
       </if>
 <if test="rskctrUnitprc  != null">
-        and Rskctr_UnitPrc  = #{rskctrUnitprc ,jdbcType=INTEGER}
+        and t3.Rskctr_UnitPrc  = #{rskctrUnitprc ,jdbcType=INTEGER}
       </if>
 <if test="wnln  != null">
-        and WnLn  = #{wnln ,jdbcType=INTEGER}
+        and t3.WnLn  = #{wnln ,jdbcType=INTEGER}
       </if>
 <if test="crdn  != null">
-        and Crdn  = #{crdn ,jdbcType=INTEGER}
+        and t3.Crdn  = #{crdn ,jdbcType=INTEGER}
       </if>
 <if test="clsposLn  != null">
-        and Clspos_Ln  = #{clsposLn ,jdbcType=INTEGER}
+        and t3.Clspos_Ln  = #{clsposLn ,jdbcType=INTEGER}
       </if>
 <if test="fncSvcfeeRate  != null">
-        and Fnc_SvcFee_Rate  = #{fncSvcfeeRate ,jdbcType=INTEGER}
+        and t3.Fnc_SvcFee_Rate  = #{fncSvcfeeRate ,jdbcType=INTEGER}
       </if>
 <if test="gdsWght  != null">
-        and Gds_Wght  = #{gdsWght ,jdbcType=INTEGER}
+        and t3.Gds_Wght  = #{gdsWght ,jdbcType=INTEGER}
       </if>
 <if test="insAmt  != null">
-        and Ins_Amt  = #{insAmt ,jdbcType=INTEGER}
+        and t3.Ins_Amt  = #{insAmt ,jdbcType=INTEGER}
       </if>
 <if test="dctbAmt  != null">
-        and Dctb_Amt  = #{dctbAmt ,jdbcType=INTEGER}
+        and t3.Dctb_Amt  = #{dctbAmt ,jdbcType=INTEGER}
       </if>
 <if test="gdsPtsNum  != null">
-        and Gds_Pts_Num  = #{gdsPtsNum ,jdbcType=INTEGER}
+        and t3.Gds_Pts_Num  = #{gdsPtsNum ,jdbcType=INTEGER}
       </if>
 <if test="tms  != null">
-        and Tms  = #{tms ,jdbcType=INTEGER}
+        and t3.Tms  = #{tms ,jdbcType=INTEGER}
       </if>
 <if test="crtTm  != null">
-        and Crt_Tm  = #{crtTm ,jdbcType=INTEGER}
+        and t3.Crt_Tm  = #{crtTm ,jdbcType=INTEGER}
       </if>
     	  <if test="arId  != null and arId  != ''">
         and t3.Ar_ID like binary CONCAT('%', #{arId ,jdbcType=CHAR},'%')       
@@ -161,9 +161,6 @@
 	  <if test="pdFctr  != null and pdFctr  != ''">
         and t3.Pd_Fctr like binary CONCAT('%', #{pdFctr ,jdbcType=CHAR},'%')       
       </if>
-	  <if test="username  != null and username  != ''">
-        and t3.username like binary CONCAT('%', #{username ,jdbcType=CHAR},'%')       
-      </if>
 	  <if test="gdsNm  != null and gdsNm  != ''">
         and t3.Gds_Nm like binary CONCAT('%', #{gdsNm ,jdbcType=CHAR},'%')       
       </if>
@@ -173,13 +170,50 @@
 	  <if test="tprtModAndImt  != null and tprtModAndImt  != ''">
         and t3.Tprt_Mod_And_Imt like binary CONCAT('%', #{tprtModAndImt ,jdbcType=CHAR},'%')       
       </if>
+        <if test="fncEntp  != null and fncEntp  != ''">
+        and t1.Fnc_Entp  = #{fncEntp ,jdbcType=INTEGER}
+      </if>
+	  <if test="ustrmSplr  != null and ustrmSplr  != ''">
+        and t1.Ustrm_Splr  = #{ustrmSplr ,jdbcType=INTEGER}
+      </if>
+	  <if test="stgco  != null and stgco  != ''">
+        and t1.StgCo  = #{stgco ,jdbcType=INTEGER}
+      </if>
+	  <if test="bnk  != null and bnk  != ''">
+        and t1.Bnk  = #{bnk ,jdbcType=INTEGER}
+      </if>
+	  <if test="lgstcCo  != null and lgstcCo  != ''">
+        and t1.Lgstc_Co  = #{lgstcCo ,jdbcType=INTEGER}
+      </if>
+	  <if test="insCo  != null and insCo  != ''">
+        and t1.Ins_Co  = #{insCo ,jdbcType=INTEGER}
+      </if>
+	  <if test="splchainCo  != null and splchainCo  != ''">
+        and t1.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
+      </if>
+         <if test="queryType  != null and queryType  == 1">
+        and ((t3.PymtMod in('01', '02') and t3.Ordr_St  = '38') or
+        (t3.PymtMod ='03' and t3.Ordr_St  = '37'))
+      </if>
+      <if test="queryType  != null and queryType  == 2">
+        and ((t3.PymtMod in('01', '02') and t3.Ordr_St in ('32', '33', '34', '35', '36', '37')) or
+        (t3.PymtMod ='03' and t3.Ordr_St in ('32', '33', '34', '35', '36')))      
+      </if>  
+      <if test="queryType  != null and queryType  == 3">
+        and t3.Ordr_St  = '39'
+      </if>
+      <if test="queryType  != null and queryType  == 4">
+        and t3.Ordr_St  in ('31', '10', '11')
+      </if> 
+      <if test="queryType  != null and queryType  == 5">
+        and t3.Ordr_Id  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR})
+      </if> 
 	</sql>
       
    <sql id="query_criteria_t8"> 
    <if test="keyWorlds  != null and keyWorlds  != ''">
  and (t8.arId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.processInstId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t8.arTp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.fncEntpName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.ustrmSplrName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.stgcoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
@@ -187,7 +221,6 @@
  or t8.lgstcCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.insCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.splchainCoName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
-  or t8.arId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.ordrId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.rskctrPrcRef like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.splovCrrovMod like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
@@ -276,19 +309,15 @@ t6.PymtMod AS pymtmod,
 	t6.SvcFee_CMd as svcfeeCmd
 FROM
 	(
-		select t3.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd from
-		T3_Order_Inf t3 
-		left join(
-		SELECT DISTINCT
-			t1.*
-		FROM
+		select t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
+		T3_Order_Inf t3,
 			t1_ar_inf t1,
 			USER t5
 		WHERE
 			t1.SplChain_Co = t5.SplChain_Co
-		) t10
-		on
-		t3.Ar_Id = t10.Ar_id
+			and 
+			t3.Ar_Id = t1.Ar_id
+			<include refid="query_criteria"></include>
 	) t6
 LEFT JOIN (
 	SELECT
@@ -375,19 +404,15 @@ t6.PymtMod AS pymtmod,
 	t6.SvcFee_CMd as svcfeeCmd
 FROM
 	(
-		select t3.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd from
-		T3_Order_Inf t3 
-		left join(
-		SELECT DISTINCT
-			t1.*
-		FROM
+		select t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
+		T3_Order_Inf t3,
 			t1_ar_inf t1,
 			USER t5
 		WHERE
 			t1.SplChain_Co = t5.SplChain_Co
-		) t10
-		on
-		t3.Ar_Id = t10.Ar_id
+			and 
+			t3.Ar_Id = t1.Ar_id
+			<include refid="query_criteria"></include>
 	) t6
 LEFT JOIN (
 	SELECT
@@ -468,11 +493,11 @@ t3.PymtMod AS pymtmod
 FROM
 	(
 		SELECT
-			t13.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd 
+			t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd 
 		FROM
-			T3_Order_Inf t13, T1_AR_Inf t10
+			T3_Order_Inf t13, T1_AR_Inf t1
 		where t13.id=#{id,jdbcType=INTEGER}
-		and t13.Ar_Id = t10.Ar_Id
+		and t13.Ar_Id = t1.Ar_Id
 	) t3
 LEFT JOIN (
 	SELECT
@@ -544,11 +569,11 @@ t3.PymtMod AS pymtmod
 FROM
 	(
 		SELECT
-			t13.*, t10.Fnc_Entp,t10.Ustrm_Splr,t10.StgCo,t10.Bnk,t10.Lgstc_Co,t10.Ins_Co,t10.SplChain_Co,t10.BTp,t10.SvcFee_CMd 
+			t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd 
 		FROM
-			T3_Order_Inf t13, T1_AR_Inf t10
+			T3_Order_Inf t13, T1_AR_Inf t1
 		where t13.Ordr_ID=#{ordrId,jdbcType=CHAR}
-		and t13.Ar_Id = t10.Ar_Id
+		and t13.Ar_Id = t1.Ar_Id
 	) t3
 LEFT JOIN (
 	SELECT

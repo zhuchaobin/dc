@@ -32,15 +32,15 @@ public class SubmitOrderQuery extends UserInfoQuery {
  /**
   * 订单编号
   */
- private String orderId;
- 
+ private String ordrId;
 
- public String getOrderId() {
-	return orderId;
+
+public String getOrdrId() {
+	return ordrId;
 }
 
-public void setOrderId(String orderId) {
-	this.orderId = orderId;
+public void setOrdrId(String ordrId) {
+	this.ordrId = ordrId;
 }
 
 public String getArId() {

@@ -212,13 +212,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
 			if ("05".equals(solveType) || "06".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 				// 拾取并完成发起任务
-				wfDcService.claimAndCompleteOrderTask(orderId, inVo.getUsername(), "01", "01");
+				wfDcService.claimAndCompleteOrderTask(orderId, inVo.getUsername(), "01", "01", inVo.getPymtmod());
 				// 保存环节流水
 				T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 				BeanUtils.copyProperties(t3OrderInf, t0);
 				t0.setUsername(inVo.getUsername());
 				t0.setCompanyId(inVo.getCompanyId());
-				t0.setRltvId(t3OrderInf.getArId());
+				t0.setRltvId(t3OrderInf.getOrdrId());
 				t0.setAplyPcstpCd("01");
 				t0.setAplyPsrltCd("01");
 				t0.setProcessType("02");
@@ -244,7 +244,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					t3.setTms(new Date());
 					Condition condition0 = new Condition(T3OrderInf.class);
 					Example.Criteria criteria0 = condition0.createCriteria();
-					criteria0.andCondition("Order_ID = '" + orderId + "'");
+					criteria0.andCondition("Ordr_ID = '" + orderId + "'");
 					int rltNum = t3OrderInfMapper.updateByConditionSelective(t3, condition0);
 					logger.info("更新订单状态，更新记录数：" + rltNum);
 				} catch (Exception e) {
@@ -368,7 +368,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.info("查询订单附件信息成功!");
 			// 查询订单流转信息
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-			t0.setRltvId(t3.getArId());
+			t0.setRltvId(t3.getOrdrId());
 			t0.setProcessType("02");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
 			t3.setList(t0LnkJrnlInfList);
@@ -451,8 +451,8 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 判断任务当前所处的环节是否正确
 			// todo()
 			// 拾取并完成任务
-			wfDcService.claimAndCompleteTask(query.getArId(), query.getUsername(), query.getAplyPcstpCd(),
-					query.getAplyPsrltCd());
+			wfDcService.claimAndCompleteOrderTask(query.getOrdrId(), query.getUsername(), query.getAplyPcstpCd(),
+					query.getAplyPsrltCd(), "");
 			logger.debug("拾取并完成任务成功！");
 		} catch (Exception e) {
 			logger.error("订单提交异常 {}", e);
@@ -465,7 +465,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				T2UploadAtch t2UploadAtch = new T2UploadAtch();
 				t2UploadAtch.setRltvTp(query.getAplyPcstpCd());
 				t2UploadAtch.setUsername(query.getUsername());
-				t2UploadAtch.setRltvId(query.getArId());
+				t2UploadAtch.setRltvId(query.getOrdrId());
 				insertFile(t2UploadAtch, query.getFileNames());
 			} else {
 				logger.debug("保存订单提交信息，附件为空！");
@@ -479,7 +479,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 			BeanUtils.copyProperties(query, t0);
-			t0.setRltvId(query.getArId());
+			t0.setRltvId(query.getOrdrId());
 			t0.setProcessType("02");
 			wfeUtils.saveLnkJrnlInf(t0);
 		} catch (Exception e) {
@@ -492,7 +492,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 更新订单状态
 			// t1.setOrdrSt(query.getAplyPcstpCd());
 			// 从工作流记录表中获取订单最新状态
-			QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(query.getOrderId());
+			QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(query.getOrdrId());
 			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 				t1.setOrdrSt(t1Vo.getAplyPcstpCd());
 			} else {
@@ -502,7 +502,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T3OrderInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Ordr_ID = '" + query.getOrderId() + "'");
+			criteria0.andCondition("Ordr_ID = '" + query.getOrdrId() + "'");
 			int rltNum = t3OrderInfMapper.updateByConditionSelective(t1, condition0);
 			logger.info("更新订单状态，更新记录数：" + rltNum);
 		} catch (Exception e) {

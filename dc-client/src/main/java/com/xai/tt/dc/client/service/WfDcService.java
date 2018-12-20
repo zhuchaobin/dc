@@ -35,5 +35,5 @@ public interface WfDcService {
 	 * 2018-12-18
 	 * lingyun
 	 */
-	void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd);
+	void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd, String pymtmod);
 }

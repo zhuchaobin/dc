@@ -138,8 +138,9 @@ public class WfDcServiceImpl implements WfDcService{
 	 * lingyun
 	 */
 	@Override
-	public void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd) {
+	public void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd, String pymtmod) {
 		logger.info("拾取并完成发起任务开始");
+		logger.info("参数id-username-aplyPcstpCd-aplyPsrltCd-pymtmod:" + id+"-"+username+"-"+aplyPcstpCd+"-"+aplyPsrltCd+"-"+pymtmod);
 		// 拾取并完成发起任务
 			// 查询任务id
 			WfeQuery wfeQuery = new WfeQuery();
@@ -149,15 +150,25 @@ public class WfDcServiceImpl implements WfDcService{
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 			processEngine.getTaskService()
 			.claim(taskId, username);
-			System.out.println("拾取任务完成");
-/*			processEngine.getTaskService()
-			.complete(taskId);*/
+			if(StringUtils.isNotBlank(taskId))
+				logger.info("查询任务id成功taskId=" + taskId);
+			else
+				logger.error("查询任务id成功失败，任务id为空");
 			
 			Map<String, Object> variables= new HashMap<String, Object>();
 			if("01".equals(aplyPsrltCd))
 				variables.put("flag", 1);
 			else
 				variables.put("flag", 0);
+			
+			if(StringUtils.isNotBlank(pymtmod)) {
+				if("01".equals(pymtmod))
+					variables.put("pymtmod", 1);
+				else if("02".equals(pymtmod))
+					variables.put("pymtmod", 2);
+				else if("03".equals(pymtmod))
+					variables.put("pymtmod", 3);
+			}
 			processEngine.getTaskService()
 			.complete(taskId, variables);
 			
