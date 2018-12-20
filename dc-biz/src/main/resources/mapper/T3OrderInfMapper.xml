@@ -192,15 +192,13 @@
         and t1.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
       </if>
          <if test="queryType  != null and queryType  == 1">
-        and ((t3.PymtMod in('01', '02') and t3.Ordr_St  = '38') or
-        (t3.PymtMod ='03' and t3.Ordr_St  = '37'))
+        and t3.Ordr_St  = '39'
       </if>
       <if test="queryType  != null and queryType  == 2">
-        and ((t3.PymtMod in('01', '02') and t3.Ordr_St in ('32', '33', '34', '35', '36', '37')) or
-        (t3.PymtMod ='03' and t3.Ordr_St in ('32', '33', '34', '35', '36')))      
-      </if>  
+        and t3.Ordr_St in ('32', '33', '34', '35', '36', '37','38')   
+      </if>
       <if test="queryType  != null and queryType  == 3">
-        and t3.Ordr_St  = '39'
+        and t3.PROCESS_INST_ID in (select t.PROC_INST_ID_ from act_hi_actinst t where t.PROC_INST_ID_=t3.PROCESS_INST_ID and t.ACT_ID_='endevent1')
       </if>
       <if test="queryType  != null and queryType  == 4">
         and t3.Ordr_St  in ('31', '10', '11')
@@ -309,7 +307,7 @@ t6.PymtMod AS pymtmod,
 	t6.SvcFee_CMd as svcfeeCmd
 FROM
 	(
-		select t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
+		select distinct t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
 		T3_Order_Inf t3,
 			t1_ar_inf t1,
 			USER t5
@@ -404,7 +402,7 @@ t6.PymtMod AS pymtmod,
 	t6.SvcFee_CMd as svcfeeCmd
 FROM
 	(
-		select t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
+		select distinct t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
 		T3_Order_Inf t3,
 			t1_ar_inf t1,
 			USER t5
@@ -493,7 +491,7 @@ t3.PymtMod AS pymtmod
 FROM
 	(
 		SELECT
-			t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd 
+			distinct t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd 
 		FROM
 			T3_Order_Inf t13, T1_AR_Inf t1
 		where t13.id=#{id,jdbcType=INTEGER}
@@ -569,7 +567,7 @@ t3.PymtMod AS pymtmod
 FROM
 	(
 		SELECT
-			t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd 
+			distinct t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd 
 		FROM
 			T3_Order_Inf t13, T1_AR_Inf t1
 		where t13.Ordr_ID=#{ordrId,jdbcType=CHAR}
