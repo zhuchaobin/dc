@@ -64,6 +64,36 @@ public class Company {
     private String usrTp;
 
     /**
+     * 注册地址
+     */
+    @Column(name = "RgtAds")
+    private String rgtads;
+
+    /**
+     * 纳税人识别号
+     */
+    @Column(name = "Taxpyr_Id_No")
+    private String taxpyrIdNo;
+
+    /**
+     * 开户行
+     */
+    @Column(name = "DepBnk")
+    private String depbnk;
+
+    /**
+     * 银行账户号
+     */
+    @Column(name = "Bnk_Acc_No")
+    private String bnkAccNo;
+
+    /**
+     * 备注
+     */
+    @Column(name = "Rmrk")
+    private String rmrk;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -269,5 +299,95 @@ public class Company {
      */
     public void setUsrTp(String usrTp) {
         this.usrTp = usrTp;
+    }
+
+    /**
+     * 获取注册地址
+     *
+     * @return RgtAds - 注册地址
+     */
+    public String getRgtads() {
+        return rgtads;
+    }
+
+    /**
+     * 设置注册地址
+     *
+     * @param rgtads 注册地址
+     */
+    public void setRgtads(String rgtads) {
+        this.rgtads = rgtads;
+    }
+
+    /**
+     * 获取纳税人识别号
+     *
+     * @return Taxpyr_Id_No - 纳税人识别号
+     */
+    public String getTaxpyrIdNo() {
+        return taxpyrIdNo;
+    }
+
+    /**
+     * 设置纳税人识别号
+     *
+     * @param taxpyrIdNo 纳税人识别号
+     */
+    public void setTaxpyrIdNo(String taxpyrIdNo) {
+        this.taxpyrIdNo = taxpyrIdNo;
+    }
+
+    /**
+     * 获取开户行
+     *
+     * @return DepBnk - 开户行
+     */
+    public String getDepbnk() {
+        return depbnk;
+    }
+
+    /**
+     * 设置开户行
+     *
+     * @param depbnk 开户行
+     */
+    public void setDepbnk(String depbnk) {
+        this.depbnk = depbnk;
+    }
+
+    /**
+     * 获取银行账户号
+     *
+     * @return Bnk_Acc_No - 银行账户号
+     */
+    public String getBnkAccNo() {
+        return bnkAccNo;
+    }
+
+    /**
+     * 设置银行账户号
+     *
+     * @param bnkAccNo 银行账户号
+     */
+    public void setBnkAccNo(String bnkAccNo) {
+        this.bnkAccNo = bnkAccNo;
+    }
+
+    /**
+     * 获取备注
+     *
+     * @return Rmrk - 备注
+     */
+    public String getRmrk() {
+        return rmrk;
+    }
+
+    /**
+     * 设置备注
+     *
+     * @param rmrk 备注
+     */
+    public void setRmrk(String rmrk) {
+        this.rmrk = rmrk;
     }
 }

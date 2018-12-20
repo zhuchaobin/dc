@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.User" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="chinese_name" property="chineseName" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="mobile_verified" property="mobileVerified" jdbcType="BIT" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="email_verified" property="emailVerified" jdbcType="BIT" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="app_enabled" property="appEnabled" jdbcType="BIT" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="register_app" property="registerApp" jdbcType="VARCHAR" />
+    <result column="data_range" property="dataRange" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="ext" property="ext" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="SplChain_Co" property="splchainCo" jdbcType="INTEGER" />
+    <result column="Usr_Tp" property="usrTp" jdbcType="CHAR" />
+    <result column="Ctfn_Tp" property="ctfnTp" jdbcType="CHAR" />
+    <result column="CtcPsn" property="ctcpsn" jdbcType="VARCHAR" />
+    <result column="Ctc_Tel" property="ctcTel" jdbcType="VARCHAR" />
+    <result column="Adt_Ind" property="adtInd" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>
