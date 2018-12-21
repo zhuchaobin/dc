@@ -130,7 +130,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			if ("01".equals(solveType) || "05".equals(solveType) || "07".equals(solveType)) {
 				orderId = "DD" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T3_Order_Inf_Seq", 4);
 			} else {
-				orderId = inVo.getArId();
+				orderId = inVo.getOrdrId();
 			}
 			if (StringUtils.isBlank(orderId)) {
 				logger.error("订单编号不能为空！");
@@ -408,7 +408,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		}
 
 		try {
-			// 保存环节流水
+			// 保存环节流水 
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 			BeanUtils.copyProperties(t1, t0);
 			t0.setUsername(inVo.getUsername());
@@ -430,7 +430,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T3OrderInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Order_ID = '" + t1.getOrdrId() + "'");
+			criteria0.andCondition("Ordr_ID = '" + t1.getOrdrId() + "'");
 			int rltNum = t3OrderInfMapper.updateByConditionSelective(t1, condition0);
 			logger.info("更新订单状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
