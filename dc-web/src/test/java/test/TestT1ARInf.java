@@ -36,7 +36,9 @@ public class TestT1ARInf{
 	@Test
 	@Rollback(false)
 	public void testSave() {
-		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_ORDER);
+//		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_ORDER);
+		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_SPG);
+		
 /*		boolean test = wfDcService.suspendProcessInstanceById("215001");
 		System.out.println("test=" + test);*/
 		System.out.println("deploymentId=" + deploymentId);

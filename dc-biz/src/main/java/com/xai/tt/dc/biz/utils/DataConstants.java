@@ -8,7 +8,7 @@ public class DataConstants {
 	// 订单流程名
 	public static final String PROCESS_NAME_ORDER = "OrderFlow";
 	// 发货流程名
-	public static final String PROCESS_NAME_SPG = "SPGFlow";
+	public static final String PROCESS_NAME_SPG = "SpgFlow";
 	
 	// 环节
 	public static final HashMap<String, String> APLY_PCSTP_CD = new HashMap<String, String>();

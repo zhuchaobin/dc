@@ -174,4 +174,19 @@ public class WfDcServiceImpl implements WfDcService{
 			
 			logger.info("拾取并完成发起任务成功");		
 	}
+	
+	 /*
+	 * 判断流程是否结束（通用）
+	 * 2018-12-20
+	 * lingyun
+	 */
+	public boolean isEndProcess(String processInstId) {
+		if(actRuTaskMapper.isEndProcess(processInstId) > 0) {
+			logger.info("判断流程是否结束,结果为已结束");	
+			return true;
+		} else {
+			logger.info("判断流程是否结束,结果为未结束");	
+			return false;
+		}
+	}
 }

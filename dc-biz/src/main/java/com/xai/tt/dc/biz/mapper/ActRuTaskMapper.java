@@ -7,4 +7,6 @@ import tk.mybatis.mapper.common.Mapper;
 public interface ActRuTaskMapper extends Mapper<ActRuTask> {
 	String queryTaskId(WfeQuery wfeQuery);
 	String queryOrderTaskId(WfeQuery wfeQuery);
+	Integer isEndProcess(String processInstId);
+	
 }

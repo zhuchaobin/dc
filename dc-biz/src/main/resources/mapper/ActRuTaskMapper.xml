@@ -48,5 +48,9 @@ and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
         and TASK_DEF_KEY_  = #{sndinsAdtTm ,jdbcType=VARCHAR}
       </if>  
 	</select>	
+	
+	<select id="isEndProcess" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from act_hi_actinst t where t.PROC_INST_ID_=#{processInstId ,jdbcType=VARCHAR} and t.ACT_ID_='endevent1'
+	</select>	
 
 </mapper>

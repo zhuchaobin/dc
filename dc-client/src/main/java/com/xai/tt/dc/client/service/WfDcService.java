@@ -36,4 +36,11 @@ public interface WfDcService {
 	 * lingyun
 	 */
 	void claimAndCompleteOrderTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd, String pymtmod);
+	
+	/*
+	 * 判断流程是否结束（通用）
+	 * 2018-12-20
+	 * lingyun
+	 */
+	boolean isEndProcess(String processInstId);
 }

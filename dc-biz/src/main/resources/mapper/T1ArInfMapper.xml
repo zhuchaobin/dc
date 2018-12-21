@@ -169,13 +169,14 @@
         and Ins_EdDt  = #{insEddt ,jdbcType=CHAR}
       </if>
       <if test="queryType  != null and queryType  == 1">
-        and AR_St  = '06'
+        and AR_St  = '07'
       </if>
       <if test="queryType  != null and queryType  == 2">
-        and AR_St  in ('02', '03', '04', '05')
+        and AR_St  in ('02', '03', '04', '05','06')
       </if>  
       <if test="queryType  != null and queryType  == 3">
-        and AR_St  = '07'
+   <!--     and AR_St  = '07'   -->       
+        and t3.PROCESS_INST_ID in (select t.PROC_INST_ID_ from act_hi_actinst t where t.PROC_INST_ID_=t3.PROCESS_INST_ID and t.ACT_ID_='endevent1')
       </if>
       <if test="queryType  != null and queryType  == 4">
         and AR_St  in ('01', '10', '11')

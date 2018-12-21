@@ -238,8 +238,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 						t3.setOrdrSt(t1Vo.getAplyPcstpCd());
 					} else {
-						logger.error("更新订单信息，获取订单状态失败");
-						return Result.createFailResult("更新订单信息，获取订单状态失败");
+						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
+								t3.setOrdrSt("99");
+								logger.info("流程已经结束.");
+						} else {
+							logger.error("更新订单信息，获取订单状态失败");
+							return Result.createFailResult("更新订单信息，获取订单状态失败");
+						}
 					}
 					t3.setTms(new Date());
 					Condition condition0 = new Condition(T3OrderInf.class);

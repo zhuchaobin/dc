@@ -250,8 +250,13 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 						t1.setArSt(t1Vo.getAplyPcstpCd());
 					} else {
-						logger.error("更新长约信息，获取长约状态失败");
-						return Result.createFailResult("更新长约信息，获取长约状态失败");
+						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
+							t1.setArSt("99");
+							logger.info("流程已经结束.");
+						} else {
+							logger.error("更新长约信息，获取长约状态失败");
+							return Result.createFailResult("更新长约信息，获取长约状态失败");
+						}
 					}
 					t1.setTms(new Date());
 					Condition condition0 = new Condition(T1ArInf.class);
