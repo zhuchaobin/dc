@@ -36,8 +36,8 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.tianan.kltsp</groupId>
-			<artifactId>dc-client</artifactId>
+			<groupId>com.xai.tt</groupId>
+			<artifactId>ttdc-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.tianan.tsp</groupId>
