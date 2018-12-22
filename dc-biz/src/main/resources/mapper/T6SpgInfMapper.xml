@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T6SpgInfMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T6SpgInf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Ar_ID" property="arId" jdbcType="CHAR" />
+    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
+    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
+    <result column="PROCESS_INST_ID" property="processInstId" jdbcType="VARCHAR" />
+    <result column="Spg_Tm" property="spgTm" jdbcType="TIMESTAMP" />
+    <result column="Spg_Psn" property="spgPsn" jdbcType="VARCHAR" />
+    <result column="Spg_Psn_Ctc_Tel" property="spgPsnCtcTel" jdbcType="VARCHAR" />
+    <result column="Cnsgn" property="cnsgn" jdbcType="VARCHAR" />
+    <result column="Cnsgn_Ctc_Tel" property="cnsgnCtcTel" jdbcType="VARCHAR" />
+    <result column="Pps_Lnd" property="ppsLnd" jdbcType="VARCHAR" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="Spg_St" property="spgSt" jdbcType="CHAR" />
+  </resultMap>
+</mapper>

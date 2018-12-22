@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T7SpgDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T7SpgDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
+    <result column="Pd_Nm" property="pdNm" jdbcType="VARCHAR" />
+    <result column="Spec" property="spec" jdbcType="VARCHAR" />
+    <result column="Qly_Std" property="qlyStd" jdbcType="VARCHAR" />
+    <result column="Brnd" property="brnd" jdbcType="VARCHAR" />
+    <result column="Pd_Fctr" property="pdFctr" jdbcType="VARCHAR" />
+    <result column="Num" property="num" jdbcType="REAL" />
+  </resultMap>
+</mapper>
