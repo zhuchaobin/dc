@@ -6,24 +6,19 @@ import com.github.pagehelper.PageHelper;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
-import com.xai.tt.dc.biz.mapper.CompanyMapper;
-import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
-import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
-import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
+import com.xai.tt.dc.biz.mapper.*;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
-import com.xai.tt.dc.client.model.Company;
-import com.xai.tt.dc.client.model.T0LnkJrnlInf;
-import com.xai.tt.dc.client.model.T1ArInf;
-import com.xai.tt.dc.client.model.T2UploadAtch;
+import com.xai.tt.dc.client.model.*;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
@@ -66,17 +61,21 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	@Autowired
 	private CompanyMapper companyMapper;
 
+
+	@Autowired
+	private T6SpgInfMapper t6SpgInfMapper;
+
 	/**
 	 * 描述：保存发货信息
 	 * 
 	 * @author yuzhaoyang 2018-12-23
 	 */
 	@Override
-	public Result<Boolean> save(ArManagementInVo inVo) {
+	public Result<Boolean> save(SpgManagementInVo inVo) {
 		logger.info("保存发货信息请求报文", JSON.toJSONString(inVo));
 		logger.info("二级服务码secSrvCd：" + inVo.getSecSrvCd());
 		// 保存长约信息
-		T1ArInf t1ArInf = new T1ArInf();
+		T6SpgInf t6SpgInfo = new T6SpgInf();
 		String arId = "";
 		try {
 			if (null == inVo) {
@@ -88,35 +87,35 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
 			// 判断处理类别
 			if ("01".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {		
-					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
+				if(null != inVo.getId()) {
+					T6SpgInf rltT1 = t6SpgInfMapper.selectByPrimaryKey(inVo.getId());
 					if((null != rltT1)){
 						//撤销件	
-						if("11".equals(rltT1.getArSt())) {
+						if("11".equals(rltT1.getSpgSt())) {
 							solveType = "03";
-						} else if("10".equals(rltT1.getArSt())){
+						} else if("10".equals(rltT1.getSpgSt())){
 							solveType = "04";
-						} else if("01".equals(rltT1.getArSt())){
+						} else if("01".equals(rltT1.getSpgSt())){
 							solveType = "02";
 						}
 					} else {
 						solveType = "01";
-						inVo.setArSt("10");
-					}					
+						inVo.setSpgSt("10");
+					}
 				} else {
 					solveType = "01";
-					inVo.setArSt("10");
+					inVo.setSpgSt("10");
 				}
 			} else if ("02".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {		
-					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
+				if(null != inVo.getId()) {
+					T6SpgInf rltT1 = t6SpgInfMapper.selectByPrimaryKey(inVo.getId());
 					if((null != rltT1)){
 						//撤销件	
-						if("11".equals(rltT1.getArSt())) {
+						if("11".equals(rltT1.getSpgSt())) {
 							solveType = "07";
-						} else if("10".equals(rltT1.getArSt())){
+						} else if("10".equals(rltT1.getSpgSt())){
 							solveType = "08";
-						} else if("01".equals(rltT1.getArSt())){
+						} else if("01".equals(rltT1.getSpgSt())){
 							solveType = "06";
 						}
 					} else {
@@ -138,29 +137,28 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				logger.error("长约编号不能为空！");
 				return Result.createFailResult("长约编号不能为空！");
 			}
-			BeanUtils.copyProperties(inVo, t1ArInf);
+			BeanUtils.copyProperties(inVo, t6SpgInfo);
 			// 长约新建后记录长约状态
-			t1ArInf.setArId(arId);
-			t1ArInf.setCrtPsn(inVo.getUsername());
-			t1ArInf.setTms(new Date());
-			t1ArInf.setCrtTm(new Date());
-			t1ArInf.setSplchainCo(123);
+			t6SpgInfo.setArId(arId);
+			t6SpgInfo.setCnsgn("");
+			t6SpgInfo.setTms(new Date());
+
 			
 			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
 			// 
-			if(StringUtils.isBlank(t1ArInf.getArSt())){
+			if(StringUtils.isBlank(t6SpgInfo.getSpgSt())){
 				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
-					t1ArInf.setArSt("01");
+					t6SpgInfo.setSpgSt("01");
 				}
 			}
 			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
-				t1ArInf.setId(null);
-				int num = t1ARInfMapper.insertSelective(t1ArInf);
+				t6SpgInfo.setId(null);
+				int num = t6SpgInfMapper.insertSelective(t6SpgInfo);
 				logger.info("更新长约信息成功，插入记录数：" + num);
 			} else {
-				int num = t1ARInfMapper.updateByPrimaryKeySelective(t1ArInf);
-				logger.info("更新长约信息成功：长约id" + t1ArInf.getArId() + "更新条数：" + num);
+				int num = t6SpgInfMapper.updateByPrimaryKeySelective(t6SpgInfo);
+				logger.info("更新长约信息成功：长约id" + t6SpgInfo.getArId() + "更新条数：" + num);
 			}
 
 			// 保存长约附件信息
@@ -172,13 +170,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t2UploadAtch.setRltvId(arId);
 					insertFile(t2UploadAtch, inVo.getFileNames());
 				}
-				/*
-				 * if (null != inVo.getList()) { for (TB0001SubInVo subInvo : inVo.getList()) {
-				 * if (null != subInvo) { T2UploadAtch t2UploadAtch = new T2UploadAtch();
-				 * BeanUtils.copyProperties(subInvo, t2UploadAtch);
-				 * t2UploadAtch.setRltvId(t1ArInf.getArId());
-				 * t2UploadAtchMapper.insertSelective(t2UploadAtch); } } }
-				 */ else {
+			else {
 					logger.error("保存长约信息，长约附件为空！");
 				}
 			} catch (Exception e) {
@@ -211,11 +203,11 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				} else {
 					logger.error("发起长约，启动流程成功，processInstId:" + processInstId);
 				}
-				t1ArInf.setProcessInstId(processInstId);
-				Condition condition = new Condition(T1ArInf.class);
+				t6SpgInfo.setProcessInstId(processInstId);
+				Condition condition = new Condition(T6SpgInf.class);
 				Example.Criteria criteria = condition.createCriteria();
 				criteria.andCondition("AR_ID = '" + arId + "'");
-				t1ARInfMapper.updateByConditionSelective(t1ArInf, condition);
+				t6SpgInfMapper.updateByConditionSelective(t6SpgInfo, condition);
 				logger.info("processInstId =" + processInstId);
 			}
 			
@@ -224,10 +216,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
 			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
 				T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-				BeanUtils.copyProperties(t1ArInf, t0);
+				BeanUtils.copyProperties(t6SpgInfo, t0);
 				t0.setUsername(inVo.getUsername());
 				t0.setCompanyId(inVo.getCompanyId());
-				t0.setRltvId(t1ArInf.getArId());
+				t0.setRltvId(t6SpgInfo.getArId());
 				t0.setAplyPcstpCd("01");
 				t0.setAplyPsrltCd("01");
 				t0.setProcessType("01");

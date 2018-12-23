@@ -6,6 +6,7 @@ import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
@@ -17,7 +18,7 @@ import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
  */
 public interface SpgManagementDcService {
 
-	Result<Boolean> save(ArManagementInVo req);
+	Result<Boolean> save(SpgManagementInVo req);
 
 	Result<PageData<QueryPageArOutVo>> queryPage(ArManagementInVo query, PageParam pageParam);
 

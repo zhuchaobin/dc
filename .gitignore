@@ -1,2 +1,6 @@
 /.metadata/
 /.recommenders/
+dc.iml
+dc-biz/dc-biz.iml
+dc-client/dc-client.iml
+dc-web/dc-web.iml
