@@ -22,4 +22,8 @@
     <dubbo:service interface="com.xai.tt.dc.client.service.CompanyDcService" ref="companyDcService" version="1.0"/>
     <!--订单管理, 20181218-->
     <dubbo:service interface="com.xai.tt.dc.client.service.OrderManagementDcService" ref="orderManagementDcService" version="1.0"/>
+
+    <!--发货管理, 20181223-->
+    <dubbo:service interface="com.xai.tt.dc.client.service.SpgManagementDcService" ref="spgManagementDcService" version="1.0"/>
+
 </beans>
