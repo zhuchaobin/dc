@@ -17,6 +17,7 @@ import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
+import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
@@ -233,16 +234,18 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
 				// 更新长约状态为新状态
 				try {
-					T1ArInf t1 = new T1ArInf();
+					T6SpgInf t1 = new T6SpgInf();
 					// 更新长约状态
 					//t1.setArSt(query.getAplyPcstpCd());
 					//从工作流记录表中获取长约最新状态
-					T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(arId);
+
+					//todo
+					T6SpgInfDetailVo t1Vo = t6SpgInfMapper.queryArDetailByArId(arId);
 					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
-						t1.setArSt(t1Vo.getAplyPcstpCd());
+						t1.setSpgSt(t1Vo.getAplyPcstpCd());
 					} else {
 						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
-							t1.setArSt("99");
+							t1.setSpgSt("99");
 							logger.info("流程已经结束.");
 						} else {
 							logger.error("更新长约信息，获取长约状态失败");
@@ -253,7 +256,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					Condition condition0 = new Condition(T1ArInf.class);
 					Example.Criteria criteria0 = condition0.createCriteria();
 					criteria0.andCondition("AR_ID = '" + arId + "'");
-					int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
+					int rltNum = t6SpgInfMapper.updateByConditionSelective(t1, condition0);
 					logger.info("更新长约状态，更新记录数：" + rltNum);
 				} catch (Exception e) {
 					logger.error("更新长约状态异常 {}", e);
