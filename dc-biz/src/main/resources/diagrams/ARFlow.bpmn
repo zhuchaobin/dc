@@ -4,8 +4,8 @@
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <userTask id="AR_Itt_Pltfrm" name="长约发起(平台)" activiti:candidateGroups="01"></userTask>
-    <userTask id="AR_Cfm_SplChain" name="长约确认(供应链)" activiti:candidateGroups="02"></userTask>
-    <userTask id="AR_Cfm_Dwstr_Entp" name="长约确认(下游企业)" activiti:candidateGroups="03"></userTask>
+    <userTask id="AR_Cfm_SplChain" name="长约确认(供应链)" activiti:candidateGroups="03"></userTask>
+    <userTask id="AR_Cfm_Dwstr_Entp" name="长约确认(下游企业)" activiti:candidateGroups="04"></userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="AR_Itt_Pltfrm"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="AR_Itt_Pltfrm" targetRef="AR_Cfm_SplChain"></sequenceFlow>
     <exclusiveGateway id="AR_Cfm_SplChain_Gw" name="长约确认(供应链)网关"></exclusiveGateway>
@@ -16,7 +16,7 @@
     <sequenceFlow id="flow7" sourceRef="AR_Cfm_SplChain_Gw" targetRef="AR_Cfm_Dwstr_Entp">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="AR_Cfm_Ins_Co" name="长约确认(保险公司)" activiti:candidateGroups="04"></userTask>
+    <userTask id="AR_Cfm_Ins_Co" name="长约确认(保险公司)" activiti:candidateGroups="05"></userTask>
     <exclusiveGateway id="AR_Cfm_Dwstr_Entp_Gw" name="长约确认(下游企业)网关"></exclusiveGateway>
     <sequenceFlow id="flow8" sourceRef="AR_Cfm_Dwstr_Entp" targetRef="AR_Cfm_Dwstr_Entp_Gw"></sequenceFlow>
     <sequenceFlow id="flow9" sourceRef="AR_Cfm_Dwstr_Entp_Gw" targetRef="AR_Cfm_SplChain">
@@ -59,6 +59,7 @@
     <sequenceFlow id="flow22" sourceRef="AR_Tmt_Pltfrm_Gw" targetRef="endevent1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
     </sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="AR_Cfm_Ins_Co" targetRef="AR_Cfm_Ins_Co_Gw"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ARFlow">
     <bpmndi:BPMNPlane bpmnElement="ARFlow" id="BPMNPlane_ARFlow">
@@ -182,6 +183,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
         <omgdi:waypoint x="151.0" y="768.0"></omgdi:waypoint>
         <omgdi:waypoint x="384.0" y="830.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="464.0" y="428.0"></omgdi:waypoint>
+        <omgdi:waypoint x="591.0" y="427.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

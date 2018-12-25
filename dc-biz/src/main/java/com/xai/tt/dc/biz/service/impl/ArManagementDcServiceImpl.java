@@ -21,6 +21,7 @@ import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
 import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
+import com.xai.tt.dc.biz.mapper.UserMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
@@ -29,6 +30,7 @@ import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.model.T2UploadAtch;
+import com.xai.tt.dc.client.model.User;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
@@ -66,7 +68,10 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 
 	@Autowired
 	private CompanyMapper companyMapper;
-
+	
+	@Autowired
+	private UserMapper userMapper;
+	
 	/**
 	 * 描述：保存长约信息
 	 * 
@@ -343,6 +348,16 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
 		logger.info("getSortOrder:" + query.getSortOrder());
+		// 查询用户角色权限信息
+		Condition condition = new Condition(User.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("username = '" + query.getUsername() + "'");
+		User user = userMapper.selectByCondition(condition).get(0);
+		query.setSplchainCo(user.getSplchainCo());
+		query.setUserType(user.getUserType());
+		query.setCompanyId(user.getCompanyId());
+		query.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));
+		// 查询长约信息
 		Page<QueryPageArOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {

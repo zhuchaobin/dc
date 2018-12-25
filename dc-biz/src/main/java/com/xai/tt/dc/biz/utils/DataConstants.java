@@ -47,4 +47,25 @@ public class DataConstants {
 		// 长约终止（平台）
 		TASK_DEF_KEY.put("07", "AR_Tmt_Pltfrm");
 	}
+	
+	// 环节
+	public static final HashMap<Integer, String> USER_TYPE_2_USR_TP = new HashMap<Integer, String>();
+	static {
+		// 平台
+		USER_TYPE_2_USR_TP.put(1, "01");
+		// 上游供应商
+		USER_TYPE_2_USR_TP.put(2, "02");
+		// 供应链公司
+		USER_TYPE_2_USR_TP.put(3, "03");
+		// 融资企业
+		USER_TYPE_2_USR_TP.put(4, "04");
+		// 保险公司
+		USER_TYPE_2_USR_TP.put(5, "05");
+		// 银行
+		USER_TYPE_2_USR_TP.put(6, "06");
+		// 物流公司
+		USER_TYPE_2_USR_TP.put(7, "07");
+		// 仓储公司
+		USER_TYPE_2_USR_TP.put(8, "08");
+	}
 }
