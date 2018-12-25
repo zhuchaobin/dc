@@ -20,9 +20,7 @@ import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
-import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
+import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -277,14 +275,14 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 */
 	@Override
 	public Result<Boolean> deleteSpg(String id) {
-		logger.info("删除长约,请求参数:{}", id);
+		logger.info("删除发货,请求参数:{}", id);
 		try {
-			t1ARInfMapper.deleteByPrimaryKey(Long.parseLong(id));
-			logger.info("删除长约成功!");
+			t6SpgInfMapper.deleteByPrimaryKey(Long.parseLong(id));
+			logger.info("删除发货成功!");
 			return Result.createSuccessResult(true);
 		} catch (Exception e) {
-			logger.error("删除长约异常 {}", e);
-			return Result.createFailResult("删除长约异常" + e);
+			logger.error("删除发货异常 {}", e);
+			return Result.createFailResult("删除发货异常" + e);
 		}
 	}
 
@@ -310,17 +308,17 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			for (T2UploadAtch t2 : t2UploadAtchs) {
 				if (null != t2UploadAtchMapper.selectByPrimaryKey(t2.getId())) {
 					// 更新记录
-					logger.debug("保存长约附件信息");
+					logger.debug("保存发货附件信息");
 					t2UploadAtchMapper.updateByPrimaryKeySelective(t2);
 				} else {
 					// 插入记录
-					logger.debug("更新长约附件信息");
+					logger.debug("更新发货附件信息");
 					t2UploadAtchMapper.insert(t2);
 				}
 			}
-			// t2UploadAtchMapper.insertList(t2UploadAtchs);
+
 		} catch (Exception e) {
-			logger.info("保存附件信息发生异常：", e);
+			logger.info("保存发货附件信息发生异常：", e);
 		}
 
 	}
@@ -331,20 +329,20 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 * @author zhuchaobin 2018-10-26
 	 */
 	@Override
-	public Result<PageData<QueryPageArOutVo>> queryPage(ArManagementInVo query, PageParam pageParam) {
-		logger.info("start query 长约信息 List =======> query:{},page:{}", query, pageParam);
+	public Result<PageData<QueryPageSpgOutVo>> queryPage(SpgManagementInVo query, PageParam pageParam) {
+		logger.info("start query 发货信息 List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
 		logger.info("getSortOrder:" + query.getSortOrder());
-		Page<QueryPageArOutVo> page = null;
+		Page<QueryPageSpgOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
 		}
 		try {
-			page = t1ARInfMapper.selectByT1ARInfDcQuery(query);
-			count = t1ARInfMapper.count(query);
+			page = t6SpgInfMapper.selectByT6SpgInfDcQuery(query);
+			count = t6SpgInfMapper.count(query);
 		} catch (Exception e) {
 
 			logger.error("查询长约列表异常 {}", e);
@@ -360,8 +358,9 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 * @author 2018-11-26
 	 */
 	@SuppressWarnings("null")
+
 	@Override
-	public Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(ArManagementInVo query, PageParam pageParam) {
+	public Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(SpgManagementInVo query, PageParam pageParam) {
 		logger.info("start query MaintenanceParm List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
 		Page<QueryLnkJrnlInfOutVo> page = null;
@@ -370,19 +369,15 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
 		}
 		try {
-			// 查询长约流转信息
+			// 查询发货流转信息
 			Condition condition = new Condition(T0LnkJrnlInf.class);
 			Example.Criteria criteria = condition.createCriteria();
 			criteria.andCondition("Rltv_ID = 'CY201811250116'");
 			criteria.andCondition("PROCESS_TYPE= '01'");
-			// List<QueryPageLnkJrnlInfOutVo> t0LnkJrnlInfList=
-			// t0LnkJrnlInfMapper.selectByCondition(condition);
-			/* page.addAll(t0LnkJrnlInfList); */
-			// page = (Page<QueryPageLnkJrnlInfOutVo>) t0LnkJrnlInfList;
-			// count = t0LnkJrnlInfList.size();
+
 		} catch (Exception e) {
 
-			logger.error("查询长约列表异常 {}", e);
+			logger.error("查询发货列表异常 {}", e);
 			return Result.createFailResult("查询异常");
 		}
 		logger.info("query maintenanceParm list success!");
@@ -390,67 +385,63 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	}
 
 	/**
-	 * 描述：查询长约详情
+	 * 描述：查询发货详情
 	 * 
-	 * @author zhuchaobin 2018-11-21
+	 * @author yuzhaoyang 2018-12-25
 	 */
 	@Override
-	public Result<T1ARInfDetailVo> querySpgDetail(String id) {
-		logger.info("查询长约详情,请求参数:{}", id);
+	public Result<T6SpgInfDetailVo> querySpgDetail(String id) {
+		logger.info("查询发货详情,请求参数:{}", id);
 		try {
-			T1ARInfDetailVo t1 = null;
-			/*
-			 * Condition condition = new Condition(T1ARInf.class); Example.Criteria criteria
-			 * = condition.createCriteria(); criteria.andCondition("AR_ID = '" + id + "'");
-			 * t1ARInf = t1ARInfMapper.selectByCondition(condition).get(0);
-			 */
-			t1 = t1ARInfMapper.queryArDetail(Integer.parseInt(id));
+			T6SpgInfDetailVo t1 = null;
+
+			t1 = t6SpgInfMapper.querySpgDetail(Integer.parseInt(id));
 			if (t1 == null) {
-				logger.error("查询长约详情无数据");
-				return Result.createFailResult("查询长约详情无数据");
+				logger.error("查询发货详情无数据");
+				return Result.createFailResult("查询发货详情无数据");
 			}
-			// 查询长约附件信息
+			// 查询发货附件信息
 			Condition condition0 = new Condition(T2UploadAtch.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Rltv_ID = '" + t1.getArId() + "'");
+			criteria0.andCondition("Rltv_ID = '" + t1.getSpgId() + "'");
 			criteria0.andCondition("Rltv_Tp = '01'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
 			t1.setT2UploadAtch01List(t2UploadAtch01List);
-			logger.info("查询长约附件信息成功!");
+			logger.info("查询发货附件信息成功!");
 			// 查询长约流转信息
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-			t0.setRltvId(t1.getArId());
+			t0.setRltvId(t1.getSpgId());
 			t0.setProcessType("01");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
 			t1.setList(t0LnkJrnlInfList);
-			logger.info("查询长约流转详情成功!");
-			logger.info("查询长约详情成功!");
+			logger.info("查询发货流转详情成功!");
+			logger.info("查询发货详情成功!");
 			return Result.createSuccessResult(t1);
 		} catch (Exception e) {
-			logger.error("查询长约详情异常 {}", e);
-			return Result.createFailResult("查询长约详情异常" + e);
+			logger.error("查询发货详情异常 {}", e);
+			return Result.createFailResult("查询发货详情异常" + e);
 		}
 	}
 	
 	/**
-	 * 描述：撤销长约
+	 * 描述：撤销发货
 	 * 
-	 * @author zhuchaobin 2018-12-13
+	 * @author yuzhaoyang 2018-12-13
 	 */
 	@Override
-	public Result<Boolean> unDoSpg(ArManagementInVo inVo) {
-		logger.info("撤销长约请求报文", JSON.toJSONString(inVo));
+	public Result<Boolean> unDoSpg(SpgManagementInVo inVo) {
+		logger.info("撤销发货请求报文", JSON.toJSONString(inVo));
 		T1ArInf t1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
 		if (t1 == null) {
-			logger.error("查询长约详情无数据");
-			return Result.createFailResult("查询长约详情无数据");
+			logger.error("查询发货详情无数据");
+			return Result.createFailResult("查询发货详情无数据");
 		}
 		try {
 			// 休眠流程实例
 			wfDcService.suspendProcessInstanceById(t1.getProcessInstId());
 		} catch (Exception e) {
-			logger.error("撤销长约休眠流程实例异常 {}", e);
-			return Result.createFailResult("撤销长约休眠流程实例异常:" + e);
+			logger.error("撤销发货休眠流程实例异常 {}", e);
+			return Result.createFailResult("撤销发货休眠流程实例异常:" + e);
 		}
 		
 		try {
@@ -466,22 +457,22 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t0.setId(null);
 			wfeUtils.saveLnkJrnlInf(t0);
 		} catch (Exception e) {
-			logger.error("撤销长约保存环节流水异常 {}", e);
-			return Result.createFailResult("撤销长约保存环节流水异常:" + e);
+			logger.error("撤销发货保存环节流水异常 {}", e);
+			return Result.createFailResult("撤销发货保存环节流水异常:" + e);
 		}
 
 		try {
-			// 更新长约状态
+			// 更新发货状态
 			t1.setArSt("11");
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T1ArInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
 			criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
 			int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
-			logger.info("更新长约状态，更新记录数：" + rltNum);
+			logger.info("更新发货状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
-			logger.error("更新长约状态异常 {}", e);
-			return Result.createFailResult("更新长约状态异常:" + e);
+			logger.error("更新发货状态异常 {}", e);
+			return Result.createFailResult("更新发货状态异常:" + e);
 		}
 		return Result.createSuccessResult(true);
 	}
@@ -568,9 +559,9 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 * 
 	 */
 	@Override
-	public Result<QueryArSubmmitDetailOutVo> getSpgSubmmitDetail(String id, String arId, String aplyPcstpCd) {
+	public Result<QuerySpgSubmmitDetailOutVo> getSpgSubmmitDetail(String id, String arId, String aplyPcstpCd) {
 		logger.info("查询长约提交详情,请求参数:arId={} aplyPcstpCd={}", arId, aplyPcstpCd);
-		QueryArSubmmitDetailOutVo outVo = new QueryArSubmmitDetailOutVo();
+		QuerySpgSubmmitDetailOutVo outVo = new QuerySpgSubmmitDetailOutVo();
 		try {
 			T0LnkJrnlInf t0 = null;
 			t0 = t0LnkJrnlInfMapper.selectByPrimaryKey(Long.parseLong(id));

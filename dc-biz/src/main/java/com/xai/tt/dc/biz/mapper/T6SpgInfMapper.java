@@ -15,6 +15,6 @@ public interface T6SpgInfMapper extends Mapper<T6SpgInf> {
     int save(SpgManagementInVo req);
     Page<QueryPageSpgOutVo> selectByT6SpgInfDcQuery(SpgManagementInVo query);
     int count(SpgManagementInVo query);
-    T6SpgInfDetailVo queryArDetail(Integer id);
+    T6SpgInfDetailVo querySpgDetail(Integer id);
     T6SpgInfDetailVo queryArDetailByArId(String arId);
 }

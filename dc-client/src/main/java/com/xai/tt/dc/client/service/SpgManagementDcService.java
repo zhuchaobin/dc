@@ -5,11 +5,10 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
+import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
-import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
+import com.xai.tt.dc.client.vo.outVo.*;
 
 /**
  * 发货信息dc服务
@@ -20,17 +19,17 @@ public interface SpgManagementDcService {
 
 	Result<Boolean> save(SpgManagementInVo req);
 
-	Result<PageData<QueryPageArOutVo>> queryPage(ArManagementInVo query, PageParam pageParam);
+	Result<PageData<QueryPageSpgOutVo>> queryPage(SpgManagementInVo query, PageParam pageParam);
 
-	Result<T1ARInfDetailVo> querySpgDetail(String arId);
+	Result<T6SpgInfDetailVo> querySpgDetail(String arId);
 	
 	Result<Boolean> submitSpg(SubmitArQuery query);
 
-	Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(ArManagementInVo query, PageParam pageParam);
+	Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(SpgManagementInVo query, PageParam pageParam);
 
 	Result<Boolean> deleteSpg(String id);
 
-	Result<QueryArSubmmitDetailOutVo> getSpgSubmmitDetail(String id, String arId, String aplyPcstpCd);
+	Result<QuerySpgSubmmitDetailOutVo> getSpgSubmmitDetail(String id, String arId, String aplyPcstpCd);
 
-	Result<Boolean> unDoSpg(ArManagementInVo inVo);
+	Result<Boolean> unDoSpg(SpgManagementInVo inVo);
 }
