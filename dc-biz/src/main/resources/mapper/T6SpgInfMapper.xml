@@ -73,54 +73,41 @@
     </if>
 
 
-
-    <if test="queryType  != null and queryType  == 1">
-      and AR_St  = '07'
+    <if test="fncEntp  != null and fncEntp  != ''">
+      and t1.Fnc_Entp  = #{fncEntp ,jdbcType=INTEGER}
     </if>
-    <!--平台方查询待审批件-->
-    <if test="queryType  != null and queryType  == 2 and userType  != null and userType  == 1">
-      and AR_St  in ('02', '03', '04', '05','06')
+    <if test="ustrmSplr  != null and ustrmSplr  != ''">
+      and t1.Ustrm_Splr  = #{ustrmSplr ,jdbcType=INTEGER}
+    </if>
+    <if test="stgco  != null and stgco  != ''">
+      and t1.StgCo  = #{stgco ,jdbcType=INTEGER}
+    </if>
+    <if test="bnk  != null and bnk  != ''">
+      and t1.Bnk  = #{bnk ,jdbcType=INTEGER}
+    </if>
+    <if test="lgstcCo  != null and lgstcCo  != ''">
+      and t1.Lgstc_Co  = #{lgstcCo ,jdbcType=INTEGER}
+    </if>
+    <if test="insCo  != null and insCo  != ''">
+      and t1.Ins_Co  = #{insCo ,jdbcType=INTEGER}
+    </if>
+    <if test="splchainCo  != null and splchainCo  != ''">
+      and t1.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
+    </if>
+    <if test="queryType  != null and queryType  == 1">
+      and t3.Ordr_St  = '39'
+    </if>
+    <if test="queryType  != null and queryType  == 2">
+      and t3.Ordr_St in ('32', '33', '34', '35', '36', '37','38')
     </if>
     <if test="queryType  != null and queryType  == 3">
-      <!--     and AR_St  = '07'   -->
       and t3.PROCESS_INST_ID in (select t.PROC_INST_ID_ from act_hi_actinst t where t.PROC_INST_ID_=t3.PROCESS_INST_ID and t.ACT_ID_='endevent1')
     </if>
     <if test="queryType  != null and queryType  == 4">
-      and AR_St  in ('01', '10', '11')
+      and t3.Ordr_St  in ('31', '10', '11')
     </if>
     <if test="queryType  != null and queryType  == 5">
-      <!--       and t3.AR_ID  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR}) -->
-      and t3.AR_ID  in (select Rltv_ID from t0_lnk_jrnl_inf where company_id= #{companyId ,jdbcType=INTEGER})
-    </if>
-    <if test="userType  == null or (userType!=1 and userType !=2 and userType !=3 and userType !=4 and userType !=5 and userType !=6 and userType !=7)">
-      and t3.SplChain_Co = 99999
-    </if>
-    <if test="userType  != null and userType  == 2">
-      and t3.Ustrm_Splr = #{companyId ,jdbcType=INTEGER}
-      and t3.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
-    </if>
-    <if test="userType  != null and userType  == 3">
-      and t3.SplChain_Co = #{companyId ,jdbcType=INTEGER}
-    </if>
-    <if test="userType  != null and userType  == 4">
-      and t3.Fnc_Entp = #{companyId ,jdbcType=INTEGER}
-      and t3.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
-    </if>
-    <if test="userType  != null and userType  == 5">
-      and t3.Ins_Co = #{companyId ,jdbcType=INTEGER}
-      and t3.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
-    </if>
-    <if test="userType  != null and userType  == 6">
-      and t3.Bnk = #{companyId ,jdbcType=INTEGER}
-      and t3.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
-    </if>
-    <if test="userType  != null and userType  == 7">
-      and t3.Lgstc_Co = #{companyId ,jdbcType=INTEGER}
-      and t3.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
-    </if>
-    <if test="userType  != null and userType  == 8">
-      and t3.StgCo = #{companyId ,jdbcType=INTEGER}
-      and t3.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
+      and t3.Ordr_Id  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR})
     </if>
   </sql>
 
@@ -128,6 +115,7 @@
   <if test="keyWorlds  != null and keyWorlds  != ''">
     and (t8.arId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
     or t8.processInstId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+    or t8.ordrId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
 
     )
   </if>
@@ -142,7 +130,6 @@
     t6.Ordr_ID AS ordrId,
     t6.SPG_ID AS spgId,
     t6.PROCESS_INST_ID AS processInstId,
-    _get_coname_func (t6.SplChain_Co) AS splchainCoName,
     t6.Spg_Tm AS spgTm,
     t6.Spg_Psn AS spgPsn,
     t6.Spg_Psn_Ctc_Tel AS spgPsnCtcTel,
@@ -151,48 +138,37 @@
     t6.Pps_Lnd AS ppsLnd,
     t6.Tms AS tms,
     t6.Spg_St AS spgSt,
+    _get_coname_func (t6.Fnc_Entp) AS fncEntpName,
+    _get_coname_func (t6.Ustrm_Splr) AS ustrmSplrName,
+    _get_coname_func (t6.StgCo) AS stgcoName,
+    _get_coname_func (t6.Bnk) AS bnkName,
+    _get_coname_func (t6.Lgstc_Co) AS lgstcCoName,
+    _get_coname_func (t6.Ins_Co) AS insCoName,
+    _get_coname_func (t6.SplChain_Co) AS splchainCoName,
     _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
-    CASE t4.TASK_DEF_KEY_
-    WHEN 'AR_Itt_Pltfrm' THEN
-    '01'
-    WHEN 'AR_Cfm_SplChain' THEN
-    '02'
-    WHEN 'AR_Cfm_Dwstr_Entp' THEN
-    '03'
-    WHEN 'AR_Cfm_Ins_Co' THEN
-    '04'
-    WHEN 'AR_FrstIns_Pltfrm' THEN
-    '05'
-    WHEN 'AR_SndInsc_Pltfrm' THEN
-    '06'
-    WHEN 'AR_Tmt_Pltfrm' THEN
-    '07'
-    ELSE
-    ''
-    END AS aplyPcstpCd
-
-
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+    t6.Fnc_Entp AS fncEntp,
+    t6.Ustrm_Splr AS ustrmSplr,
+    t6.StgCo AS stgco,
+    t6.Bnk AS bnk,
+    t6.Lgstc_Co AS lgstcCo,
+    t6.Ins_Co AS insCo,
+    t6.SplChain_Co AS splchainCo,
+    t6.BTp as btp,
+    t6.SvcFee_CMd as svcfeeCmd
     FROM
     (
-    SELECT DISTINCT
-    t3.*
-    FROM
-    t6_spg_inf t3,
+    select distinct t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
+    T6_Spg_Inf t3,
+    t1_ar_inf t1,
     USER t5
     WHERE
-    t3.SplChain_Co = t5.SplChain_Co
+    t1.SplChain_Co = t5.SplChain_Co
+    and
+    t3.Ar_Id = t1.Ar_id
     <include refid="query_criteria"></include>
-    )
-
-    t6
-
-    <if test="userType == 1 or queryType  != 2">
-      LEFT JOIN
-    </if>
-    <if test="userType != 1 and queryType  == 2">	 ,
-    </if>
-
-    (
+    ) t6
+    LEFT JOIN (
     SELECT
     t1.PROC_INST_ID_,
     t2.GROUP_ID_,
@@ -201,27 +177,13 @@
     act_ru_task t1,
     act_ru_identitylink t2
     WHERE
-    t1.ID_ = t2.TASK_ID_
-    <!--非平台方查询自身的待审批件-->
-    <if test = "userType != 1 and queryType  == 2">
-      AND t2.GROUP_ID_ = #{usrTp,jdbcType=VARCHAR}
-    </if>
-    )
-    t4
-    <if test="userType == 1 or queryType  != 2">
-      ON
-    </if>
-    <if test="userType != 1 and queryType  == 2">
-      where
-    </if>
-    t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+    t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
+    ) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
 
     <if test="orderBy != null and orderBy != ''">
       ORDER BY ${orderBy}
     </if>
-    )
-
-    t8
+    ) t8
     where 1=1
     <include refid="query_criteria_t8"></include>
 
