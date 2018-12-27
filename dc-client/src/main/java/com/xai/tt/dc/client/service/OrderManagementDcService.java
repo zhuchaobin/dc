@@ -23,7 +23,7 @@ public interface OrderManagementDcService {
 
 	Result<PageData<QueryOrderInfDetailOutVo>> queryPage(OrderManagementInVo query, PageParam pageParam);
 
-	Result<QueryOrderInfDetailOutVo> queryArDetail(String arId);
+//	Result<QueryOrderInfDetailOutVo> queryArDetail(String arId);
 	
 	Result<Boolean> submitOrder(SubmitOrderQuery query);
 
@@ -37,4 +37,6 @@ public interface OrderManagementDcService {
 	Result<QueryArSubmmitDetailOutVo> getOrderSubmmitDetail(String id, String arId, String aplyPcstpCd);
 
 	Result<Boolean> unDoOrder(OrderManagementInVo inVo);
+
+	Result<QueryOrderInfDetailOutVo> queryArDetail(OrderManagementInVo query);
 }

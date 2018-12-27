@@ -1,4 +1,5 @@
 package com.xai.tt.dc.biz.service.impl;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
 import com.xai.tt.dc.biz.mapper.T3OrderInfMapper;
+import com.xai.tt.dc.biz.mapper.UserMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
@@ -62,7 +64,8 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 
 	@Autowired
 	private CompanyMapper companyMapper;
-
+	@Autowired
+	private UserMapper userMapper;
 	/**
 	 * 描述：保存订单信息
 	 * 
@@ -353,11 +356,11 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	 * @author zhuchaobin 2018-12-18
 	 */
 	@Override
-	public Result<QueryOrderInfDetailOutVo> queryArDetail(String id) {
-		logger.info("查询订单详情,请求参数:{}", id);
+	public Result<QueryOrderInfDetailOutVo> queryArDetail(OrderManagementInVo query) {
+		logger.info("查询订单详情,请求参数:{}", JSON.toJSONString(query));
 		try {
 			QueryOrderInfDetailOutVo t3 = null;
-			t3 = t3OrderInfMapper.queryOrderDetail(Integer.parseInt(id));
+			t3 = t3OrderInfMapper.queryOrderDetail(Integer.parseInt(query.getArId()));
 			if (t3 == null) {
 				logger.error("查询订单详情无数据");
 				return Result.createFailResult("查询订单详情无数据");
@@ -378,6 +381,14 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			t3.setList(t0LnkJrnlInfList);
 			logger.info("查询订单流转详情成功!");
 			logger.info("查询订单详情成功!");
+			// 查询用户角色参数权限信息
+			String userRoleParms = userMapper.QueryUserRoleParms(query.getUsername());
+			String[] str = userRoleParms.split("\\|");
+			List<String> list = new ArrayList<String>();
+			for(String elem: str) {
+				list.add(elem);
+			}
+			t3.setRoleParmsList(list);
 			return Result.createSuccessResult(t3);
 		} catch (Exception e) {
 			logger.error("查询订单详情异常 {}", e);

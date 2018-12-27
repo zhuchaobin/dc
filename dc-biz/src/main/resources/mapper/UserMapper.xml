@@ -37,4 +37,15 @@
     <result column="Ctc_Tel" property="ctcTel" jdbcType="VARCHAR" />
     <result column="Adt_Ind" property="adtInd" jdbcType="INTEGER" />
   </resultMap>
+  
+  <select id="QueryUserRoleParms" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT
+	select t3.parms from 
+		user t1,
+		user_role t2,
+		role_parms t3
+	where t1.id = t2.user_id
+		and t2.role_id= t3.role_id
+		and t1.username=#{username ,jdbcType=VARCHAR}  
+  	</select>
 </mapper>

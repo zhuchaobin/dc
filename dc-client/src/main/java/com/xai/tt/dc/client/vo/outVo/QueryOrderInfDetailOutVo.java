@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 
+import com.xai.tt.dc.client.model.RoleParms;
 import com.xai.tt.dc.client.model.T2UploadAtch;
 import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 
@@ -30,7 +31,16 @@ public class QueryOrderInfDetailOutVo implements Serializable{
 		this.list = list;
 	}
 	
-    /**
+	// 用户角色参数权限信息
+	List<String> roleParmsList;
+	
+    public List<String> getRoleParmsList() {
+		return roleParmsList;
+	}
+	public void setRoleParmsList(List<String> roleParmsList) {
+		this.roleParmsList = roleParmsList;
+	}
+	/**
      * 服务费收取方式
      */
     private String svcfeeCmd;
