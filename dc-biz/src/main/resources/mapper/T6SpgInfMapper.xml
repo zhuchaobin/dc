@@ -5,19 +5,21 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="Ar_ID" property="arId" jdbcType="CHAR" />
-    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
-    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
-    <result column="PROCESS_INST_ID" property="processInstId" jdbcType="VARCHAR" />
-    <result column="Spg_Tm" property="spgTm" jdbcType="TIMESTAMP" />
-    <result column="Spg_Psn" property="spgPsn" jdbcType="VARCHAR" />
-    <result column="Spg_Psn_Ctc_Tel" property="spgPsnCtcTel" jdbcType="VARCHAR" />
-    <result column="Cnsgn" property="cnsgn" jdbcType="VARCHAR" />
-    <result column="Cnsgn_Ctc_Tel" property="cnsgnCtcTel" jdbcType="VARCHAR" />
-    <result column="Pps_Lnd" property="ppsLnd" jdbcType="VARCHAR" />
-    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
-    <result column="Spg_St" property="spgSt" jdbcType="CHAR" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="Ar_ID" jdbcType="CHAR" property="arId" />
+    <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
+    <result column="Spg_ID" jdbcType="CHAR" property="spgId" />
+    <result column="PROCESS_INST_ID" jdbcType="VARCHAR" property="processInstId" />
+    <result column="Spg_Tm" jdbcType="TIMESTAMP" property="spgTm" />
+    <result column="Spg_Psn" jdbcType="VARCHAR" property="spgPsn" />
+    <result column="Spg_Psn_Ctc_Tel" jdbcType="VARCHAR" property="spgPsnCtcTel" />
+    <result column="Cnsgn" jdbcType="VARCHAR" property="cnsgn" />
+    <result column="Cnsgn_Ctc_Tel" jdbcType="VARCHAR" property="cnsgnCtcTel" />
+    <result column="Pps_Lnd" jdbcType="VARCHAR" property="ppsLnd" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="Spg_St" jdbcType="CHAR" property="spgSt" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
   </resultMap>
 
   <sql id="Base_Column_List">
