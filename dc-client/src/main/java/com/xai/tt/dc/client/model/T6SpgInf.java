@@ -83,6 +83,30 @@ public class T6SpgInf {
     @Column(name = "Spg_St")
     private String spgSt;
 
+
+
+
+    /**
+     * 融资企业
+     */
+    @Column(name = "Fnc_Entp")
+    private Integer fncEntp;
+
+
+
+    /**
+     * 上游供应商
+     */
+    @Column(name = "Ustrm_Splr")
+    private Integer ustrmSplr;
+
+
+    /**
+     * 供应链公司
+     */
+    @Column(name = "SplChain_Co")
+    private Integer splchainCo;
+
     /**
      * 获取ID
      *

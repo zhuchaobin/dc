@@ -345,7 +345,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			count = t6SpgInfMapper.count(query);
 		} catch (Exception e) {
 
-			logger.error("查询长约列表异常 {}", e);
+			logger.error("查询发货列表异常 {}", e);
 			return Result.createFailResult("查询异常");
 		}
 		logger.info("query maintenanceParm list success!");
