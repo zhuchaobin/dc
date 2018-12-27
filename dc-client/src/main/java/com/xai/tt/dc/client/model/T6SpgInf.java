@@ -83,29 +83,16 @@ public class T6SpgInf {
     @Column(name = "Spg_St")
     private String spgSt;
 
-
-
+    /**
+     * 操作员
+     */
+    private String username;
 
     /**
-     * 融资企业
+     * 创建时间
      */
-    @Column(name = "Fnc_Entp")
-    private Integer fncEntp;
-
-
-
-    /**
-     * 上游供应商
-     */
-    @Column(name = "Ustrm_Splr")
-    private Integer ustrmSplr;
-
-
-    /**
-     * 供应链公司
-     */
-    @Column(name = "SplChain_Co")
-    private Integer splchainCo;
+    @Column(name = "Crt_Tm")
+    private Date crtTm;
 
     /**
      * 获取ID
@@ -339,5 +326,41 @@ public class T6SpgInf {
      */
     public void setSpgSt(String spgSt) {
         this.spgSt = spgSt;
+    }
+
+    /**
+     * 获取操作员
+     *
+     * @return username - 操作员
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * 设置操作员
+     *
+     * @param username 操作员
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * 获取创建时间
+     *
+     * @return Crt_Tm - 创建时间
+     */
+    public Date getCrtTm() {
+        return crtTm;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param crtTm 创建时间
+     */
+    public void setCrtTm(Date crtTm) {
+        this.crtTm = crtTm;
     }
 }
