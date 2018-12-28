@@ -39,7 +39,6 @@
   </resultMap>
   
   <select id="QueryUserRoleParms" parameterType="java.lang.String" resultType="java.lang.String">
-	SELECT
 	select t3.parms from 
 		user t1,
 		user_role t2,

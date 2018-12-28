@@ -360,7 +360,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		logger.info("查询订单详情,请求参数:{}", JSON.toJSONString(query));
 		try {
 			QueryOrderInfDetailOutVo t3 = null;
-			t3 = t3OrderInfMapper.queryOrderDetail(Integer.parseInt(query.getArId()));
+			t3 = t3OrderInfMapper.queryOrderDetail(query.getId().intValue());
 			if (t3 == null) {
 				logger.error("查询订单详情无数据");
 				return Result.createFailResult("查询订单详情无数据");
@@ -383,12 +383,16 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.info("查询订单详情成功!");
 			// 查询用户角色参数权限信息
 			String userRoleParms = userMapper.QueryUserRoleParms(query.getUsername());
-			String[] str = userRoleParms.split("\\|");
-			List<String> list = new ArrayList<String>();
-			for(String elem: str) {
-				list.add(elem);
+			if(StringUtils.isNotBlank(userRoleParms)) {
+				String[] str = userRoleParms.split("\\|");
+				List<String> list = new ArrayList<String>();
+				for(String elem: str) {
+					list.add(elem);
+				}
+				t3.setRoleParmsList(list);
+			} else {
+				logger.error("查询用户角色参数权限信息，结果为空");
 			}
-			t3.setRoleParmsList(list);
 			return Result.createSuccessResult(t3);
 		} catch (Exception e) {
 			logger.error("查询订单详情异常 {}", e);
