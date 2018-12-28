@@ -103,6 +103,104 @@ public class SpgManagementInVo extends UserInfoQuery {
     // 二级服务码
     private String secSrvCd;
 
+
+    /**
+     * 融资企业
+     */
+    private Integer fncEntp;
+
+
+    /**
+     * 上游供应商
+     */
+    private Integer ustrmSplr;
+
+
+
+    /**
+     * 供应链公司
+     */
+    private Integer splchainCo;
+
+
+    /**
+     * 仓储公司
+     */
+    private Integer stgco;
+
+    /**
+     * 银行
+     */
+    private Integer bnk;
+
+    /**
+     * 物流公司
+     */
+    private Integer lgstcCo;
+
+    /**
+     * 保险公司
+     */
+    private Integer insCo;
+
+    public Integer getStgco() {
+        return stgco;
+    }
+
+    public void setStgco(Integer stgco) {
+        this.stgco = stgco;
+    }
+
+    public Integer getBnk() {
+        return bnk;
+    }
+
+    public void setBnk(Integer bnk) {
+        this.bnk = bnk;
+    }
+
+    public Integer getLgstcCo() {
+        return lgstcCo;
+    }
+
+    public void setLgstcCo(Integer lgstcCo) {
+        this.lgstcCo = lgstcCo;
+    }
+
+    public Integer getInsCo() {
+        return insCo;
+    }
+
+    public void setInsCo(Integer insCo) {
+        this.insCo = insCo;
+    }
+
+    public Integer getUstrmSplr() {
+        return ustrmSplr;
+    }
+
+    public void setUstrmSplr(Integer ustrmSplr) {
+        this.ustrmSplr = ustrmSplr;
+    }
+
+    @Override
+    public Integer getSplchainCo() {
+        return splchainCo;
+    }
+
+    @Override
+    public void setSplchainCo(Integer splchainCo) {
+        this.splchainCo = splchainCo;
+    }
+
+    public Integer getFncEntp() {
+        return fncEntp;
+    }
+
+    public void setFncEntp(Integer fncEntp) {
+        this.fncEntp = fncEntp;
+    }
+
     public String getFileNames() {
         return fileNames;
     }

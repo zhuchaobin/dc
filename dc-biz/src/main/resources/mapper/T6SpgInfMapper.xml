@@ -94,21 +94,7 @@
     <if test="splchainCo  != null and splchainCo  != ''">
       and t1.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
     </if>
-    <if test="queryType  != null and queryType  == 1">
-      and t3.Ordr_St  = '39'
-    </if>
-    <if test="queryType  != null and queryType  == 2">
-      and t3.Ordr_St in ('32', '33', '34', '35', '36', '37','38')
-    </if>
-    <if test="queryType  != null and queryType  == 3">
-      and t3.PROCESS_INST_ID in (select t.PROC_INST_ID_ from act_hi_actinst t where t.PROC_INST_ID_=t3.PROCESS_INST_ID and t.ACT_ID_='endevent1')
-    </if>
-    <if test="queryType  != null and queryType  == 4">
-      and t3.Ordr_St  in ('31', '10', '11')
-    </if>
-    <if test="queryType  != null and queryType  == 5">
-      and t3.Ordr_Id  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR})
-    </if>
+
   </sql>
 
   <sql id="query_criteria_t8">
@@ -190,5 +176,70 @@
   </select>
 
 
+  <select id="count" resultType="java.lang.Integer">
 
+    SELECT count(*) FROM (
+    SELECT
+    t6.ID AS id,
+    t6.Ar_ID AS arId,
+    t6.Ordr_ID AS ordrId,
+    t6.SPG_ID AS spgId,
+    t6.PROCESS_INST_ID AS processInstId,
+    t6.Spg_Tm AS spgTm,
+    t6.Spg_Psn AS spgPsn,
+    t6.Spg_Psn_Ctc_Tel AS spgPsnCtcTel,
+    t6.Cnsgn AS cnsgn,
+    t6.Cnsgn_Ctc_Tel AS cnsgnCtcTel,
+    t6.Pps_Lnd AS ppsLnd,
+    t6.Tms AS tms,
+    t6.Spg_St AS spgSt,
+    _get_coname_func (t6.Fnc_Entp) AS fncEntpName,
+    _get_coname_func (t6.Ustrm_Splr) AS ustrmSplrName,
+    _get_coname_func (t6.StgCo) AS stgcoName,
+    _get_coname_func (t6.Bnk) AS bnkName,
+    _get_coname_func (t6.Lgstc_Co) AS lgstcCoName,
+    _get_coname_func (t6.Ins_Co) AS insCoName,
+    _get_coname_func (t6.SplChain_Co) AS splchainCoName,
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+    t6.Fnc_Entp AS fncEntp,
+    t6.Ustrm_Splr AS ustrmSplr,
+    t6.StgCo AS stgco,
+    t6.Bnk AS bnk,
+    t6.Lgstc_Co AS lgstcCo,
+    t6.Ins_Co AS insCo,
+    t6.SplChain_Co AS splchainCo,
+    t6.BTp as btp,
+    t6.SvcFee_CMd as svcfeeCmd
+    FROM
+    (
+    select distinct t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
+    T6_Spg_Inf t3,
+    t1_ar_inf t1,
+    USER t5
+    WHERE
+    t1.SplChain_Co = t5.SplChain_Co
+    and
+    t3.Ar_Id = t1.Ar_id
+    <include refid="query_criteria"></include>
+    ) t6
+    LEFT JOIN (
+    SELECT
+    t1.PROC_INST_ID_,
+    t2.GROUP_ID_,
+    t1.TASK_DEF_KEY_
+    FROM
+    act_ru_task t1,
+    act_ru_identitylink t2
+    WHERE
+    t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
+    ) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+
+    <if test="orderBy != null and orderBy != ''">
+      ORDER BY ${orderBy}
+    </if>
+    ) t8
+    where 1=1
+    <include refid="query_criteria_t8"></include>
+  </select>
 </mapper>

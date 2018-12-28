@@ -81,4 +81,116 @@ public class QueryPageSpgOutVo implements Serializable {
 	 * 创建时间
 	 */
 	private Date crtTm;
+
+	public String getArId() {
+		return arId;
+	}
+
+	public void setArId(String arId) {
+		this.arId = arId;
+	}
+
+	public String getProcessInstId() {
+		return processInstId;
+	}
+
+	public void setProcessInstId(String processInstId) {
+		this.processInstId = processInstId;
+	}
+
+	public String getOrdrId() {
+		return ordrId;
+	}
+
+	public void setOrdrId(String ordrId) {
+		this.ordrId = ordrId;
+	}
+
+	public String getSpgId() {
+		return spgId;
+	}
+
+	public void setSpgId(String spgId) {
+		this.spgId = spgId;
+	}
+
+	public String getSpgTm() {
+		return spgTm;
+	}
+
+	public void setSpgTm(String spgTm) {
+		this.spgTm = spgTm;
+	}
+
+	public String getSpgPsn() {
+		return spgPsn;
+	}
+
+	public void setSpgPsn(String spgPsn) {
+		this.spgPsn = spgPsn;
+	}
+
+	public String getSpgPsnCtcTel() {
+		return spgPsnCtcTel;
+	}
+
+	public void setSpgPsnCtcTel(String spgPsnCtcTel) {
+		this.spgPsnCtcTel = spgPsnCtcTel;
+	}
+
+	public String getCnsgn() {
+		return cnsgn;
+	}
+
+	public void setCnsgn(String cnsgn) {
+		this.cnsgn = cnsgn;
+	}
+
+	public String getCnsgnCtcTel() {
+		return cnsgnCtcTel;
+	}
+
+	public void setCnsgnCtcTel(String cnsgnCtcTel) {
+		this.cnsgnCtcTel = cnsgnCtcTel;
+	}
+
+	public String getPpsLnd() {
+		return ppsLnd;
+	}
+
+	public void setPpsLnd(String ppsLnd) {
+		this.ppsLnd = ppsLnd;
+	}
+
+	public Date getTms() {
+		return tms;
+	}
+
+	public void setTms(Date tms) {
+		this.tms = tms;
+	}
+
+	public String getSpgSt() {
+		return spgSt;
+	}
+
+	public void setSpgSt(String spgSt) {
+		this.spgSt = spgSt;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Date getCrtTm() {
+		return crtTm;
+	}
+
+	public void setCrtTm(Date crtTm) {
+		this.crtTm = crtTm;
+	}
 }
