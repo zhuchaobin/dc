@@ -52,5 +52,16 @@ and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
 	<select id="isEndProcess" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(*) from act_hi_actinst t where t.PROC_INST_ID_=#{processInstId ,jdbcType=VARCHAR} and t.ACT_ID_='endevent1'
 	</select>	
+	
+	  	<select id="querySpgTaskId" parameterType="com.xai.tt.dc.client.query.WfeQuery" resultType="java.lang.String">
+select t2.ID_ from 
+T6_Spg_Inf t1,
+act_ru_task t2
+where t1.Spg_ID = #{spgId,jdbcType=VARCHAR}
+and t1.PROCESS_INST_ID = t2.PROC_INST_ID_
+      <if test="taskDefKey  != null and taskDefKey  != ''">
+        and TASK_DEF_KEY_  = #{sndinsAdtTm ,jdbcType=VARCHAR}
+      </if>  
+	</select>	
 
 </mapper>
