@@ -2,7 +2,7 @@ package com.xai.tt.dc.client.query;
 
 import java.util.Date;
 
-public class SubmitOrderQuery extends UserInfoQuery {
+public class SubmitSpgQuery extends UserInfoQuery {
 	/**
 	 * 
 	 */
@@ -18,7 +18,18 @@ public class SubmitOrderQuery extends UserInfoQuery {
 	public void setFileNames(String fileNames) {
 		this.fileNames = fileNames;
 	}
-	
+
+	// 赎货方式
+    private String selRdmgdsMod;
+
+	public String getSelRdmgdsMod() {
+		return selRdmgdsMod;
+	}
+
+	public void setSelRdmgdsMod(String selRdmgdsMod) {
+		this.selRdmgdsMod = selRdmgdsMod;
+	}
+
 	// 付款方式
     private String pymtmod;
 
@@ -29,37 +40,23 @@ public class SubmitOrderQuery extends UserInfoQuery {
 	public void setPymtmod(String pymtmod) {
 		this.pymtmod = pymtmod;
 	}
-
+	
 /**
   * id
   */
  private Long id;
  
  /**
-  * 长约编号
+  * 发货编号
   */
- private String arId;
+ private String spgId;
  
- /**
-  * 订单编号
-  */
- private String ordrId;
-
-
-public String getOrdrId() {
-	return ordrId;
+public String getSpgId() {
+	return spgId;
 }
 
-public void setOrdrId(String ordrId) {
-	this.ordrId = ordrId;
-}
-
-public String getArId() {
-	return arId;
-}
-
-public void setArId(String arId) {
-	this.arId = arId;
+public void setSpgId(String spgId) {
+	this.spgId = spgId;
 }
 
 /**

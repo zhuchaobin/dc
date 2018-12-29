@@ -175,6 +175,56 @@ public class WfDcServiceImpl implements WfDcService{
 			logger.info("拾取并完成发起任务成功");		
 	}
 	
+	
+	/*
+	 * 拾取并提交任务（发货）
+	 * 2018-12-29
+	 * zhu
+	 */
+	@Override
+	public void claimAndCompleteSpgTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd, String pymtmod, String selRdmgdsMod) {
+		logger.info("拾取并完成发起任务开始");
+		logger.info("参数id-username-aplyPcstpCd-aplyPsrltCd-pymtmod-selRdmgdsMod:" + id+"-"+username+"-"+aplyPcstpCd+"-"+aplyPsrltCd+"-"+pymtmod +"-"+selRdmgdsMod);
+		// 拾取并完成发起任务
+			// 查询任务id
+			WfeQuery wfeQuery = new WfeQuery();
+			wfeQuery.setOrderId(id);
+//			wfeQuery.setTaskDefKey(DataConstants.TASK_DEF_KEY.get(aplyPcstpCd));
+			String taskId = actRuTaskMapper.querySpgTaskId(wfeQuery);
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+			processEngine.getTaskService()
+			.claim(taskId, username);
+			if(StringUtils.isNotBlank(taskId))
+				logger.info("查询任务id成功taskId=" + taskId);
+			else
+				logger.error("查询任务id成功失败，任务id为空");
+			
+			Map<String, Object> variables= new HashMap<String, Object>();
+			if("01".equals(aplyPsrltCd))
+				variables.put("flag", 1);
+			else
+				variables.put("flag", 0);
+			
+			if(StringUtils.isNotBlank(pymtmod)) {
+				if("01".equals(pymtmod))
+					variables.put("pymtmod", 1);
+				else if("02".equals(pymtmod))
+					variables.put("pymtmod", 2);
+				else if("03".equals(pymtmod))
+					variables.put("pymtmod", 3);
+			}
+			if(StringUtils.isNotBlank(selRdmgdsMod)) {
+				if("01".equals(pymtmod))
+					variables.put("selRdmgdsMod", 1);
+				else if("02".equals(selRdmgdsMod))
+					variables.put("selRdmgdsMod", 2);
+			}
+			processEngine.getTaskService()
+			.complete(taskId, variables);
+			
+			logger.info("拾取并完成发起任务成功");		
+	}
+	
 	 /*
 	 * 判断流程是否结束（通用）
 	 * 2018-12-20

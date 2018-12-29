@@ -43,4 +43,10 @@ public interface WfDcService {
 	 * lingyun
 	 */
 	boolean isEndProcess(String processInstId);
+	/*
+	 * 拾取并提交任务（发货）
+	 * 2018-12-18
+	 * lingyun
+	 */
+	void claimAndCompleteSpgTask(String id, String username, String aplyPcstpCd, String aplyPsrltCd, String pymtmod, String selRdmgdsMod);
 }

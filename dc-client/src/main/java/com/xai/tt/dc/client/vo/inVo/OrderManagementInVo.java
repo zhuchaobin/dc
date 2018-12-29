@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
+import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class OrderManagementInVo extends UserInfoQuery {
@@ -23,6 +24,17 @@ public class OrderManagementInVo extends UserInfoQuery {
 		this.keyWorlds = keyWorlds;
 	}
 	
+	List<T8OrderDetail> t8OrderDetailList;
+	
+	
+	public List<T8OrderDetail> getT8OrderDetailList() {
+		return t8OrderDetailList;
+	}
+
+	public void setT8OrderDetailList(List<T8OrderDetail> t8OrderDetailList) {
+		this.t8OrderDetailList = t8OrderDetailList;
+	}
+
 	/**
      * ID
      */

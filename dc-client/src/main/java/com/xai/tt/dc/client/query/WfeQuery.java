@@ -12,7 +12,9 @@ public class WfeQuery extends SortQuery {
 	private String arId;
 	// 订单编号
 	private String orderId;
-	// 订单编号
+	// 发货编号
+	private String spgId;
+	// 操作人用户名
 	private String username;
 	// 任务名称KEY
 	private String taskDefKey;
@@ -20,6 +22,12 @@ public class WfeQuery extends SortQuery {
 	private String procInstId;
 	
 	
+	public String getSpgId() {
+		return spgId;
+	}
+	public void setSpgId(String spgId) {
+		this.spgId = spgId;
+	}
 	public String getTaskDefKey() {
 		return taskDefKey;
 	}

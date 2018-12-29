@@ -4,6 +4,7 @@ import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.client.query.SubmitArQuery;
+import com.xai.tt.dc.client.query.SubmitSpgQuery;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
@@ -23,7 +24,7 @@ public interface SpgManagementDcService {
 
 	Result<T6SpgInfDetailVo> querySpgDetail(String arId);
 	
-	Result<Boolean> submitSpg(SubmitArQuery query);
+	Result<Boolean> submitSpg(SubmitSpgQuery query);
 
 	Result<PageData<QueryLnkJrnlInfOutVo>> queryLnkJrnlInfPage(SpgManagementInVo query, PageParam pageParam);
 

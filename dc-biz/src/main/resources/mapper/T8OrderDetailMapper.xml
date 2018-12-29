@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T8OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T8OrderDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="MsUnit" property="msunit" jdbcType="VARCHAR" />
+    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
+    <result column="Pd_Nm" property="pdNm" jdbcType="VARCHAR" />
+    <result column="Num" property="num" jdbcType="REAL" />
+    <result column="Spec" property="spec" jdbcType="VARCHAR" />
+    <result column="Modl" property="modl" jdbcType="VARCHAR" />
+    <result column="Qly_Std" property="qlyStd" jdbcType="VARCHAR" />
+    <result column="Brnd" property="brnd" jdbcType="VARCHAR" />
+    <result column="Pd_Fctr" property="pdFctr" jdbcType="VARCHAR" />
+    <result column="Pch_UnitPrc" property="pchUnitprc" jdbcType="REAL" />
+    <result column="Txn_PrcDif" property="txnPrcdif" jdbcType="REAL" />
+    <result column="Sale_Tntv_Prc" property="saleTntvPrc" jdbcType="REAL" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
