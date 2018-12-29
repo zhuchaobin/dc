@@ -239,7 +239,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					//从工作流记录表中获取发货最新状态
 
 					//todo
-					T6SpgInfDetailVo t1Vo = t6SpgInfMapper.queryArDetailByArId(spgId);
+					QuerySpgInfDetailOutVo t1Vo = t6SpgInfMapper.querySpgDetailBySpgId(spgId);
 					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 						t1.setSpgSt(t1Vo.getAplyPcstpCd());
 					} else {

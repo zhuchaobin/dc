@@ -9,6 +9,7 @@ import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageSpgOutVo;
+import com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo;
 
 public interface T6SpgInfMapper extends Mapper<T6SpgInf> {
 
@@ -16,5 +17,5 @@ public interface T6SpgInfMapper extends Mapper<T6SpgInf> {
     Page<QueryPageSpgOutVo> selectByT6SpgInfDcQuery(SpgManagementInVo query);
     int count(SpgManagementInVo query);
     T6SpgInfDetailVo querySpgDetail(Integer id);
-    T6SpgInfDetailVo queryArDetailByArId(String arId);
+    QuerySpgInfDetailOutVo querySpgDetailBySpgId(String arId);
 }

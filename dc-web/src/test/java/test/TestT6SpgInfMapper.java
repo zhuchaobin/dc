@@ -1,6 +1,7 @@
 package test;
 
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
 import com.tianan.common.api.bean.Result;
 import com.xai.tt.dc.App;
 import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
@@ -10,8 +11,11 @@ import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.model.T6SpgInf;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
+import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.TB0001SubInVo;
+import com.xai.tt.dc.client.vo.outVo.QueryPageSpgOutVo;
+import com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +33,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class) 
 @SpringBootTest(classes = App.class) 
 //@ContextConfiguration({ "classpath*:*dubbo-reference.xml" })
-public class TestT6SpgInf {
+public class TestT6SpgInfMapper {
 
 
 	@Autowired
@@ -40,7 +44,7 @@ public class TestT6SpgInf {
 	public void testSave() {
 
 		T6SpgInf t6SpgInf = new T6SpgInf();
-		t6SpgInf.setArId("1");
+		t6SpgInf.setArId("CY201811250111");
 		t6SpgInf.setOrdrId("1");
 		t6SpgInf.setSpgId("1");
 		t6SpgInf.setProcessInstId("1");
@@ -59,6 +63,25 @@ public class TestT6SpgInf {
 
 
 	}
+
+	@Test
+	@Rollback(false)
+	public void testQuerySpgDetail() {
+
+		T6SpgInfDetailVo t6SpgInfDetailVo = t6SpgInfMapper.querySpgDetail(1);
+		System.out.println("========="+ JSON.toJSONString(t6SpgInfDetailVo));
+	}
+
+
+	@Test
+	@Rollback(false)
+	public void testQuerySpgDetailBySpgId() {
+
+		QuerySpgInfDetailOutVo querySpgInfDetailOutVo = t6SpgInfMapper.querySpgDetailBySpgId("1");
+		System.out.println("========="+ JSON.toJSONString(querySpgInfDetailOutVo));
+	}
+
+
 
 
 }

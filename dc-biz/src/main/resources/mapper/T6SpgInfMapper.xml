@@ -242,4 +242,106 @@
     where 1=1
     <include refid="query_criteria_t8"></include>
   </select>
+
+
+  <select id="querySpgDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.T6SpgInfDetailVo">
+    SELECT
+    t3.Fnc_Entp AS fncEntp,
+    t3.Ustrm_Splr AS ustrmSplr,
+    t3.StgCo AS stgco,
+    t3.Bnk AS bnk,
+    t3.Lgstc_Co AS lgstcCo,
+    t3.Ins_Co AS insCo,
+    t3.SplChain_Co AS splchainCo,
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+    t3.BTp as btp,
+    t3.SvcFee_CMd as svcfeeCmd,
+    t3.id AS id,
+    t3.Ar_ID AS arId,
+    t3.Ordr_ID AS ordrId,
+    t3.PROCESS_INST_ID AS processInstId,
+
+    t3.SPG_ID AS spgId,
+    t3.Spg_Tm AS spgTm,
+    t3.Spg_Psn AS spgPsn,
+    t3.Spg_Psn_Ctc_Tel AS spgPsnCtcTel,
+    t3.Cnsgn AS cnsgn,
+    t3.Cnsgn_Ctc_Tel AS cnsgnCtcTel,
+    t3.Pps_Lnd AS ppsLnd,
+    t3.Tms AS tms,
+    t3.Spg_St AS spgSt
+
+    FROM
+    (
+    SELECT
+    distinct t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
+    FROM
+    T6_Spg_Inf t13, T1_AR_Inf t1
+    where t13.spg_id=#{spgId,jdbcType=INTEGER}
+    and t13.Ar_Id = t1.Ar_Id
+    ) t3
+    LEFT JOIN (
+    SELECT
+    t1.PROC_INST_ID_,
+    t2.GROUP_ID_,
+    t1.TASK_DEF_KEY_
+    FROM
+    act_ru_task t1,
+    act_ru_identitylink t2
+    WHERE
+    t1.ID_ = t2.TASK_ID_
+    ) t4 ON t3.PROCESS_INST_ID = t4.PROC_INST_ID_
+  </select>
+
+
+  <select id="querySpgDetailBySpgId" parameterType="java.lang.String" resultType="com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo">
+    SELECT
+    t3.Fnc_Entp AS fncEntp,
+    t3.Ustrm_Splr AS ustrmSplr,
+    t3.StgCo AS stgco,
+    t3.Bnk AS bnk,
+    t3.Lgstc_Co AS lgstcCo,
+    t3.Ins_Co AS insCo,
+    t3.SplChain_Co AS splchainCo,
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 1) AS aplyPcstpCdName,
+    _trans_lnk_inf_def_func (t4.TASK_DEF_KEY_, 2) AS aplyPcstpCd,
+    t3.BTp as btp,
+    t3.SvcFee_CMd as svcfeeCmd,
+    t3.id AS id,
+    t3.Ar_ID AS arId,
+    t3.Ordr_ID AS ordrId,
+    t3.PROCESS_INST_ID AS processInstId,
+
+    t3.SPG_ID AS spgId,
+    t3.Spg_Tm AS spgTm,
+    t3.Spg_Psn AS spgPsn,
+    t3.Spg_Psn_Ctc_Tel AS spgPsnCtcTel,
+    t3.Cnsgn AS cnsgn,
+    t3.Cnsgn_Ctc_Tel AS cnsgnCtcTel,
+    t3.Pps_Lnd AS ppsLnd,
+    t3.Tms AS tms,
+    t3.Spg_St AS spgSt
+    FROM
+    (
+    SELECT
+    distinct t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
+    FROM
+    T6_Spg_Inf t13, T1_AR_Inf t1
+    where t13.Spg_ID=#{spgId,jdbcType=CHAR}
+    and t13.Ar_Id = t1.Ar_Id
+    ) t3
+    LEFT JOIN (
+    SELECT
+    t1.PROC_INST_ID_,
+    t2.GROUP_ID_,
+    t1.TASK_DEF_KEY_
+    FROM
+    act_ru_task t1,
+    act_ru_identitylink t2
+    WHERE
+    t1.ID_ = t2.TASK_ID_
+    ) t4 ON t3.PROCESS_INST_ID = t4.PROC_INST_ID_
+  </select>
+
 </mapper>
