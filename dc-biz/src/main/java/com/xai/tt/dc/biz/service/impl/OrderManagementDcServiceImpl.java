@@ -19,6 +19,7 @@ import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
 import com.xai.tt.dc.biz.mapper.T3OrderInfMapper;
+import com.xai.tt.dc.biz.mapper.T8OrderDetailMapper;
 import com.xai.tt.dc.biz.mapper.UserMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
@@ -28,6 +29,7 @@ import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T3OrderInf;
+import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.model.T2UploadAtch;
 import com.xai.tt.dc.client.query.SubmitOrderQuery;
 import com.xai.tt.dc.client.service.OrderManagementDcService;
@@ -64,8 +66,14 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 
 	@Autowired
 	private CompanyMapper companyMapper;
+	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private T8OrderDetailMapper t8OrderDetailMapper;
+	
+	
 	/**
 	 * 描述：保存订单信息
 	 * 
@@ -160,6 +168,23 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				int num = t3OrderInfMapper.updateByPrimaryKeySelective(t3OrderInf);
 				logger.info("更新订单信息成功：订单id" + t3OrderInf.getArId() + "更新条数：" + num);
 			}
+			
+			// 保存订单明细信息
+			// 先删除已经存在的
+			Condition condition = new Condition(T8OrderDetail.class);
+			Example.Criteria criteria = condition.createCriteria();
+			criteria.andCondition("Ordr_ID = '" + orderId + "'");
+			t8OrderDetailMapper.deleteByCondition(condition);
+			
+			List<T8OrderDetail> t8OrderDetailList = inVo.getT8OrderDetailList();
+			T8OrderDetail t8 = new T8OrderDetail();
+			for(T8OrderDetail elem : t8OrderDetailList) {
+				BeanUtils.copyProperties(elem, t8);
+				t8.setOrdrId(orderId);
+				t8.setCrtTm(new Date());
+				t8.setUsername(inVo.getUsername());				
+				t8OrderDetailMapper.insert(t8);
+			}
 
 			// 保存订单附件信息
 			try {
@@ -203,8 +228,8 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					logger.error("发起订单，启动流程成功，processInstId:" + processInstId);
 				}
 				t3OrderInf.setProcessInstId(processInstId);
-				Condition condition = new Condition(T3OrderInf.class);
-				Example.Criteria criteria = condition.createCriteria();
+				Condition condition2 = new Condition(T3OrderInf.class);
+				Example.Criteria criteria2 = condition.createCriteria();
 				criteria.andCondition("Ordr_ID = '" + orderId + "'");
 				t3OrderInfMapper.updateByConditionSelective(t3OrderInf, condition);
 				logger.info("processInstId =" + processInstId);
@@ -378,8 +403,18 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			t0.setRltvId(t3.getOrdrId());
 			t0.setProcessType("02");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
-			t3.setList(t0LnkJrnlInfList);
-			logger.info("查询订单流转详情成功!");
+			if(null != t0LnkJrnlInfList) {
+				t3.setList(t0LnkJrnlInfList);
+				logger.info("查询订单流转详情成功!查询到数据条数：" + t0LnkJrnlInfList.size());
+			}
+			Condition condition1 = new Condition(T8OrderDetail.class);
+			Example.Criteria criteria1 = condition1.createCriteria();
+			criteria1.andCondition("Ordr_ID = '" + t3.getOrdrId() + "'");
+			List<T8OrderDetail> t8OrderDetailList = t8OrderDetailMapper.selectByCondition(condition1);			
+			if(null != t8OrderDetailList) {
+				t3.setT8OrderDetailList(t8OrderDetailList);
+				logger.info("查询订单明细信息成功!查询到数据条数：" + t8OrderDetailList.size());
+			}
 			logger.info("查询订单详情成功!");
 			// 查询用户角色参数权限信息
 			String userRoleParms = userMapper.QueryUserRoleParms(query.getUsername());

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 
 import com.xai.tt.dc.client.model.RoleParms;
 import com.xai.tt.dc.client.model.T2UploadAtch;
+import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 
 public class QueryOrderInfDetailOutVo implements Serializable{
@@ -29,6 +30,18 @@ public class QueryOrderInfDetailOutVo implements Serializable{
 	}
 	public void setList(List<QueryLnkJrnlInfOutVo> list) {
 		this.list = list;
+	}
+	
+	// 订单明细信息
+	List<T8OrderDetail> t8OrderDetailList;
+	
+	
+	public List<T8OrderDetail> getT8OrderDetailList() {
+		return t8OrderDetailList;
+	}
+
+	public void setT8OrderDetailList(List<T8OrderDetail> t8OrderDetailList) {
+		this.t8OrderDetailList = t8OrderDetailList;
 	}
 	
 	// 用户角色参数权限信息

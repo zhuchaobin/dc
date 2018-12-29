@@ -23,7 +23,7 @@ public class OrderManagementInVo extends UserInfoQuery {
 	public void setKeyWorlds(String keyWorlds) {
 		this.keyWorlds = keyWorlds;
 	}
-	
+	// 订单明细信息
 	List<T8OrderDetail> t8OrderDetailList;
 	
 	
