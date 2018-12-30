@@ -83,7 +83,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 */
 	@Override
 	public Result<Boolean> save(SpgManagementInVo inVo) {
-		logger.info("保存发货信息请求报文", JSON.toJSONString(inVo));
+		logger.info("保存发货信息请求报文{}", JSON.toJSONString(inVo));
 		logger.info("二级服务码secSrvCd：" + inVo.getSecSrvCd());
 		// 保存发货信息
 		T6SpgInf t6SpgInfo = new T6SpgInf();
@@ -151,7 +151,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			BeanUtils.copyProperties(inVo, t6SpgInfo);
 			// 发货新建后记录发货状态
 			t6SpgInfo.setSpgId(spgId);
-			t6SpgInfo.setCnsgn("");
+			t6SpgInfo.setCnsgn(inVo.getCnsgn());
 			t6SpgInfo.setTms(new Date());
 
 			

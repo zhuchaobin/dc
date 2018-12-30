@@ -270,8 +270,8 @@
     t3.Cnsgn_Ctc_Tel AS cnsgnCtcTel,
     t3.Pps_Lnd AS ppsLnd,
     t3.Tms AS tms,
-    t3.Spg_St AS spgSt
-
+    t3.Spg_St AS spgSt，
+    t3.Crt_Tm AS crtTm
     FROM
     (
     SELECT
