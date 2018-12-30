@@ -14,7 +14,7 @@ import com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo;
 public interface T6SpgInfMapper extends Mapper<T6SpgInf> {
 
     int save(SpgManagementInVo req);
-    Page<QueryPageSpgOutVo> selectByT6SpgInfDcQuery(SpgManagementInVo query);
+    Page<QuerySpgInfDetailOutVo> selectByT6SpgInfDcQuery(SpgManagementInVo query);
     int count(SpgManagementInVo query);
     QuerySpgInfDetailOutVo querySpgDetail(Integer id);
     QuerySpgInfDetailOutVo querySpgDetailBySpgId(String arId);

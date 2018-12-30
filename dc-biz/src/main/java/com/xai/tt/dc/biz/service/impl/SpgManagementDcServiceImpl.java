@@ -341,13 +341,13 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 * @author zhuchaobin 2018-10-26
 	 */
 	@Override
-	public Result<PageData<QueryPageSpgOutVo>> queryPage(SpgManagementInVo query, PageParam pageParam) {
+	public Result<PageData<QuerySpgInfDetailOutVo>> queryPage(SpgManagementInVo query, PageParam pageParam) {
 		logger.info("start query 发货信息 List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
 		logger.info("getSortOrder:" + query.getSortOrder());
-		Page<QueryPageSpgOutVo> page = null;
+		Page<QuerySpgInfDetailOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());

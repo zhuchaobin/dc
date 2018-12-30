@@ -20,7 +20,7 @@ public interface SpgManagementDcService {
 
 	Result<Boolean> save(SpgManagementInVo req);
 
-	Result<PageData<QueryPageSpgOutVo>> queryPage(SpgManagementInVo query, PageParam pageParam);
+	Result<PageData<QuerySpgInfDetailOutVo>> queryPage(SpgManagementInVo query, PageParam pageParam);
 
 	Result<QuerySpgInfDetailOutVo> querySpgDetail(SpgManagementInVo arId);
 	

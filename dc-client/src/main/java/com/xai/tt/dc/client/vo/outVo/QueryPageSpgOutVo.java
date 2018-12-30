@@ -82,6 +82,51 @@ public class QueryPageSpgOutVo implements Serializable {
 	 */
 	private Date crtTm;
 
+	private String aplyPcstpCdName;
+
+
+	// 查询类型
+	private Integer queryType;
+
+	// 二级服务码
+	private String secSrvCd;
+
+	// 环节信息
+	private String aplyPcstpCd;
+
+
+	public String getAplyPcstpCdName() {
+		return aplyPcstpCdName;
+	}
+
+	public void setAplyPcstpCdName(String aplyPcstpCdName) {
+		this.aplyPcstpCdName = aplyPcstpCdName;
+	}
+
+	public Integer getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(Integer queryType) {
+		this.queryType = queryType;
+	}
+
+	public String getSecSrvCd() {
+		return secSrvCd;
+	}
+
+	public void setSecSrvCd(String secSrvCd) {
+		this.secSrvCd = secSrvCd;
+	}
+
+	public String getAplyPcstpCd() {
+		return aplyPcstpCd;
+	}
+
+	public void setAplyPcstpCd(String aplyPcstpCd) {
+		this.aplyPcstpCd = aplyPcstpCd;
+	}
+
 	public String getArId() {
 		return arId;
 	}

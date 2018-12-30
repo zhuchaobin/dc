@@ -108,7 +108,7 @@
 
   </sql>
 
-  <select id="selectByT6SpgInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.SpgManagementInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryPageSpgOutVo">
+  <select id="selectByT6SpgInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.SpgManagementInVo" resultType="com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo">
     SELECT t8.* FROM (
     SELECT
     t6.ID AS id,
@@ -141,6 +141,7 @@
     t6.Ins_Co AS insCo,
     t6.SplChain_Co AS splchainCo,
     t6.BTp as btp,
+    t6.Cnsgn AS cnsgn,
     t6.SvcFee_CMd as svcfeeCmd
     FROM
     (
