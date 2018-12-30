@@ -141,7 +141,6 @@
     t6.Ins_Co AS insCo,
     t6.SplChain_Co AS splchainCo,
     t6.BTp as btp,
-    t6.Cnsgn AS cnsgn,
     t6.SvcFee_CMd as svcfeeCmd
     FROM
     (
@@ -271,7 +270,7 @@
     t3.Cnsgn_Ctc_Tel AS cnsgnCtcTel,
     t3.Pps_Lnd AS ppsLnd,
     t3.Tms AS tms,
-    t3.Spg_St AS spgSt，
+    t3.Spg_St AS spgSt,
     t3.Crt_Tm AS crtTm
     FROM
     (
@@ -279,7 +278,7 @@
     distinct t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
     FROM
     T6_Spg_Inf t13, T1_AR_Inf t1
-    where t13.spg_id=#{spgId,jdbcType=INTEGER}
+    where t13.id=#{id,jdbcType=INTEGER}
     and t13.Ar_Id = t1.Ar_Id
     ) t3
     LEFT JOIN (
