@@ -68,8 +68,8 @@ public class TestT6SpgInfMapper {
 	@Rollback(false)
 	public void testQuerySpgDetail() {
 
-		T6SpgInfDetailVo t6SpgInfDetailVo = t6SpgInfMapper.querySpgDetail(1);
-		System.out.println("========="+ JSON.toJSONString(t6SpgInfDetailVo));
+		QuerySpgInfDetailOutVo querySpgInfDetailOutVo = t6SpgInfMapper.querySpgDetail(1);
+		System.out.println("========="+ JSON.toJSONString(querySpgInfDetailOutVo));
 	}
 
 

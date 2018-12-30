@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +65,16 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 	@Autowired
 	private T6SpgInfMapper t6SpgInfMapper;
+
+
+	@Autowired
+	private T7SpgDetailMapper t7SpgDetailMapper;
+
+
+	@Autowired
+	private UserMapper userMapper;
+	
+	
 
 	/**
 	 * 描述：保存发货信息
@@ -391,33 +402,58 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	 * @author yuzhaoyang 2018-12-25
 	 */
 	@Override
-	public Result<T6SpgInfDetailVo> querySpgDetail(String id) {
-		logger.info("查询发货详情,请求参数:{}", id);
+	public Result<QuerySpgInfDetailOutVo> querySpgDetail(SpgManagementInVo query ) {
+		logger.info("查询发货详情,请求参数:{}", JSON.toJSONString(query));
 		try {
-			T6SpgInfDetailVo t1 = null;
-
-			t1 = t6SpgInfMapper.querySpgDetail(Integer.parseInt(id));
-			if (t1 == null) {
+			QuerySpgInfDetailOutVo t3 = null;
+			t3 = t6SpgInfMapper.querySpgDetail(query.getId().intValue());
+			if (t3 == null) {
 				logger.error("查询发货详情无数据");
 				return Result.createFailResult("查询发货详情无数据");
 			}
 			// 查询发货附件信息
 			Condition condition0 = new Condition(T2UploadAtch.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Rltv_ID = '" + t1.getSpgId() + "'");
-			criteria0.andCondition("Rltv_Tp = '01'");
+			criteria0.andCondition("Rltv_ID = '" + t3.getSpgId() + "'");
+			criteria0.andCondition("Rltv_Tp = '02'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
-			t1.setT2UploadAtch01List(t2UploadAtch01List);
+			t3.setT2UploadAtch01List(t2UploadAtch01List);
 			logger.info("查询发货附件信息成功!");
 			// 查询发货流转信息
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
-			t0.setRltvId(t1.getSpgId());
-			t0.setProcessType("01");
+			t0.setRltvId(t3.getSpgId());
+			t0.setProcessType("02");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
-			t1.setList(t0LnkJrnlInfList);
-			logger.info("查询发货流转详情成功!");
+			if(null != t0LnkJrnlInfList) {
+				t3.setList(t0LnkJrnlInfList);
+				logger.info("查询发货流转详情成功!查询到数据条数：" + t0LnkJrnlInfList.size());
+			}
+			Condition condition1 = new Condition(T7SpgDetail.class);
+			Example.Criteria criteria1 = condition1.createCriteria();
+			criteria1.andCondition("Spg_ID = '" + t3.getSpgId() + "'");
+			List<T7SpgDetail> t7SpgDetailList = t7SpgDetailMapper.selectByCondition(condition1);
+			if(null != t7SpgDetailList) {
+				t3.setT7SpgDetailList(t7SpgDetailList);
+				logger.info("查询发货明细信息成功!查询到数据条数：" + t7SpgDetailList.size());
+			}
 			logger.info("查询发货详情成功!");
-			return Result.createSuccessResult(t1);
+			// 查询用户角色参数权限信息
+			List<String> userRoleParmsList = userMapper.QueryUserRoleParms(query.getUsername());
+			String userRoleParms = "";
+			for(String ele:userRoleParmsList) {
+				userRoleParms = userRoleParms + "|" + ele;
+			}
+			if(StringUtils.isNotBlank(userRoleParms)) {
+				String[] str = userRoleParms.split("\\|");
+				List<String> list = new ArrayList<String>();
+				for(String elem: str) {
+					list.add(elem);
+				}
+				t3.setRoleParmsList(list);
+			} else {
+				logger.error("查询用户角色参数权限信息，结果为空");
+			}
+			return Result.createSuccessResult(t3);
 		} catch (Exception e) {
 			logger.error("查询发货详情异常 {}", e);
 			return Result.createFailResult("查询发货详情异常" + e);

@@ -244,7 +244,7 @@
   </select>
 
 
-  <select id="querySpgDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.T6SpgInfDetailVo">
+  <select id="querySpgDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo">
     SELECT
     t3.Fnc_Entp AS fncEntp,
     t3.Ustrm_Splr AS ustrmSplr,
