@@ -417,7 +417,11 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			}
 			logger.info("查询订单详情成功!");
 			// 查询用户角色参数权限信息
-			String userRoleParms = userMapper.QueryUserRoleParms(query.getUsername());
+			List<String> userRoleParmsList = userMapper.QueryUserRoleParms(query.getUsername());
+			String userRoleParms = "";
+			for(String ele:userRoleParmsList) {
+				userRoleParms = userRoleParms + "|" + ele;
+			}
 			if(StringUtils.isNotBlank(userRoleParms)) {
 				String[] str = userRoleParms.split("\\|");
 				List<String> list = new ArrayList<String>();
