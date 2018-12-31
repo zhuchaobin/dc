@@ -271,15 +271,17 @@
     t3.Pps_Lnd AS ppsLnd,
     t3.Tms AS tms,
     t3.Spg_St AS spgSt,
-    t3.Crt_Tm AS crtTm
+    t3.Crt_Tm AS crtTm,
+      t3.PymtMod as pymtMod
     FROM
     (
     SELECT
-    distinct t13.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
+    distinct t13.*, t3.PymtMod,t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
     FROM
-    T6_Spg_Inf t13, T1_AR_Inf t1
+    T6_Spg_Inf t13, T1_AR_Inf t1,T3_Order_Inf t3
     where t13.id=#{id,jdbcType=INTEGER}
     and t13.Ar_Id = t1.Ar_Id
+      and t13.ordr_Id=t3.ordr_Id
     ) t3
     LEFT JOIN (
     SELECT

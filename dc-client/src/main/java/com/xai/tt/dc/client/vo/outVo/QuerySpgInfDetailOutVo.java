@@ -44,6 +44,16 @@ public class QuerySpgInfDetailOutVo extends T6SpgInf implements Serializable{
 	// 环节信息
 	private String aplyPcstpCd;
 
+	// 环节信息
+	private String pymtMod;
+
+	public String getPymtMod() {
+		return pymtMod;
+	}
+
+	public void setPymtMod(String pymtMod) {
+		this.pymtMod = pymtMod;
+	}
 
 	public List<QueryLnkJrnlInfOutVo> getList() {
 		return list;
