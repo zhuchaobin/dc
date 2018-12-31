@@ -172,6 +172,25 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				logger.info("更新发货信息成功：发货id" + t6SpgInfo.getArId() + "更新条数：" + num);
 			}
 
+
+			// 保存发货明细信息
+			// 先删除已经存在的
+			Condition condition = new Condition(T8OrderDetail.class);
+			Example.Criteria criteria = condition.createCriteria();
+			criteria.andCondition("Spg_ID = '" + spgId + "'");
+			t7SpgDetailMapper.deleteByCondition(condition);
+
+			List<T7SpgDetail> t7SpgDetailList = inVo.getT7SpgDetailList();
+			T7SpgDetail t7SpgDetail = new T7SpgDetail();
+			for(T7SpgDetail elem : t7SpgDetailList) {
+				BeanUtils.copyProperties(elem, t7SpgDetail);
+				t7SpgDetail.setSpgId(spgId);
+
+				t7SpgDetailMapper.insert(t7SpgDetail);
+			}
+
+
+
 			// 保存发货附件信息
 			try {
 				if (StringUtils.isNotEmpty(inVo.getFileNames())) {
@@ -215,10 +234,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					logger.error("发起发货，启动流程成功，processInstId:" + processInstId);
 				}
 				t6SpgInfo.setProcessInstId(processInstId);
-				Condition condition = new Condition(T6SpgInf.class);
-				Example.Criteria criteria = condition.createCriteria();
-				criteria.andCondition("Spg_ID = '" + spgId + "'");
-				t6SpgInfMapper.updateByConditionSelective(t6SpgInfo, condition);
+				Condition condition1 = new Condition(T6SpgInf.class);
+				Example.Criteria criteria1 = condition1.createCriteria();
+				criteria1.andCondition("Spg_ID = '" + spgId + "'");
+				t6SpgInfMapper.updateByConditionSelective(t6SpgInfo, condition1);
 				logger.info("processInstId =" + processInstId);
 			}
 			

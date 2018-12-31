@@ -81,7 +81,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	 */
 	@Override
 	public Result<Boolean> save(OrderManagementInVo inVo) {
-		logger.info("保存订单信息请求报文", JSON.toJSONString(inVo));
+		logger.info("保存订单信息请求报文{}", JSON.toJSONString(inVo));
 		logger.info("二级服务码secSrvCd：" + inVo.getSecSrvCd());
 		// 保存订单信息
 		T3OrderInf t3OrderInf = new T3OrderInf();

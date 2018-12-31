@@ -1,25 +1,25 @@
 package com.xai.tt.dc.client.vo.inVo;
 
+import com.xai.tt.dc.client.model.T7SpgDetail;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 public class SpgManagementInVo extends UserInfoQuery {
+
+
+
+    List<T7SpgDetail> t7SpgDetailList;
 	
 	/**
      * 全字段模糊检索关键字
      */
 	private String keyWorlds;
 	
-    public String getKeyWorlds() {
-		return keyWorlds;
-	}
 
-	public void setKeyWorlds(String keyWorlds) {
-		this.keyWorlds = keyWorlds;
-	}
 
     /**
      * ID
@@ -148,6 +148,24 @@ public class SpgManagementInVo extends UserInfoQuery {
      * 付款方式
      */
     private String pymtmod;
+
+
+
+    public String getKeyWorlds() {
+        return keyWorlds;
+    }
+
+    public void setKeyWorlds(String keyWorlds) {
+        this.keyWorlds = keyWorlds;
+    }
+
+    public List<T7SpgDetail> getT7SpgDetailList() {
+        return t7SpgDetailList;
+    }
+
+    public void setT7SpgDetailList(List<T7SpgDetail> t7SpgDetailList) {
+        this.t7SpgDetailList = t7SpgDetailList;
+    }
 
     public String getPymtmod() {
         return pymtmod;
