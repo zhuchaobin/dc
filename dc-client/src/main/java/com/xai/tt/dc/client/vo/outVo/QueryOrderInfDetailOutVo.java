@@ -32,6 +32,20 @@ public class QueryOrderInfDetailOutVo implements Serializable{
 		this.list = list;
 	}
 	
+	/**
+     * 合同编号
+     */
+    private String ctrId;
+    
+
+	public String getCtrId() {
+		return ctrId;
+	}
+
+	public void setCtrId(String ctrId) {
+		this.ctrId = ctrId;
+	}
+	
 	// 订单明细信息
 	List<T8OrderDetail> t8OrderDetailList;
 	

@@ -249,8 +249,22 @@ public class T3OrderInf {
      */
     @Column(name = "PymtMod")
     private String pymtmod;
-
+    
     /**
+     * 合同编号
+     */
+    @Column(name = "Ctr_ID")
+    private String ctrId;
+
+    public String getCtrId() {
+		return ctrId;
+	}
+
+	public void setCtrId(String ctrId) {
+		this.ctrId = ctrId;
+	}
+
+	/**
      * 获取ID
      *
      * @return id - ID
