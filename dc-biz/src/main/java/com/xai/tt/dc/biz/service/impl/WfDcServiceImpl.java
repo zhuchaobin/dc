@@ -188,7 +188,7 @@ public class WfDcServiceImpl implements WfDcService{
 		// 拾取并完成发起任务
 			// 查询任务id
 			WfeQuery wfeQuery = new WfeQuery();
-			wfeQuery.setOrderId(id);
+			wfeQuery.setSpgId(id);
 //			wfeQuery.setTaskDefKey(DataConstants.TASK_DEF_KEY.get(aplyPcstpCd));
 			String taskId = actRuTaskMapper.querySpgTaskId(wfeQuery);
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
