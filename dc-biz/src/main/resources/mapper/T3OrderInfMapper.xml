@@ -170,6 +170,9 @@
 	  <if test="tprtModAndImt  != null and tprtModAndImt  != ''">
         and t3.Tprt_Mod_And_Imt like binary CONCAT('%', #{tprtModAndImt ,jdbcType=CHAR},'%')       
       </if>
+      <if test="ctrId  != null and ctrId  != ''">
+        and t3.Ctr_ID like binary CONCAT('%', #{ctrId ,jdbcType=CHAR},'%')       
+      </if>
         <if test="fncEntp  != null and fncEntp  != ''">
         and t1.Fnc_Entp  = #{fncEntp ,jdbcType=INTEGER}
       </if>
@@ -238,6 +241,7 @@
  or t8.gdsNm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.ppsLnd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.tprtModAndImt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+  or t8.ctrId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  )
       </if>	
               
@@ -304,7 +308,8 @@ t6.PymtMod AS pymtmod,
 	t6.Ins_Co AS insCo,
 	t6.SplChain_Co AS splchainCo,
 	t6.BTp as btp,
-	t6.SvcFee_CMd as svcfeeCmd
+	t6.SvcFee_CMd as svcfeeCmd,
+	t6.Ctr_ID as ctrId
 FROM
 	(
 		select distinct t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from

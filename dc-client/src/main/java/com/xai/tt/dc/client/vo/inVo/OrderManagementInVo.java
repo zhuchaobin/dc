@@ -34,7 +34,20 @@ public class OrderManagementInVo extends UserInfoQuery {
 	public void setT8OrderDetailList(List<T8OrderDetail> t8OrderDetailList) {
 		this.t8OrderDetailList = t8OrderDetailList;
 	}
+	
+	/**
+     * 合同编号
+     */
+    private String ctrId;
+    
 
+	public String getCtrId() {
+		return ctrId;
+	}
+
+	public void setCtrId(String ctrId) {
+		this.ctrId = ctrId;
+	}
 	/**
      * ID
      */
