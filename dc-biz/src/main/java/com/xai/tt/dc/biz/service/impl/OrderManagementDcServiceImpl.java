@@ -508,9 +508,15 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// todo()
 			// 判断任务当前所处的环节是否正确
 			// todo()
+			// 查询付款方式
+			Condition condition0 = new Condition(T3OrderInf.class);
+			Example.Criteria criteria0 = condition0.createCriteria();
+			criteria0.andCondition("Ordr_ID = '" + query.getOrdrId() + "'");
+			T3OrderInf t3 = t3OrderInfMapper.selectByCondition(condition0).get(0);
+			
 			// 拾取并完成任务
 			wfDcService.claimAndCompleteOrderTask(query.getOrdrId(), query.getUsername(), query.getAplyPcstpCd(),
-					query.getAplyPsrltCd(), "");
+					query.getAplyPsrltCd(), t3.getPymtmod());
 			logger.debug("拾取并完成任务成功！");
 		} catch (Exception e) {
 			logger.error("订单提交异常 {}", e);
