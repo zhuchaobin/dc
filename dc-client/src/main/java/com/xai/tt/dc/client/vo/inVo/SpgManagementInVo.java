@@ -143,6 +143,20 @@ public class SpgManagementInVo extends UserInfoQuery {
      */
     private Integer insCo;
 
+
+    /**
+     * 付款方式
+     */
+    private String pymtmod;
+
+    public String getPymtmod() {
+        return pymtmod;
+    }
+
+    public void setPymtmod(String pymtmod) {
+        this.pymtmod = pymtmod;
+    }
+
     public Integer getStgco() {
         return stgco;
     }
