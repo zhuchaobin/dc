@@ -99,13 +99,13 @@
       and t3.spg_St  = '79'
     </if>
     <if test="queryType  != null and queryType  == 2">
-      and t3.spg_St in ('62', '63', '64', '65', '66', '67','68','69','70','71','72','73','74','75','76','77','78')
+      and t3.spg_St in ( '63', '64', '65', '66', '67','68','69','70','71','72','73','74','75','76','77','78')
     </if>
     <if test="queryType  != null and queryType  == 3">
       and t3.PROCESS_INST_ID in (select t.PROC_INST_ID_ from act_hi_actinst t where t.PROC_INST_ID_=t3.PROCESS_INST_ID and t.ACT_ID_='endevent1')
     </if>
     <if test="queryType  != null and queryType  == 4">
-      and t3.spg_St  in ('61')
+      and t3.spg_St  in ('62')
     </if>
     <if test="queryType  != null and queryType  == 5">
       and t3.spg_Id  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR})
