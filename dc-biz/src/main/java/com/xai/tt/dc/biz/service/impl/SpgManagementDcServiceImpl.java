@@ -551,7 +551,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			// todo()
 			// 拾取并完成任务
 			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), query.getAplyPcstpCd(),
-					query.getAplyPsrltCd(),query.getPymtmod(), query.getSelRdmgdsMod());
+					query.getAplyPsrltCd(),query.getPymtMod(), query.getSelRdmgdsMod());
 			logger.debug("拾取并完成任务成功！");
 		} catch (Exception e) {
 			logger.error("发货提交异常 {}", e);

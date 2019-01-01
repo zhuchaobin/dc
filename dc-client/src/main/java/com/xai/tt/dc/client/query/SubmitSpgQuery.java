@@ -31,17 +31,18 @@ public class SubmitSpgQuery extends UserInfoQuery {
 	}
 
 	// 付款方式
-    private String pymtmod;
+    private String pymtMod;
 
-    public String getPymtmod() {
-		return pymtmod;
+
+	public String getPymtMod() {
+		return pymtMod;
 	}
 
-	public void setPymtmod(String pymtmod) {
-		this.pymtmod = pymtmod;
+	public void setPymtMod(String pymtMod) {
+		this.pymtMod = pymtMod;
 	}
-	
-/**
+
+	/**
   * id
   */
  private Long id;
