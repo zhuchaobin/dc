@@ -77,8 +77,8 @@ public class TestT6SpgInfMapper {
 	@Rollback(false)
 	public void testQuerySpgDetailBySpgId() {
 
-		QuerySpgInfDetailOutVo querySpgInfDetailOutVo = t6SpgInfMapper.querySpgDetailBySpgId("1");
-		System.out.println("========="+ JSON.toJSONString(querySpgInfDetailOutVo));
+		QuerySpgInfDetailOutVo querySpgInfDetailOutVo = t6SpgInfMapper.querySpgDetailBySpgId("FH201812310003");
+		System.out.println("res==============="+ JSON.toJSONString(querySpgInfDetailOutVo));
 	}
 
 

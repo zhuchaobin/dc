@@ -587,13 +587,13 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		}
 
 		try {
-			T1ArInf t1 = new T1ArInf();
+			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
-			//t1.setArSt(query.getAplyPcstpCd());
-			//从工作流记录表中获取发货最新状态
-			T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(query.getSpgId());
-			if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
-				t1.setArSt(t1Vo.getAplyPcstpCd());
+
+
+			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
+			if(t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
+				t1.setSpgSt(t6Vo.getAplyPcstpCd());
 			} else {
 				logger.error("更新发货信息，获取发货状态失败");
 				return Result.createFailResult("更新发货信息，获取发货状态失败");
@@ -602,7 +602,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			Condition condition0 = new Condition(T6SpgInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
 			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
-			int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
+			int rltNum = t6SpgInfMapper.updateByConditionSelective(t1, condition0);
 			logger.info("更新发货状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
 			logger.error("更新发货状态异常 {}", e);
