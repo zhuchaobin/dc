@@ -5,7 +5,22 @@ import javax.persistence.*;
 
 @Table(name = "t6_spg_inf")
 public class T6SpgInf {
+	
     /**
+     * 赎货方式
+     */
+    @Column(name = "Sel_RdmGds_Mod")
+    private String selRdmgdsMod;
+    
+    public String getSelRdmgdsMod() {
+		return selRdmgdsMod;
+	}
+
+	public void setSelRdmgdsMod(String selRdmgdsMod) {
+		this.selRdmgdsMod = selRdmgdsMod;
+	}
+
+	/**
      * ID
      */
     @Id

@@ -549,9 +549,15 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			// todo()
 			// 判断任务当前所处的环节是否正确
 			// todo()
+			// 查询付款方式
+			Condition condition0 = new Condition(T6SpgInf.class);
+			Example.Criteria criteria0 = condition0.createCriteria();
+			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
+			T6SpgInf t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
+			
 			// 拾取并完成任务
 			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), query.getAplyPcstpCd(),
-					query.getAplyPsrltCd(),query.getPymtMod(), query.getSelRdmgdsMod());
+					query.getAplyPsrltCd(),"01", "01");
 			logger.debug("拾取并完成任务成功！");
 		} catch (Exception e) {
 			logger.error("发货提交异常 {}", e);
