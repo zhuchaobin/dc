@@ -181,13 +181,16 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t7SpgDetailMapper.deleteByCondition(condition);
 
 			List<T7SpgDetail> t7SpgDetailList = inVo.getT7SpgDetailList();
-			T7SpgDetail t7SpgDetail = new T7SpgDetail();
-			for(T7SpgDetail elem : t7SpgDetailList) {
-				BeanUtils.copyProperties(elem, t7SpgDetail);
-				t7SpgDetail.setSpgId(spgId);
+			if (t7SpgDetailList != null&&t7SpgDetailList.size()>0) {
+				T7SpgDetail t7SpgDetail = new T7SpgDetail();
+				for(T7SpgDetail elem : t7SpgDetailList) {
+					BeanUtils.copyProperties(elem, t7SpgDetail);
+					t7SpgDetail.setSpgId(spgId);
 
-				t7SpgDetailMapper.insert(t7SpgDetail);
-			}
+					t7SpgDetailMapper.insert(t7SpgDetail);
+				}
+
+			};
 
 
 
