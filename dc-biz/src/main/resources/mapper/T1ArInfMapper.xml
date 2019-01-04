@@ -493,7 +493,7 @@ where 1=1
   </select>
   
   
-    <select id="queryArDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.T1ARInfDetailVo">
+    <select id="queryArDetail" parameterType="java.lang.Long" resultType="com.xai.tt.dc.client.vo.T1ARInfDetailVo">
 SELECT
 	t3.ID AS id,
 	t3.Is_Need_Ins AS isNeedIns,

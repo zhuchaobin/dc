@@ -172,20 +172,38 @@
     t3.Ar_Id = t1.Ar_id
     <include refid="query_criteria"></include>
     ) t6
-    LEFT JOIN (
-    SELECT
-    t1.PROC_INST_ID_,
-    t2.GROUP_ID_,
-    t1.TASK_DEF_KEY_
-    FROM
-    act_ru_task t1,
-    act_ru_identitylink t2
-    WHERE
-    t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
-    ) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+    
+  	  <if test="userType == 1 or queryType  != 2">
+		 LEFT JOIN 
+      </if>	
+ 	  <if test="userType != 1 and queryType  == 2">	 , 
+      </if>	  
+         
+  (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_ 
+	  <!--非平台方查询自身的待审批件-->
+      <if test="userType != 1 and queryType  == 2">
+		AND t2.GROUP_ID_ = #{usrTp,jdbcType=VARCHAR}
+      </if>	
+) t4 
+ 	  <if test="userType == 1 or queryType  != 2">
+		 ON 
+      </if>	
+      <if test="userType != 1 and queryType  == 2">
+		 where 
+      </if>	
+	 t6.PROCESS_INST_ID = t4.PROC_INST_ID_ 
 
     <if test="orderBy != null and orderBy != ''">
-      ORDER BY ${orderBy}
+	   ORDER BY ${orderBy}
     </if>
     ) t8
     where 1=1
@@ -241,20 +259,37 @@
     t3.Ar_Id = t1.Ar_id
     <include refid="query_criteria"></include>
     ) t6
-    LEFT JOIN (
-    SELECT
-    t1.PROC_INST_ID_,
-    t2.GROUP_ID_,
-    t1.TASK_DEF_KEY_
-    FROM
-    act_ru_task t1,
-    act_ru_identitylink t2
-    WHERE
-    t1.ID_ = t2.TASK_ID_ #	AND t2.GROUP_ID_ = '01'
-    ) t4 ON t6.PROCESS_INST_ID = t4.PROC_INST_ID_
+ 	  <if test="userType == 1 or queryType  != 2">
+		 LEFT JOIN 
+      </if>	
+ 	  <if test="userType != 1 and queryType  == 2">	 , 
+      </if>	  
+         
+  (
+	SELECT
+		t1.PROC_INST_ID_,
+		t2.GROUP_ID_,
+		t1.TASK_DEF_KEY_
+	FROM
+		act_ru_task t1,
+		act_ru_identitylink t2
+	WHERE
+		t1.ID_ = t2.TASK_ID_ 
+	  <!--非平台方查询自身的待审批件-->
+      <if test="userType != 1 and queryType  == 2">
+		AND t2.GROUP_ID_ = #{usrTp,jdbcType=VARCHAR}
+      </if>	
+) t4 
+ 	  <if test="userType == 1 or queryType  != 2">
+		 ON 
+      </if>	
+      <if test="userType != 1 and queryType  == 2">
+		 where 
+      </if>	
+	 t6.PROCESS_INST_ID = t4.PROC_INST_ID_ 
 
     <if test="orderBy != null and orderBy != ''">
-      ORDER BY ${orderBy}
+	   ORDER BY ${orderBy}
     </if>
     ) t8
     where 1=1
