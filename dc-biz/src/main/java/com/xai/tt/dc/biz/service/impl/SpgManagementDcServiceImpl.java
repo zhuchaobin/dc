@@ -490,19 +490,25 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	@Override
 	public Result<Boolean> unDoSpg(SpgManagementInVo inVo) {
 		logger.info("撤销发货请求报文", JSON.toJSONString(inVo));
-/*		T6_Spg_Inf t1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
+		logger.info("撤销订单请求报文", JSON.toJSONString(inVo));
+		T6SpgInf t1 = t6SpgInfMapper.selectByPrimaryKey(inVo.getId());
 		if (t1 == null) {
-			logger.error("查询发货详情无数据");
-			return Result.createFailResult("查询发货详情无数据");
+			logger.error("查询订单详情无数据");
+			return Result.createFailResult("查询订单详情无数据");
 		}
 		try {
+
+			logger.info("xxxxxxxxxxxxxxx{}", t1.getProcessInstId());
+
 			// 休眠流程实例
 			wfDcService.suspendProcessInstanceById(t1.getProcessInstId());
+
+			logger.info("yyyyyyy{}", t1.getProcessInstId());
 		} catch (Exception e) {
-			logger.error("撤销发货休眠流程实例异常 {}", e);
-			return Result.createFailResult("撤销发货休眠流程实例异常:" + e);
+			logger.error("撤销订单休眠流程实例异常 {}", e);
+			return Result.createFailResult("撤销订单休眠流程实例异常:" + e);
 		}
-		
+
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
@@ -510,31 +516,30 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t0.setUsername(inVo.getUsername());
 			t0.setCompanyId(inVo.getCompanyId());
 			t0.setRltvId(t1.getArId());
-			t0.setProcessType("01");
+			t0.setProcessType("02");
 			t0.setAplyPcstpCd("11");
 			t0.setAplyPsrltCd("04");
 			t0.setId(null);
 			wfeUtils.saveLnkJrnlInf(t0);
 		} catch (Exception e) {
-			logger.error("撤销发货保存环节流水异常 {}", e);
-			return Result.createFailResult("撤销发货保存环节流水异常:" + e);
+			logger.error("撤销订单保存环节流水异常 {}", e);
+			return Result.createFailResult("撤销订单保存环节流水异常:" + e);
 		}
 
 		try {
-			// 更新发货状态
-			t1.setArSt("11");
+			// 更新订单状态
+			t1.setSpgSt("11");
 			t1.setTms(new Date());
-			Condition condition0 = new Condition(T6_Spg_Inf.class);
+			Condition condition0 = new Condition(T6SpgInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Spg_ID = '" + t1.gets() + "'");
-			int rltNum = t1ARInfMapper.updateByConditionSelective(t1, condition0);
-			logger.info("更新发货状态，更新记录数：" + rltNum);
+			criteria0.andCondition("Spg_ID = '" + t1.getSpgId() + "'");
+			int rltNum = t6SpgInfMapper.updateByConditionSelective(t1, condition0);
+			logger.info("更新订单状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
-			logger.error("更新发货状态异常 {}", e);
-			return Result.createFailResult("更新发货状态异常:" + e);
+			logger.error("更新订单状态异常 {}", e);
+			return Result.createFailResult("更新订单状态异常:" + e);
 		}
-		return Result.createSuccessResult(true);*/
-		return null;
+		return Result.createSuccessResult(true);
 	}
 
 	/**

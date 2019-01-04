@@ -93,8 +93,11 @@ public class WfDcServiceImpl implements WfDcService{
 		// TODO Auto-generated method stub
 		logger.debug("挂起流程实例,processInstanceId：" + processInstanceId);
 		try {
+
+			logger.info("zzzzzzzzzzz：" + processInstanceId);
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 			processEngine.getRuntimeService().suspendProcessInstanceById(processInstanceId);
+			logger.info("eeeeeeeeee：" + processInstanceId);
 			return true;
 		} catch (Exception e) {
 			logger.error("挂起流程实例异常,processInstanceId:" + processInstanceId + e);
