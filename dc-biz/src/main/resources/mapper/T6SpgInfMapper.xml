@@ -188,7 +188,9 @@
     t6.SplChain_Co AS splchainCo,
     t6.BTp as btp,
     t6.SvcFee_CMd as svcfeeCmd,
-    t6.Sel_RdmGds_Mod as selRdmgdsMod
+    t6.Sel_RdmGds_Mod as selRdmgdsMod,
+     t6.Crt_Tm as crtTm,
+     t6.username as username
     FROM
     (
     select distinct t3.*, t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd from
