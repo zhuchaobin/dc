@@ -10,6 +10,6 @@ public interface T1ArInfMapper extends Mapper<T1ArInf> {
 	int save(ArManagementInVo req);
 	Page<QueryPageArOutVo> selectByT1ARInfDcQuery(ArManagementInVo query);
 	int count(ArManagementInVo query);
-	T1ARInfDetailVo queryArDetail(Integer id);
+	T1ARInfDetailVo queryArDetail(Long id);
 	T1ARInfDetailVo queryArDetailByArId(String arId);	
 }

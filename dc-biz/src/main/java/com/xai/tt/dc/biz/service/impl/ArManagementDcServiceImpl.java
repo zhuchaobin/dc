@@ -1,5 +1,6 @@
 package com.xai.tt.dc.biz.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -68,10 +69,10 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 
 	@Autowired
 	private CompanyMapper companyMapper;
-	
+
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	/**
 	 * 描述：保存长约信息
 	 * 
@@ -90,57 +91,57 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 				return Result.createFailResult("保存长约信息请求报文不能为空");
 			}
 			String solveType = "";
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
 			// 判断处理类别
 			if ("01".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {		
+				if (null != inVo.getId()) {
 					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
-					if((null != rltT1)){
-						//撤销件	
-						if("11".equals(rltT1.getArSt())) {
+					if ((null != rltT1)) {
+						// 撤销件
+						if ("11".equals(rltT1.getArSt())) {
 							solveType = "03";
-						} else if("10".equals(rltT1.getArSt())){
+						} else if ("10".equals(rltT1.getArSt())) {
 							solveType = "04";
-						} else if("01".equals(rltT1.getArSt())){
+						} else if ("01".equals(rltT1.getArSt())) {
 							solveType = "02";
 						}
 					} else {
 						solveType = "01";
 						inVo.setArSt("10");
-					}					
+					}
 				} else {
 					solveType = "01";
 					inVo.setArSt("10");
 				}
 			} else if ("02".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {		
+				if (null != inVo.getId()) {
 					T1ArInf rltT1 = t1ARInfMapper.selectByPrimaryKey(inVo.getId());
-					if((null != rltT1)){
-						//撤销件	
-						if("11".equals(rltT1.getArSt())) {
+					if ((null != rltT1)) {
+						// 撤销件
+						if ("11".equals(rltT1.getArSt())) {
 							solveType = "07";
-						} else if("10".equals(rltT1.getArSt())){
+						} else if ("10".equals(rltT1.getArSt())) {
 							solveType = "08";
-						} else if("01".equals(rltT1.getArSt())){
+						} else if ("01".equals(rltT1.getArSt())) {
 							solveType = "06";
 						}
 					} else {
 						solveType = "05";
-					}					
+					}
 				} else {
 					solveType = "05";
 				}
 			}
 			logger.info("处理类型solveType：" + solveType);
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			if ("01".equals(solveType) || "05".equals(solveType) || "07".equals(solveType)) {
 				arId = "CY" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T1_AR_Inf_Seq", 4);
 			} else {
 				arId = inVo.getArId();
-			}			
-			if(StringUtils.isBlank(arId)) {
+			}
+			if (StringUtils.isBlank(arId)) {
 				logger.error("长约编号不能为空！");
 				return Result.createFailResult("长约编号不能为空！");
 			}
@@ -151,16 +152,16 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			t1ArInf.setTms(new Date());
 			t1ArInf.setCrtTm(new Date());
 			t1ArInf.setSplchainCo(123);
-			
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			// 
-			if(StringUtils.isBlank(t1ArInf.getArSt())){
-				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
+
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			//
+			if (StringUtils.isBlank(t1ArInf.getArSt())) {
+				if ("05".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 					t1ArInf.setArSt("01");
 				}
 			}
-			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
+			if ("01".equals(solveType) || "05".equals(solveType) || "07".equals(solveType)) {
 				t1ArInf.setId(null);
 				int num = t1ARInfMapper.insertSelective(t1ArInf);
 				logger.info("更新长约信息成功，插入记录数：" + num);
@@ -196,7 +197,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			if (StringUtils.isNotBlank(inVo.getFilesToDelete())) {
 				try {
 					String[] files = inVo.getFilesToDelete().split("\\|\\|");
-					for(String fileId : files) {
+					for (String fileId : files) {
 						logger.info("删除附件开始，附件id:" + fileId);
 						t2UploadAtchMapper.deleteByPrimaryKey(Long.parseLong(fileId));
 						logger.info("删除附件结束，附件id:" + fileId);
@@ -208,10 +209,10 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			}
 
 			// 如果是发起，保存流程实例id到长约信息表
-			// 05:新发起发起     07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
+			// 05:新发起发起 07：撤销件发起 08：保存件发起
+			if ("05".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 				String processInstId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
-				if(StringUtils.isBlank(processInstId)) {
+				if (StringUtils.isBlank(processInstId)) {
 					logger.error("发起长约，启动流程失败!");
 					return Result.createFailResult("发起长约，启动流程失败!");
 				} else {
@@ -224,11 +225,11 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 				t1ARInfMapper.updateByConditionSelective(t1ArInf, condition);
 				logger.info("processInstId =" + processInstId);
 			}
-			
+
 			// 保存环节流水
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			if ("05".equals(solveType) || "06".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 				T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 				BeanUtils.copyProperties(t1ArInf, t0);
 				t0.setUsername(inVo.getUsername());
@@ -242,20 +243,20 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 				// 拾取并完成发起任务
 				wfDcService.claimAndCompleteTask(arId, inVo.getUsername(), "01", "01");
 			}
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
+			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
+			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
+			if ("05".equals(solveType) || "06".equals(solveType) || "07".equals(solveType) || "08".equals(solveType)) {
 				// 更新长约状态为新状态
 				try {
 					T1ArInf t1 = new T1ArInf();
 					// 更新长约状态
-					//t1.setArSt(query.getAplyPcstpCd());
-					//从工作流记录表中获取长约最新状态
+					// t1.setArSt(query.getAplyPcstpCd());
+					// 从工作流记录表中获取长约最新状态
 					T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(arId);
-					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+					if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 						t1.setArSt(t1Vo.getAplyPcstpCd());
 					} else {
-						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
+						if (t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
 							t1.setArSt("99");
 							logger.info("流程已经结束.");
 						} else {
@@ -416,8 +417,8 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 	 * @author zhuchaobin 2018-11-21
 	 */
 	@Override
-	public Result<T1ARInfDetailVo> queryArDetail(String id) {
-		logger.info("查询长约详情,请求参数:{}", id);
+	public Result<T1ARInfDetailVo> queryArDetail(ArManagementInVo query) {
+		logger.info("查询长约详情,请求参数:{}", JSON.toJSONString(query));
 		try {
 			T1ARInfDetailVo t1 = null;
 			/*
@@ -425,7 +426,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			 * = condition.createCriteria(); criteria.andCondition("AR_ID = '" + id + "'");
 			 * t1ARInf = t1ARInfMapper.selectByCondition(condition).get(0);
 			 */
-			t1 = t1ARInfMapper.queryArDetail(Integer.parseInt(id));
+			t1 = t1ARInfMapper.queryArDetail(query.getId());
 			if (t1 == null) {
 				logger.error("查询长约详情无数据");
 				return Result.createFailResult("查询长约详情无数据");
@@ -445,14 +446,32 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
 			t1.setList(t0LnkJrnlInfList);
 			logger.info("查询长约流转详情成功!");
+			// 查询用户角色参数权限信息
+			List<String> userRoleParmsList = userMapper.QueryUserRoleParms(query.getUsername());
+			String userRoleParms = "";
+			for (String ele : userRoleParmsList) {
+				userRoleParms = userRoleParms + "|" + ele;
+			}
+			if (StringUtils.isNotBlank(userRoleParms)) {
+				String[] str = userRoleParms.split("\\|");
+				List<String> list = new ArrayList<String>();
+				for (String elem : str) {
+					list.add(elem);
+				}
+				t1.setRoleParmsList(list);
+			} else {
+				logger.error("查询用户角色参数权限信息，结果为空");
+			}
+
 			logger.info("查询长约详情成功!");
+
 			return Result.createSuccessResult(t1);
 		} catch (Exception e) {
 			logger.error("查询长约详情异常 {}", e);
 			return Result.createFailResult("查询长约详情异常" + e);
 		}
 	}
-	
+
 	/**
 	 * 描述：撤销长约
 	 * 
@@ -473,7 +492,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			logger.error("撤销长约休眠流程实例异常 {}", e);
 			return Result.createFailResult("撤销长约休眠流程实例异常:" + e);
 		}
-		
+
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
@@ -562,10 +581,10 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 		try {
 			T1ArInf t1 = new T1ArInf();
 			// 更新长约状态
-			//t1.setArSt(query.getAplyPcstpCd());
-			//从工作流记录表中获取长约最新状态
+			// t1.setArSt(query.getAplyPcstpCd());
+			// 从工作流记录表中获取长约最新状态
 			T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(query.getArId());
-			if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 				t1.setArSt(t1Vo.getAplyPcstpCd());
 			} else {
 				logger.error("更新长约信息，获取长约状态失败");

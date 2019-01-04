@@ -29,6 +29,17 @@ public class T1ARInfDetailVo implements Serializable{
 	public void setList(List<QueryLnkJrnlInfOutVo> list) {
 		this.list = list;
 	}
+	
+	// 用户角色参数权限信息
+	List<String> roleParmsList;
+	
+    public List<String> getRoleParmsList() {
+		return roleParmsList;
+	}
+	public void setRoleParmsList(List<String> roleParmsList) {
+		this.roleParmsList = roleParmsList;
+	}
+	
 	/**
      * ID
      */

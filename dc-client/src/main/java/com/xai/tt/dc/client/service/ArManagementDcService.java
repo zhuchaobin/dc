@@ -27,7 +27,7 @@ public interface ArManagementDcService {
 
 	Result<PageData<QueryPageArOutVo>> queryPage(ArManagementInVo query, PageParam pageParam);
 
-	Result<T1ARInfDetailVo> queryArDetail(String arId);
+	Result<T1ARInfDetailVo> queryArDetail(ArManagementInVo query);
 	
 	Result<Boolean> submitAr(SubmitArQuery query);
 //
