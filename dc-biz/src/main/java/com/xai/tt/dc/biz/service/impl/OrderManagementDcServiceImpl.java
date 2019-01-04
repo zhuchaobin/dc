@@ -1,4 +1,5 @@
 package com.xai.tt.dc.biz.service.impl;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,6 +31,7 @@ import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T3OrderInf;
 import com.xai.tt.dc.client.model.T8OrderDetail;
+import com.xai.tt.dc.client.model.User;
 import com.xai.tt.dc.client.model.T2UploadAtch;
 import com.xai.tt.dc.client.query.SubmitOrderQuery;
 import com.xai.tt.dc.client.service.OrderManagementDcService;
@@ -66,14 +68,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 
 	@Autowired
 	private CompanyMapper companyMapper;
-	
+
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	@Autowired
 	private T8OrderDetailMapper t8OrderDetailMapper;
-	
-	
+
 	/**
 	 * 描述：保存订单信息
 	 * 
@@ -168,21 +169,21 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				int num = t3OrderInfMapper.updateByPrimaryKeySelective(t3OrderInf);
 				logger.info("更新订单信息成功：订单id" + t3OrderInf.getArId() + "更新条数：" + num);
 			}
-			
+
 			// 保存订单明细信息
 			// 先删除已经存在的
 			Condition condition = new Condition(T8OrderDetail.class);
 			Example.Criteria criteria = condition.createCriteria();
 			criteria.andCondition("Ordr_ID = '" + orderId + "'");
 			t8OrderDetailMapper.deleteByCondition(condition);
-			
+
 			List<T8OrderDetail> t8OrderDetailList = inVo.getT8OrderDetailList();
 			T8OrderDetail t8 = new T8OrderDetail();
-			for(T8OrderDetail elem : t8OrderDetailList) {
+			for (T8OrderDetail elem : t8OrderDetailList) {
 				BeanUtils.copyProperties(elem, t8);
 				t8.setOrdrId(orderId);
 				t8.setCrtTm(new Date());
-				t8.setUsername(inVo.getUsername());				
+				t8.setUsername(inVo.getUsername());
 				t8OrderDetailMapper.insert(t8);
 			}
 
@@ -265,9 +266,9 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 						t3.setOrdrSt(t1Vo.getAplyPcstpCd());
 					} else {
-						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
-								t3.setOrdrSt("99");
-								logger.info("流程已经结束.");
+						if (t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
+							t3.setOrdrSt("99");
+							logger.info("流程已经结束.");
 						} else {
 							logger.error("更新订单信息，获取订单状态失败");
 							return Result.createFailResult("更新订单信息，获取订单状态失败");
@@ -358,6 +359,16 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
 		logger.info("getSortOrder:" + query.getSortOrder());
+		// 查询用户角色权限信息
+		Condition condition = new Condition(User.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("username = '" + query.getUsername() + "'");
+		User user = userMapper.selectByCondition(condition).get(0);
+		query.setSplchainCo(user.getSplchainCo());
+		query.setUserType(user.getUserType());
+		query.setCompanyId(user.getCompanyId());
+		query.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));
+		
 		Page<QueryOrderInfDetailOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
@@ -403,15 +414,15 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			t0.setRltvId(t3.getOrdrId());
 			t0.setProcessType("02");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
-			if(null != t0LnkJrnlInfList) {
+			if (null != t0LnkJrnlInfList) {
 				t3.setList(t0LnkJrnlInfList);
 				logger.info("查询订单流转详情成功!查询到数据条数：" + t0LnkJrnlInfList.size());
 			}
 			Condition condition1 = new Condition(T8OrderDetail.class);
 			Example.Criteria criteria1 = condition1.createCriteria();
 			criteria1.andCondition("Ordr_ID = '" + t3.getOrdrId() + "'");
-			List<T8OrderDetail> t8OrderDetailList = t8OrderDetailMapper.selectByCondition(condition1);			
-			if(null != t8OrderDetailList) {
+			List<T8OrderDetail> t8OrderDetailList = t8OrderDetailMapper.selectByCondition(condition1);
+			if (null != t8OrderDetailList) {
 				t3.setT8OrderDetailList(t8OrderDetailList);
 				logger.info("查询订单明细信息成功!查询到数据条数：" + t8OrderDetailList.size());
 			}
@@ -419,13 +430,13 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 查询用户角色参数权限信息
 			List<String> userRoleParmsList = userMapper.QueryUserRoleParms(query.getUsername());
 			String userRoleParms = "";
-			for(String ele:userRoleParmsList) {
+			for (String ele : userRoleParmsList) {
 				userRoleParms = userRoleParms + "|" + ele;
 			}
-			if(StringUtils.isNotBlank(userRoleParms)) {
+			if (StringUtils.isNotBlank(userRoleParms)) {
 				String[] str = userRoleParms.split("\\|");
 				List<String> list = new ArrayList<String>();
-				for(String elem: str) {
+				for (String elem : str) {
 					list.add(elem);
 				}
 				t3.setRoleParmsList(list);
@@ -461,7 +472,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 		}
 
 		try {
-			// 保存环节流水 
+			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 			BeanUtils.copyProperties(t1, t0);
 			t0.setUsername(inVo.getUsername());
@@ -513,7 +524,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			Example.Criteria criteria0 = condition0.createCriteria();
 			criteria0.andCondition("Ordr_ID = '" + query.getOrdrId() + "'");
 			T3OrderInf t3 = t3OrderInfMapper.selectByCondition(condition0).get(0);
-			
+
 			// 拾取并完成任务
 			wfDcService.claimAndCompleteOrderTask(query.getOrdrId(), query.getUsername(), query.getAplyPcstpCd(),
 					query.getAplyPsrltCd(), t3.getPymtmod());
@@ -538,7 +549,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.error("提交订单，保存附件信息异常 {}", e);
 			return Result.createFailResult("提交订单，保存附件信息异常" + e);
 		}
- 
+
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
@@ -577,8 +588,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	}
 
 	/**
-	 * 描述：查询订单提交详情
-	 * 2018-12-18
+	 * 描述：查询订单提交详情 2018-12-18
 	 */
 	@Override
 	public Result<QueryArSubmmitDetailOutVo> getOrderSubmmitDetail(String id, String orderId, String aplyPcstpCd) {

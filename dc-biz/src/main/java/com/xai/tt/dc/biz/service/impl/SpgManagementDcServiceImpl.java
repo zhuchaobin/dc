@@ -369,6 +369,16 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
 		logger.info("getSortOrder:" + query.getSortOrder());
+		// 查询用户角色权限信息
+		Condition condition = new Condition(User.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("username = '" + query.getUsername() + "'");
+		User user = userMapper.selectByCondition(condition).get(0);
+		query.setSplchainCo(user.getSplchainCo());
+		query.setUserType(user.getUserType());
+		query.setCompanyId(user.getCompanyId());
+		query.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));
+		
 		Page<QuerySpgInfDetailOutVo> page = null;
 		int count = 0;
 		if (pageParam != null) {
