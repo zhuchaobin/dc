@@ -20,7 +20,7 @@
     <result column="company_id" jdbcType="INTEGER" property="companyId" />
     <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
     <result column="Txn_Itt_Chnl_ID" jdbcType="CHAR" property="txnIttChnlId" />
-    <result column="Aply_PsRlt" jdbcType="LONGVARBINARY" property="aplyPsrlt" />
+    <result column="Aply_PsRlt" jdbcType="LONGVARCHAR" property="aplyPsrlt" />
   </resultMap>
   	
     <select id="QueryLnkJrnlInfList" parameterType="com.xai.tt.dc.client.model.T0LnkJrnlInf" resultType="com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo">

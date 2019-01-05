@@ -29,6 +29,17 @@ public class Role {
     private Date updateTime;
 
     /**
+     * 角色不可见参数列表
+     */
+    private String parms;
+
+    /**
+     * 审批结论个性化字段初始化
+     */
+    @Column(name = "Aply_PsRlt")
+    private String aplyPsrlt;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -166,5 +177,41 @@ public class Role {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    /**
+     * 获取角色不可见参数列表
+     *
+     * @return parms - 角色不可见参数列表
+     */
+    public String getParms() {
+        return parms;
+    }
+
+    /**
+     * 设置角色不可见参数列表
+     *
+     * @param parms 角色不可见参数列表
+     */
+    public void setParms(String parms) {
+        this.parms = parms;
+    }
+
+    /**
+     * 获取审批结论个性化字段初始化
+     *
+     * @return Aply_PsRlt - 审批结论个性化字段初始化
+     */
+    public String getAplyPsrlt() {
+        return aplyPsrlt;
+    }
+
+    /**
+     * 设置审批结论个性化字段初始化
+     *
+     * @param aplyPsrlt 审批结论个性化字段初始化
+     */
+    public void setAplyPsrlt(String aplyPsrlt) {
+        this.aplyPsrlt = aplyPsrlt;
     }
 }
