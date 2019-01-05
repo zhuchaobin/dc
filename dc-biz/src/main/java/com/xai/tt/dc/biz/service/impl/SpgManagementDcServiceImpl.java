@@ -482,12 +482,14 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				}
 				t3.setRoleParmsList(list);
 
-				Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getUsername());
-				t3.setSpecialDiv(result.getData());
+
 
 			} else {
 				logger.error("查询用户角色参数权限信息，结果为空");
 			}
+
+			Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getUsername());
+			t3.setSpecialDiv(result.getData());
 
 			logger.info("querySpgDetail res {}", JSON.toJSONString(t3));
 
