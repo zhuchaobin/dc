@@ -110,6 +110,36 @@ public class T6SpgInf {
     private Date crtTm;
 
     /**
+     * 赎货方式
+     */
+    @Column(name = "Sel_RdmGds_Mod")
+    private String selRdmGdsMod;
+
+
+    /**
+     * 付款方式
+     */
+    @Column(name = "PymtMod")
+    private String pymtMod;
+
+
+    public String getSelRdmGdsMod() {
+        return selRdmGdsMod;
+    }
+
+    public void setSelRdmGdsMod(String selRdmGdsMod) {
+        this.selRdmGdsMod = selRdmGdsMod;
+    }
+
+    public String getPymtMod() {
+        return pymtMod;
+    }
+
+    public void setPymtMod(String pymtMod) {
+        this.pymtMod = pymtMod;
+    }
+
+    /**
      * 获取ID
      *
      * @return id - ID
