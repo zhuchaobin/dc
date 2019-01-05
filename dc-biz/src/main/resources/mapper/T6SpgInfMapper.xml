@@ -362,7 +362,24 @@
     FROM
     (
     SELECT
-    distinct t13.*, t3.PymtMod,t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
+    distinct
+    t13.ID,
+    t13.Ar_ID ,
+    t13.Ordr_ID ,
+    t13.SPG_ID ,
+    t13.PROCESS_INST_ID ,
+    t13.Spg_Tm ,
+    t13.Spg_Psn ,
+    t13.Spg_Psn_Ctc_Tel ,
+    t13.Cnsgn AS cnsgn,
+    t13.Cnsgn_Ctc_Tel ,
+    t13.Pps_Lnd ,
+    t13.Tms ,
+    t13.Spg_St ,
+    t13.Crt_Tm,
+    t3.PymtMod,
+
+    t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
     FROM
     T6_Spg_Inf t13, T1_AR_Inf t1,T3_Order_Inf t3
     where t13.id=#{id,jdbcType=INTEGER}
