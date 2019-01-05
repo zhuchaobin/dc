@@ -20,6 +20,8 @@
     <result column="Spg_St" jdbcType="CHAR" property="spgSt" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+        <result column="Sel_RdmGds_Mod" jdbcType="CHAR" property="selRdmgdsMod" />
+    <result column="PymtMod" jdbcType="CHAR" property="pymtmod" />
   </resultMap>
 
   <sql id="Base_Column_List">
