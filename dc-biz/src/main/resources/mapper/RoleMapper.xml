@@ -18,5 +18,14 @@
     <result column="parms" jdbcType="VARCHAR" property="parms" />
     <result column="Aply_PsRlt" jdbcType="LONGVARCHAR" property="aplyPsrlt" />
   </resultMap>
+
+  <select id="querySpecialDiv" parameterType="java.lang.String" resultType="com.xai.tt.dc.client.model.Role">
+    SELECT t2.Aply_PsRlt as aplyPsrlt
+    from user t1 ,role t2,user_role t3
+    where
+      t1.id=t3.user_id and t2.id=t3.role_id
+      and t1.username=#{username ,jdbcType=VARCHAR}
+
+  </select>
  
 </mapper>

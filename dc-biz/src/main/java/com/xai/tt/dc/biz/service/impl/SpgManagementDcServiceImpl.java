@@ -11,6 +11,7 @@ import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
+import com.xai.tt.dc.client.inter.RoleInfoService;
 import com.xai.tt.dc.client.model.*;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
@@ -23,6 +24,7 @@ import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -73,8 +75,11 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 	@Autowired
 	private UserMapper userMapper;
-	
-	
+
+
+	@Autowired
+	private RoleInfoService roleInfoService;
+
 
 	/**
 	 * 描述：保存发货信息
@@ -482,9 +487,16 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					list.add(elem);
 				}
 				t3.setRoleParmsList(list);
+
+				Result<String> result = roleInfoService.querySpecialDiv(query.getUsername());
+				t3.setSpecialDiv(result.getData());
+
 			} else {
 				logger.error("查询用户角色参数权限信息，结果为空");
 			}
+
+			logger.info("querySpgDetail res {}", JSON.toJSONString(t3));
+
 			return Result.createSuccessResult(t3);
 		} catch (Exception e) {
 			logger.error("查询发货详情异常 {}", e);
