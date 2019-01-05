@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface RoleMapper extends Mapper<Role> {
 
-    List<Role> querySpecialDiv(String username);
 }

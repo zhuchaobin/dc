@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.tianan.common.api.bean.Result;
 import com.xai.tt.dc.App;
 
-import com.xai.tt.dc.client.inter.RoleInfoService;
+import com.xai.tt.dc.client.inter.R1LnkInfDefService;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +17,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = App.class)
 //@ContextConfiguration({ "classpath*:*dubbo-reference.xml" })
-public class TestRoleInfoService {
+public class TestR1LnkInfDefService {
 
 	@Autowired
-	private RoleInfoService roleInfoService;
+	private R1LnkInfDefService r1LnkInfDefService;
 
 
 
@@ -27,7 +28,7 @@ public class TestRoleInfoService {
 	@Rollback(false)
 	public void testQuerySpecialDiv() {
 
-		Result<String> res = roleInfoService.querySpecialDiv("TT");
+		Result<String> res = r1LnkInfDefService.querySpecialDiv("61");
 
 
 

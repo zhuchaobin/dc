@@ -11,20 +11,14 @@ import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
-import com.xai.tt.dc.client.inter.RoleInfoService;
+import com.xai.tt.dc.client.inter.R1LnkInfDefService;
 import com.xai.tt.dc.client.model.*;
-import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
-import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
-import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
-import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
-import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -78,7 +72,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 
 	@Autowired
-	private RoleInfoService roleInfoService;
+	private R1LnkInfDefService r1LnkInfDefService;
 
 
 	/**
@@ -488,7 +482,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				}
 				t3.setRoleParmsList(list);
 
-				Result<String> result = roleInfoService.querySpecialDiv(query.getUsername());
+				Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getUsername());
 				t3.setSpecialDiv(result.getData());
 
 			} else {
