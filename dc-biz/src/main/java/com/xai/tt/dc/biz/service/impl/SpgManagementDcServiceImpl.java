@@ -74,6 +74,11 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	@Autowired
 	private R1LnkInfDefService r1LnkInfDefService;
 
+	@Autowired
+	private T3OrderInfMapper t3OrderInfMapper;
+
+
+
 
 	/**
 	 * 描述：保存发货信息
@@ -162,6 +167,25 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t6SpgInfo.setSpgSt("01");
 				}
 			}
+
+
+			//查出订单中的支付方式
+			if ( inVo.getOrdrId()!=null&& !"".equals(inVo.getOrdrId())) {
+				Condition condition0 = new Condition(T3OrderInf.class);
+				Example.Criteria criteria0 = condition0.createCriteria();
+				criteria0.andCondition("Ordr_ID = '" + inVo.getOrdrId() + "'");
+				List<T3OrderInf> t3OrderInfs = t3OrderInfMapper.selectByCondition(condition0);
+
+				if ( t3OrderInfs!= null&&t3OrderInfs.size()>0) {
+
+					t6SpgInfo.setPymtMod(t3OrderInfs.get(0).getPymtmod());
+				};
+			};
+
+
+
+
+
 			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
 				t6SpgInfo.setId(null);
 				int num = t6SpgInfMapper.insertSelective(t6SpgInfo);
