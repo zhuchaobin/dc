@@ -14,6 +14,17 @@ import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 public class QueryOrderInfDetailOutVo implements Serializable{
 	private static final long serialVersionUID = 1L;
 		
+	/**
+     * 申请处理结果
+     */
+    private String aplyPsrlt;
+	
+	public String getAplyPsrlt() {
+		return aplyPsrlt;
+	}
+	public void setAplyPsrlt(String aplyPsrlt) {
+		this.aplyPsrlt = aplyPsrlt;
+	}
 	// 附件信息
 	private List<T2UploadAtch> t2UploadAtch01List;	
 

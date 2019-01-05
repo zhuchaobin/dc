@@ -12,6 +12,32 @@ import com.xai.tt.dc.client.query.UserInfoQuery;
 public class OrderManagementInVo extends UserInfoQuery {
 	
 	/**
+     * 查询标志  type 1:订单提交  0：订单详情查询
+     */
+	private String flag;
+	
+	
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	/**
+     * 环节步骤
+     */
+	private String aplyPcstpCd;
+	
+	
+	public String getAplyPcstpCd() {
+		return aplyPcstpCd;
+	}
+
+	public void setAplyPcstpCd(String aplyPcstpCd) {
+		this.aplyPcstpCd = aplyPcstpCd;
+	}
+	/**
      * 全字段模糊检索关键字
      */
 	private String keyWorlds;

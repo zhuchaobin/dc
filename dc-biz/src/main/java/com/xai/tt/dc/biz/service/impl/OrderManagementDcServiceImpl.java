@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
+import com.esotericsoftware.minlog.Log;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tianan.common.api.bean.PageData;
@@ -27,6 +28,7 @@ import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
+import com.xai.tt.dc.client.inter.R1LnkInfDefService;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T3OrderInf;
@@ -74,6 +76,10 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 
 	@Autowired
 	private T8OrderDetailMapper t8OrderDetailMapper;
+	
+	@Autowired
+	private R1LnkInfDefService r1LnkInfDefService;
+	
 
 	/**
 	 * 描述：保存订单信息
@@ -443,6 +449,14 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			} else {
 				logger.error("查询用户角色参数权限信息，结果为空");
 			}
+			// 如果是订单提交的查询
+			if("1".equals(query.getFlag())) {
+				//查询个性化审批界面
+				Log.info("query.getAplyPcstpCd():" + query.getAplyPcstpCd());
+				Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getAplyPcstpCd());
+				t3.setAplyPsrlt(result.getData());
+			}
+						
 			return Result.createSuccessResult(t3);
 		} catch (Exception e) {
 			logger.error("查询订单详情异常 {}", e);
