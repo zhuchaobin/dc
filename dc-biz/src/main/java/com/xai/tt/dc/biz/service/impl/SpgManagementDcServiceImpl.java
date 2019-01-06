@@ -276,7 +276,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				BeanUtils.copyProperties(t6SpgInfo, t0);
 				t0.setUsername(inVo.getUsername());
 				t0.setCompanyId(inVo.getCompanyId());
-				t0.setRltvId(t6SpgInfo.getArId());
+				t0.setRltvId(t6SpgInfo.getSpgId());
 				t0.setAplyPcstpCd("01");
 				t0.setAplyPsrltCd("01");
 				t0.setProcessType("01");
@@ -558,7 +558,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			BeanUtils.copyProperties(t1, t0);
 			t0.setUsername(inVo.getUsername());
 			t0.setCompanyId(inVo.getCompanyId());
-			t0.setRltvId(t1.getArId());
+			t0.setRltvId(t1.getSpgId());
 			t0.setProcessType("02");
 			t0.setAplyPcstpCd("11");
 			t0.setAplyPsrltCd("04");
