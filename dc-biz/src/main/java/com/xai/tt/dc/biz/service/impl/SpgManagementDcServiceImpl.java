@@ -157,7 +157,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t6SpgInfo.setSpgId(spgId);
 			t6SpgInfo.setCnsgn(inVo.getCnsgn());
 			t6SpgInfo.setTms(new Date());
-
+			t6SpgInfo.setCrtTm(new Date());
+			t6SpgInfo.setTms(new Date());
 			
 			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
