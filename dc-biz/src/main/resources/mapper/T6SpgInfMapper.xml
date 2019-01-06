@@ -112,7 +112,7 @@
     <if test="queryType  != null and queryType  == 5">
       and t3.spg_Id  in (select Rltv_ID from t0_lnk_jrnl_inf where username= #{username ,jdbcType=CHAR})
     </if>
- <if test="userType  == null or (userType!=1 and userType !=2 and userType !=3 and userType !=4 and userType !=5 and userType !=6 and userType !=7)">
+ <if test="userType  == null or (userType!=1 and userType !=2 and userType !=3 and userType !=4 and userType !=5 and userType !=6 and userType !=7 and userType !=8)">
         and t1.SplChain_Co = 99999
       </if>
       <if test="userType  != null and userType  == 2">
