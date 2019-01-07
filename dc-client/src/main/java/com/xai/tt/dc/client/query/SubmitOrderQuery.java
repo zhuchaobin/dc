@@ -135,7 +135,7 @@ public void setArId(String arId) {
  /**
   * 申请处理结果
   */
- private byte[] aplyPsrlt;
+ private String aplyPsrlt;
 
 public Long getId() {
 	return id;
@@ -257,11 +257,11 @@ public void setTxnIttChnlId(String txnIttChnlId) {
 	this.txnIttChnlId = txnIttChnlId;
 }
 
-public byte[] getAplyPsrlt() {
+public String getAplyPsrlt() {
 	return aplyPsrlt;
 }
 
-public void setAplyPsrlt(byte[] aplyPsrlt) {
+public void setAplyPsrlt(String aplyPsrlt) {
 	this.aplyPsrlt = aplyPsrlt;
 }
 

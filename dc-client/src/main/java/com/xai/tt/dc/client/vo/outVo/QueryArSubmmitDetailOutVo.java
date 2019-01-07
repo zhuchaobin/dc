@@ -100,7 +100,7 @@ public class QueryArSubmmitDetailOutVo implements Serializable {
     /**
      * 申请处理结果
      */
-    private byte[] aplyPsrlt;
+    private String aplyPsrlt;
     
     /**
      * 公司名称
@@ -197,10 +197,10 @@ public class QueryArSubmmitDetailOutVo implements Serializable {
 	public void setTxnIttChnlId(String txnIttChnlId) {
 		this.txnIttChnlId = txnIttChnlId;
 	}
-	public byte[] getAplyPsrlt() {
+	public String getAplyPsrlt() {
 		return aplyPsrlt;
 	}
-	public void setAplyPsrlt(byte[] aplyPsrlt) {
+	public void setAplyPsrlt(String aplyPsrlt) {
 		this.aplyPsrlt = aplyPsrlt;
 	}
 	public String getName() {

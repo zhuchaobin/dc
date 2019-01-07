@@ -619,7 +619,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// 查询公司名称
 			if (null != outVo.getCompanyId()) {
 				Company company = new Company();
-				company = companyMapper.selectByPrimaryKey(outVo.getCompanyId());
+				company = companyMapper.selectByPrimaryKey(t0.getCompanyId());
 				outVo.setName(company.getName());
 			}
 
@@ -629,7 +629,12 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			criteria0.andCondition("Rltv_ID = '" + orderId + "'");
 			criteria0.andCondition("Rltv_Tp = '" + aplyPcstpCd + "'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
-			outVo.setT2UploadAtch01List(t2UploadAtch01List);
+			if(null != t2UploadAtch01List && t2UploadAtch01List.size() > 0) {
+				outVo.setT2UploadAtch01List(t2UploadAtch01List);
+				logger.info("查询订单提交附件信息,返回条数为：" + t2UploadAtch01List.size());
+			} else {
+				logger.info("查询订单提交附件信息,返回结果为空");
+			}
 			logger.info("查询订单提交附件信息成功!");
 			return Result.createSuccessResult(outVo);
 		} catch (Exception e) {
