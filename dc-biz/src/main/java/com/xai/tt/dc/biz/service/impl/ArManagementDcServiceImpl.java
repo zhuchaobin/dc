@@ -584,12 +584,20 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			// t1.setArSt(query.getAplyPcstpCd());
 			// 从工作流记录表中获取长约最新状态
 			T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(query.getArId());
+
 			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 				t1.setArSt(t1Vo.getAplyPcstpCd());
 			} else {
-				logger.error("更新长约信息，获取长约状态失败");
-				return Result.createFailResult("更新长约信息，获取长约状态失败");
+				// 判断流程是否结束
+				if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
+					logger.error("流程已结束，设置状态为99");
+					t1.setArSt("99");
+				} else {
+					logger.error("更新长约信息，获取长约状态失败");
+					return Result.createFailResult("更新长约信息，获取长约状态失败");
+				}
 			}
+			
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T1ArInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();

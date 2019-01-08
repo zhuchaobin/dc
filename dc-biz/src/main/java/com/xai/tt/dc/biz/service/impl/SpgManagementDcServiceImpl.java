@@ -646,15 +646,21 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		try {
 			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
-
-
 			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
-			if(t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
+
+			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
 				t1.setSpgSt(t6Vo.getAplyPcstpCd());
 			} else {
-				logger.error("更新发货信息，获取发货状态失败");
-				return Result.createFailResult("更新发货信息，获取发货状态失败");
+				// 判断流程是否结束
+				if(t6Vo != null && wfDcService.isEndProcess(t6Vo.getProcessInstId())) {
+					logger.error("流程已结束，设置状态为99");
+					t1.setSpgSt("99");
+				} else {
+					logger.error("更新发货信息，获取发货状态失败");
+					return Result.createFailResult("更新发货信息，获取发货状态失败");
+				}
 			}
+			
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T6SpgInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();

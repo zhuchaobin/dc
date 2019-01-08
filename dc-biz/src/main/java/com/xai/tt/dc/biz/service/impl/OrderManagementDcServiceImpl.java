@@ -388,7 +388,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			logger.error("查询订单列表异常 {}", e);
 			return Result.createFailResult("查询异常");
 		}
-		logger.info("query maintenanceParm list success!");
+		logger.info("query success!");
 		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
 	}
 
@@ -585,8 +585,14 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 				t1.setOrdrSt(t1Vo.getAplyPcstpCd());
 			} else {
-				logger.error("更新订单信息，获取订单状态失败");
-				return Result.createFailResult("更新订单信息，获取订单状态失败");
+				// 判断流程是否结束
+				if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
+					logger.error("流程已结束，设置状态为99");
+					t1.setOrdrSt("99");
+				} else {
+					logger.error("更新订单信息，获取订单状态失败");
+					return Result.createFailResult("更新订单信息，获取订单状态失败");
+				}
 			}
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T3OrderInf.class);
@@ -620,7 +626,8 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			if (null != outVo.getCompanyId()) {
 				Company company = new Company();
 				company = companyMapper.selectByPrimaryKey(t0.getCompanyId());
-				outVo.setName(company.getName());
+				if(null != company)
+					outVo.setName(company.getName());
 			}
 
 			// 查询订单提交附件信息
