@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T11IvntInfMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T11IvntInf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Tprt_Bl_ID" property="tprtBlId" jdbcType="CHAR" />
+    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
+    <result column="Spg_Psn" property="spgPsn" jdbcType="VARCHAR" />
+    <result column="Spg_Ctc_Tel" property="spgCtcTel" jdbcType="VARCHAR" />
+    <result column="Spg_Rmrk" property="spgRmrk" jdbcType="VARCHAR" />
+    <result column="Cnsgn" property="cnsgn" jdbcType="VARCHAR" />
+    <result column="RcvG_Ctc_Tel" property="rcvgCtcTel" jdbcType="VARCHAR" />
+    <result column="Pps_Lnd" property="ppsLnd" jdbcType="VARCHAR" />
+    <result column="Pd_Fctr" property="pdFctr" jdbcType="VARCHAR" />
+    <result column="Spg_Tm" property="spgTm" jdbcType="TIMESTAMP" />
+    <result column="Vhcl_Num" property="vhclNum" jdbcType="INTEGER" />
+    <result column="Tprt_Mod_And_Imt" property="tprtModAndImt" jdbcType="VARCHAR" />
+    <result column="Lgstc_Co" property="lgstcCo" jdbcType="INTEGER" />
+    <result column="Rev_Mny_Psn" property="revMnyPsn" jdbcType="VARCHAR" />
+    <result column="Rev_Mny_Ctc_Tel" property="revMnyCtcTel" jdbcType="VARCHAR" />
+    <result column="Rev_Mny_Tm" property="revMnyTm" jdbcType="TIMESTAMP" />
+    <result column="Rev_Mny_Rmrk" property="revMnyRmrk" jdbcType="VARCHAR" />
+    <result column="StgCo" property="stgco" jdbcType="INTEGER" />
+    <result column="InTrsr_Psn" property="intrsrPsn" jdbcType="VARCHAR" />
+    <result column="InTrsr_Tm" property="intrsrTm" jdbcType="TIMESTAMP" />
+    <result column="InTrsr_Rmrk" property="intrsrRmrk" jdbcType="VARCHAR" />
+    <result column="OutStg_Tm" property="outstgTm" jdbcType="TIMESTAMP" />
+    <result column="Plg_St" property="plgSt" jdbcType="INTEGER" />
+    <result column="Str_Bit" property="strBit" jdbcType="VARCHAR" />
+    <result column="WhRecpt_ID" property="whrecptId" jdbcType="CHAR" />
+    <result column="Ivnt_St" property="ivntSt" jdbcType="CHAR" />
+    <result column="Plg_Warn_StCd" property="plgWarnStcd" jdbcType="CHAR" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
