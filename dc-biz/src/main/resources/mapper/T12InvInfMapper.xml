@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T12InvInfMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T12InvInf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Pyr" property="pyr" jdbcType="INTEGER" />
+    <result column="RcvPrt" property="rcvprt" jdbcType="INTEGER" />
+    <result column="Amt" property="amt" jdbcType="REAL" />
+    <result column="Py_Tm" property="pyTm" jdbcType="TIMESTAMP" />
+    <result column="Py_Rsn" property="pyRsn" jdbcType="VARCHAR" />
+    <result column="Aprv_Psn" property="aprvPsn" jdbcType="VARCHAR" />
+    <result column="Aprv_Tm" property="aprvTm" jdbcType="TIMESTAMP" />
+    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
+    <result column="Ctc_Tel" property="ctcTel" jdbcType="VARCHAR" />
+    <result column="Prpsl_Inv_Hd" property="prpslInvHd" jdbcType="VARCHAR" />
+    <result column="Rltv_ID" property="rltvId" jdbcType="VARCHAR" />
+    <result column="Rltv_Tp" property="rltvTp" jdbcType="CHAR" />
+    <result column="IssuBill_Psn" property="issubillPsn" jdbcType="VARCHAR" />
+    <result column="IssuBill_Tm" property="issubillTm" jdbcType="TIMESTAMP" />
+    <result column="BilRecr" property="bilrecr" jdbcType="VARCHAR" />
+    <result column="Inv_Tm" property="invTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="query_criteria">  
+  	 	  <if test="pyr  != null">
+        and Pyr  = #{pyr ,jdbcType=INTEGER}
+      </if>
+	  <if test="rcvprt  != null">
+        and RcvPrt  = #{rcvprt ,jdbcType=INTEGER}    
+      </if>
+         <if test="keyWorlds  != null and keyWorlds  != ''">
+ and (t.id like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Pyr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.RcvPrt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Amt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Py_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Py_Rsn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Aprv_Psn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Aprv_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Rmrk like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Ctc_Tel like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Prpsl_Inv_Hd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Rltv_ID like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Rltv_Tp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.IssuBill_Psn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.IssuBill_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.BilRecr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.Inv_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ )
+ </if>
+  </sql>
+  
+    <select id="selectT12ByPage" parameterType="com.xai.tt.dc.client.vo.QueryPageInvInfVo" resultType="com.xai.tt.dc.client.vo.QueryPageInvInfVo">
+select * from (
+select _get_coname_func (t12.Pyr) AS pyrName,
+_get_coname_func (t12.RcvPrt) AS rcvprtName,
+t12.*
+ from T12_Inv_Inf t12
+ where 1==1
+ <include refid="query_criteria"></include>
+ ORDER BY
+	t12.Py_Tm DESC  
+	) t
+	<if test="orderBy != null and orderBy != ''">
+	   ORDER BY ${orderBy}
+    </if>
+	</select>
+</mapper>
