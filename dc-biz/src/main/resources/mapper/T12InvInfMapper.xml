@@ -53,13 +53,13 @@
  </if>
   </sql>
   
-    <select id="selectT12ByPage" parameterType="com.xai.tt.dc.client.vo.QueryPageInvInfVo" resultType="com.xai.tt.dc.client.vo.QueryPageInvInfVo">
+    <select id="selectByPage" parameterType="com.xai.tt.dc.client.vo.QueryPageInvInfVo" resultType="com.xai.tt.dc.client.vo.QueryPageInvInfVo">
 select * from (
 select _get_coname_func (t12.Pyr) AS pyrName,
 _get_coname_func (t12.RcvPrt) AS rcvprtName,
 t12.*
  from T12_Inv_Inf t12
- where 1==1
+ where 1=1
  <include refid="query_criteria"></include>
  ORDER BY
 	t12.Py_Tm DESC  
@@ -67,5 +67,44 @@ t12.*
 	<if test="orderBy != null and orderBy != ''">
 	   ORDER BY ${orderBy}
     </if>
+	</select>
+	
+	    <select id="count" parameterType="com.xai.tt.dc.client.vo.QueryPageInvInfVo" resultType="java.lang.Integer">
+select count(*) from (
+select _get_coname_func (t12.Pyr) AS pyrName,
+_get_coname_func (t12.RcvPrt) AS rcvprtName,
+t12.*
+ from T12_Inv_Inf t12
+ where 1=1
+ <include refid="query_criteria"></include>
+ ORDER BY
+	t12.Py_Tm DESC  
+	) t
+	</select>
+	
+	
+	 <select id="queryDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.QueryPageInvInfVo">
+select _get_coname_func (t12.Pyr) AS pyrName,
+_get_coname_func (t12.RcvPrt) AS rcvprtName,
+t12.id as id,
+t12.Pyr as pyr,
+t12.RcvPrt as rcvprt,
+t12.Amt as amt,
+t12.Py_Tm as pyTm,
+t12.Py_Rsn as pyRsn,
+t12.Aprv_Psn as aprvPsn,
+t12.Aprv_Tm as aprvTm,
+t12.Rmrk as rmrk,
+t12.Ctc_Tel as ctcTel,
+t12.Prpsl_Inv_Hd as prpslInvHd,
+t12.Rltv_ID as rltvId,
+t12.Rltv_Tp as rltvTp,
+t12.IssuBill_Psn as issubillPsn,
+t12.IssuBill_Tm as issubillTm,
+t12.BilRecr as bilrecr,
+t12.Inv_Tm as invTm
+ from T12_Inv_Inf t12
+ where 
+ t12.id  = #{id ,jdbcType=INTEGER}
 	</select>
 </mapper>
