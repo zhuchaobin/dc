@@ -11,6 +11,8 @@ import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.service.CompanyDcService;
+import com.xai.tt.dc.client.vo.QueryPageInvInfVo;
+
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -49,6 +51,20 @@ public class CompanyDcServiceImpl implements CompanyDcService {
 			return Result.createFailResult("查询异常");
 		}	
 	}
+	
+	/*分页查询*/
+	public Result<PageInfo<Company>> queryPage_skf_fkf(QueryPageInvInfVo query){
+		try {
+			List<Company> list = companyMapper.queryPage_skf_fkf(query);
+			PageInfo<Company> pageInfo = new PageInfo<Company>(list);
+			logger.info("q分页查询公司信息成功!");
+			return Result.createSuccessResult(pageInfo);
+		} catch (Exception e) {
+			logger.error("分页查询公司信息异常 {}", e);
+			return Result.createFailResult("查询异常");
+		}	
+	}
+	
 	/*查询明细*/
 	public Result<Company> queryDetail(String id){
 		return null;

@@ -6,6 +6,7 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.query.CompanyQuery;
+import com.xai.tt.dc.client.vo.QueryPageInvInfVo;
 
 /**
  * 描述：公司信息服务
@@ -21,4 +22,6 @@ public interface CompanyDcService {
 	Result<Company> queryDetail(String id);
 	/*按id删除*/
 	Result<Boolean> delete(String id);
+	/*查询开发票、收发票的收款方、付款方*/
+	Result<PageInfo<Company>> queryPage_skf_fkf(QueryPageInvInfVo query);
 }

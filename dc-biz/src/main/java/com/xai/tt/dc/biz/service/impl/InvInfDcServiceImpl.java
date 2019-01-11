@@ -23,14 +23,20 @@ public class InvInfDcServiceImpl implements InvInfDcService {
 	@Autowired
 	private T12InvInfMapper t12InvInfMapper;
 	
-	/*保存或者更新发票信息*/
+	/*保存或者更新发票开票或者收票信息*/
 	public Result<Boolean> save(QueryPageInvInfVo query){
 		logger.info("保存或者更新发票信息  =======> query:{}", query);
 		try {
 			T12InvInf t12 = new T12InvInf();
 			t12.setId(query.getId());
-			t12.setIssubillPsn(query.getUsername());
-			t12.setIssubillTm(new Date());
+			if("01".equals(query.getSecSrvCd())) {
+				t12.setIssubillPsn(query.getUsername());
+				t12.setIssubillTm(new Date());
+			} else if ("02".equals(query.getSecSrvCd())) {
+				t12.setBilrecr(query.getUsername());
+				t12.setInvTm(new Date());
+			}
+				
 			t12InvInfMapper.updateByPrimaryKeySelective(t12);
 			return Result.createSuccessResult(true);
 		} catch (Exception e) {

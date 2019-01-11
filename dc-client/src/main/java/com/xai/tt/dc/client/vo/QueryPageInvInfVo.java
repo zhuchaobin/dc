@@ -9,6 +9,17 @@ import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class QueryPageInvInfVo extends UserInfoQuery{
 	private static final long serialVersionUID = 1L;
+    // 二级服务码
+    private String secSrvCd;
+    
+	public String getSecSrvCd() {
+		return secSrvCd;
+	}
+
+	public void setSecSrvCd(String secSrvCd) {
+		this.secSrvCd = secSrvCd;
+	}
+
 	/**
      * 全字段模糊检索关键字
      */

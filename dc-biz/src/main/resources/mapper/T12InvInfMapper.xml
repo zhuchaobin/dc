@@ -31,24 +31,43 @@
 	  <if test="rcvprt  != null">
         and RcvPrt  = #{rcvprt ,jdbcType=INTEGER}    
       </if>
+      <if test="secSrvCd  != null and secSrvCd=='03'">
+        and Pyr  = #{companyId ,jdbcType=INTEGER}
+        and (BilRecr IS NULL or BilRecr='')
+      </if>
+      <if test="secSrvCd  != null and secSrvCd=='04'">
+        and Pyr  = #{companyId ,jdbcType=INTEGER}
+        and  ( BilRecr is not null and BilRecr!='')
+      </if>
+      <if test="secSrvCd  != null and secSrvCd=='01'">
+        and RcvPrt  = #{companyId ,jdbcType=INTEGER}
+        and  ( IssuBill_Psn is null or IssuBill_Psn='')
+      </if>
+           <if test="secSrvCd  != null and secSrvCd=='02'">
+        and RcvPrt  = #{companyId ,jdbcType=INTEGER}
+        and  ( IssuBill_Psn is not null and IssuBill_Psn!='')
+      </if>
+      <if test="rltvId  != null and rltvId!=''">
+        and Rltv_ID  = #{rltvId ,jdbcType=VARCHAR}    
+      </if>
+      
          <if test="keyWorlds  != null and keyWorlds  != ''">
  and (t.id like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Pyr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.RcvPrt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Amt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Py_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Py_Rsn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Aprv_Psn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Aprv_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Rmrk like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Ctc_Tel like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Prpsl_Inv_Hd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Rltv_ID like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Rltv_Tp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.IssuBill_Psn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.IssuBill_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.BilRecr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
- or t.Inv_Tm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.pyr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.rcvprt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.amt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.pyRsn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.aprvPsn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.rmrk like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.ctcTel like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.prpslInvHd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.rltvId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.rltvTp like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.issubillPsn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.issubillTm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t.bilrecr like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+  or t.pyrName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+   or t.rcvprtName like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  )
  </if>
   </sql>
@@ -57,13 +76,25 @@
 select * from (
 select _get_coname_func (t12.Pyr) AS pyrName,
 _get_coname_func (t12.RcvPrt) AS rcvprtName,
+t12.Py_Tm as pyTm,
+t12.Py_Rsn as pyRsn,
+t12.Aprv_Psn as aprvPsn,
+t12.Aprv_Tm as aprvTm,
+t12.Ctc_Tel as ctcTel,
+t12.Prpsl_Inv_Hd as prpslInvHd,
+t12.Rltv_ID as rltvId,
+t12.Rltv_Tp as rltvTp,
+t12.IssuBill_Psn as issubillPsn,
+t12.IssuBill_Tm as issubillTm,
+t12.Inv_Tm as invTm,
 t12.*
+
  from T12_Inv_Inf t12
- where 1=1
- <include refid="query_criteria"></include>
  ORDER BY
 	t12.Py_Tm DESC  
 	) t
+	 where 1=1
+ <include refid="query_criteria"></include>
 	<if test="orderBy != null and orderBy != ''">
 	   ORDER BY ${orderBy}
     </if>
@@ -73,13 +104,25 @@ t12.*
 select count(*) from (
 select _get_coname_func (t12.Pyr) AS pyrName,
 _get_coname_func (t12.RcvPrt) AS rcvprtName,
+t12.Py_Tm as pyTm,
+t12.Py_Rsn as pyRsn,
+t12.Aprv_Psn as aprvPsn,
+t12.Aprv_Tm as aprvTm,
+t12.Ctc_Tel as ctcTel,
+t12.Prpsl_Inv_Hd as prpslInvHd,
+t12.Rltv_ID as rltvId,
+t12.Rltv_Tp as rltvTp,
+t12.IssuBill_Psn as issubillPsn,
+t12.IssuBill_Tm as issubillTm,
+t12.Inv_Tm as invTm,
 t12.*
  from T12_Inv_Inf t12
- where 1=1
- <include refid="query_criteria"></include>
+
  ORDER BY
 	t12.Py_Tm DESC  
 	) t
+		 where 1=1
+ <include refid="query_criteria"></include>
 	</select>
 	
 	
