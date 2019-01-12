@@ -471,14 +471,14 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			Condition condition0 = new Condition(T2UploadAtch.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
 			criteria0.andCondition("Rltv_ID = '" + t3.getSpgId() + "'");
-			criteria0.andCondition("Rltv_Tp = '02'");
+			criteria0.andCondition("Rltv_Tp = '03'");
 			List<T2UploadAtch> t2UploadAtch01List = t2UploadAtchMapper.selectByCondition(condition0);
 			t3.setT2UploadAtch01List(t2UploadAtch01List);
 			logger.info("查询发货附件信息成功!");
 			// 查询发货流转信息
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
 			t0.setRltvId(t3.getSpgId());
-			t0.setProcessType("02");
+			t0.setProcessType("03");
 			List<QueryLnkJrnlInfOutVo> t0LnkJrnlInfList = t0LnkJrnlInfMapper.QueryLnkJrnlInfList(t0);
 			if(null != t0LnkJrnlInfList) {
 				t3.setList(t0LnkJrnlInfList);
@@ -695,7 +695,11 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			if (null != outVo.getCompanyId()) {
 				Company company = new Company();
 				company = companyMapper.selectByPrimaryKey(outVo.getCompanyId());
-				outVo.setName(company.getName());
+
+				if (company != null) {
+					outVo.setName(company.getName());
+				};
+
 			}
 
 			// 查询发货提交附件信息

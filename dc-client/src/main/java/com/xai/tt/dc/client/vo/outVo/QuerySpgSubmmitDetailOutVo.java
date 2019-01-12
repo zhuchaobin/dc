@@ -95,10 +95,10 @@ public class QuerySpgSubmmitDetailOutVo implements Serializable {
      */
     private String txnIttChnlId;
 
-    /**
-     * 申请处理结果
-     */
-    private byte[] aplyPsrlt;
+	/**
+	 * 申请处理结果
+	 */
+	private String aplyPsrlt;
     
     /**
      * 公司名称
@@ -195,17 +195,19 @@ public class QuerySpgSubmmitDetailOutVo implements Serializable {
 	public void setTxnIttChnlId(String txnIttChnlId) {
 		this.txnIttChnlId = txnIttChnlId;
 	}
-	public byte[] getAplyPsrlt() {
-		return aplyPsrlt;
-	}
-	public void setAplyPsrlt(byte[] aplyPsrlt) {
-		this.aplyPsrlt = aplyPsrlt;
-	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-  
+
+	public String getAplyPsrlt() {
+		return aplyPsrlt;
+	}
+
+	public void setAplyPsrlt(String aplyPsrlt) {
+		this.aplyPsrlt = aplyPsrlt;
+	}
 }
