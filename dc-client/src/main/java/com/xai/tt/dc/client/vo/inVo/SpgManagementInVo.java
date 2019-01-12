@@ -150,6 +150,32 @@ public class SpgManagementInVo extends UserInfoQuery {
     private String pymtmod;
 
 
+    /**
+     * 查询标志  type 1:订单提交  0：订单详情查询
+     */
+    private String flag;
+
+
+    /**
+     * 环节步骤
+     */
+    private String aplyPcstpCd;
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getAplyPcstpCd() {
+        return aplyPcstpCd;
+    }
+
+    public void setAplyPcstpCd(String aplyPcstpCd) {
+        this.aplyPcstpCd = aplyPcstpCd;
+    }
 
     public String getKeyWorlds() {
         return keyWorlds;

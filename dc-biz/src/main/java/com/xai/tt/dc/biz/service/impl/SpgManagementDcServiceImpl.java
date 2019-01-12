@@ -513,7 +513,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				logger.error("查询用户角色参数权限信息，结果为空");
 			}
 
-			Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getUsername());
+			Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getAplyPcstpCd());
 			t3.setAplyPsrlt(result.getData());
 
 			logger.info("querySpgDetail res {}", JSON.toJSONString(t3));
@@ -608,7 +608,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			
 			// 拾取并完成任务
 			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), query.getAplyPcstpCd(),
-					query.getAplyPsrltCd(),"01", "01");
+					query.getAplyPsrltCd(),query.getPymtMod(), query.getSelRdmgdsMod());
 			logger.debug("拾取并完成任务成功！");
 		} catch (Exception e) {
 			logger.error("发货提交异常 {}", e);
