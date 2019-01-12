@@ -217,7 +217,7 @@ public class WfDcServiceImpl implements WfDcService{
 					variables.put("pymtmod", 3);
 			}
 			if(StringUtils.isNotBlank(selRdmgdsMod)) {
-				if("01".equals(pymtmod))
+				if("01".equals(selRdmgdsMod))
 					variables.put("selRdmgdsMod", 1);
 				else if("02".equals(selRdmgdsMod))
 					variables.put("selRdmgdsMod", 2);

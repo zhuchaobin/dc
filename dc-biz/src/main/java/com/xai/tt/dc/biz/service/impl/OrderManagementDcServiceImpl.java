@@ -552,11 +552,12 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			wfDcService.claimAndCompleteOrderTask(query.getOrdrId(), query.getUsername(), query.getAplyPcstpCd(),
 					query.getAplyPsrltCd(), t3.getPymtmod());
 			logger.debug("拾取并完成任务成功！");
+			
 			// 保证金支付、融资发放、货款支付、货款支付四个环节需要生成发票信息
 			if("33".equals(query.getAplyPcstpCd()) || "34".equals(query.getAplyPcstpCd())
 					|| "35".equals(query.getAplyPcstpCd()) || "36".equals(query.getAplyPcstpCd())) {
 				T12InvInf t12 = new T12InvInf();
-				t12.setPyr(query.getCompanyId());
+//				t12.setPyr(query.getCompanyId());
 				// 查询长约信息，获取收款方id
 				Condition condition = new Condition(T1ArInf.class);
 				Example.Criteria criteria = condition.createCriteria();
@@ -565,12 +566,16 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				if(null != t1) {
 					if("33".equals(query.getAplyPcstpCd())){
 						t12.setRcvprt(t1.getBnk());
+						t12.setPyr(t1.getFncEntp());
 					} else if("34".equals(query.getAplyPcstpCd())){
 						t12.setRcvprt(t1.getFncEntp());
+						t12.setPyr(t1.getBnk());
 					} else if("35".equals(query.getAplyPcstpCd())){
 						t12.setRcvprt(t1.getSplchainCo());
+						t12.setPyr(t1.getFncEntp());
 					}  else if("36".equals(query.getAplyPcstpCd())){
 						t12.setRcvprt(t1.getUstrmSplr());
+						t12.setPyr(t1.getSplchainCo());
 					}  
 				}
 				// 查询付款方公司信息，获取发票抬头
@@ -587,8 +592,6 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				} else {
 					logger.error("查询付款方公司信息失败!");
 				}
-				
-				t12.setRcvprt(1);
 				t12.setAmt(query.getAmt());
 				t12.setPyTm(new Date());
 				t12.setPyRsn(DataConstants.APLY_PCSTPCD_2_CHS.get(query.getAplyPcstpCd()));
