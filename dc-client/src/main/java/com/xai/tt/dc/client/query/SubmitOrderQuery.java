@@ -44,7 +44,19 @@ public class SubmitOrderQuery extends UserInfoQuery {
   * 订单编号
   */
  private String ordrId;
+ 
+ /**
+  * 支付金额
+  */
+ private float amt;
 
+public float getAmt() {
+	return amt;
+}
+
+public void setAmt(float amt) {
+	this.amt = amt;
+}
 
 public String getOrdrId() {
 	return ordrId;
