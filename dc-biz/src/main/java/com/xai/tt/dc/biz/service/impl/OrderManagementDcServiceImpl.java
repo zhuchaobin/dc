@@ -577,12 +577,12 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				Company company = companyMapper.selectByPrimaryKey(query.getCompanyId());
 				if(null != company) {
 					String prpslInvHd = "";
-					prpslInvHd += ("公司名称：\\t\\t" + company.getName());
-					prpslInvHd += ("\\r\\n纳税人识别号：\\t\\t" + company.getTaxpyrIdNo());
-					prpslInvHd += ("\\r\\n开户行：\\t\\t" + company.getDepbnk());
-					prpslInvHd += ("\\r\\n银行账户号：\\t\\t" + company.getBnkAccNo());
-					prpslInvHd += ("\\r\\n负责人：\\t\\t" + company.getBnkAccNo());
-					prpslInvHd += ("\\r\\n注册地址：\\t\\t" + company.getRgtads());
+					prpslInvHd += ("公司名称：\t\t" + company.getName());
+					prpslInvHd += ("\r\n纳税人识别号：\t" + company.getTaxpyrIdNo());
+					prpslInvHd += ("\r\n开户行：\t\t\t" + company.getDepbnk());
+					prpslInvHd += ("\r\n银行账户号：\t\t" + company.getBnkAccNo());
+					prpslInvHd += ("\r\n负责人：\t\t\t" + company.getBnkAccNo());
+					prpslInvHd += ("\r\n注册地址：\t\t" + company.getRgtads());
 					t12.setPrpslInvHd(prpslInvHd);
 				} else {
 					logger.error("查询付款方公司信息失败!");
@@ -591,9 +591,10 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 				t12.setRcvprt(1);
 				t12.setAmt(query.getAmt());
 				t12.setPyTm(new Date());
-				t12.setPyRsn(DataConstants.USER_TYPE_2_USR_TP.get(query.getAplyPcstpCd()));
+				t12.setPyRsn(DataConstants.APLY_PCSTPCD_2_CHS.get(query.getAplyPcstpCd()));
 				t12.setAprvPsn(query.getUsername());
 				t12.setAprvTm(new Date());
+				t12.setRmrk(query.getRmrk());
 				t12.setCtcTel(query.getMobile());
 				t12.setRltvId(query.getOrdrId());
 				t12.setRltvTp(query.getAplyPcstpCd());
