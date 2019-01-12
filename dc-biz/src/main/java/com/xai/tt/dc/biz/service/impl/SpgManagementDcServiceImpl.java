@@ -596,25 +596,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		logger.info(fucNm + ",请求参数:{}", JSON.toJSONString(query));
 
 		String aplyPcstpCd = query.getAplyPcstpCd();
-		try {
-			// 判断当前用户是否有权限处理该件
-			// todo()
-			// 判断任务当前所处的环节是否正确
-			// todo()
-			// 查询付款方式
-			Condition condition0 = new Condition(T6SpgInf.class);
-			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
-			T6SpgInf t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
-			
-			// 拾取并完成任务
-			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), aplyPcstpCd,
-					query.getAplyPsrltCd(),query.getPymtMod(), t6.getSelRdmgdsMod());
-			logger.debug("拾取并完成任务成功！");
-		} catch (Exception e) {
-			logger.error("发货提交异常 {}", e);
-			return Result.createFailResult("流程已被撤销，无法提交:" + e);
-		}
 
 		// 保存附件信息
 		try {
@@ -632,6 +613,38 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			return Result.createFailResult("提交发货，保存附件信息异常" + e);
 		}
 
+
+
+		try {
+			// 判断当前用户是否有权限处理该件
+			// todo()
+			// 判断任务当前所处的环节是否正确
+			// todo()
+			// 查询付款方式
+			Condition condition0 = new Condition(T6SpgInf.class);
+			Example.Criteria criteria0 = condition0.createCriteria();
+			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
+			T6SpgInf t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
+
+
+			String selRdmgdsMod=StringUtils.isEmpty(t6.getSelRdmgdsMod())?query.getSelRdmgdsMod():t6.getSelRdmgdsMod();
+
+
+			logger.info("t6.getSelRdmgdsMod():{}",t6.getSelRdmgdsMod());
+			logger.info("query.getSelRdmgdsMod():{}",query.getSelRdmgdsMod());
+			logger.info("selRdmgdsMod:{}",selRdmgdsMod);
+			
+			// 拾取并完成任务
+			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), aplyPcstpCd,
+					query.getAplyPsrltCd(),query.getPymtMod(), selRdmgdsMod);
+			logger.debug("拾取并完成任务成功！");
+		} catch (Exception e) {
+			logger.error("发货提交异常 {}", e);
+			return Result.createFailResult("流程已被撤销，无法提交:" + e);
+		}
+
+
+
 		try {
 			// 保存环节流水
 			T0LnkJrnlInf t0 = new T0LnkJrnlInf();
@@ -648,12 +661,12 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
 			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
-			
-			
+
+
 			if (aplyPcstpCd != null&&!"".equals(aplyPcstpCd)&&("65".equals(aplyPcstpCd)||"66".equals(aplyPcstpCd))) {
 
 				t1.setSelRdmgdsMod(query.getSelRdmgdsMod());
-			
+
 			};
 
 			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
@@ -668,7 +681,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					return Result.createFailResult("更新发货信息，获取发货状态失败");
 				}
 			}
-			
+
 			t1.setTms(new Date());
 			Condition condition0 = new Condition(T6SpgInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
@@ -679,6 +692,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			logger.error("更新发货状态异常 {}", e);
 			return Result.createFailResult("更新发货状态异常:" + e);
 		}
+
+
 		return Result.createSuccessResult(true);
 	}
 
