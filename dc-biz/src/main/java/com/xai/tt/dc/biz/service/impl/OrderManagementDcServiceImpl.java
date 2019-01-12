@@ -20,6 +20,8 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
+import com.xai.tt.dc.biz.mapper.T12InvInfMapper;
+import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.biz.mapper.T3OrderInfMapper;
 import com.xai.tt.dc.biz.mapper.T8OrderDetailMapper;
 import com.xai.tt.dc.biz.mapper.UserMapper;
@@ -31,6 +33,8 @@ import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.inter.R1LnkInfDefService;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
+import com.xai.tt.dc.client.model.T12InvInf;
+import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.model.T3OrderInf;
 import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.model.User;
@@ -80,7 +84,12 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	@Autowired
 	private R1LnkInfDefService r1LnkInfDefService;
 	
-
+	@Autowired
+	private T12InvInfMapper t12InvInfMapper;
+	
+	@Autowired
+	private T1ArInfMapper t1ARInfMapper;
+	
 	/**
 	 * 描述：保存订单信息
 	 * 
@@ -543,6 +552,54 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			wfDcService.claimAndCompleteOrderTask(query.getOrdrId(), query.getUsername(), query.getAplyPcstpCd(),
 					query.getAplyPsrltCd(), t3.getPymtmod());
 			logger.debug("拾取并完成任务成功！");
+			// 保证金支付、融资发放、货款支付、货款支付四个环节需要生成发票信息
+			if("33".equals(query.getAplyPcstpCd()) || "34".equals(query.getAplyPcstpCd())
+					|| "35".equals(query.getAplyPcstpCd()) || "36".equals(query.getAplyPcstpCd())) {
+				T12InvInf t12 = new T12InvInf();
+				t12.setPyr(query.getCompanyId());
+				// 查询长约信息，获取收款方id
+				Condition condition = new Condition(T1ArInf.class);
+				Example.Criteria criteria = condition.createCriteria();
+				criteria.andCondition("AR_ID = '" + query.getArId() + "'");
+				T1ArInf t1 = t1ARInfMapper.selectByCondition(condition).get(0);
+				if(null != t1) {
+					if("33".equals(query.getAplyPcstpCd())){
+						t12.setRcvprt(t1.getBnk());
+					} else if("34".equals(query.getAplyPcstpCd())){
+						t12.setRcvprt(t1.getFncEntp());
+					} else if("35".equals(query.getAplyPcstpCd())){
+						t12.setRcvprt(t1.getSplchainCo());
+					}  else if("36".equals(query.getAplyPcstpCd())){
+						t12.setRcvprt(t1.getUstrmSplr());
+					}  
+				}
+				// 查询付款方公司信息，获取发票抬头
+				Company company = companyMapper.selectByPrimaryKey(query.getCompanyId());
+				if(null != company) {
+					String prpslInvHd = "";
+					prpslInvHd += ("公司名称：\\t\\t" + company.getName());
+					prpslInvHd += ("\\r\\n纳税人识别号：\\t\\t" + company.getTaxpyrIdNo());
+					prpslInvHd += ("\\r\\n开户行：\\t\\t" + company.getDepbnk());
+					prpslInvHd += ("\\r\\n银行账户号：\\t\\t" + company.getBnkAccNo());
+					prpslInvHd += ("\\r\\n负责人：\\t\\t" + company.getBnkAccNo());
+					prpslInvHd += ("\\r\\n注册地址：\\t\\t" + company.getRgtads());
+					t12.setPrpslInvHd(prpslInvHd);
+				} else {
+					logger.error("查询付款方公司信息失败!");
+				}
+				
+				t12.setRcvprt(1);
+				t12.setAmt(query.getAmt());
+				t12.setPyTm(new Date());
+				t12.setPyRsn(DataConstants.USER_TYPE_2_USR_TP.get(query.getAplyPcstpCd()));
+				t12.setAprvPsn(query.getUsername());
+				t12.setAprvTm(new Date());
+				t12.setCtcTel(query.getMobile());
+				t12.setRltvId(query.getOrdrId());
+				t12.setRltvTp(query.getAplyPcstpCd());
+				t12InvInfMapper.insert(t12);
+				logger.debug("生成发票信息成功！");
+			}
 		} catch (Exception e) {
 			logger.error("订单提交异常 {}", e);
 			return Result.createFailResult("流程已被撤销，无法提交:" + e);
