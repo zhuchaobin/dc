@@ -47,15 +47,20 @@ public class QuerySpgInfDetailOutVo extends T6SpgInf implements Serializable{
 	// 付款方式
 	private String pymtMod;
 
-	public String getSpecialDiv() {
-		return specialDiv;
+
+	/**
+	 * 申请处理结果
+	 */
+	private String aplyPsrlt;
+
+
+	public String getAplyPsrlt() {
+		return aplyPsrlt;
 	}
 
-	public void setSpecialDiv(String specialDiv) {
-		this.specialDiv = specialDiv;
+	public void setAplyPsrlt(String aplyPsrlt) {
+		this.aplyPsrlt = aplyPsrlt;
 	}
-
-	private String specialDiv;
 
 	public String getPymtMod() {
 		return pymtMod;

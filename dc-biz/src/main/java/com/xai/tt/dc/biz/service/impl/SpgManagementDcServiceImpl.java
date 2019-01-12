@@ -514,7 +514,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			}
 
 			Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getUsername());
-			t3.setSpecialDiv(result.getData());
+			t3.setAplyPsrlt(result.getData());
 
 			logger.info("querySpgDetail res {}", JSON.toJSONString(t3));
 
