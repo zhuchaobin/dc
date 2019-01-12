@@ -22,6 +22,7 @@ public class SubmitSpgQuery extends UserInfoQuery {
 	// 赎货方式
     private String selRdmgdsMod;
 
+
 	public String getSelRdmgdsMod() {
 		return selRdmgdsMod;
 	}

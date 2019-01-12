@@ -595,6 +595,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		String fucNm = "发货提交";
 		logger.info(fucNm + ",请求参数:{}", JSON.toJSONString(query));
 
+		String aplyPcstpCd = query.getAplyPcstpCd();
 		try {
 			// 判断当前用户是否有权限处理该件
 			// todo()
@@ -607,8 +608,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			T6SpgInf t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
 			
 			// 拾取并完成任务
-			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), query.getAplyPcstpCd(),
-					query.getAplyPsrltCd(),query.getPymtMod(), query.getSelRdmgdsMod());
+			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), aplyPcstpCd,
+					query.getAplyPsrltCd(),query.getPymtMod(), t6.getSelRdmgdsMod());
 			logger.debug("拾取并完成任务成功！");
 		} catch (Exception e) {
 			logger.error("发货提交异常 {}", e);
@@ -619,7 +620,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		try {
 			if (StringUtils.isNotEmpty(query.getFileNames())) {
 				T2UploadAtch t2UploadAtch = new T2UploadAtch();
-				t2UploadAtch.setRltvTp(query.getAplyPcstpCd());
+				t2UploadAtch.setRltvTp(aplyPcstpCd);
 				t2UploadAtch.setUsername(query.getUsername());
 				t2UploadAtch.setRltvId(query.getSpgId());
 				insertFile(t2UploadAtch, query.getFileNames());
@@ -647,6 +648,13 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
 			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
+			
+			
+			if (aplyPcstpCd != null&&!"".equals(aplyPcstpCd)&&("65".equals(aplyPcstpCd)||"66".equals(aplyPcstpCd))) {
+
+				t1.setSelRdmgdsMod(query.getSelRdmgdsMod());
+			
+			};
 
 			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
 				t1.setSpgSt(t6Vo.getAplyPcstpCd());

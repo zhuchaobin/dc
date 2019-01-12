@@ -109,11 +109,7 @@ public class T6SpgInf {
     @Column(name = "Crt_Tm")
     private Date crtTm;
 
-    /**
-     * 赎货方式
-     */
-    @Column(name = "Sel_RdmGds_Mod")
-    private String selRdmGdsMod;
+
 
 
     /**
@@ -123,13 +119,7 @@ public class T6SpgInf {
     private String pymtMod;
 
 
-    public String getSelRdmGdsMod() {
-        return selRdmGdsMod;
-    }
 
-    public void setSelRdmGdsMod(String selRdmGdsMod) {
-        this.selRdmGdsMod = selRdmGdsMod;
-    }
 
     public String getPymtMod() {
         return pymtMod;
