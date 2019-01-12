@@ -417,7 +417,6 @@
     t3.Ar_ID AS arId,
     t3.Ordr_ID AS ordrId,
     t3.PROCESS_INST_ID AS processInstId,
-
     t3.SPG_ID AS spgId,
     t3.Spg_Tm AS spgTm,
     t3.Spg_Psn AS spgPsn,

@@ -661,7 +661,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
 			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
-
+			logger.info("tt6Vo():{}",JSON.toJSONString(t6Vo));
 
 			if (aplyPcstpCd != null&&!"".equals(aplyPcstpCd)&&("65".equals(aplyPcstpCd)||"66".equals(aplyPcstpCd))) {
 
