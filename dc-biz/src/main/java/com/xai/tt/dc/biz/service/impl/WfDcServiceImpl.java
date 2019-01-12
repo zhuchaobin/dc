@@ -3,6 +3,7 @@ package com.xai.tt.dc.biz.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngines;
@@ -222,6 +223,10 @@ public class WfDcServiceImpl implements WfDcService{
 				else if("02".equals(selRdmgdsMod))
 					variables.put("selRdmgdsMod", 2);
 			}
+
+
+		logger.info("variables:{}" , JSON.toJSONString(variables));
+
 			processEngine.getTaskService()
 			.complete(taskId, variables);
 			
