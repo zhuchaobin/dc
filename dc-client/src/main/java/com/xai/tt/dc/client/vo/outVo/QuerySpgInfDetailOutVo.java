@@ -53,6 +53,17 @@ public class QuerySpgInfDetailOutVo extends T6SpgInf implements Serializable{
 	 */
 	private String aplyPsrlt;
 
+	private String selRdmgdsMod;
+
+	@Override
+	public String getSelRdmgdsMod() {
+		return selRdmgdsMod;
+	}
+
+	@Override
+	public void setSelRdmgdsMod(String selRdmgdsMod) {
+		this.selRdmgdsMod = selRdmgdsMod;
+	}
 
 	public String getAplyPsrlt() {
 		return aplyPsrlt;

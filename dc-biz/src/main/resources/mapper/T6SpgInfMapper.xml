@@ -358,7 +358,8 @@
     t3.Tms AS tms,
     t3.Spg_St AS spgSt,
     t3.Crt_Tm AS crtTm,
-      t3.PymtMod as pymtMod
+      t3.PymtMod as pymtMod,
+    t3.Sel_RdmGds_Mod as selRdmgdsMod
     FROM
     (
     SELECT
@@ -378,7 +379,7 @@
     t13.Spg_St ,
     t13.Crt_Tm,
     t3.PymtMod,
-
+    t13.Sel_RdmGds_Mod,
     t1.Fnc_Entp,t1.Ustrm_Splr,t1.StgCo,t1.Bnk,t1.Lgstc_Co,t1.Ins_Co,t1.SplChain_Co,t1.BTp,t1.SvcFee_CMd
     FROM
     T6_Spg_Inf t13, T1_AR_Inf t1,T3_Order_Inf t3
