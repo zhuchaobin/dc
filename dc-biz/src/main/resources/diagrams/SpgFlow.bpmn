@@ -55,7 +55,7 @@
     <userTask id="Spg_Ntc_Rslv_Bnk" name="通知解押(银行)" activiti:candidateGroups="06"></userTask>
     <userTask id="Spg_Tfr_RghtForGds2_Stg" name="转货权2(仓储)" activiti:candidateGroups="08"></userTask>
     <userTask id="Spg_Tmt_SplChain" name="发货终止(供应链)" activiti:candidateGroups="03"></userTask>
-    <endEvent id="endevent2" name="End"></endEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow77" sourceRef="Spg_Sel_RdmGds_Mod_SplChain_GW" targetRef="Spg_Plg_Rplcmt_SplChain">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==2}]]></conditionExpression>
     </sequenceFlow>
@@ -143,7 +143,7 @@
     <sequenceFlow id="flow114" sourceRef="Spg_Tmt_SplChain_GW" targetRef="Spg_Rtrv_Gds_Dwstr">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow115" sourceRef="Spg_Tmt_SplChain_GW" targetRef="endevent2">
+    <sequenceFlow id="flow115" sourceRef="Spg_Tmt_SplChain_GW" targetRef="endevent1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow116" sourceRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg" targetRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW"></sequenceFlow>
@@ -259,7 +259,7 @@
       <bpmndi:BPMNShape bpmnElement="Spg_Tmt_SplChain" id="BPMNShape_Spg_Tmt_SplChain">
         <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="1719.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="431.0" y="1902.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" id="BPMNShape_Spg_Ntc_Tfr_RghtForGds_SplChain_GW">
