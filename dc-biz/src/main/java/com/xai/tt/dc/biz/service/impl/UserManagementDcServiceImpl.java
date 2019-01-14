@@ -80,6 +80,7 @@ public class UserManagementDcServiceImpl implements UserManagementDcService {
 				user.setVersion(1);
 				user.setCtcTel(inVo.getMobile());//不一样的名字
 				user.setPassword(SecurityET.encryptPassword(inVo.getPassword()));
+				user.setLocked(true);
 				logger.info("公司id：" + list.get(0).getId());
 				user.setCompanyId(list.get(0).getId());
 				userMapper.insert(user);			
