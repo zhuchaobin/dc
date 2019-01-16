@@ -629,9 +629,12 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 				BeanUtils.copyProperties(t0, outVo);
 			// 查询公司名称
 			if (null != outVo.getCompanyId()) {
-				Company company = new Company();
-				company = companyMapper.selectByPrimaryKey(t0.getCompanyId());
-				outVo.setName(company.getName());
+				if(null != t0.getCompanyId()) {
+					Company company = new Company();
+					company = companyMapper.selectByPrimaryKey(t0.getCompanyId());
+					if(null != company)
+						outVo.setName(company.getName());
+				}
 			}
 
 			// 查询长约提交附件信息
