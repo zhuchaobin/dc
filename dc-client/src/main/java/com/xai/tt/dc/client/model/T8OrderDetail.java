@@ -24,6 +24,11 @@ public class T8OrderDetail {
     private String ordrId;
 
     /**
+     * 序号
+     */
+    private Long ids;
+
+    /**
      * 品名
      */
     @Column(name = "Pd_Nm")
@@ -152,6 +157,24 @@ public class T8OrderDetail {
      */
     public void setOrdrId(String ordrId) {
         this.ordrId = ordrId;
+    }
+
+    /**
+     * 获取序号
+     *
+     * @return ids - 序号
+     */
+    public Long getIds() {
+        return ids;
+    }
+
+    /**
+     * 设置序号
+     *
+     * @param ids 序号
+     */
+    public void setIds(Long ids) {
+        this.ids = ids;
     }
 
     /**

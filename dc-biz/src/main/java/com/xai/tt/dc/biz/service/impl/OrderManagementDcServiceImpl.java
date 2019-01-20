@@ -553,9 +553,9 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					query.getAplyPsrltCd(), t3.getPymtmod());
 			logger.debug("拾取并完成任务成功！");
 			
-			// 保证金支付、融资发放、货款支付、货款支付四个环节需要生成发票信息
+			// 保证金支付、融资发放、货款支付、货款支付四个环节需要生成发票信息,去掉后面两个货款支付的环节，业务说不用记了
 			if("33".equals(query.getAplyPcstpCd()) || "34".equals(query.getAplyPcstpCd())
-					|| "35".equals(query.getAplyPcstpCd()) || "36".equals(query.getAplyPcstpCd())) {
+					/*|| "35".equals(query.getAplyPcstpCd()) || "36".equals(query.getAplyPcstpCd())*/) {
 				T12InvInf t12 = new T12InvInf();
 //				t12.setPyr(query.getCompanyId());
 				// 查询长约信息，获取收款方id
