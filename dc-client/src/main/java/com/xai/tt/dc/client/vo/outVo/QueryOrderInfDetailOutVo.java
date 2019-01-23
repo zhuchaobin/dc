@@ -13,7 +13,18 @@ import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 
 public class QueryOrderInfDetailOutVo implements Serializable{
 	private static final long serialVersionUID = 1L;
-		
+	
+    /**
+     * 保证金比例
+     */
+    private Float fncPctg;
+    		
+	public Float getFncPctg() {
+		return fncPctg;
+	}
+	public void setFncPctg(Float fncPctg) {
+		this.fncPctg = fncPctg;
+	}
 	/**
      * 申请处理结果
      */
