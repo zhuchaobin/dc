@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T9MsgSndMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T9MsgSnd">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="Msg_Snd_Tm" jdbcType="TIMESTAMP" property="msgSndTm" />
+    <result column="Msg_Title" jdbcType="VARCHAR" property="msgTitle" />
+    <result column="Snd_Psn_ID" jdbcType="BIGINT" property="sndPsnId" />
+    <result column="Rcv_Psn_List" jdbcType="VARCHAR" property="rcvPsnList" />
+    <result column="Rcv_Psn_Id_List" jdbcType="VARCHAR" property="rcvPsnIdList" />
+    <result column="Msg_TpCd" jdbcType="CHAR" property="msgTpcd" />
+    <result column="Mul_Ind" jdbcType="BIT" property="mulInd" />
+    <result column="Msg_StCd" jdbcType="CHAR" property="msgStcd" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="Msg_Cntnt" jdbcType="LONGVARCHAR" property="msgCntnt" />
+  </resultMap>
+
+
+<sql id="query_criteria">  
+  	 <if test="msgTpcd  != null and msgTpcd  != ''">
+        and t9.Msg_TpCd  = #{msgTpcd ,jdbcType=VARCHAR}    
+      </if>
+	  <if test="mulInd  != null and mulInd  != ''">
+        and t9.Mul_Ind  = #{mulInd ,jdbcType=VARCHAR}    
+      </if>
+	  <if test="msgStcd  != null and msgStcd  != ''">
+        and t9.Msg_StCd  = #{msgStcd ,jdbcType=VARCHAR}    
+      </if>    
+      <if test="msgRevStcd  != null and msgRevStcd  != ''">
+        and t10.Msg_StCd  = #{msgRevStcd ,jdbcType=VARCHAR}    
+      </if>
+      <if test="queryStdt  != null and queryStdt  != ''">
+        and date_format(t9.Msg_Snd_Tm, '%Y-%m-%d')  >= #{queryStdt ,jdbcType=VARCHAR}   
+      </if>
+      <if test="queryEddt  != null and queryEddt  != ''">
+        and date_format(t9.Msg_Snd_Tm, '%Y-%m-%d')  >= #{queryEddt ,jdbcType=VARCHAR}
+      </if>
+      <if test="secSrvCd  != null and secSrvCd=='01'">
+        and t9.Snd_Psn_ID  = #{currentUserId ,jdbcType=INTEGER}
+        and t9.Msg_StCd = '02'
+      </if>
+      <if test="secSrvCd  != null and secSrvCd=='02'">
+        and t10.Rcv_Psn_ID  = #{currentUserId ,jdbcType=INTEGER}
+      </if>
+      <if test="secSrvCd  != null and secSrvCd=='03'">
+        and t9.Snd_Psn_ID  = #{currentUserId ,jdbcType=INTEGER}
+        and t9.Msg_StCd = '01'
+      </if>
+      <if test="secSrvCd  != null and secSrvCd=='04'">
+        and 
+       ( 
+       (t9.Snd_Psn_ID  = #{currentUserId ,jdbcType=INTEGER} and t9.Msg_StCd = '05')
+        or
+        (and t10.Rcv_Psn_ID  = #{currentUserId ,jdbcType=INTEGER} and t10.Msg_StCd = '05')
+        )
+      </if>
+      
+       <if test="keyWorlds  != null and keyWorlds  != ''">
+ and ( t9.Msg_Title like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t9.Msg_Cntnt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t9.Rcv_Psn_List like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ or t9.username like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+ )
+ </if>
+   </sql>
+   
+  
+    <select id="selectByPage" parameterType="com.xai.tt.dc.client.vo.MsgVo" resultType="com.xai.tt.dc.client.vo.MsgVo">
+SELECT t.*,
+u.username as sndPsnUserName,
+u.user_type as sndPsnUsrtype,
+u.company_name as sndPsnCo
+FROM
+(
+select 
+t9.id as id,
+t9.Msg_Snd_Tm as msgSndTm,
+t9.Msg_Title as msgTitle,
+t9.Msg_Cntnt as msgCntnt,
+t9.Snd_Psn_ID as sndPsnId,
+t9.Rcv_Psn_List as rcvPsnList,
+t9.Rcv_Psn_Id_List as rcvPsnIdList,
+t9.Msg_TpCd as msgTpcd,
+t9.Mul_Ind as mulInd,
+t9.Msg_StCd as msgStcd,
+t9.Tms as tms,
+t9.username as username,
+t10.id as msgRevId,
+t10.Msg_ID as msgId,
+t10.Rcv_Psn_ID as rcvPsnId,
+t10.Msg_StCd as msgRevStcd
+
+ from T9_Msg_Snd t9
+LEFT JOIN
+ T10_Msg_St t10
+on t9.id = t10.Msg_ID
+ where 1=1
+ <include refid="query_criteria"></include>
+ ORDER BY
+	t10.tms DESC  
+    ) t
+    left join 
+    user u
+    on u.id=t.sndPsnId
+    
+    <if test="orderBy != null and orderBy != ''">
+	   ORDER BY ${orderBy}
+    </if>
+	</select>
+	
+	    <select id="count" parameterType="com.xai.tt.dc.client.vo.MsgVo" resultType="java.lang.Integer">
+SELECT 
+count(*)
+FROM
+(
+select 
+t9.id as id,
+t9.Msg_Snd_Tm as msgSndTm,
+t9.Msg_Title as msgTitle,
+t9.Msg_Cntnt as msgCntnt,
+t9.Snd_Psn_ID as sndPsnId,
+t9.Rcv_Psn_List as rcvPsnList,
+t9.Rcv_Psn_Id_List as rcvPsnIdList,
+t9.Msg_TpCd as msgTpcd,
+t9.Mul_Ind as mulInd,
+t9.Msg_StCd as msgStcd,
+t9.Tms as tms,
+t9.username as username,
+t10.id as msgRevId,
+t10.Msg_ID as msgId,
+t10.Rcv_Psn_ID as rcvPsnId,
+t10.Msg_StCd as msgRevStcd
+
+ from T9_Msg_Snd t9
+LEFT JOIN
+ T10_Msg_St t10
+on t9.id = t10.Msg_ID
+ where 1=1
+ <include refid="query_criteria"></include>
+ ORDER BY
+	t10.tms DESC  
+    ) t
+
+    left join 
+    user u
+    on u.id=t.sndPsnId
+    
+	</select>
+	
+	
+	 <select id="queryDetail" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.MsgVo">
+select _get_coname_func (t12.Pyr) AS pyrName,
+_get_coname_func (t12.RcvPrt) AS rcvprtName,
+t12.id as id,
+t12.Pyr as pyr,
+t12.RcvPrt as rcvprt,
+t12.Amt as amt,
+t12.Py_Tm as pyTm,
+t12.Py_Rsn as pyRsn,
+t12.Aprv_Psn as aprvPsn,
+t12.Aprv_Tm as aprvTm,
+t12.Rmrk as rmrk,
+t12.Ctc_Tel as ctcTel,
+t12.Prpsl_Inv_Hd as prpslInvHd,
+t12.Rltv_ID as rltvId,
+t12.Rltv_Tp as rltvTp,
+t12.IssuBill_Psn as issubillPsn,
+t12.IssuBill_Tm as issubillTm,
+t12.BilRecr as bilrecr,
+t12.Inv_Tm as invTm
+ from T12_Inv_Inf t12
+ where 
+ t12.id  = #{id ,jdbcType=INTEGER}
+	</select>
+</mapper>
