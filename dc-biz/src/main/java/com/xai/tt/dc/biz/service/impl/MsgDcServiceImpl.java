@@ -1,6 +1,7 @@
 package com.xai.tt.dc.biz.service.impl;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,7 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.T10MsgStMapper;
 import com.xai.tt.dc.biz.mapper.T9MsgSndMapper;
+import com.xai.tt.dc.client.model.T10MsgSt;
 import com.xai.tt.dc.client.model.T12InvInf;
 import com.xai.tt.dc.client.model.T9MsgSnd;
 import com.xai.tt.dc.client.service.MsgDcService;
@@ -74,12 +76,20 @@ public class MsgDcServiceImpl implements MsgDcService {
 		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
 	}
 	/*查询明细*/
-	public Result<MsgVo> queryDetail(String id){
+	public Result<MsgVo> queryDetail(String id, String secSrvCd, String msgRevId){
 		MsgVo vo = new MsgVo();
 		T9MsgSnd t9 = t9MsgSndMapper.selectByPrimaryKey(Long.parseLong(id));
 		if(null == t9)
 			return Result.createFailResult("查询不到数据！");
 		else {
+			// 如果是读取操作，则设置为已读取
+			if(StringUtils.isNoneBlank(secSrvCd) && "09".equals(secSrvCd) && StringUtils.isNoneBlank(msgRevId)) {
+				T10MsgSt t10 = t10MsgStMapper.selectByPrimaryKey(Long.parseLong(msgRevId));
+				if(null != t10) {
+					t10.setMsgStcd("04");
+					t10MsgStMapper.updateByPrimaryKeySelective(t10);
+				}
+			}
 			BeanUtils.copyProperties(t9, vo);
 			return Result.createSuccessResult(vo);	
 		}
