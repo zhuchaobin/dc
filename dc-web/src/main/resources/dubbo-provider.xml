@@ -29,4 +29,6 @@
     <dubbo:service interface="com.xai.tt.dc.client.service.UserManagementDcService" ref="userManagementDcService" version="1.0"/>
     <!--发票信息管理, 20190110-->
     <dubbo:service interface="com.xai.tt.dc.client.service.InvInfDcService" ref="invInfDcService" version="1.0"/>
+    <!--站内信息管理, 20190124-->
+    <dubbo:service interface="com.xai.tt.dc.client.service.MsgDcService" ref="msgDcService" version="1.0"/>
 </beans>

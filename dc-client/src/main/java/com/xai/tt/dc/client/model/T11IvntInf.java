@@ -185,6 +185,30 @@ public class T11IvntInf {
     private String username;
 
     /**
+     * 自有货物编号
+     */
+    @Column(name = "SlfOwn_Gds_ID")
+    private String slfownGdsId;
+
+    /**
+     * 存入人
+     */
+    @Column(name = "Dep_Psn")
+    private String depPsn;
+
+    /**
+     * 存入时间
+     */
+    @Column(name = "Dep_Tm")
+    private Date depTm;
+
+    /**
+     * 货物归属
+     */
+    @Column(name = "Gds_Blg")
+    private Integer gdsBlg;
+
+    /**
      * 获取ID
      *
      * @return id - ID
@@ -722,5 +746,77 @@ public class T11IvntInf {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * 获取自有货物编号
+     *
+     * @return SlfOwn_Gds_ID - 自有货物编号
+     */
+    public String getSlfownGdsId() {
+        return slfownGdsId;
+    }
+
+    /**
+     * 设置自有货物编号
+     *
+     * @param slfownGdsId 自有货物编号
+     */
+    public void setSlfownGdsId(String slfownGdsId) {
+        this.slfownGdsId = slfownGdsId;
+    }
+
+    /**
+     * 获取存入人
+     *
+     * @return Dep_Psn - 存入人
+     */
+    public String getDepPsn() {
+        return depPsn;
+    }
+
+    /**
+     * 设置存入人
+     *
+     * @param depPsn 存入人
+     */
+    public void setDepPsn(String depPsn) {
+        this.depPsn = depPsn;
+    }
+
+    /**
+     * 获取存入时间
+     *
+     * @return Dep_Tm - 存入时间
+     */
+    public Date getDepTm() {
+        return depTm;
+    }
+
+    /**
+     * 设置存入时间
+     *
+     * @param depTm 存入时间
+     */
+    public void setDepTm(Date depTm) {
+        this.depTm = depTm;
+    }
+
+    /**
+     * 获取货物归属
+     *
+     * @return Gds_Blg - 货物归属
+     */
+    public Integer getGdsBlg() {
+        return gdsBlg;
+    }
+
+    /**
+     * 设置货物归属
+     *
+     * @param gdsBlg 货物归属
+     */
+    public void setGdsBlg(Integer gdsBlg) {
+        this.gdsBlg = gdsBlg;
     }
 }
