@@ -94,10 +94,19 @@ t10.Msg_ID as msgId,
 t10.Rcv_Psn_ID as rcvPsnId,
 t10.Msg_StCd as msgRevStcd
 
- from T9_Msg_Snd t9
-LEFT JOIN
- T10_Msg_St t10
-on t9.id = t10.Msg_ID
+ from 
+    <if test="secSrvCd  != null and secSrvCd=='02'">
+        T10_Msg_St t10
+		LEFT JOIN
+		T9_Msg_Snd t9
+		on t9.id = t10.Msg_ID
+    </if>
+    <if test="secSrvCd  == null or secSrvCd!='02'">
+        T9_Msg_Snd t9
+		LEFT JOIN
+ 		T10_Msg_St t10
+		on t9.id = t10.Msg_ID
+    </if>
  where 1=1
  <include refid="query_criteria"></include>
  ORDER BY
