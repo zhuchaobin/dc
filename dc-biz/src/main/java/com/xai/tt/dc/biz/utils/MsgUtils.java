@@ -51,7 +51,10 @@ public class MsgUtils {
 				String[] str = t9.getRcvPsnIdList().split(";");
 				for(String id : str) {
 					// 获取信息id
-					T9MsgSnd t9Rlt = t9MsgSndMapper.select(t9).get(0);
+					t9.setTms(null);
+					t9.setMsgSndTm(null);
+					t9.setMulInd(null);
+					T9MsgSnd t9Rlt = t9MsgSndMapper.select(t9).get(0); 
 					if(null != t9Rlt) {
 						T10MsgSt t10 = new T10MsgSt();
 						t10.setMsgId(t9Rlt.getId().intValue());
@@ -60,7 +63,7 @@ public class MsgUtils {
 						t10.setTms(new Date());
 						t10.setUsername(t9.getUsername());
 						t10MsgStMapper.insertSelective(t10);
-					}
+					} 
 				}
 			}	
 			logger.info("消息发送成功！");
@@ -81,16 +84,16 @@ public class MsgUtils {
 			// 长约流程
 			if(DataConstants.PROCESS_TPCD_AR.equals(processType)) {
 				aplyPcstpCd = t1.getArSt();
-				msgTitle = "您有一笔长约"+ t1.getArId()+"需要处理!";
-				operTips = "操作指引：点击[长约管理]->[待处理],根据长约编号查询出相应长约并处理。";
+				msgTitle = "您有一笔长约"+ t1.getArId()+"需要处理！";
+				operTips = "操作指引：点击[长约管理]->[待处理]，请根据长约编号查询出相应长约并点击处理。";
 			} else if(DataConstants.PROCESS_TPCD_ORDER.equals(processType)) {
 				aplyPcstpCd = t3.getOrdrSt();
-				msgTitle = "您有一笔订单"+ t3.getOrdrId()+"需要处理!";
-				operTips = "操作指引：点击[订单管理]->[待处理],根据订单编号查询出相应订单并处理。";
+				msgTitle = "您有一笔订单"+ t3.getOrdrId()+"需要处理！";
+				operTips = "操作指引：点击[订单管理]->[待处理]，请根据订单编号查询出相应订单并点击处理。";
 			} else if(DataConstants.PROCESS_TPCD_SPG.equals(processType)) {
 				aplyPcstpCd = t6.getSpgSt();
-				msgTitle = "您有一笔货物"+ t6.getSpgId()+"需要处理!";
-				operTips = "操作指引：点击[货物管理]->[待处理],根据货物编号查询出相应货物并处理。";
+				msgTitle = "您有一笔货物"+ t6.getSpgId()+"需要处理！";
+				operTips = "操作指引：点击[货物管理]->[待处理]，请根据货物编号查询出相应货物并点击处理。";
 			}
 			Condition condition0 = new Condition(R1LnkInfDef.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
@@ -98,11 +101,11 @@ public class MsgUtils {
 			R1LnkInfDef r1 = r1LnkInfDefMapper.selectByCondition(condition0).get(0);
 			if(null != r1) {
 				// 查询待提醒用户
-				Condition condition1 = new Condition(User.class);
-				Example.Criteria criteria1 = condition1.createCriteria();
-				criteria1.andCondition("UserType = '" + r1.getUserType() + "'");
-				criteria1.andCondition("SplChain_Co = '" + t1.getSplchainCo() + "'");
-				List<User> userList = userMapper.selectByCondition(condition1);
+//				Condition condition1 = new Condition(User.class);
+//				Example.Criteria criteria1 = condition1.createCriteria();
+//				criteria1.andCondition("user_type = '" + r1.getUserType() + "'");
+//				criteria1.andCondition("SplChain_Co = '" + t1.getSplchainCo() + "'");
+//				List<User> userList = userMapper.selectByCondition(condition1);
 				
 				if(2 == r1.getUserType())
 					rcvPsnIdList = t1.getUstrmSplr() + "";
@@ -118,15 +121,20 @@ public class MsgUtils {
 					rcvPsnIdList = t1.getLgstcCo() + "";
 				else if(8 == r1.getUserType())
 					rcvPsnIdList = t1.getStgco() + "";
+				else if(1 == r1.getUserType())
+				rcvPsnIdList = "27";
 				
-				for(User user: userList) {
-					if(rcvPsnIdList.equals(user.getId() + "")) {
-						rcvPsnList = user.getChineseName();
-					}
+				Condition condition1 = new Condition(User.class);
+				Example.Criteria criteria1 = condition1.createCriteria();
+				criteria1.andCondition("user_type = '" + r1.getUserType() + "'");
+				criteria1.andCondition("SplChain_Co = '" + t1.getSplchainCo() + "'");
+				User us = userMapper.selectByPrimaryKey(Integer.parseInt(rcvPsnIdList));
+				if(null != us) {
+						rcvPsnList = us.getChineseName();
 				}
 				
-				msgCntnt = "尊敬的中检供应链金融服务系统用户您好：\r\n" + msgTitle + ",您需要提交的环节为：" 
-				+ r1.getAplyPcstpChnNm() + "\r\n" + operTips;
+				msgCntnt = "尊敬的中检供应链金融服务平台用户"+rcvPsnList+",您好：\r\n" + msgTitle + ",您需要提交的环节为：" 
+				+ r1.getAplyPcstpChnNm() + "。\r\n" + operTips;
 			}
 			
 			if(StringUtils.isNoneBlank(rcvPsnIdList)) {
@@ -137,6 +145,9 @@ public class MsgUtils {
 				t9.setMsgTpcd("99");
 				t9.setUsername("系统");
 				t9.setRcvPsnList(rcvPsnList);
+				t9.setSndPsnId(99999999L);
+				t9.setMulInd(false);
+				t9.setMsgStcd(DataConstants.MSG_STCD_YF);
 				sendMsg(t9);
 			}
 					

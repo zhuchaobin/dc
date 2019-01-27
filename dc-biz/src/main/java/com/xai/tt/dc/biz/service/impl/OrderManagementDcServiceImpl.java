@@ -28,6 +28,7 @@ import com.xai.tt.dc.biz.mapper.UserMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
+import com.xai.tt.dc.biz.utils.MsgUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.inter.R1LnkInfDefService;
@@ -89,6 +90,9 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 	
 	@Autowired
 	private T1ArInfMapper t1ARInfMapper;
+	
+	@Autowired
+	private MsgUtils msgUtils;
 	
 	/**
 	 * 描述：保存订单信息
@@ -279,7 +283,16 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 					// 从工作流记录表中获取订单最新状态
 					QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(orderId);
 					if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+						BeanUtils.copyProperties(t1Vo, t3);
 						t3.setOrdrSt(t1Vo.getAplyPcstpCd());
+
+						// 发送审批处理提醒信息
+						// 查询长约信息
+						Condition condition0 = new Condition(T1ArInf.class);
+						Example.Criteria criteria0 = condition0.createCriteria();
+						criteria0.andCondition("AR_ID = '" + t3.getArId() + "'");
+						T1ArInf t1 = t1ARInfMapper.selectByCondition(condition0).get(0);
+						msgUtils.sendNewArTaskMsg(t1, t3, null, DataConstants.PROCESS_TPCD_ORDER);
 					} else {
 						if (t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
 							t3.setOrdrSt("99");
@@ -643,8 +656,17 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// t1.setOrdrSt(query.getAplyPcstpCd());
 			// 从工作流记录表中获取订单最新状态
 			QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(query.getOrdrId());
-			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {				
+				BeanUtils.copyProperties(t1Vo, t1);
 				t1.setOrdrSt(t1Vo.getAplyPcstpCd());
+
+				// 发送审批处理提醒信息
+				// 查询长约信息
+				Condition condition0 = new Condition(T1ArInf.class);
+				Example.Criteria criteria0 = condition0.createCriteria();
+				criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
+				T1ArInf t1ar = t1ARInfMapper.selectByCondition(condition0).get(0);
+				msgUtils.sendNewArTaskMsg(t1ar, t1, null, DataConstants.PROCESS_TPCD_ORDER);
 			} else {
 				// 判断流程是否结束
 				if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {

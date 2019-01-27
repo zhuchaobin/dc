@@ -9,6 +9,7 @@ import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.*;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
+import com.xai.tt.dc.biz.utils.MsgUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.inter.R1LnkInfDefService;
@@ -77,7 +78,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	@Autowired
 	private T3OrderInfMapper t3OrderInfMapper;
 
-
+	@Autowired
+	private MsgUtils msgUtils;
 
 
 	/**
@@ -298,7 +300,17 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					//todo
 					QuerySpgInfDetailOutVo t1Vo = t6SpgInfMapper.querySpgDetailBySpgId(spgId);
 					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+						
+						BeanUtils.copyProperties(t1Vo, t1);
 						t1.setSpgSt(t1Vo.getAplyPcstpCd());
+
+						// 发送审批处理提醒信息
+						// 查询长约信息
+						Condition condition0 = new Condition(T1ArInf.class);
+						Example.Criteria criteria0 = condition0.createCriteria();
+						criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
+						T1ArInf t1ar = t1ARInfMapper.selectByCondition(condition0).get(0);
+						msgUtils.sendNewArTaskMsg(t1ar, null, t1, DataConstants.PROCESS_TPCD_SPG);
 					} else {
 						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
 							t1.setSpgSt("99");
@@ -670,7 +682,17 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			};
 
 			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
+				BeanUtils.copyProperties(t6Vo, t1);
 				t1.setSpgSt(t6Vo.getAplyPcstpCd());
+
+				// 发送审批处理提醒信息
+				// 查询长约信息
+				Condition condition0 = new Condition(T1ArInf.class);
+				Example.Criteria criteria0 = condition0.createCriteria();
+				criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
+				T1ArInf t1ar = t1ARInfMapper.selectByCondition(condition0).get(0);
+				msgUtils.sendNewArTaskMsg(t1ar, null, t1, DataConstants.PROCESS_TPCD_SPG);
+				
 			} else {
 				// 判断流程是否结束
 				if(t6Vo != null && wfDcService.isEndProcess(t6Vo.getProcessInstId())) {
