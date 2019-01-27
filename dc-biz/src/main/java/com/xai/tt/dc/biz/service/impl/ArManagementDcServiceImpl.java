@@ -1,5 +1,7 @@
 package com.xai.tt.dc.biz.service.impl;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,15 +21,18 @@ import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.CompanyMapper;
+import com.xai.tt.dc.biz.mapper.R1LnkInfDefMapper;
 import com.xai.tt.dc.biz.mapper.T0LnkJrnlInfMapper;
 import com.xai.tt.dc.biz.mapper.T1ArInfMapper;
 import com.xai.tt.dc.biz.mapper.T2UploadAtchMapper;
 import com.xai.tt.dc.biz.mapper.UserMapper;
 import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.biz.utils.DateUtils;
+import com.xai.tt.dc.biz.utils.MsgUtils;
 import com.xai.tt.dc.biz.utils.SequenceUtils;
 import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.model.Company;
+import com.xai.tt.dc.client.model.R1LnkInfDef;
 import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.model.T1ArInf;
 import com.xai.tt.dc.client.model.T2UploadAtch;
@@ -72,6 +77,12 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private R1LnkInfDefMapper r1LnkInfDefMapper;
+	
+	@Autowired
+	private MsgUtils msgUtils;
 
 	/**
 	 * 描述：保存长约信息
@@ -254,7 +265,13 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 					// 从工作流记录表中获取长约最新状态
 					T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(arId);
 					if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+						BeanUtils.copyProperties(t1Vo, t1);
 						t1.setArSt(t1Vo.getAplyPcstpCd());
+						// 发送审批处理提醒信息
+						msgUtils.sendNewArTaskMsg(t1, null, null, DataConstants.PROCESS_TPCD_AR);
+						t1.setArSt(t1Vo.getAplyPcstpCd());
+						// 发送提醒消息
+						
 					} else {
 						if (t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
 							t1.setArSt("99");
@@ -586,7 +603,11 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(query.getArId());
 
 			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+				BeanUtils.copyProperties(t1Vo, t1);
 				t1.setArSt(t1Vo.getAplyPcstpCd());
+				// 发送审批处理提醒信息
+				msgUtils.sendNewArTaskMsg(t1, null, null, DataConstants.PROCESS_TPCD_AR);
+				
 			} else {
 				// 判断流程是否结束
 				if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
