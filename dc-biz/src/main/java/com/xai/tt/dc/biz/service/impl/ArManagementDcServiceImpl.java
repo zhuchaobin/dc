@@ -392,6 +392,41 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 		logger.info("query maintenanceParm list success!");
 		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
 	}
+	
+	/**
+	 * 描述：查询待处理任务数
+	 * 
+	 * @author zhuchaobin 2019-1-29
+	 */
+	@Override
+	public Result<Integer> getAdtTaskNum(ArManagementInVo query) {
+		logger.info("start query 长约信息 List =======> query:{}", query);
+		logger.info("userType:" + query.getUserType());
+		logger.info("orderBy:" + query.getOrderBy());
+		logger.info("getSortName:" + query.getSortName());
+		logger.info("getSortOrder:" + query.getSortOrder());
+		// 查询用户角色权限信息
+		Condition condition = new Condition(User.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("username = '" + query.getUsername() + "'");
+		User user = userMapper.selectByCondition(condition).get(0);
+		query.setSplchainCo(user.getSplchainCo());
+		query.setUserType(user.getUserType());
+		query.setCompanyId(user.getCompanyId());
+		query.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));		
+		// 查询类型为：带审批
+		query.setQueryType(2);
+		// 查询
+		int count = 0;
+		try {
+			count = t1ARInfMapper.count(query);
+		} catch (Exception e) {
+			logger.error("查询待处理任务数异常 {}", e);
+			return Result.createFailResult("查询待处理任务数" + e);
+		}
+		logger.info("查询待处理任务数 success!");
+		return Result.createSuccessResult(count);
+	}
 
 	/**
 	 * 描述：查询长约流转信息列表（分页）
@@ -424,7 +459,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			logger.error("查询长约列表异常 {}", e);
 			return Result.createFailResult("查询异常");
 		}
-		logger.info("query maintenanceParm list success!");
+		logger.info("查询长约流转信息列表 success!");
 		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
 	}
 

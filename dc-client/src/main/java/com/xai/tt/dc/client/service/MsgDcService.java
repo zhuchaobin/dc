@@ -19,4 +19,6 @@ public interface MsgDcService {
 	Result<MsgVo> queryDetail(String id, String secSrvCd, String msgRevId);
 	/*按id删除*/
 	Result<Boolean> delete(String id);
+	/*查询消息数目*/
+	Result<Integer> getWdMgsNum(MsgVo query);
 }

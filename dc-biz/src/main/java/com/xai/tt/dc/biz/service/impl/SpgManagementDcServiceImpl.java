@@ -15,8 +15,11 @@ import com.xai.tt.dc.biz.utils.WfeUtils;
 import com.xai.tt.dc.client.inter.R1LnkInfDefService;
 import com.xai.tt.dc.client.model.*;
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
+import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
+import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
@@ -338,6 +341,73 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		return Result.createSuccessResult(true);
 	}
 
+	/**
+	 * 描述：查询待处理任务数
+	 * 
+	 * @author zhuchaobin 2019-1-29
+	 */
+	@Override
+	public Result<List<Integer>> getAdtTaskNum(UserInfoQuery query) {
+		logger.info("start query 长约信息 List =======> query:{}", query);
+		logger.info("userType:" + query.getUserType());
+		List<Integer> rltList = new ArrayList<Integer>();
+		// 查询用户角色权限信息
+		Condition condition = new Condition(User.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("username = '" + query.getUsername() + "'");
+		User user = userMapper.selectByCondition(condition).get(0);
+		// 1 查询待处理长约任务数
+		ArManagementInVo arInVo = new ArManagementInVo();
+		arInVo.setSplchainCo(user.getSplchainCo());
+		arInVo.setUserType(user.getUserType());
+		arInVo.setCompanyId(user.getCompanyId());
+		arInVo.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));		
+		// 查询类型为：待审批
+		arInVo.setQueryType(2);
+		// 查询
+		try {
+			int count = t1ARInfMapper.count(arInVo);
+			rltList.add(count);
+		} catch (Exception e) {
+			logger.error("查询待处理长约任务数异常 {}", e);
+		}
+		logger.info("查询待处理长约任务数成功!");
+		// 2 查询待处理订单任务数
+		OrderManagementInVo orderInVo = new OrderManagementInVo();
+		orderInVo.setSplchainCo(user.getSplchainCo());
+		orderInVo.setUserType(user.getUserType());
+		orderInVo.setCompanyId(user.getCompanyId());
+		orderInVo.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));		
+		// 查询类型为：待审批
+		orderInVo.setQueryType(2);
+		// 查询
+		try {
+			int count = t3OrderInfMapper.count(orderInVo);
+			rltList.add(count);
+		} catch (Exception e) {
+			logger.error("查询待处理订单任务数异常 {}", e);
+		}
+		logger.info("查询待处理订单任务数成功!");
+		// 3 查询待处理发货任务数
+		SpgManagementInVo spgInVo = new SpgManagementInVo();
+		spgInVo.setSplchainCo(user.getSplchainCo());
+		spgInVo.setUserType(user.getUserType());
+		spgInVo.setCompanyId(user.getCompanyId());
+		spgInVo.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));		
+		// 查询类型为：待审批
+		spgInVo.setQueryType(2);
+		// 查询
+		try {
+			int count = t6SpgInfMapper.count(spgInVo);
+			rltList.add(count);
+		} catch (Exception e) {
+			logger.error("查询待处理发货任务数异常 {}", e);
+		}
+		logger.info("查询待处理发货任务数成功!");
+		logger.info("查询待处理任务数成功!");
+		return Result.createSuccessResult(rltList);
+	}
+	
 	/**
 	 * 描述：删除发货
 	 * 

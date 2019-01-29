@@ -15,6 +15,7 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.T10MsgStMapper;
 import com.xai.tt.dc.biz.mapper.T9MsgSndMapper;
+import com.xai.tt.dc.biz.utils.DataConstants;
 import com.xai.tt.dc.client.model.T10MsgSt;
 import com.xai.tt.dc.client.model.T12InvInf;
 import com.xai.tt.dc.client.model.T9MsgSnd;
@@ -32,7 +33,7 @@ public class MsgDcServiceImpl implements MsgDcService {
 	
 	/*保存或者更新或者发送*/
 	public Result<Boolean> save(MsgVo query){
-		logger.info("保存或者更新发票信息  =======> query:{}", query);
+		logger.info("保存或者更新站内信息  =======> query:{}", query);
 		try {
 			T12InvInf t12 = new T12InvInf();
 			t12.setId(query.getId());
@@ -47,13 +48,27 @@ public class MsgDcServiceImpl implements MsgDcService {
 //			t12InvInfMapper.updateByPrimaryKeySelective(t12);
 			return Result.createSuccessResult(true);
 		} catch (Exception e) {
-			logger.error("更新发票信息异常 {}", e);
-			return Result.createFailResult("更新发票信息异常：" + e);
+			logger.error("更新站内信息异常 {}", e);
+			return Result.createFailResult("更新站内信息异常：" + e);
 		}		
 	}
+	/*查询消息数目*/
+	public Result<Integer> getWdMgsNum(MsgVo query){
+		logger.info("start query 站内信息 List =======> query:{}", query);
+//		query.setSecSrvCd("02");
+//		query.setMsgRevStcd(DataConstants.MSG_STCD_WD);
+		try {
+			Integer count = t9MsgSndMapper.count(query);
+			return Result.createSuccessResult(count);
+		} catch (Exception e) {
+			logger.error("查询查询未读消息数目异常 {}", e);
+			return Result.createFailResult("查询查询未读消息数目异常:" + e);
+		}		
+	}
+	
 	/*分页查询*/
 	public Result<PageData<MsgVo>>  queryPage(MsgVo query, PageParam pageParam){
-		logger.info("start query 发票信息 List =======> query:{},page:{}", query, pageParam);
+		logger.info("start query 站内信息 List =======> query:{},page:{}", query, pageParam);
 		logger.info("userType:" + query.getUserType());
 		logger.info("orderBy:" + query.getOrderBy());
 		logger.info("getSortName:" + query.getSortName());
@@ -96,13 +111,13 @@ public class MsgDcServiceImpl implements MsgDcService {
 	}
 	/*按id删除*/
 	public Result<Boolean> delete(String id){
-		logger.info("start delete发票信息 =======> id:{}", id);
+		logger.info("start delete站内信息 =======> id:{}", id);
 		try {
 			t9MsgSndMapper.deleteByPrimaryKey(id);
 			return Result.createSuccessResult(true);
 		} catch (Exception e) {
-			logger.error("删除发票信息异常 {}", e);
-			return Result.createFailResult("删除发票信息异常[" + e + "]");
+			logger.error("删除站内信息异常 {}", e);
+			return Result.createFailResult("删除站内信息异常[" + e + "]");
 		}		
 	}
 
