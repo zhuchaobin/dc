@@ -106,31 +106,42 @@ public class MsgUtils {
 //				criteria1.andCondition("user_type = '" + r1.getUserType() + "'");
 //				criteria1.andCondition("SplChain_Co = '" + t1.getSplchainCo() + "'");
 //				List<User> userList = userMapper.selectByCondition(condition1);
-				
+				Integer companyId = null;
 				if(2 == r1.getUserType())
-					rcvPsnIdList = t1.getUstrmSplr() + "";
+					companyId = t1.getUstrmSplr();
 				else if(3 == r1.getUserType())
-					rcvPsnIdList = t1.getSplchainCo() + "";
+					companyId = t1.getSplchainCo();
 				else if(4 == r1.getUserType())
-					rcvPsnIdList = t1.getFncEntp() + "";
+					companyId = t1.getFncEntp();
 				else if(5 == r1.getUserType())
-					rcvPsnIdList = t1.getInsCo() + "";
+					companyId = t1.getInsCo();
 				else if(6 == r1.getUserType())
-					rcvPsnIdList = t1.getBnk() + "";
+					companyId = t1.getBnk();
 				else if(7 == r1.getUserType())
-					rcvPsnIdList = t1.getLgstcCo() + "";
+					companyId = t1.getLgstcCo();
 				else if(8 == r1.getUserType())
-					rcvPsnIdList = t1.getStgco() + "";
+					companyId = t1.getStgco();
 				else if(1 == r1.getUserType())
-				rcvPsnIdList = "27";
+					companyId =0;
 				
 				Condition condition1 = new Condition(User.class);
 				Example.Criteria criteria1 = condition1.createCriteria();
 				criteria1.andCondition("user_type = '" + r1.getUserType() + "'");
-				criteria1.andCondition("SplChain_Co = '" + t1.getSplchainCo() + "'");
-				User us = userMapper.selectByPrimaryKey(Integer.parseInt(rcvPsnIdList));
-				if(null != us) {
-						rcvPsnList = us.getChineseName();
+				// 非平台用户还要检查绑定的供应链公司
+				if(companyId != 0)
+					criteria1.andCondition("SplChain_Co = '" + t1.getSplchainCo() + "'");
+				criteria1.andCondition("company_id = '" + companyId + "'");
+				List<User> usList = userMapper.selectByCondition(condition1);
+				if(null != usList) {
+					for(User user : usList) {
+						if(StringUtils.isBlank(rcvPsnList)) {
+							rcvPsnList = user.getChineseName();
+							rcvPsnIdList = user.getId() + "";
+						} else {
+							rcvPsnList += (";" + user.getChineseName());
+							rcvPsnIdList += (";" + user.getId());
+						}
+					}
 				}
 				
 				msgCntnt = "尊敬的中检供应链金融服务平台用户"+rcvPsnList+",您好：\r\n" + msgTitle + ",您需要提交的环节为：" 
