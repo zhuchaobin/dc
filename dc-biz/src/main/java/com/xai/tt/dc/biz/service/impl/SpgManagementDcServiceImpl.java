@@ -78,8 +78,12 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	private T3OrderInfMapper t3OrderInfMapper;
 
 
+	@Autowired
+	private T11IvntInfMapper t11IvntInfMapper;
 
 
+	@Autowired
+	private T13GdsDetailMapper t13GdsDetailMapper;
 	/**
 	 * 描述：保存发货信息
 	 * 
@@ -91,6 +95,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		logger.info("二级服务码secSrvCd：" + inVo.getSecSrvCd());
 		// 保存发货信息
 		T6SpgInf t6SpgInfo = new T6SpgInf();
+		T11IvntInf t11IvntInf =new T11IvntInf();
 		String spgId = "";
 		try {
 			if (null == inVo) {
@@ -153,12 +158,24 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				return Result.createFailResult("发货编号不能为空！");
 			}
 			BeanUtils.copyProperties(inVo, t6SpgInfo);
+			BeanUtils.copyProperties(inVo, t11IvntInf);
+
 			// 发货新建后记录发货状态
 			t6SpgInfo.setSpgId(spgId);
 			t6SpgInfo.setCnsgn(inVo.getCnsgn());
 			t6SpgInfo.setTms(new Date());
 			t6SpgInfo.setCrtTm(new Date());
 			t6SpgInfo.setTms(new Date());
+
+
+			String ydId = "YD" + spgId.substring(2);
+
+
+			t11IvntInf.setTprtBlId(ydId);
+			t11IvntInf.setSpgId(spgId);
+			t11IvntInf.setCnsgn(inVo.getCnsgn());
+			t11IvntInf.setTms(new Date());
+			t11IvntInf.setTms(new Date());
 			
 			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
@@ -166,6 +183,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			if(StringUtils.isBlank(t6SpgInfo.getSpgSt())){
 				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
 					t6SpgInfo.setSpgSt("01");
+					t11IvntInf.setIvntSt("01");
 				}
 			}
 
@@ -189,32 +207,73 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
 				t6SpgInfo.setId(null);
+				t11IvntInf.setId(null);
+
 				int num = t6SpgInfMapper.insertSelective(t6SpgInfo);
+
+				int num1 = t11IvntInfMapper.insertSelective(t11IvntInf);
+
+
 				logger.info("更新发货信息成功，插入记录数：" + num);
 			} else {
 				int num = t6SpgInfMapper.updateByPrimaryKeySelective(t6SpgInfo);
+
+				int num1 = t11IvntInfMapper.updateByPrimaryKeySelective(t11IvntInf);
 				logger.info("更新发货信息成功：发货id" + t6SpgInfo.getArId() + "更新条数：" + num);
 			}
 
 
+
+
+
 			// 保存发货明细信息
 			// 先删除已经存在的
-			Condition condition = new Condition(T8OrderDetail.class);
+			Condition condition = new Condition(T7SpgDetail.class);
 			Example.Criteria criteria = condition.createCriteria();
 			criteria.andCondition("Spg_ID = '" + spgId + "'");
 			t7SpgDetailMapper.deleteByCondition(condition);
 
+
+			Condition condition2 = new Condition(T13GdsDetail.class);
+			Example.Criteria criteria2 = condition2.createCriteria();
+			criteria2.andCondition("Rltv_ID = '" + ydId + "'");
+			t13GdsDetailMapper.deleteByCondition(condition2);
+
 			List<T7SpgDetail> t7SpgDetailList = inVo.getT7SpgDetailList();
 			if (t7SpgDetailList != null&&t7SpgDetailList.size()>0) {
 				T7SpgDetail t7SpgDetail = new T7SpgDetail();
+				T13GdsDetail t13GdsDetail= new T13GdsDetail();
+
+
 				for(T7SpgDetail elem : t7SpgDetailList) {
 					BeanUtils.copyProperties(elem, t7SpgDetail);
 					t7SpgDetail.setSpgId(spgId);
 
+					BeanUtils.copyProperties(elem, t13GdsDetail);
+					t13GdsDetail.setRltvId(ydId);
+					t13GdsDetail.setRltvTp("01");//01:发货形成库存 02：存入自由货物形成库存
+					t13GdsDetail.setModl("01");
+
+					t13GdsDetail.setModl("");
+					t13GdsDetail.setPchUnitprc(0.0F);
+					t13GdsDetail.setTxnPrcdif(0.0F);
+					t13GdsDetail.setSaleTntvPrc(0.0F);
+					t13GdsDetail.setUsername("");
+					t13GdsDetail.setCrtTm(new Date());
+					t13GdsDetail.setTms(new Date());
+					t13GdsDetail.setMsunit("");
+
+
 					t7SpgDetailMapper.insert(t7SpgDetail);
+
+					t13GdsDetailMapper.insert(t13GdsDetail);
 				}
 
 			};
+
+
+
+
 
 
 
@@ -291,6 +350,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				// 更新发货状态为新状态
 				try {
 					T6SpgInf t1 = new T6SpgInf();
+
+					T11IvntInf t11 = new T11IvntInf();
 					// 更新发货状态
 					//t1.setArSt(query.getAplyPcstpCd());
 					//从工作流记录表中获取发货最新状态
@@ -302,6 +363,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					} else {
 						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
 							t1.setSpgSt("99");
+							t11.setIvntSt("99");
 							logger.info("流程已经结束.");
 						} else {
 							logger.error("更新发货信息，获取发货状态失败");
@@ -309,10 +371,22 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 						}
 					}
 					t1.setTms(new Date());
+					t11.setTms(new Date());
+
+
 					Condition condition0 = new Condition(T1ArInf.class);
 					Example.Criteria criteria0 = condition0.createCriteria();
 					criteria0.andCondition("Spg_ID = '" + spgId + "'");
 					int rltNum = t6SpgInfMapper.updateByConditionSelective(t1, condition0);
+
+
+
+					Condition condition1 = new Condition(T11IvntInf.class);
+					Example.Criteria criteria1 = condition1.createCriteria();
+					criteria1.andCondition("Tprt_Bl_ID = '" + ydId + "'");
+					int rltNum1 = t11IvntInfMapper.updateByConditionSelective(t11, condition1);
+
+
 					logger.info("更新发货状态，更新记录数：" + rltNum);
 				} catch (Exception e) {
 					logger.error("更新发货状态异常 {}", e);
@@ -325,6 +399,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		}
 		return Result.createSuccessResult(true);
 	}
+
 
 	/**
 	 * 描述：删除发货
@@ -613,7 +688,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			return Result.createFailResult("提交发货，保存附件信息异常" + e);
 		}
 
-
+		T6SpgInf t6=null;
 
 		try {
 			// 判断当前用户是否有权限处理该件
@@ -624,7 +699,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			Condition condition0 = new Condition(T6SpgInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
 			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
-			T6SpgInf t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
+			t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
 
 
 			String selRdmgdsMod=StringUtils.isEmpty(t6.getSelRdmgdsMod())?query.getSelRdmgdsMod():t6.getSelRdmgdsMod();
@@ -657,6 +732,9 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			return Result.createFailResult("发货提交保存环节流水异常:" + e);
 		}
 
+
+
+
 		try {
 			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
@@ -672,7 +750,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
 				t1.setSpgSt(t6Vo.getAplyPcstpCd());
 			} else {
-				// 判断流程是否结束
+				// 判断流程是否结束isEndProcess
 				if(t6Vo != null && wfDcService.isEndProcess(t6Vo.getProcessInstId())) {
 					logger.error("流程已结束，设置状态为99");
 					t1.setSpgSt("99");
@@ -694,7 +772,102 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		}
 
 
+
+
+
+
+
+//		62-入库前（接货承运）
+//		64-入库前（货款支付）
+//		=63	入库
+//		>63 出库
+		//根据不同环节，存入库存信息
+		if ("01".equals(t6.getPymtMod())){
+
+			if ("62".equals(aplyPcstpCd)||"63".equals(aplyPcstpCd)){
+
+
+				int rltNum = updateT11ivntInf(query,aplyPcstpCd);
+
+			}
+
+		}else  	if ("02".equals(t6.getPymtMod())){
+
+			if ("62".equals(aplyPcstpCd)||"63".equals(aplyPcstpCd)||"64".equals(aplyPcstpCd)){
+
+
+				int rltNum = updateT11ivntInf(query,aplyPcstpCd);
+
+			}
+
+
+		}else  	if ("03".equals(t6.getPymtMod())){
+
+			if ("63".equals(aplyPcstpCd)){
+
+
+				saveT11ivntInf(query, t6);
+
+			}
+
+		}
+
 		return Result.createSuccessResult(true);
+	}
+
+	private int updateT11ivntInf(SubmitSpgQuery query,String ivnSt) {
+		String spgId = query.getSpgId();
+		String ydId="YD"+spgId.substring(2);
+
+		T11IvntInf t11 = new T11IvntInf();
+
+		t11.setTms(new Date());
+		t11.setIvntSt(ivnSt);
+		Condition condition0 = new Condition(T6SpgInf.class);
+		Example.Criteria criteria0 = condition0.createCriteria();
+		criteria0.andCondition("Tprt_Bl_ID = '" + ydId+ "'");
+		return t11IvntInfMapper.updateByConditionSelective(t11, condition0);
+	}
+
+	private void saveT11ivntInf(SubmitSpgQuery query, T6SpgInf t6) {
+		String spgId = query.getSpgId();
+		String ydId="YD"+spgId.substring(2);
+
+		T11IvntInf t11 = new T11IvntInf();
+		t11.setTprtBlId(ydId);
+		t11.setSpgId(spgId);
+		t11.setSpgPsn(t6.getSpgPsn());
+		t11.setSpgCtcTel(t6.getSpgPsnCtcTel());
+		t11.setSpgRmrk("");
+		t11.setCnsgn(t6.getCnsgn());
+		t11.setRcvgCtcTel(t6.getCnsgnCtcTel());
+		t11.setPpsLnd(t6.getPpsLnd());
+		t11.setPdFctr("");
+		t11.setSpgTm(t6.getCrtTm());
+		t11.setVhclNum(0);
+		t11.setTprtModAndImt("");
+		t11.setLgstcCo(0);
+		t11.setRevMnyPsn("");
+		t11.setRevMnyCtcTel("");
+		t11.setRevMnyTm(new Date());
+		t11.setRevMnyRmrk("");
+		t11.setStgco(0);
+		t11.setIntrsrPsn("");
+		t11.setIntrsrTm(new Date());
+		t11.setIntrsrRmrk("");
+		t11.setOutstgTm(null);
+		t11.setPlgSt(0);
+		t11.setStrBit("");
+		t11.setWhrecptId("");
+		t11.setIvntSt("63");
+		t11.setPlgWarnStcd("");
+		t11.setTms(new Date());
+		t11.setUsername("");
+		t11.setSlfownGdsId("");
+		t11.setDepPsn("");
+		t11.setDepTm(new Date());
+		t11.setGdsBlg(0);
+		t11IvntInfMapper.insert(t11);
 	}
 
 	/**
