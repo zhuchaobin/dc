@@ -40,5 +40,25 @@
     <result column="Dep_Tm" jdbcType="TIMESTAMP" property="depTm" />
     <result column="Gds_Blg" jdbcType="INTEGER" property="gdsBlg" />
   </resultMap>
-  
+
+
+  <select id="selectByT11IvntInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.KcManagementInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo">
+
+select
+
+t11.Tprt_Bl_ID as tprtBlId,
+t11.Spg_ID as spgId,
+t11.Ivnt_St as ivntSt
+
+from t11_ivnt_inf t11
+
+
+  </select>
+
+
+  <select id="count" resultType="java.lang.Integer">
+select count(1) from t11_ivnt_inf
+
+  </select>
+
 </mapper>

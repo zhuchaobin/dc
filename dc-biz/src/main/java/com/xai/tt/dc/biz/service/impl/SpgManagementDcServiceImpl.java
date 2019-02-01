@@ -170,10 +170,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t6SpgInfo.setTms(new Date());
 
 
-			String ydId = "YD" + spgId.substring(2);
+			String kcId = "KC" + spgId.substring(2);
 
 
-			t11IvntInf.setTprtBlId(ydId);
+			t11IvntInf.setTprtBlId(kcId);
 			t11IvntInf.setSpgId(spgId);
 			t11IvntInf.setCnsgn(inVo.getCnsgn());
 			t11IvntInf.setTms(new Date());
@@ -238,7 +238,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			Condition condition2 = new Condition(T13GdsDetail.class);
 			Example.Criteria criteria2 = condition2.createCriteria();
-			criteria2.andCondition("Rltv_ID = '" + ydId + "'");
+			criteria2.andCondition("Rltv_ID = '" + kcId + "'");
 			t13GdsDetailMapper.deleteByCondition(condition2);
 
 			List<T7SpgDetail> t7SpgDetailList = inVo.getT7SpgDetailList();
@@ -252,7 +252,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t7SpgDetail.setSpgId(spgId);
 
 					BeanUtils.copyProperties(elem, t13GdsDetail);
-					t13GdsDetail.setRltvId(ydId);
+					t13GdsDetail.setRltvId(kcId);
 					t13GdsDetail.setRltvTp("01");//01:发货形成库存 02：存入自由货物形成库存
 					t13GdsDetail.setModl("01");
 
@@ -391,7 +391,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 					Condition condition1 = new Condition(T11IvntInf.class);
 					Example.Criteria criteria1 = condition1.createCriteria();
-					criteria1.andCondition("Tprt_Bl_ID = '" + ydId + "'");
+					criteria1.andCondition("Tprt_Bl_ID = '" + kcId + "'");
 					int rltNum1 = t11IvntInfMapper.updateByConditionSelective(t11, condition1);
 
 
@@ -898,7 +898,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 	private int updateT11ivntInf(SubmitSpgQuery query,String ivnSt) {
 		String spgId = query.getSpgId();
-		String ydId="YD"+spgId.substring(2);
+		String kcId="KC"+spgId.substring(2);
 
 		T11IvntInf t11 = new T11IvntInf();
 
@@ -906,7 +906,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		t11.setIvntSt(ivnSt);
 		Condition condition0 = new Condition(T6SpgInf.class);
 		Example.Criteria criteria0 = condition0.createCriteria();
-		criteria0.andCondition("Tprt_Bl_ID = '" + ydId+ "'");
+		criteria0.andCondition("Tprt_Bl_ID = '" + kcId+ "'");
 		return t11IvntInfMapper.updateByConditionSelective(t11, condition0);
 	}
 
