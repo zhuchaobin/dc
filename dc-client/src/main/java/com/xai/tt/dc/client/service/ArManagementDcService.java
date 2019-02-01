@@ -45,4 +45,6 @@ public interface ArManagementDcService {
 	Result<QueryArSubmmitDetailOutVo> getArSubmmitDetail(String id, String arId, String aplyPcstpCd);
 
 	Result<Boolean> unDoAr(ArManagementInVo inVo);
+
+	Result<Integer> getAdtTaskNum(ArManagementInVo query);
 }

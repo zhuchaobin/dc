@@ -142,4 +142,18 @@ public class DataConstants {
 		APLY_PCSTPCD_2_CHS.put("79", "发货终止(供应链)");
 
 	}
+	
+	// 消息状态代码
+		public static final String MSG_STCD_WF = "01";
+		public static final String MSG_STCD_YF = "02";
+		public static final String MSG_STCD_WD = "03";
+		public static final String MSG_STCD_YD = "04";
+		public static final String MSG_STCD_SC = "05";
+		// 消息类型代码
+		public static final String MSG_TPCD_SYS = "99";
+		public static final String MSG_STCD_MAN = "01";
+		// 流程类型代码
+		public static final String PROCESS_TPCD_AR = "01";
+		public static final String PROCESS_TPCD_ORDER = "02";
+		public static final String PROCESS_TPCD_SPG = "03";
 }

@@ -30,6 +30,12 @@ public class R1LnkInfDef {
     private String aplyPcstpChnNm;
 
     /**
+     * 可处理角色
+     */
+    @Column(name = "user_type")
+    private Long userType;
+
+    /**
      * 审批结论个性化字段初始化
      */
     @Column(name = "Aply_PsRlt")
@@ -105,6 +111,24 @@ public class R1LnkInfDef {
      */
     public void setAplyPcstpChnNm(String aplyPcstpChnNm) {
         this.aplyPcstpChnNm = aplyPcstpChnNm;
+    }
+
+    /**
+     * 获取可处理角色
+     *
+     * @return user_type - 可处理角色
+     */
+    public Long getUserType() {
+        return userType;
+    }
+
+    /**
+     * 设置可处理角色
+     *
+     * @param userType 可处理角色
+     */
+    public void setUserType(Long userType) {
+        this.userType = userType;
     }
 
     /**

@@ -7,15 +7,16 @@ import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.*;
-import com.xai.tt.dc.biz.utils.DataConstants;
-import com.xai.tt.dc.biz.utils.DateUtils;
-import com.xai.tt.dc.biz.utils.SequenceUtils;
-import com.xai.tt.dc.biz.utils.WfeUtils;
+import com.xai.tt.dc.biz.utils.*;
 import com.xai.tt.dc.client.inter.R1LnkInfDefService;
+import com.xai.tt.dc.biz.utils.MsgUtils;
 import com.xai.tt.dc.client.model.*;
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
+import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
+import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
@@ -77,10 +78,11 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 	@Autowired
 	private T3OrderInfMapper t3OrderInfMapper;
 
+    @Autowired
+    private MsgUtils msgUtils;
 
-	@Autowired
-	private T11IvntInfMapper t11IvntInfMapper;
-
+    @Autowired
+    private T11IvntInfMapper t11IvntInfMapper;
 
 	@Autowired
 	private T13GdsDetailMapper t13GdsDetailMapper;
@@ -176,7 +178,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t11IvntInf.setCnsgn(inVo.getCnsgn());
 			t11IvntInf.setTms(new Date());
 			t11IvntInf.setTms(new Date());
-			
+
 			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
 			// 
@@ -273,10 +275,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 
 
-
-
-
-
 			// 保存发货附件信息
 			try {
 				if (StringUtils.isNotEmpty(inVo.getFileNames())) {
@@ -359,7 +357,17 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					//todo
 					QuerySpgInfDetailOutVo t1Vo = t6SpgInfMapper.querySpgDetailBySpgId(spgId);
 					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+
+						BeanUtils.copyProperties(t1Vo, t1);
 						t1.setSpgSt(t1Vo.getAplyPcstpCd());
+
+						// 发送审批处理提醒信息
+						// 查询长约信息
+						Condition condition0 = new Condition(T1ArInf.class);
+						Example.Criteria criteria0 = condition0.createCriteria();
+						criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
+						T1ArInf t1ar = t1ARInfMapper.selectByCondition(condition0).get(0);
+						msgUtils.sendNewArTaskMsg(t1ar, null, t1, DataConstants.PROCESS_TPCD_SPG);
 					} else {
 						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
 							t1.setSpgSt("99");
@@ -400,6 +408,72 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		return Result.createSuccessResult(true);
 	}
 
+	/**
+	 * 描述：查询待处理任务数
+	 *
+	 * @author zhuchaobin 2019-1-29
+	 */
+	@Override
+	public Result<List<Integer>> getAdtTaskNum(UserInfoQuery query) {
+		logger.info("start query 长约信息 List =======> query:{}", query);
+		logger.info("userType:" + query.getUserType());
+		List<Integer> rltList = new ArrayList<Integer>();
+		// 查询用户角色权限信息
+		Condition condition = new Condition(User.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("username = '" + query.getUsername() + "'");
+		User user = userMapper.selectByCondition(condition).get(0);
+		// 1 查询待处理长约任务数
+		ArManagementInVo arInVo = new ArManagementInVo();
+		arInVo.setSplchainCo(user.getSplchainCo());
+		arInVo.setUserType(user.getUserType());
+		arInVo.setCompanyId(user.getCompanyId());
+		arInVo.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));
+		// 查询类型为：待审批
+		arInVo.setQueryType(2);
+		// 查询
+		try {
+			int count = t1ARInfMapper.count(arInVo);
+			rltList.add(count);
+		} catch (Exception e) {
+			logger.error("查询待处理长约任务数异常 {}", e);
+		}
+		logger.info("查询待处理长约任务数成功!");
+		// 2 查询待处理订单任务数
+		OrderManagementInVo orderInVo = new OrderManagementInVo();
+		orderInVo.setSplchainCo(user.getSplchainCo());
+		orderInVo.setUserType(user.getUserType());
+		orderInVo.setCompanyId(user.getCompanyId());
+		orderInVo.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));
+		// 查询类型为：待审批
+		orderInVo.setQueryType(2);
+		// 查询
+		try {
+			int count = t3OrderInfMapper.count(orderInVo);
+			rltList.add(count);
+		} catch (Exception e) {
+			logger.error("查询待处理订单任务数异常 {}", e);
+		}
+		logger.info("查询待处理订单任务数成功!");
+		// 3 查询待处理发货任务数
+		SpgManagementInVo spgInVo = new SpgManagementInVo();
+		spgInVo.setSplchainCo(user.getSplchainCo());
+		spgInVo.setUserType(user.getUserType());
+		spgInVo.setCompanyId(user.getCompanyId());
+		spgInVo.setUsrTp(DataConstants.USER_TYPE_2_USR_TP.get(user.getUserType()));
+		// 查询类型为：待审批
+		spgInVo.setQueryType(2);
+		// 查询
+		try {
+			int count = t6SpgInfMapper.count(spgInVo);
+			rltList.add(count);
+		} catch (Exception e) {
+			logger.error("查询待处理发货任务数异常 {}", e);
+		}
+		logger.info("查询待处理发货任务数成功!");
+		logger.info("查询待处理任务数成功!");
+		return Result.createSuccessResult(rltList);
+	}
 
 	/**
 	 * 描述：删除发货
@@ -732,9 +806,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			return Result.createFailResult("发货提交保存环节流水异常:" + e);
 		}
 
-
-
-
 		try {
 			T6SpgInf t1 = new T6SpgInf();
 			// 更新发货状态
@@ -748,9 +819,19 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			};
 
 			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
+				BeanUtils.copyProperties(t6Vo, t1);
 				t1.setSpgSt(t6Vo.getAplyPcstpCd());
+
+				// 发送审批处理提醒信息
+				// 查询长约信息
+				Condition condition0 = new Condition(T1ArInf.class);
+				Example.Criteria criteria0 = condition0.createCriteria();
+				criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
+				T1ArInf t1ar = t1ARInfMapper.selectByCondition(condition0).get(0);
+				msgUtils.sendNewArTaskMsg(t1ar, null, t1, DataConstants.PROCESS_TPCD_SPG);
+
 			} else {
-				// 判断流程是否结束isEndProcess
+				// 判断流程是否结束
 				if(t6Vo != null && wfDcService.isEndProcess(t6Vo.getProcessInstId())) {
 					logger.error("流程已结束，设置状态为99");
 					t1.setSpgSt("99");

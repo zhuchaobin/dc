@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xai.tt.dc.biz.mapper.R1LnkInfDefMapper" >
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.R1LnkInfDef" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.R1LnkInfDefMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.R1LnkInfDef">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="Aply_PcStp_Cd" property="aplyPcstpCd" jdbcType="CHAR" />
-    <result column="Pcs_Step_Eng_Nm" property="pcsStepEngNm" jdbcType="VARCHAR" />
-    <result column="Aply_PcStp_Chn_Nm" property="aplyPcstpChnNm" jdbcType="VARCHAR" />
-    <result column="Aply_PsRlt" property="aplyPsrlt" jdbcType="LONGVARCHAR" />
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="Aply_PcStp_Cd" jdbcType="CHAR" property="aplyPcstpCd" />
+    <result column="Pcs_Step_Eng_Nm" jdbcType="VARCHAR" property="pcsStepEngNm" />
+    <result column="Aply_PcStp_Chn_Nm" jdbcType="VARCHAR" property="aplyPcstpChnNm" />
+    <result column="user_type" jdbcType="BIGINT" property="userType" />
+    <result column="Aply_PsRlt" jdbcType="LONGVARCHAR" property="aplyPsrlt" />
   </resultMap>
+ 
 </mapper>

@@ -16,7 +16,9 @@ public interface MsgDcService {
 	/*分页查询*/
 	Result<PageData<MsgVo>>  queryPage(MsgVo query, PageParam pageParam);
 	/*查询明细*/
-	Result<MsgVo> queryDetail(String id);
+	Result<MsgVo> queryDetail(String id, String secSrvCd, String msgRevId);
 	/*按id删除*/
 	Result<Boolean> delete(String id);
+	/*查询消息数目*/
+	Result<Integer> getWdMgsNum(MsgVo query);
 }
