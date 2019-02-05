@@ -107,7 +107,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			String solveType = "";
 			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
 			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			// 判断处理类别
+			// 判断处理类别  01-保存 02-提交
 			if ("01".equals(inVo.getSecSrvCd())) {
 				if(null != inVo.getId()) {
 					T6SpgInf rltT1 = t6SpgInfMapper.selectByPrimaryKey(inVo.getId());
@@ -138,6 +138,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 						} else if("10".equals(rltT1.getSpgSt())){
 							solveType = "08";
 						} else if("01".equals(rltT1.getSpgSt())){
+							solveType = "06";
+						}else if("61".equals(rltT1.getSpgSt())){
 							solveType = "06";
 						}
 					} else {
