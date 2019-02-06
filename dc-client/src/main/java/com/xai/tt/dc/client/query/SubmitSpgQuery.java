@@ -138,7 +138,72 @@ public void setSpgId(String spgId) {
 
 
 
-public Long getId() {
+
+	private Integer vhclNum;
+
+	public String getRevMnyRmrk() {
+		return revMnyRmrk;
+	}
+
+	public void setRevMnyRmrk(String revMnyRmrk) {
+		this.revMnyRmrk = revMnyRmrk;
+	}
+
+	private String tprtModAndImt;
+
+
+	private Integer lgstcCo;
+
+	private String revMnyPsn;
+
+	private String revMnyRmrk;
+
+
+
+	public Integer getVhclNum() {
+		return vhclNum;
+	}
+
+	public void setVhclNum(Integer vhclNum) {
+		this.vhclNum = vhclNum;
+	}
+
+	public String getTprtModAndImt() {
+		return tprtModAndImt;
+	}
+
+	public void setTprtModAndImt(String tprtModAndImt) {
+		this.tprtModAndImt = tprtModAndImt;
+	}
+
+	public Integer getLgstcCo() {
+		return lgstcCo;
+	}
+
+	public void setLgstcCo(Integer lgstcCo) {
+		this.lgstcCo = lgstcCo;
+	}
+
+	public String getRevMnyPsn() {
+		return revMnyPsn;
+	}
+
+	public void setRevMnyPsn(String revMnyPsn) {
+		this.revMnyPsn = revMnyPsn;
+	}
+
+	public String getRevMnyCtcTel() {
+		return revMnyCtcTel;
+	}
+
+	public void setRevMnyCtcTel(String revMnyCtcTel) {
+		this.revMnyCtcTel = revMnyCtcTel;
+	}
+
+	private String revMnyCtcTel;
+
+
+	public Long getId() {
 	return id;
 }
 

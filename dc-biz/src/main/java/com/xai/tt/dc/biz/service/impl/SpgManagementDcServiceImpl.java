@@ -173,8 +173,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 
 			String kcId = "KC" + spgId.substring(2);
-
-
 			t11IvntInf.setTprtBlId(kcId);
 			t11IvntInf.setSpgId(spgId);
 			t11IvntInf.setCnsgn(inVo.getCnsgn());
@@ -248,8 +246,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				T7SpgDetail t7SpgDetail = new T7SpgDetail();
 				T13GdsDetail t13GdsDetail= new T13GdsDetail();
 
+				for (int i = 0; i < t7SpgDetailList.size(); i++) {
 
-				for(T7SpgDetail elem : t7SpgDetailList) {
+					T7SpgDetail elem=t7SpgDetailList.get(i);
+
 					BeanUtils.copyProperties(elem, t7SpgDetail);
 					t7SpgDetail.setSpgId(spgId);
 
@@ -257,6 +257,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t13GdsDetail.setRltvId(kcId);
 					t13GdsDetail.setRltvTp("01");//01:发货形成库存 02：存入自由货物形成库存
 					t13GdsDetail.setModl("01");
+
+					t13GdsDetail.setIds((long) i);
 
 					t13GdsDetail.setModl("");
 					t13GdsDetail.setPchUnitprc(0.0F);
@@ -271,9 +273,12 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t7SpgDetailMapper.insert(t7SpgDetail);
 
 					t13GdsDetailMapper.insert(t13GdsDetail);
+
 				}
 
-			};
+
+
+			}
 
 
 
@@ -353,7 +358,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 					T11IvntInf t11 = new T11IvntInf();
 					// 更新发货状态
-					//t1.setArSt(query.getAplyPcstpCd());
+
 					//从工作流记录表中获取发货最新状态
 
 					//todo
@@ -810,6 +815,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 		try {
 			T6SpgInf t1 = new T6SpgInf();
+
+			T11IvntInf t11=new T11IvntInf();
+
+
 			// 更新发货状态
 			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
 			logger.info("tt6Vo():{}",JSON.toJSONString(t6Vo));
@@ -844,11 +853,31 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			}
 
 			t1.setTms(new Date());
-			Condition condition0 = new Condition(T6SpgInf.class);
+
+			String kcId = "KC" + query.getSpgId().substring(2);
+			t11.setTprtBlId(kcId);
+			t11.setVhclNum(query.getVhclNum());
+			t11.setTprtModAndImt(query.getTprtModAndImt());
+			t11.setLgstcCo(query.getLgstcCo());
+			t11.setRevMnyPsn(query.getRevMnyPsn());
+			t11.setRevMnyRmrk(query.getRevMnyRmrk());
+			t11.setRevMnyTm(new Date());
+
+
+
+			Condition condition0 = new Condition(T11IvntInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
-			int rltNum = t6SpgInfMapper.updateByConditionSelective(t1, condition0);
+			criteria0.andCondition("Tprt_Bl_ID = '" + kcId + "'");
+			int rltNum = t11IvntInfMapper.updateByConditionSelective(t11, condition0);
+
+
+
+			Condition condition1 = new Condition(T6SpgInf.class);
+			Example.Criteria criteria1 = condition1.createCriteria();
+			criteria1.andCondition("Spg_ID = '" + query.getSpgId() + "'");
+			int rltNum1 = t6SpgInfMapper.updateByConditionSelective(t1, condition1);
 			logger.info("更新发货状态，更新记录数：" + rltNum);
+			logger.info("更新库存状态，更新记录数：" + rltNum);
 		} catch (Exception e) {
 			logger.error("更新发货状态异常 {}", e);
 			return Result.createFailResult("更新发货状态异常:" + e);
