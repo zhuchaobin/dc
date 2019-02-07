@@ -11,4 +11,8 @@ public interface T11IvntInfMapper extends Mapper<T11IvntInf> {
     Page<QueryKcDetailOutVo> selectByT11IvntInfDcQuery(KcManagementInVo query);
 
     int count(KcManagementInVo query);
+
+
+    QueryKcDetailOutVo selectT11IvntInfById(KcManagementInVo query);
+
 }

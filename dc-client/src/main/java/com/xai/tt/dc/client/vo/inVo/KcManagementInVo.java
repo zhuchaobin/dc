@@ -7,6 +7,10 @@ import javax.persistence.Column;
 public class KcManagementInVo extends UserInfoQuery {
 
 
+    /**
+     * ID
+     */
+    private Long id;
 
     /**
      * 运单编号
@@ -25,7 +29,13 @@ public class KcManagementInVo extends UserInfoQuery {
      */
     private String ivntSt;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIvntSt() {
         return ivntSt;

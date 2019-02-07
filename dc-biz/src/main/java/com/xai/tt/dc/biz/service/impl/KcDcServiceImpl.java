@@ -53,6 +53,10 @@ public class KcDcServiceImpl implements KcDcService {
 	private T11IvntInfMapper t11IvntInfMapper;
 
 
+	@Autowired
+	private T13GdsDetailMapper t13GdsDetailMapper;
+
+
 	@Override
 	public Result<PageData<QueryKcDetailOutVo>> queryPage(KcManagementInVo query, PageParam pageParam) {
 
@@ -88,5 +92,57 @@ public class KcDcServiceImpl implements KcDcService {
 		logger.info("queryPage success!{}",JSON.toJSON(page));
 		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
 
+	}
+
+	@Override
+	public Result<QueryKcDetailOutVo> queryDetail(KcManagementInVo query) {
+		logger.info("查询发货详情,请求参数:{}", JSON.toJSONString(query));
+		try {
+			QueryKcDetailOutVo t3 = null;
+			t3 = t11IvntInfMapper.selectT11IvntInfById(query);
+			if (t3 == null) {
+				logger.error("查询发货详情无数据");
+				return Result.createFailResult("查询发货详情无数据");
+			}
+
+
+			Condition condition1 = new Condition(T13GdsDetail.class);
+			Example.Criteria criteria1 = condition1.createCriteria();
+			criteria1.andCondition("Spg_ID = '" + t3.getSpgId() + "'");
+			List<T13GdsDetail> t13GdsDetailList = t13GdsDetailMapper.selectByCondition(condition1);
+			if(null != t13GdsDetailList) {
+				t3.setT13GdsDetailList(t13GdsDetailList);
+				logger.info("查询发货明细信息成功!查询到数据条数：" + t13GdsDetailList.size());
+			}
+			logger.info("查询发货详情成功!");
+
+
+			// 查询用户角色参数权限信息
+			List<String> userRoleParmsList = userMapper.QueryUserRoleParms(query.getUsername());
+			String userRoleParms = "";
+			for(String ele:userRoleParmsList) {
+				userRoleParms = userRoleParms + "|" + ele;
+			}
+			if(StringUtils.isNotBlank(userRoleParms)) {
+				String[] str = userRoleParms.split("\\|");
+				List<String> list = new ArrayList<String>();
+				for(String elem: str) {
+					list.add(elem);
+				}
+				t3.setRoleParmsList(list);
+
+
+			} else {
+				logger.error("查询用户角色参数权限信息，结果为空");
+			}
+
+
+			logger.info("querySpgDetail res {}", JSON.toJSONString(t3));
+
+			return Result.createSuccessResult(t3);
+		} catch (Exception e) {
+			logger.error("查询发货详情异常 {}", e);
+			return Result.createFailResult("查询发货详情异常" + e);
+		}
 	}
 }
