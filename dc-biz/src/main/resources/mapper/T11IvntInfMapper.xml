@@ -53,6 +53,10 @@
         <if test="ivntSt != null and ivntSt  != ''">
             and Ivnt_St = #{ivntSt ,jdbcType=VARCHAR}
         </if>
+
+        <if test="id != null and id  != ''">
+            and id = #{id ,jdbcType=VARCHAR}
+        </if>
     </sql>
 
     <select id="selectByT11IvntInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.KcManagementInVo"
@@ -60,9 +64,10 @@
 
         select
 
-        t11.Tprt_Bl_ID as tprtBlId,
-        t11.Spg_ID as spgId,
-        t11.Ivnt_St as ivntSt
+        ID AS id,
+        Tprt_Bl_ID as tprtBlId,
+        Spg_ID as spgId,
+        Ivnt_St as ivntSt
 
         from t11_ivnt_inf t11 where 1=1
 
@@ -75,6 +80,21 @@
     <select id="count" resultType="java.lang.Integer">
         select count(1) from t11_ivnt_inf where 1=1
         <include refid="query_criteria"></include>
+    </select>
+
+
+
+    <select id="selectT11IvntInfById"  parameterType="java.lang.String"
+            resultType="com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo">
+
+        select
+
+        ID AS id,
+        Tprt_Bl_ID as tprtBlId,
+        Spg_ID as spgId,
+        Ivnt_St as ivntSt
+
+        from t11_ivnt_inf t11 where id=#{id ,jdbcType=VARCHAR}
     </select>
 
 </mapper>
