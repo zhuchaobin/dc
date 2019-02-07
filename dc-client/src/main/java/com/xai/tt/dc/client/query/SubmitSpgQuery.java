@@ -1,5 +1,6 @@
 package com.xai.tt.dc.client.query;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 public class SubmitSpgQuery extends UserInfoQuery {
@@ -149,16 +150,145 @@ public void setSpgId(String spgId) {
 		this.revMnyRmrk = revMnyRmrk;
 	}
 
+
+	/*接货承运*/
 	private String tprtModAndImt;
-
-
 	private Integer lgstcCo;
-
 	private String revMnyPsn;
-
 	private String revMnyRmrk;
 
+	/*接货入仓*/
 
+	/**
+	 * 仓储公司
+	 */
+	private Integer stgco;
+
+	/**
+	 * 入库人
+	 */
+	private String intrsrPsn;
+
+	/**
+	 * 入库时间
+	 */
+	private Date intrsrTm;
+
+	/**
+	 * 入库备注
+	 */
+	private String intrsrRmrk;
+
+	/**
+	 * 出库时间
+	 */
+	private Date outstgTm;
+
+	/**
+	 * 质押状态
+	 */
+	private Integer plgSt;
+
+	/**
+	 * 库位
+	 */
+	private String strBit;
+
+	/**
+	 * 仓单编号
+	 */
+	private String whrecptId;
+
+	/**
+	 * 库存状态
+	 */
+	private String ivntSt;
+
+	/**
+	 * 质押预警状态代码
+	 */
+	private String plgWarnStcd;
+
+
+	public Integer getStgco() {
+		return stgco;
+	}
+
+	public void setStgco(Integer stgco) {
+		this.stgco = stgco;
+	}
+
+	public String getIntrsrPsn() {
+		return intrsrPsn;
+	}
+
+	public void setIntrsrPsn(String intrsrPsn) {
+		this.intrsrPsn = intrsrPsn;
+	}
+
+	public Date getIntrsrTm() {
+		return intrsrTm;
+	}
+
+	public void setIntrsrTm(Date intrsrTm) {
+		this.intrsrTm = intrsrTm;
+	}
+
+	public String getIntrsrRmrk() {
+		return intrsrRmrk;
+	}
+
+	public void setIntrsrRmrk(String intrsrRmrk) {
+		this.intrsrRmrk = intrsrRmrk;
+	}
+
+	public Date getOutstgTm() {
+		return outstgTm;
+	}
+
+	public void setOutstgTm(Date outstgTm) {
+		this.outstgTm = outstgTm;
+	}
+
+	public Integer getPlgSt() {
+		return plgSt;
+	}
+
+	public void setPlgSt(Integer plgSt) {
+		this.plgSt = plgSt;
+	}
+
+	public String getStrBit() {
+		return strBit;
+	}
+
+	public void setStrBit(String strBit) {
+		this.strBit = strBit;
+	}
+
+	public String getWhrecptId() {
+		return whrecptId;
+	}
+
+	public void setWhrecptId(String whrecptId) {
+		this.whrecptId = whrecptId;
+	}
+
+	public String getIvntSt() {
+		return ivntSt;
+	}
+
+	public void setIvntSt(String ivntSt) {
+		this.ivntSt = ivntSt;
+	}
+
+	public String getPlgWarnStcd() {
+		return plgWarnStcd;
+	}
+
+	public void setPlgWarnStcd(String plgWarnStcd) {
+		this.plgWarnStcd = plgWarnStcd;
+	}
 
 	public Integer getVhclNum() {
 		return vhclNum;

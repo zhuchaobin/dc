@@ -19,6 +19,22 @@ public class KcManagementInVo extends UserInfoQuery {
      */
     private String spgId;
 
+
+    /**
+     * 库存状态
+     */
+    private String ivntSt;
+
+
+
+    public String getIvntSt() {
+        return ivntSt;
+    }
+
+    public void setIvntSt(String ivntSt) {
+        this.ivntSt = ivntSt;
+    }
+
     public String getTprtBlId() {
         return tprtBlId;
     }

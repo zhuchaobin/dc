@@ -818,6 +818,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			T11IvntInf t11=new T11IvntInf();
 
+			//从工作流中取出当前步骤代码
+
 
 			// 更新发货状态
 			QuerySpgInfDetailOutVo t6Vo = t6SpgInfMapper.querySpgDetailBySpgId(query.getSpgId());
@@ -856,12 +858,29 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			String kcId = "KC" + query.getSpgId().substring(2);
 			t11.setTprtBlId(kcId);
-			t11.setVhclNum(query.getVhclNum());
-			t11.setTprtModAndImt(query.getTprtModAndImt());
-			t11.setLgstcCo(query.getLgstcCo());
-			t11.setRevMnyPsn(query.getRevMnyPsn());
-			t11.setRevMnyRmrk(query.getRevMnyRmrk());
-			t11.setRevMnyTm(new Date());
+			t11.setIvntSt(t6Vo.getAplyPcstpCd());
+
+			//
+			if ("62".equals(t6Vo.getAplyPcstpCd())){
+				t11.setVhclNum(query.getVhclNum());
+				t11.setTprtModAndImt(query.getTprtModAndImt());
+				t11.setLgstcCo(query.getLgstcCo());
+				t11.setRevMnyPsn(query.getRevMnyPsn());
+				t11.setRevMnyRmrk(query.getRevMnyRmrk());
+				t11.setRevMnyTm(new Date());
+
+			}	else  if ("63".equals(t6Vo.getAplyPcstpCd())){
+
+				t11.setStgco(query.getStgco());
+				t11.setIntrsrPsn(query.getIntrsrPsn());
+				t11.setIntrsrTm(new Date());
+				t11.setIntrsrRmrk(query.getIntrsrRmrk());
+
+			}else  if ("63".equals(t6Vo.getAplyPcstpCd())){
+
+				t11.setOutstgTm(new Date());
+			}
+
 
 
 

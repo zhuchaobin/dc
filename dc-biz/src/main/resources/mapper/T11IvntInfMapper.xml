@@ -1,64 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xai.tt.dc.biz.mapper.T11IvntInfMapper">
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T11IvntInf">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="Tprt_Bl_ID" jdbcType="CHAR" property="tprtBlId" />
-    <result column="Spg_ID" jdbcType="CHAR" property="spgId" />
-    <result column="Spg_Psn" jdbcType="VARCHAR" property="spgPsn" />
-    <result column="Spg_Ctc_Tel" jdbcType="VARCHAR" property="spgCtcTel" />
-    <result column="Spg_Rmrk" jdbcType="VARCHAR" property="spgRmrk" />
-    <result column="Cnsgn" jdbcType="VARCHAR" property="cnsgn" />
-    <result column="RcvG_Ctc_Tel" jdbcType="VARCHAR" property="rcvgCtcTel" />
-    <result column="Pps_Lnd" jdbcType="VARCHAR" property="ppsLnd" />
-    <result column="Pd_Fctr" jdbcType="VARCHAR" property="pdFctr" />
-    <result column="Spg_Tm" jdbcType="TIMESTAMP" property="spgTm" />
-    <result column="Vhcl_Num" jdbcType="INTEGER" property="vhclNum" />
-    <result column="Tprt_Mod_And_Imt" jdbcType="VARCHAR" property="tprtModAndImt" />
-    <result column="Lgstc_Co" jdbcType="INTEGER" property="lgstcCo" />
-    <result column="Rev_Mny_Psn" jdbcType="VARCHAR" property="revMnyPsn" />
-    <result column="Rev_Mny_Ctc_Tel" jdbcType="VARCHAR" property="revMnyCtcTel" />
-    <result column="Rev_Mny_Tm" jdbcType="TIMESTAMP" property="revMnyTm" />
-    <result column="Rev_Mny_Rmrk" jdbcType="VARCHAR" property="revMnyRmrk" />
-    <result column="StgCo" jdbcType="INTEGER" property="stgco" />
-    <result column="InTrsr_Psn" jdbcType="VARCHAR" property="intrsrPsn" />
-    <result column="InTrsr_Tm" jdbcType="TIMESTAMP" property="intrsrTm" />
-    <result column="InTrsr_Rmrk" jdbcType="VARCHAR" property="intrsrRmrk" />
-    <result column="OutStg_Tm" jdbcType="TIMESTAMP" property="outstgTm" />
-    <result column="Plg_St" jdbcType="INTEGER" property="plgSt" />
-    <result column="Str_Bit" jdbcType="VARCHAR" property="strBit" />
-    <result column="WhRecpt_ID" jdbcType="CHAR" property="whrecptId" />
-    <result column="Ivnt_St" jdbcType="CHAR" property="ivntSt" />
-    <result column="Plg_Warn_StCd" jdbcType="CHAR" property="plgWarnStcd" />
-    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="SlfOwn_Gds_ID" jdbcType="CHAR" property="slfownGdsId" />
-    <result column="Dep_Psn" jdbcType="VARCHAR" property="depPsn" />
-    <result column="Dep_Tm" jdbcType="TIMESTAMP" property="depTm" />
-    <result column="Gds_Blg" jdbcType="INTEGER" property="gdsBlg" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T11IvntInf">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="Tprt_Bl_ID" jdbcType="CHAR" property="tprtBlId"/>
+        <result column="Spg_ID" jdbcType="CHAR" property="spgId"/>
+        <result column="Spg_Psn" jdbcType="VARCHAR" property="spgPsn"/>
+        <result column="Spg_Ctc_Tel" jdbcType="VARCHAR" property="spgCtcTel"/>
+        <result column="Spg_Rmrk" jdbcType="VARCHAR" property="spgRmrk"/>
+        <result column="Cnsgn" jdbcType="VARCHAR" property="cnsgn"/>
+        <result column="RcvG_Ctc_Tel" jdbcType="VARCHAR" property="rcvgCtcTel"/>
+        <result column="Pps_Lnd" jdbcType="VARCHAR" property="ppsLnd"/>
+        <result column="Pd_Fctr" jdbcType="VARCHAR" property="pdFctr"/>
+        <result column="Spg_Tm" jdbcType="TIMESTAMP" property="spgTm"/>
+        <result column="Vhcl_Num" jdbcType="INTEGER" property="vhclNum"/>
+        <result column="Tprt_Mod_And_Imt" jdbcType="VARCHAR" property="tprtModAndImt"/>
+        <result column="Lgstc_Co" jdbcType="INTEGER" property="lgstcCo"/>
+        <result column="Rev_Mny_Psn" jdbcType="VARCHAR" property="revMnyPsn"/>
+        <result column="Rev_Mny_Ctc_Tel" jdbcType="VARCHAR" property="revMnyCtcTel"/>
+        <result column="Rev_Mny_Tm" jdbcType="TIMESTAMP" property="revMnyTm"/>
+        <result column="Rev_Mny_Rmrk" jdbcType="VARCHAR" property="revMnyRmrk"/>
+        <result column="StgCo" jdbcType="INTEGER" property="stgco"/>
+        <result column="InTrsr_Psn" jdbcType="VARCHAR" property="intrsrPsn"/>
+        <result column="InTrsr_Tm" jdbcType="TIMESTAMP" property="intrsrTm"/>
+        <result column="InTrsr_Rmrk" jdbcType="VARCHAR" property="intrsrRmrk"/>
+        <result column="OutStg_Tm" jdbcType="TIMESTAMP" property="outstgTm"/>
+        <result column="Plg_St" jdbcType="INTEGER" property="plgSt"/>
+        <result column="Str_Bit" jdbcType="VARCHAR" property="strBit"/>
+        <result column="WhRecpt_ID" jdbcType="CHAR" property="whrecptId"/>
+        <result column="Ivnt_St" jdbcType="CHAR" property="ivntSt"/>
+        <result column="Plg_Warn_StCd" jdbcType="CHAR" property="plgWarnStcd"/>
+        <result column="Tms" jdbcType="TIMESTAMP" property="tms"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="SlfOwn_Gds_ID" jdbcType="CHAR" property="slfownGdsId"/>
+        <result column="Dep_Psn" jdbcType="VARCHAR" property="depPsn"/>
+        <result column="Dep_Tm" jdbcType="TIMESTAMP" property="depTm"/>
+        <result column="Gds_Blg" jdbcType="INTEGER" property="gdsBlg"/>
+    </resultMap>
+
+    <sql id="query_criteria">
+        <if test="tprtBlId != null and tprtBlId  != ''">
+            and Tprt_Bl_ID = #{tprtBlId ,jdbcType=CHAR}
+        </if>
+
+        <if test="spgId != null and spgId  != ''">
+            and Spg_ID = #{spgId ,jdbcType=CHAR}
+        </if>
+
+        <if test="ivntSt != null and ivntSt  != ''">
+            and Ivnt_St = #{ivntSt ,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <select id="selectByT11IvntInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.KcManagementInVo"
+            resultType="com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo">
+
+        select
+
+        t11.Tprt_Bl_ID as tprtBlId,
+        t11.Spg_ID as spgId,
+        t11.Ivnt_St as ivntSt
+
+        from t11_ivnt_inf t11 where 1=1
+
+        <include refid="query_criteria"></include>
 
 
-  <select id="selectByT11IvntInfDcQuery" parameterType="com.xai.tt.dc.client.vo.inVo.KcManagementInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo">
-
-select
-
-t11.Tprt_Bl_ID as tprtBlId,
-t11.Spg_ID as spgId,
-t11.Ivnt_St as ivntSt
-
-from t11_ivnt_inf t11
+    </select>
 
 
-  </select>
-
-
-  <select id="count" resultType="java.lang.Integer">
-select count(1) from t11_ivnt_inf
-
-  </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from t11_ivnt_inf where 1=1
+        <include refid="query_criteria"></include>
+    </select>
 
 </mapper>
