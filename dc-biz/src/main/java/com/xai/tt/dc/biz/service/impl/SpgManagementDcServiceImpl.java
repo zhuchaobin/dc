@@ -831,7 +831,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			};
 
-			if (t6Vo != null && t6Vo.getAplyPcstpCd() != null) {
+			if (t6Vo != null && StringUtils.isNotBlank(t6Vo.getAplyPcstpCd())) {
 				BeanUtils.copyProperties(t6Vo, t1);
 				t1.setSpgSt(t6Vo.getAplyPcstpCd());
 
