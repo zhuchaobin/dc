@@ -13,6 +13,6 @@ public interface T11IvntInfMapper extends Mapper<T11IvntInf> {
     int count(KcManagementInVo query);
 
 
-    QueryKcDetailOutVo selectT11IvntInfById(KcManagementInVo query);
+    QueryKcDetailOutVo selectT11IvntInfById(Integer id);
 
 }

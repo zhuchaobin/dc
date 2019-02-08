@@ -65,9 +65,9 @@
         select
 
         ID AS id,
-        as tprtBlId,
-as spgId,
-  as ivntSt
+        Tprt_Bl_ID as tprtBlId,
+        Spg_ID as spgId,
+        Ivnt_St  as ivntSt
 
         from t11_ivnt_inf t11 where 1=1
 
@@ -84,7 +84,7 @@ as spgId,
 
 
 
-    <select id="selectT11IvntInfById"  parameterType="java.lang.String"
+    <select id="selectT11IvntInfById"  parameterType="java.lang.Integer"
             resultType="com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo">
 
         select
@@ -124,7 +124,7 @@ as spgId,
         Dep_Tm       as depTm,
         Gds_Blg     as gdsBlg
 
-        from t11_ivnt_inf t11 where id=#{id ,jdbcType=VARCHAR}
+        from t11_ivnt_inf t11 where id=#{id ,jdbcType=BIGINT}
     </select>
 
 </mapper>

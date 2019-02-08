@@ -100,7 +100,7 @@ public class T13GdsDetail {
     private Date crtTm;
 
     /**
-     * 时间戳
+         * 时间戳
      */
     @Column(name = "Tms")
     private Date tms;

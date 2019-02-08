@@ -99,7 +99,7 @@ public class KcDcServiceImpl implements KcDcService {
 		logger.info("查询发货详情,请求参数:{}", JSON.toJSONString(query));
 		try {
 			QueryKcDetailOutVo t3 = null;
-			t3 = t11IvntInfMapper.selectT11IvntInfById(query);
+			t3 = t11IvntInfMapper.selectT11IvntInfById(query.getId().intValue());
 			if (t3 == null) {
 				logger.error("查询发货详情无数据");
 				return Result.createFailResult("查询发货详情无数据");
@@ -108,7 +108,7 @@ public class KcDcServiceImpl implements KcDcService {
 
 			Condition condition1 = new Condition(T13GdsDetail.class);
 			Example.Criteria criteria1 = condition1.createCriteria();
-			criteria1.andCondition("Spg_ID = '" + t3.getSpgId() + "'");
+			criteria1.andCondition("Rltv_ID = '" + t3.getTprtBlId() + "'");
 			List<T13GdsDetail> t13GdsDetailList = t13GdsDetailMapper.selectByCondition(condition1);
 			if(null != t13GdsDetailList) {
 				t3.setT13GdsDetailList(t13GdsDetailList);
