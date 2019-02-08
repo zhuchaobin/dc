@@ -656,7 +656,7 @@ public class OrderManagementDcServiceImpl implements OrderManagementDcService {
 			// t1.setOrdrSt(query.getAplyPcstpCd());
 			// 从工作流记录表中获取订单最新状态
 			QueryOrderInfDetailOutVo t1Vo = t3OrderInfMapper.queryOrderDetailByOrderId(query.getOrdrId());
-			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {				
+			if (t1Vo != null && StringUtils.isNotBlank(t1Vo.getAplyPcstpCd())) {				
 				BeanUtils.copyProperties(t1Vo, t1);
 				t1.setOrdrSt(t1Vo.getAplyPcstpCd());
 

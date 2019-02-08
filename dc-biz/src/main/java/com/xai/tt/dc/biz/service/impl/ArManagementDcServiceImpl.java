@@ -636,7 +636,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			// 从工作流记录表中获取长约最新状态
 			T1ARInfDetailVo t1Vo = t1ARInfMapper.queryArDetailByArId(query.getArId());
 
-			if (t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
+			if (t1Vo != null && StringUtils.isNotBlank(t1Vo.getAplyPcstpCd())) {
 				BeanUtils.copyProperties(t1Vo, t1);
 				t1.setArSt(t1Vo.getAplyPcstpCd());
 				// 发送审批处理提醒信息
