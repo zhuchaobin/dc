@@ -12,6 +12,18 @@ public class T11IvntInf {
     private Long id;
 
     /**
+     * 关联编号
+     */
+    @Column(name = "Rltv_ID")
+    private String rltvId;
+
+    /**
+     * 关联类型
+     */
+    @Column(name = "Rltv_Tp")
+    private String rltvTp;
+
+    /**
      * 运单编号
      */
     @Column(name = "Tprt_Bl_ID")
@@ -224,6 +236,42 @@ public class T11IvntInf {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 获取关联编号
+     *
+     * @return Rltv_ID - 关联编号
+     */
+    public String getRltvId() {
+        return rltvId;
+    }
+
+    /**
+     * 设置关联编号
+     *
+     * @param rltvId 关联编号
+     */
+    public void setRltvId(String rltvId) {
+        this.rltvId = rltvId;
+    }
+
+    /**
+     * 获取关联类型
+     *
+     * @return Rltv_Tp - 关联类型
+     */
+    public String getRltvTp() {
+        return rltvTp;
+    }
+
+    /**
+     * 设置关联类型
+     *
+     * @param rltvTp 关联类型
+     */
+    public void setRltvTp(String rltvTp) {
+        this.rltvTp = rltvTp;
     }
 
     /**
