@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
+import com.xai.tt.dc.biz.enums.KuCunType;
 import com.xai.tt.dc.biz.mapper.*;
 import com.xai.tt.dc.biz.utils.*;
 import com.xai.tt.dc.client.inter.R1LnkInfDefService;
@@ -171,9 +172,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t6SpgInfo.setCrtTm(new Date());
 			t6SpgInfo.setTms(new Date());
 
-
-			String kcId = "KC" + spgId.substring(2);
-			t11IvntInf.setTprtBlId(kcId);
+			t11IvntInf.setRltvId(spgId);
+			t11IvntInf.setRltvTp(KuCunType.FA_HUO_KU_CUN.getCode());
 			t11IvntInf.setSpgId(spgId);
 			t11IvntInf.setCnsgn(inVo.getCnsgn());
 			t11IvntInf.setTms(new Date());
@@ -238,7 +238,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			Condition condition2 = new Condition(T13GdsDetail.class);
 			Example.Criteria criteria2 = condition2.createCriteria();
-			criteria2.andCondition("Rltv_ID = '" + kcId + "'");
+			criteria2.andCondition("Rltv_ID = '" + spgId + "'");
 			t13GdsDetailMapper.deleteByCondition(condition2);
 
 			List<T7SpgDetail> t7SpgDetailList = inVo.getT7SpgDetailList();
@@ -254,12 +254,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t7SpgDetail.setSpgId(spgId);
 
 					BeanUtils.copyProperties(elem, t13GdsDetail);
-					t13GdsDetail.setRltvId(kcId);
-					t13GdsDetail.setRltvTp("01");//01:发货形成库存 02：存入自由货物形成库存
+					t13GdsDetail.setRltvId(spgId);
+					t13GdsDetail.setRltvTp(KuCunType.FA_HUO_KU_CUN.getCode());//01:发货形成库存 02：存入自由货物形成库存
 					t13GdsDetail.setModl("01");
-
 					t13GdsDetail.setIds((long) i);
-
 					t13GdsDetail.setModl("");
 					t13GdsDetail.setPchUnitprc(0.0F);
 					t13GdsDetail.setTxnPrcdif(0.0F);
@@ -398,7 +396,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 					Condition condition1 = new Condition(T11IvntInf.class);
 					Example.Criteria criteria1 = condition1.createCriteria();
-					criteria1.andCondition("Tprt_Bl_ID = '" + kcId + "'");
+					criteria1.andCondition("Rltv_ID = '" + spgId + "'");
 					int rltNum1 = t11IvntInfMapper.updateByConditionSelective(t11, condition1);
 
 
@@ -856,8 +854,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			t1.setTms(new Date());
 
-			String kcId = "KC" + query.getSpgId().substring(2);
-			t11.setTprtBlId(kcId);
+			t11.setRltvId(query.getSpgId());
 			t11.setIvntSt(t6Vo.getAplyPcstpCd());
 
 			//
@@ -879,14 +876,17 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			}else  if ("63".equals(t6Vo.getAplyPcstpCd())){
 
 				t11.setOutstgTm(new Date());
+			}	else  if ("68".equals(t6Vo.getAplyPcstpCd())){
+				t11.setPlgSt(Integer.parseInt(t6Vo.getAplyPcstpCd()));
 			}
+
 
 
 
 
 			Condition condition0 = new Condition(T11IvntInf.class);
 			Example.Criteria criteria0 = condition0.createCriteria();
-			criteria0.andCondition("Tprt_Bl_ID = '" + kcId + "'");
+			criteria0.andCondition("Rltv_ID = '" + query.getSpgId() + "'");
 			int rltNum = t11IvntInfMapper.updateByConditionSelective(t11, condition0);
 
 
@@ -908,11 +908,13 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 
 
-//		62-入库前（接货承运）
-//		64-入库前（货款支付）
-//		=63	入库
-//		>63 出库
-		//根据不同环节，存入库存信息
+//		61 发货发起   待承运
+//		62 接货承运   已承运，运输中
+//		63 接货入库   在库
+//
+//		68 质押置换   质押中
+//
+//		77 提取货物   已出库
 		if ("01".equals(t6.getPymtMod())){
 
 			if ("62".equals(aplyPcstpCd)||"63".equals(aplyPcstpCd)){

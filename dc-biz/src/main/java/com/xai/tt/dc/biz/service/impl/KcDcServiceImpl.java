@@ -90,7 +90,37 @@ public class KcDcServiceImpl implements KcDcService {
 			return Result.createFailResult("查询异常");
 		}
 		logger.info("queryPage success!{}",JSON.toJSON(page));
-		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
+
+
+		List<QueryKcDetailOutVo> result=new ArrayList<>();
+		if (page!=null){
+			List<QueryKcDetailOutVo> tmpList = page.getResult();
+
+			for (int i = 0; i < tmpList.size(); i++) {
+
+				QueryKcDetailOutVo queryKcDetailOutVo = tmpList.get(i);
+				int ivnSt = Integer.parseInt(queryKcDetailOutVo.getIvntSt());
+				if (ivnSt ==61||ivnSt==62){
+
+					queryKcDetailOutVo.setRltvId("YD"+queryKcDetailOutVo.getRltvId());
+
+				}else 	if (ivnSt <77){
+
+					queryKcDetailOutVo.setRltvId("ZK"+queryKcDetailOutVo.getRltvId());
+				}else{
+					queryKcDetailOutVo.setRltvId("CK"+queryKcDetailOutVo.getRltvId());
+
+				}
+
+
+				result.add(queryKcDetailOutVo);
+
+
+			}
+		}
+
+
+		return Result.createSuccessResult(new PageData<>(count, result));
 
 	}
 
