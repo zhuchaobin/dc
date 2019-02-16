@@ -1,11 +1,15 @@
 package com.xai.tt.dc.biz.utils;
 
 import com.alibaba.fastjson.JSON;
+
+import org.activiti.engine.impl.util.json.JSONArray;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -181,16 +185,46 @@ public final class HttpUtil {
 	}
  
 	public static void main(String[] args) throws Exception {
-		String url = "http://ip:8082/security/auth/outside.do";
+		String url = "http://www.enanchu.com/quotation/1/ajaxQuoteRecordsToday.action";
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("loginName", "root");
-		map.put("code", "vms2.0");
+		map.put("tabId", "1");
+//		map.put("code", "vms2.0");
 		String msg = post(url, map);
 
-		String s = JSON.toJSONString(msg);
+		String jsonString = JSON.toJSONString(msg);
+		jsonString = jsonString.replace("\\", "");
+		jsonString = jsonString.substring(1, jsonString.length()-1);
 
-		System.out.println(s);
-
-		}
-//		System.out.println(jary);
-	}
+		System.out.println("jsonString=" + jsonString);
+		try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+         // 返回json的数组
+            JSONArray jsonArray = jsonObject.getJSONArray("records");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                System.out.println(jsonObject2.getString("gbName"));
+                //均价
+                String lowPrice = jsonObject2.getString("lowPrice");
+                String highPrice = jsonObject2.getString("highPrice");
+                Integer avgPrice = 0;
+                if(StringUtils.isNotBlank(lowPrice)) {
+                	avgPrice = (Integer.parseInt(lowPrice) + Integer.parseInt(highPrice))/2;
+                	System.out.println(avgPrice);
+                } 
+                //牌号                
+                String quotationType = jsonObject2.getString("quotationType");
+                System.out.println(quotationType);
+                //涨跌
+                String priceRate = jsonObject2.getString("priceRate");
+                System.out.println(priceRate);
+                //日期
+                String quotationTimeFormatString = jsonObject2.getString("quotationTimeFormatString");
+                System.out.println(quotationTimeFormatString);
+                              
+            }
+	} catch (Exception e) {
+        // TODO: handle exception
+		System.out.println(e);
+    }
+}
+}
