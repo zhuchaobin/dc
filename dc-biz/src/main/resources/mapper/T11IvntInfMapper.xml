@@ -58,14 +58,42 @@
 
         select
 
-        ID AS id,
 
         Rltv_ID as rltvId,
-        Spg_ID as spgId,
+        id    as id,
+        Tprt_Bl_ID  as tprtBlId,
+        Spg_ID  as spgId,
+        Spg_Psn     as spgPsn,
+        Spg_Ctc_Tel     as spgCtcTel,
+        Spg_Rmrk     as spgRmrk,
+        Cnsgn     as cnsgn,
+        RcvG_Ctc_Tel     as rcvgCtcTel,
+        Pps_Lnd     as ppsLnd,
+        Pd_Fctr     as pdFctr,
+        Spg_Tm       as spgTm,
+        Vhcl_Num     as vhclNum,
+        Tprt_Mod_And_Imt     as tprtModAndImt,
+        Lgstc_Co     as lgstcCo,
+        Rev_Mny_Psn     as revMnyPsn,
+        Rev_Mny_Ctc_Tel     as revMnyCtcTel,
+        Rev_Mny_Tm       as revMnyTm,
+        Rev_Mny_Rmrk     as revMnyRmrk,
+        StgCo     as stgco,
+        InTrsr_Psn     as intrsrPsn,
+        InTrsr_Tm       as intrsrTm,
+        InTrsr_Rmrk     as intrsrRmrk,
+        OutStg_Tm       as outstgTm,
+        Plg_St     as plgSt,
+        Str_Bit     as strBit,
+        WhRecpt_ID  as whrecptId,
         Ivnt_St  as ivntSt,
-        Spg_Psn as spgPsn,
-        Rev_Mny_Psn as revMnyPsn,
-        Plg_St as plgSt
+        Plg_Warn_StCd  as plgWarnStcd,
+        Tms       as tms,
+        username     as username,
+        SlfOwn_Gds_ID  as slfownGdsId,
+        Dep_Psn     as depPsn,
+        Dep_Tm       as depTm,
+        Gds_Blg     as gdsBlg
 
         from t11_ivnt_inf t11 where Ivnt_St>=61
 
