@@ -104,11 +104,12 @@ public class KcDcServiceImpl implements KcDcService {
 
 					queryKcDetailOutVo.setRltvId("YD"+queryKcDetailOutVo.getRltvId());
 
-				}else 	if (ivnSt <77){
+				}else 	if (ivnSt ==77){
 
-					queryKcDetailOutVo.setRltvId("ZK"+queryKcDetailOutVo.getRltvId());
-				}else{
 					queryKcDetailOutVo.setRltvId("CK"+queryKcDetailOutVo.getRltvId());
+
+				}else{
+					queryKcDetailOutVo.setRltvId("ZK"+queryKcDetailOutVo.getRltvId());
 
 				}
 
