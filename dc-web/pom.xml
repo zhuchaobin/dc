@@ -148,6 +148,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<maimClass>com.xai.tt.dc.App</maimClass>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
