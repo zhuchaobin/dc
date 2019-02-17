@@ -60,6 +60,7 @@
 
 
         Rltv_ID as rltvId,
+        Rltv_Tp as rltvTp,
         id    as id,
         Tprt_Bl_ID  as tprtBlId,
         Spg_ID  as spgId,
@@ -114,7 +115,9 @@
 
         select
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      id    as id,
+        id    as id,
+        Rltv_ID as rltvId,
+        Rltv_Tp as rltvTp,                                                                                                                                                                                                                                                                                                                                                                                                                                                                     id    as id,
         Tprt_Bl_ID  as tprtBlId,
         Spg_ID  as spgId,
         Spg_Psn     as spgPsn,

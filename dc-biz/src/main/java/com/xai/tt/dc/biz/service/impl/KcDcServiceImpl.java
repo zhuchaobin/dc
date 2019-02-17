@@ -139,7 +139,7 @@ public class KcDcServiceImpl implements KcDcService {
 
 			Condition condition1 = new Condition(T13GdsDetail.class);
 			Example.Criteria criteria1 = condition1.createCriteria();
-			criteria1.andCondition("Rltv_ID = '" + t3.getTprtBlId() + "'");
+			criteria1.andCondition("Rltv_ID = '" + t3.getRltvId() + "'");
 			List<T13GdsDetail> t13GdsDetailList = t13GdsDetailMapper.selectByCondition(condition1);
 			if(null != t13GdsDetailList) {
 				t3.setT13GdsDetailList(t13GdsDetailList);
