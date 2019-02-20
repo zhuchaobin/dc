@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import com.alibaba.fastjson.JSON;
 import com.tianan.common.api.bean.Result;
@@ -38,3 +38,4 @@ public class TestR1LnkInfDefService {
 
 
 }
+*/

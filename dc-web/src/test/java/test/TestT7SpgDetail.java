@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 import com.tianan.common.api.bean.Result;
@@ -56,3 +56,4 @@ public class TestT7SpgDetail {
 	
 
 }
+*/

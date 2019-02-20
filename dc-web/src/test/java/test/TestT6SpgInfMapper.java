@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
@@ -89,3 +89,4 @@ public class TestT6SpgInfMapper {
 
 
 }
+*/

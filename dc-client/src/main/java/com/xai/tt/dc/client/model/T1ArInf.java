@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Table(name = "t1_ar_inf")
 public class T1ArInf {
+
     /**
      * ID
      */
