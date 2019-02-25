@@ -123,11 +123,11 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 						}
 					} else {
 						solveType = "01";
-						inVo.setSpgSt("10");
+						inVo.setSpgSt("10");//保存
 					}
 				} else {
 					solveType = "01";
-					inVo.setSpgSt("10");
+					inVo.setSpgSt("10");//保存
 				}
 			} else if ("02".equals(inVo.getSecSrvCd())) {
 				if(null != inVo.getId()) {
@@ -138,8 +138,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 							solveType = "07";
 						} else if("10".equals(rltT1.getSpgSt())){
 							solveType = "08";
-						} else if("01".equals(rltT1.getSpgSt())){
-							solveType = "06";
 						}else if("61".equals(rltT1.getSpgSt())){
 							solveType = "06";
 						}
@@ -184,8 +182,8 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			// 
 			if(StringUtils.isBlank(t6SpgInfo.getSpgSt())){
 				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
-					t6SpgInfo.setSpgSt("01");
-					t11IvntInf.setIvntSt("01");
+					t6SpgInfo.setSpgSt("61");
+					t11IvntInf.setIvntSt("61");
 				}
 			}
 
@@ -284,7 +282,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			try {
 				if (StringUtils.isNotEmpty(inVo.getFileNames())) {
 					T2UploadAtch t2UploadAtch = new T2UploadAtch();
-					t2UploadAtch.setRltvTp("01");
+					t2UploadAtch.setRltvTp("03");
 					t2UploadAtch.setUsername(inVo.getUsername());
 					t2UploadAtch.setRltvId(spgId);
 					insertFile(t2UploadAtch, inVo.getFileNames());
@@ -339,9 +337,9 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				t0.setUsername(inVo.getUsername());
 				t0.setCompanyId(inVo.getCompanyId());
 				t0.setRltvId(t6SpgInfo.getSpgId());
-				t0.setAplyPcstpCd("01");
+				t0.setAplyPcstpCd("61");//申请处理步骤
 				t0.setAplyPsrltCd("01");
-				t0.setProcessType("01");
+				t0.setProcessType("03");//流程类型
 				t0.setId(null);
 				wfeUtils.saveLnkJrnlInf(t0);
 				// 拾取并完成发起任务
@@ -365,6 +363,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 						BeanUtils.copyProperties(t1Vo, t1);
 						t1.setSpgSt(t1Vo.getAplyPcstpCd());
+						t11.setIvntSt(t1Vo.getAplyPcstpCd());
 
 						// 发送审批处理提醒信息
 						// 查询长约信息
