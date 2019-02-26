@@ -1,6 +1,15 @@
 package com.xai.tt.dc.biz.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.xai.tt.dc.biz.mapper.B1VrtyPdNmMapper;
+import com.xai.tt.dc.biz.mapper.B3PdNmDrcPrcMapper;
+import com.xai.tt.dc.biz.mapper.UserMapper;
+import com.xai.tt.dc.client.model.B1VrtyPdNm;
+import com.xai.tt.dc.client.model.B3PdNmDrcPrc;
+import com.xai.tt.dc.client.model.T1ArInf;
+
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -19,6 +28,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,11 +38,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
-
+@SuppressWarnings("deprecation")
+@Service("httpUtil")
 public final class HttpUtil {
  
 	private static HttpClient httpClient = new HttpClient();
- 
+	
+	@Autowired
+	private  B1VrtyPdNmMapper b1VrtyPdNmMapper;
+	@Autowired
+	private  B3PdNmDrcPrcMapper b3PdNmDrcPrcMapper;
+	
 	/**
 	 * @Title: getDataFromURL
 	 * @Description: 根据URL跨域获取输出结果，支持http
@@ -184,6 +201,30 @@ public final class HttpUtil {
 		return body;
 	}
  
+	public void setPrc(String gbName, String quotationTime, float avgPrice) {
+		Condition condition = new Condition(B1VrtyPdNm.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("name = '" + gbName + "'");
+		criteria.andCondition("folder = '0'");
+		List<B1VrtyPdNm> list = b1VrtyPdNmMapper.selectByCondition(condition);
+		if(list != null && list.size() > 0) {
+			for(B1VrtyPdNm b1 : list) {
+				Condition condition1 = new Condition(B3PdNmDrcPrc.class);
+				Example.Criteria criteria1 = condition1.createCriteria();
+				criteria1.andCondition("Pd_ID = '" + b1.getId() + "'");
+				criteria1.andCondition("Acq_Dt = '" + quotationTime + "'");
+				List<B3PdNmDrcPrc> list1 = b3PdNmDrcPrcMapper.selectByCondition(condition1);
+				if(null != list1 && list1.size() > 0) {
+					for(B3PdNmDrcPrc b3 : list1) {
+						b3.setSrcDsc(avgPrice + "");
+						b3.setTms(new Date());
+						b3.setUsername("99999999");
+						b3PdNmDrcPrcMapper.updateByPrimaryKey(b3);
+					}
+				}
+			}
+		}
+	}
 	public static void main(String[] args) throws Exception {
 		String url = "http://www.enanchu.com/quotation/1/ajaxQuoteRecordsToday.action";
 		Map<String, String> map = new HashMap<String, String>();
@@ -203,23 +244,31 @@ public final class HttpUtil {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                 System.out.println(jsonObject2.getString("gbName"));
+                String gbName = jsonObject2.getString("gbName");
+                
+                //日期
+                String quotationTimeFormatString = jsonObject2.getString("quotationTimeFormatString");
+                quotationTimeFormatString= quotationTimeFormatString.replace("-", "");
+                System.out.println(quotationTimeFormatString);
+                
+
                 //均价
                 String lowPrice = jsonObject2.getString("lowPrice");
                 String highPrice = jsonObject2.getString("highPrice");
-                Integer avgPrice = 0;
+                float avgPrice = 0;
                 if(StringUtils.isNotBlank(lowPrice)) {
                 	avgPrice = (Integer.parseInt(lowPrice) + Integer.parseInt(highPrice))/2;
                 	System.out.println(avgPrice);
                 } 
+                
+                setPrc(gbName, quotationTimeFormatString, avgPrice);
                 //牌号                
                 String quotationType = jsonObject2.getString("quotationType");
                 System.out.println(quotationType);
                 //涨跌
                 String priceRate = jsonObject2.getString("priceRate");
                 System.out.println(priceRate);
-                //日期
-                String quotationTimeFormatString = jsonObject2.getString("quotationTimeFormatString");
-                System.out.println(quotationTimeFormatString);
+
                               
             }
 	} catch (Exception e) {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.B3PdNmDrcPrcMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B3PdNmDrcPrc" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="Pd_ID" property="pdId" jdbcType="BIGINT" />
+    <result column="Acq_Dt" property="acqDt" jdbcType="CHAR" />
+    <result column="Src_TpCd" property="srcTpcd" jdbcType="CHAR" />
+    <result column="Src_Dsc" property="srcDsc" jdbcType="VARCHAR" />
+    <result column="Drc_Prc" property="drcPrc" jdbcType="REAL" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
