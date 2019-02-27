@@ -18,6 +18,6 @@
     <!--11:30南储商务网价格     每天上午10:30触发-->
     <!--     每天上午11：30     0 30 11 * * ?-->
     <!--     每分钟      0 */1 * * * ?    方便测试，先用这个 -->
-    <job:simple id="ncPrcJob" class="com.xai.tt.dc.biz.job.NcPrcJob" registry-center-ref="regCenter" cron="0 */1 * * * ?" sharding-total-count="1"/>
+    <job:simple id="ncPrcJob" class="com.xai.tt.dc.biz.job.NcPrcJob" registry-center-ref="regCenter" cron="0 30 11 * * ?" sharding-total-count="1"/>
 
 </beans>

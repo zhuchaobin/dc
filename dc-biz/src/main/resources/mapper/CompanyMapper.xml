@@ -40,4 +40,43 @@ select *
  where 1=1
  <include refid="query_criteria"></include>
 	</select>
+
+
+    <select id="selectByDcQuery" parameterType="com.xai.tt.dc.client.query.CompanyQuery" resultType="com.xai.tt.dc.client.model.Company">
+        select
+        id           as   id
+        ,create_time  as     createTime
+        ,code         as     code
+        ,name         as     name
+        ,manager_name as             managerName
+        ,email        as      email
+        ,mobile       as       mobile
+        ,province     as         province
+        ,city         as     city
+        ,address      as        address
+        ,locked       as   locked
+        ,Usr_Tp       as    usrTp
+        ,RgtAds       as       rgtads
+        ,Taxpyr_Id_No as             taxpyrIdNo
+        ,DepBnk       as       depbnk
+        ,Bnk_Acc_No   as           bnkAccNo
+        ,Rmrk         as     rmrk
+
+        from company t
+        where 1=1
+
+    </select>
+
+
+    <select id="count" parameterType="com.xai.tt.dc.client.query.CompanyQuery" resultType="java.lang.Integer">
+
+       	SELECT count(*)
+
+        from company t
+        where 1=1
+
+    </select>
+
+
+
 </mapper>

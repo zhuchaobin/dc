@@ -24,4 +24,6 @@ public interface CompanyDcService {
 	Result<Boolean> delete(String id);
 	/*查询开发票、收发票的收款方、付款方*/
 	Result<PageInfo<Company>> queryPage_skf_fkf(QueryPageInvInfVo query);
+
+	public Result<PageData<Company>> queryPage(CompanyQuery query, PageParam pageParam);
 }

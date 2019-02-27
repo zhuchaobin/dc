@@ -83,6 +83,20 @@ public class CompanyQuery extends SortQuery {
      */
     private String usrTp;
 
+	/**
+	 * 用户名称
+	 */
+	private String userName;
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getUsrTp() {
 		return usrTp;
 	}

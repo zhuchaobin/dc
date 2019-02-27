@@ -1,5 +1,14 @@
 package com.xai.tt.dc.biz.service.impl;
 import java.util.List;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.tianan.common.api.bean.PageData;
+import com.tianan.common.api.mybatis.PageParam;
+import com.xai.tt.dc.biz.mapper.UserMapper;
+import com.xai.tt.dc.biz.utils.DataConstants;
+import com.xai.tt.dc.client.model.User;
+import com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +31,10 @@ public class CompanyDcServiceImpl implements CompanyDcService {
 	private static final Logger logger = LoggerFactory.getLogger(CompanyDcServiceImpl.class);
 	@Autowired
 	private CompanyMapper companyMapper;
-	
+
+
+
+
 	/*保存或者更新*/
 	public Result<Boolean> save(CompanyQuery query){
 		return null;
@@ -64,6 +76,37 @@ public class CompanyDcServiceImpl implements CompanyDcService {
 			return Result.createFailResult("查询异常");
 		}	
 	}
+
+
+	/*分页查询*/
+	public Result<PageData<Company>> queryPage(CompanyQuery query, PageParam pageParam){
+		logger.info("start query 订单信息 List =======> query:{},page:{}", query, pageParam);
+		logger.info("userType:" + query.getUsrTp());
+		logger.info("orderBy:" + query.getOrderBy());
+		logger.info("getSortName:" + query.getSortName());
+		logger.info("getSortOrder:" + query.getSortOrder());
+		// 查询用户角色权限信息
+
+
+		Page<Company> page = null;
+		int count = 0;
+		if (pageParam != null) {
+			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
+		}
+		try {
+			page = companyMapper.selectByDcQuery(query);
+			count = companyMapper.count(query);
+		} catch (Exception e) {
+
+			logger.error("查询订单列表异常 {}", e);
+			return Result.createFailResult("查询异常");
+		}
+		logger.info("query success!");
+		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
+	}
+
+
+
 	
 	/*查询明细*/
 	public Result<Company> queryDetail(String id){
