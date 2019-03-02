@@ -3,7 +3,7 @@ package com.xai.tt.dc.client.query;
 import com.xai.tt.dc.client.request.PageQuery;
 
 /**
- * Created by linkun on 2017/10/19.
+ * Created by linkun
  */
 public class KnowledgeCatalogQuery extends PageQuery {
 
