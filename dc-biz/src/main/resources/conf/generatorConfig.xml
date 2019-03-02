@@ -23,8 +23,7 @@
 	<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
 	<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-<table schema="xlink2" tableName="B1_Vrty_Pd_Nm" domainObjectName="B1VrtyPdNm" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
-<table schema="xlink2" tableName="B3_Pd_Nm_Drc_Prc" domainObjectName="B3PdNmDrcPrc" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="t15_ancm_news_file" domainObjectName="T15AncmNewsFile" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
 
 
 
