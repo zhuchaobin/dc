@@ -62,8 +62,9 @@ select *
         ,Bnk_Acc_No   as           bnkAccNo
         ,Rmrk         as     rmrk
 
-        from company t
+        from company
         where 1=1
+        and Usr_Tp=#{usrTp}
 
     </select>
 
@@ -72,8 +73,9 @@ select *
 
        	SELECT count(*)
 
-        from company t
+        from company
         where 1=1
+        and Usr_Tp=#{usrTp}
 
     </select>
 
