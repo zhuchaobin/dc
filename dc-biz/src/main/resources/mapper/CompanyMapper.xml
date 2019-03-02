@@ -64,7 +64,7 @@ select *
 
         from company
         where 1=1
-        and Usr_Tp=#{usrTp}
+        and Usr_Tp='08'
 
     </select>
 
@@ -75,7 +75,7 @@ select *
 
         from company
         where 1=1
-        and Usr_Tp=#{usrTp}
+        and Usr_Tp='08'
 
     </select>
 
