@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T15AncmNewsFileMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T15AncmNewsFile" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ancm_news_id" property="ancmNewsId" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
