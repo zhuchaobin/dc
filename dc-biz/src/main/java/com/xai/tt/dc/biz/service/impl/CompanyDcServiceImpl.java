@@ -1,29 +1,26 @@
 package com.xai.tt.dc.biz.service.impl;
-import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.tianan.common.api.bean.PageData;
-import com.tianan.common.api.mybatis.PageParam;
-import com.xai.tt.dc.biz.mapper.UserMapper;
-import com.xai.tt.dc.biz.utils.DataConstants;
-import com.xai.tt.dc.client.model.User;
-import com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageInfo;
+import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
+import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.CompanyMapper;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.vo.QueryPageInvInfVo;
-
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 @Service("companyDcService")
@@ -107,10 +104,36 @@ public class CompanyDcServiceImpl implements CompanyDcService {
 
 
 
+
+
 	
 	/*查询明细*/
 	public Result<Company> queryDetail(String id){
-		return null;
+		logger.info("查询发货详情,请求参数: id{}",id);
+		try {
+
+
+			Condition condition1 = new Condition(Company.class);
+			Example.Criteria criteria1 = condition1.createCriteria();
+			criteria1.andCondition("id = " + id) ;
+
+
+
+			List<Company> companyList = companyMapper.selectByCondition(condition1);
+			if(companyList==null) {
+				logger.info("查询物流为空公司详情为空：");
+				return Result.createSuccessResult();
+
+			}
+
+
+			logger.info("querySpgDetail res {}", JSON.toJSONString(companyList));
+
+			return Result.createSuccessResult(companyList.get(0));
+		} catch (Exception e) {
+			logger.error("查询物流为空公司详情异常 {}", e);
+			return Result.createFailResult("查询物流为空公司详情异常" + e);
+		}
 		
 	}
 	/*按id删除*/
