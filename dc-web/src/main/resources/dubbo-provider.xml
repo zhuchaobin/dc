@@ -37,5 +37,7 @@
     <!-- 意见建议 -->
     <dubbo:service interface="com.xai.tt.dc.client.inter.IOpinionSuggestionService" ref="iOpinionSuggestionServiceImpl" version="1.0"/>
     <!-- 帮助指南 -->
-    <dubbo:service interface="com.xai.tt.dc.client.inter.IHelpFaqService" ref="iHelpFaqServiceImpl" version="1.0"/>
+    <dubbo:service interface="com.xai.tt.dc.client.inter.IHelpFaqService" ref="iHelpFaqServiceImpl" version="1.0"/>    
+    <!-- 公告新闻-->
+    <dubbo:service interface="com.xai.tt.dc.client.inter.IAncmNewsBaseService" ref="iAncmNewsBaseServiceImpl" version="1.0"/>
 </beans>

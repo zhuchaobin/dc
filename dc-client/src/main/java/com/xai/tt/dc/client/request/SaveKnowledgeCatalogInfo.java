@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by linkun on 2017/10/22.
+ * Created by linkun
  */
 public class SaveKnowledgeCatalogInfo extends KnowledgeCatalogInfo implements Serializable{
 
