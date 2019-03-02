@@ -113,6 +113,9 @@ public class IAncmNewsBaseServiceImpl implements IAncmNewsBaseService {
     @Override
     public Result<?> saveAncmNewInfo(SaveAncmNewInfo saveAncmNewInfo) {
     	T14AncmNews t14 = new T14AncmNews();
+    	// 不指定默认排在最后
+    	if(null == saveAncmNewInfo.getOrder())
+    		saveAncmNewInfo.setOrder(9999);
     	BeanUtils.copyProperties(saveAncmNewInfo, t14);
     
         if (saveAncmNewInfo.getId() != null) {
