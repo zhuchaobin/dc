@@ -93,7 +93,7 @@
     <if test="insCo  != null and insCo  != ''">
       and t1.Ins_Co  = #{insCo ,jdbcType=INTEGER}
     </if>
-    <if test="splchainCo  != null and splchainCo  != ''">
+    <if test="splchainCo  != null and splchainCo  != '' and userType!=1">
       and t1.SplChain_Co  = #{splchainCo ,jdbcType=INTEGER}
     </if>
 
