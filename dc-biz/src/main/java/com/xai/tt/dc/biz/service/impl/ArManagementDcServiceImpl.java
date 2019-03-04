@@ -161,7 +161,7 @@ public class ArManagementDcServiceImpl implements ArManagementDcService {
 			t1ArInf.setCrtPsn(inVo.getUsername());
 			t1ArInf.setTms(new Date());
 			t1ArInf.setCrtTm(new Date());
-			t1ArInf.setSplchainCo(123);
+//			t1ArInf.setSplchainCo(123);
 
 			// 01:新发起保存 02：退回件保存 03：撤销件保存 04：保存件保存
 			// 05:新发起发起 06：退回件发起 07：撤销件发起 08：保存件发起
