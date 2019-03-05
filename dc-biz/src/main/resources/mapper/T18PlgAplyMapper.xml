@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.T18PlgAplyMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T18PlgAply" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="WhRecpt_ID" property="whrecptId" jdbcType="CHAR" />
+    <result column="Plg_BillNo" property="plgBillno" jdbcType="CHAR" />
+    <result column="Ar_ID" property="arId" jdbcType="CHAR" />
+    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
+    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="Plg_Aply_Mnplt_Psn" property="plgAplyMnpltPsn" jdbcType="VARCHAR" />
+    <result column="Plg_Aply_Tm" property="plgAplyTm" jdbcType="TIMESTAMP" />
+    <result column="Aply_Rmrk" property="aplyRmrk" jdbcType="VARCHAR" />
+    <result column="Bnkid" property="bnkid" jdbcType="BIGINT" />
+    <result column="Bnk_Co_Nm" property="bnkCoNm" jdbcType="VARCHAR" />
+    <result column="Stgid" property="stgid" jdbcType="BIGINT" />
+    <result column="StgCo_Nm" property="stgcoNm" jdbcType="VARCHAR" />
+    <result column="Plg_Aply_St" property="plgAplySt" jdbcType="CHAR" />
+    <result column="Fnc_Entp_Co_Id" property="fncEntpCoId" jdbcType="BIGINT" />
+    <result column="Fnc_Entp_Co_Nm" property="fncEntpCoNm" jdbcType="VARCHAR" />
+    <result column="Plg_Adt_Mnplt_Psn" property="plgAdtMnpltPsn" jdbcType="VARCHAR" />
+    <result column="Adt_Rmrk" property="adtRmrk" jdbcType="VARCHAR" />
+    <result column="Plg_Adt_Tm" property="plgAdtTm" jdbcType="TIMESTAMP" />
+    <result column="Str_Pos" property="strPos" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

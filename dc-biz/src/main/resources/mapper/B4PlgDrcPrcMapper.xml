@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xai.tt.dc.biz.mapper.B4PlgDrcPrcMapper" >
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B4PlgDrcPrc" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="Ar_ID" property="arId" jdbcType="CHAR" />
+    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
+    <result column="Bnk_id" property="bnkId" jdbcType="BIGINT" />
+    <result column="Bnk_Nm" property="bnkNm" jdbcType="VARCHAR" />
+    <result column="Pd_ID" property="pdId" jdbcType="BIGINT" />
+    <result column="Pd_Nm" property="pdNm" jdbcType="VARCHAR" />
+    <result column="Spec" property="spec" jdbcType="VARCHAR" />
+    <result column="Plg_Drc_Prc" property="plgDrcPrc" jdbcType="REAL" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
+    <result column="Udt_Tm" property="udtTm" jdbcType="TIMESTAMP" />
+    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
+    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
