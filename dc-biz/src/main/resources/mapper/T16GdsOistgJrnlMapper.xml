@@ -1,24 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xai.tt.dc.biz.mapper.T16GdsOistgJrnlMapper" >
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T16GdsOistgJrnl" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T16GdsOistgJrnlMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T16GdsOistgJrnl">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="Mnplt_TrcNo" property="mnpltTrcno" jdbcType="CHAR" />
-    <result column="Ar_ID" property="arId" jdbcType="CHAR" />
-    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
-    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
-    <result column="Rltv_ID" property="rltvId" jdbcType="VARCHAR" />
-    <result column="Rltv_Tp" property="rltvTp" jdbcType="CHAR" />
-    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
-    <result column="Opr" property="opr" jdbcType="VARCHAR" />
-    <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
-    <result column="Udt_Tm" property="udtTm" jdbcType="TIMESTAMP" />
-    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
-    <result column="Stg_id" property="stgId" jdbcType="BIGINT" />
-    <result column="StgCo_Nm" property="stgcoNm" jdbcType="VARCHAR" />
-    <result column="Str_Pos" property="strPos" jdbcType="VARCHAR" />
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="Mnplt_TrcNo" jdbcType="CHAR" property="mnpltTrcno" />
+    <result column="Ar_ID" jdbcType="CHAR" property="arId" />
+    <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
+    <result column="Spg_ID" jdbcType="CHAR" property="spgId" />
+    <result column="Rltv_ID" jdbcType="VARCHAR" property="rltvId" />
+    <result column="Rltv_Tp" jdbcType="CHAR" property="rltvTp" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="Opr" jdbcType="VARCHAR" property="opr" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+    <result column="Udt_Tm" jdbcType="TIMESTAMP" property="udtTm" />
+    <result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
+    <result column="StgCo" jdbcType="BIGINT" property="stgco" />
+    <result column="StgCo_Nm" jdbcType="VARCHAR" property="stgcoNm" />
+    <result column="Str_Pos" jdbcType="VARCHAR" property="strPos" />
   </resultMap>
+ 
 </mapper>

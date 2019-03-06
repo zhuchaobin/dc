@@ -69,20 +69,20 @@ public class T18PlgAply {
     /**
      * 银行id
      */
-    @Column(name = "Bnkid")
-    private Long bnkid;
+    @Column(name = "Bnk")
+    private Long bnk;
 
     /**
      * 银行公司名
      */
-    @Column(name = "Bnk_Co_Nm")
-    private String bnkCoNm;
+    @Column(name = "Bnk_Nm")
+    private String bnkNm;
 
     /**
      * 仓储id
      */
-    @Column(name = "Stgid")
-    private Long stgid;
+    @Column(name = "StgCo")
+    private Long stgco;
 
     /**
      * 仓储公司名
@@ -99,14 +99,14 @@ public class T18PlgAply {
     /**
      * 融资企业id
      */
-    @Column(name = "Fnc_Entp_Co_Id")
-    private Long fncEntpCoId;
+    @Column(name = "Fnc_Entp")
+    private Long fncEntp;
 
     /**
      * 融资企业公司名
      */
-    @Column(name = "Fnc_Entp_Co_Nm")
-    private String fncEntpCoNm;
+    @Column(name = "Fnc_Entp_Nm")
+    private String fncEntpNm;
 
     /**
      * 质押审核操作人
@@ -315,55 +315,55 @@ public class T18PlgAply {
     /**
      * 获取银行id
      *
-     * @return Bnkid - 银行id
+     * @return Bnk - 银行id
      */
-    public Long getBnkid() {
-        return bnkid;
+    public Long getBnk() {
+        return bnk;
     }
 
     /**
      * 设置银行id
      *
-     * @param bnkid 银行id
+     * @param bnk 银行id
      */
-    public void setBnkid(Long bnkid) {
-        this.bnkid = bnkid;
+    public void setBnk(Long bnk) {
+        this.bnk = bnk;
     }
 
     /**
      * 获取银行公司名
      *
-     * @return Bnk_Co_Nm - 银行公司名
+     * @return Bnk_Nm - 银行公司名
      */
-    public String getBnkCoNm() {
-        return bnkCoNm;
+    public String getBnkNm() {
+        return bnkNm;
     }
 
     /**
      * 设置银行公司名
      *
-     * @param bnkCoNm 银行公司名
+     * @param bnkNm 银行公司名
      */
-    public void setBnkCoNm(String bnkCoNm) {
-        this.bnkCoNm = bnkCoNm;
+    public void setBnkNm(String bnkNm) {
+        this.bnkNm = bnkNm;
     }
 
     /**
      * 获取仓储id
      *
-     * @return Stgid - 仓储id
+     * @return StgCo - 仓储id
      */
-    public Long getStgid() {
-        return stgid;
+    public Long getStgco() {
+        return stgco;
     }
 
     /**
      * 设置仓储id
      *
-     * @param stgid 仓储id
+     * @param stgco 仓储id
      */
-    public void setStgid(Long stgid) {
-        this.stgid = stgid;
+    public void setStgco(Long stgco) {
+        this.stgco = stgco;
     }
 
     /**
@@ -405,37 +405,37 @@ public class T18PlgAply {
     /**
      * 获取融资企业id
      *
-     * @return Fnc_Entp_Co_Id - 融资企业id
+     * @return Fnc_Entp - 融资企业id
      */
-    public Long getFncEntpCoId() {
-        return fncEntpCoId;
+    public Long getFncEntp() {
+        return fncEntp;
     }
 
     /**
      * 设置融资企业id
      *
-     * @param fncEntpCoId 融资企业id
+     * @param fncEntp 融资企业id
      */
-    public void setFncEntpCoId(Long fncEntpCoId) {
-        this.fncEntpCoId = fncEntpCoId;
+    public void setFncEntp(Long fncEntp) {
+        this.fncEntp = fncEntp;
     }
 
     /**
      * 获取融资企业公司名
      *
-     * @return Fnc_Entp_Co_Nm - 融资企业公司名
+     * @return Fnc_Entp_Nm - 融资企业公司名
      */
-    public String getFncEntpCoNm() {
-        return fncEntpCoNm;
+    public String getFncEntpNm() {
+        return fncEntpNm;
     }
 
     /**
      * 设置融资企业公司名
      *
-     * @param fncEntpCoNm 融资企业公司名
+     * @param fncEntpNm 融资企业公司名
      */
-    public void setFncEntpCoNm(String fncEntpCoNm) {
-        this.fncEntpCoNm = fncEntpCoNm;
+    public void setFncEntpNm(String fncEntpNm) {
+        this.fncEntpNm = fncEntpNm;
     }
 
     /**

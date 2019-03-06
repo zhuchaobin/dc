@@ -157,8 +157,8 @@ public class T17IvntDtl {
     /**
      * 银行id
      */
-    @Column(name = "Bnk_id")
-    private Long bnkId;
+    @Column(name = "Bnk")
+    private Long bnk;
 
     /**
      * 银行名称
@@ -169,14 +169,14 @@ public class T17IvntDtl {
     /**
      * 仓储id
      */
-    @Column(name = "Stgid")
-    private Long stgid;
+    @Column(name = "StgCo")
+    private Long stgco;
 
     /**
      * 仓储名称
      */
-    @Column(name = "Stg_Nm")
-    private String stgNm;
+    @Column(name = "StgCo_Nm")
+    private String stgcoNm;
 
     /**
      * 库位
@@ -205,14 +205,14 @@ public class T17IvntDtl {
     /**
      * 上游供应商id
      */
-    @Column(name = "Ustrm_Splrid")
-    private Long ustrmSplrid;
+    @Column(name = "Ustrm_Splr")
+    private Long ustrmSplr;
 
     /**
      * 上游供应商公司名
      */
-    @Column(name = "Ustrm_Splr_Co_Nm")
-    private String ustrmSplrCoNm;
+    @Column(name = "Ustrm_Splr_Nm")
+    private String ustrmSplrNm;
 
     /**
      * 获取ID
@@ -667,19 +667,19 @@ public class T17IvntDtl {
     /**
      * 获取银行id
      *
-     * @return Bnk_id - 银行id
+     * @return Bnk - 银行id
      */
-    public Long getBnkId() {
-        return bnkId;
+    public Long getBnk() {
+        return bnk;
     }
 
     /**
      * 设置银行id
      *
-     * @param bnkId 银行id
+     * @param bnk 银行id
      */
-    public void setBnkId(Long bnkId) {
-        this.bnkId = bnkId;
+    public void setBnk(Long bnk) {
+        this.bnk = bnk;
     }
 
     /**
@@ -703,37 +703,37 @@ public class T17IvntDtl {
     /**
      * 获取仓储id
      *
-     * @return Stgid - 仓储id
+     * @return StgCo - 仓储id
      */
-    public Long getStgid() {
-        return stgid;
+    public Long getStgco() {
+        return stgco;
     }
 
     /**
      * 设置仓储id
      *
-     * @param stgid 仓储id
+     * @param stgco 仓储id
      */
-    public void setStgid(Long stgid) {
-        this.stgid = stgid;
+    public void setStgco(Long stgco) {
+        this.stgco = stgco;
     }
 
     /**
      * 获取仓储名称
      *
-     * @return Stg_Nm - 仓储名称
+     * @return StgCo_Nm - 仓储名称
      */
-    public String getStgNm() {
-        return stgNm;
+    public String getStgcoNm() {
+        return stgcoNm;
     }
 
     /**
      * 设置仓储名称
      *
-     * @param stgNm 仓储名称
+     * @param stgcoNm 仓储名称
      */
-    public void setStgNm(String stgNm) {
-        this.stgNm = stgNm;
+    public void setStgcoNm(String stgcoNm) {
+        this.stgcoNm = stgcoNm;
     }
 
     /**
@@ -811,36 +811,36 @@ public class T17IvntDtl {
     /**
      * 获取上游供应商id
      *
-     * @return Ustrm_Splrid - 上游供应商id
+     * @return Ustrm_Splr - 上游供应商id
      */
-    public Long getUstrmSplrid() {
-        return ustrmSplrid;
+    public Long getUstrmSplr() {
+        return ustrmSplr;
     }
 
     /**
      * 设置上游供应商id
      *
-     * @param ustrmSplrid 上游供应商id
+     * @param ustrmSplr 上游供应商id
      */
-    public void setUstrmSplrid(Long ustrmSplrid) {
-        this.ustrmSplrid = ustrmSplrid;
+    public void setUstrmSplr(Long ustrmSplr) {
+        this.ustrmSplr = ustrmSplr;
     }
 
     /**
      * 获取上游供应商公司名
      *
-     * @return Ustrm_Splr_Co_Nm - 上游供应商公司名
+     * @return Ustrm_Splr_Nm - 上游供应商公司名
      */
-    public String getUstrmSplrCoNm() {
-        return ustrmSplrCoNm;
+    public String getUstrmSplrNm() {
+        return ustrmSplrNm;
     }
 
     /**
      * 设置上游供应商公司名
      *
-     * @param ustrmSplrCoNm 上游供应商公司名
+     * @param ustrmSplrNm 上游供应商公司名
      */
-    public void setUstrmSplrCoNm(String ustrmSplrCoNm) {
-        this.ustrmSplrCoNm = ustrmSplrCoNm;
+    public void setUstrmSplrNm(String ustrmSplrNm) {
+        this.ustrmSplrNm = ustrmSplrNm;
     }
 }

@@ -81,8 +81,8 @@ public class T16GdsOistgJrnl {
     /**
      * 仓储id
      */
-    @Column(name = "Stg_id")
-    private Long stgId;
+    @Column(name = "StgCo")
+    private Long stgco;
 
     /**
      * 仓储公司名
@@ -315,19 +315,19 @@ public class T16GdsOistgJrnl {
     /**
      * 获取仓储id
      *
-     * @return Stg_id - 仓储id
+     * @return StgCo - 仓储id
      */
-    public Long getStgId() {
-        return stgId;
+    public Long getStgco() {
+        return stgco;
     }
 
     /**
      * 设置仓储id
      *
-     * @param stgId 仓储id
+     * @param stgco 仓储id
      */
-    public void setStgId(Long stgId) {
-        this.stgId = stgId;
+    public void setStgco(Long stgco) {
+        this.stgco = stgco;
     }
 
     /**

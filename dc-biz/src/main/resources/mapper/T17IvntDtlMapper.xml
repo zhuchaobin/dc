@@ -1,44 +1,45 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xai.tt.dc.biz.mapper.T17IvntDtlMapper" >
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T17IvntDtl" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T17IvntDtlMapper">
+  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T17IvntDtl">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="WhRecpt_ID" property="whrecptId" jdbcType="VARCHAR" />
-    <result column="ids" property="ids" jdbcType="BIGINT" />
-    <result column="InTrsr_Tp" property="intrsrTp" jdbcType="CHAR" />
-    <result column="Pd_ID" property="pdId" jdbcType="BIGINT" />
-    <result column="Pd_Nm" property="pdNm" jdbcType="VARCHAR" />
-    <result column="Spec" property="spec" jdbcType="VARCHAR" />
-    <result column="Modl" property="modl" jdbcType="VARCHAR" />
-    <result column="Qly_Std" property="qlyStd" jdbcType="VARCHAR" />
-    <result column="Brnd" property="brnd" jdbcType="VARCHAR" />
-    <result column="Pd_Fctr" property="pdFctr" jdbcType="VARCHAR" />
-    <result column="Pch_UnitPrc" property="pchUnitprc" jdbcType="REAL" />
-    <result column="Txn_PrcDif" property="txnPrcdif" jdbcType="REAL" />
-    <result column="Sale_Tntv_Prc" property="saleTntvPrc" jdbcType="REAL" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
-    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
-    <result column="MsUnit" property="msunit" jdbcType="VARCHAR" />
-    <result column="InTrsr_TNum" property="intrsrTnum" jdbcType="REAL" />
-    <result column="OutStg_TNum" property="outstgTnum" jdbcType="REAL" />
-    <result column="InTheStg_TNum" property="inthestgTnum" jdbcType="REAL" />
-    <result column="Ar_ID" property="arId" jdbcType="CHAR" />
-    <result column="Ordr_ID" property="ordrId" jdbcType="CHAR" />
-    <result column="Spg_ID" property="spgId" jdbcType="CHAR" />
-    <result column="Plg_BillNo" property="plgBillno" jdbcType="CHAR" />
-    <result column="Bnk_id" property="bnkId" jdbcType="BIGINT" />
-    <result column="Bnk_Nm" property="bnkNm" jdbcType="VARCHAR" />
-    <result column="Stgid" property="stgid" jdbcType="BIGINT" />
-    <result column="Stg_Nm" property="stgNm" jdbcType="VARCHAR" />
-    <result column="Str_Pos" property="strPos" jdbcType="VARCHAR" />
-    <result column="Gds_Blg_ID" property="gdsBlgId" jdbcType="BIGINT" />
-    <result column="Gds_Blg_Nm" property="gdsBlgNm" jdbcType="VARCHAR" />
-    <result column="Plg_Aply_St" property="plgAplySt" jdbcType="CHAR" />
-    <result column="Ustrm_Splrid" property="ustrmSplrid" jdbcType="BIGINT" />
-    <result column="Ustrm_Splr_Co_Nm" property="ustrmSplrCoNm" jdbcType="VARCHAR" />
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="WhRecpt_ID" jdbcType="VARCHAR" property="whrecptId" />
+    <result column="ids" jdbcType="BIGINT" property="ids" />
+    <result column="InTrsr_Tp" jdbcType="CHAR" property="intrsrTp" />
+    <result column="Pd_ID" jdbcType="BIGINT" property="pdId" />
+    <result column="Pd_Nm" jdbcType="VARCHAR" property="pdNm" />
+    <result column="Spec" jdbcType="VARCHAR" property="spec" />
+    <result column="Modl" jdbcType="VARCHAR" property="modl" />
+    <result column="Qly_Std" jdbcType="VARCHAR" property="qlyStd" />
+    <result column="Brnd" jdbcType="VARCHAR" property="brnd" />
+    <result column="Pd_Fctr" jdbcType="VARCHAR" property="pdFctr" />
+    <result column="Pch_UnitPrc" jdbcType="REAL" property="pchUnitprc" />
+    <result column="Txn_PrcDif" jdbcType="REAL" property="txnPrcdif" />
+    <result column="Sale_Tntv_Prc" jdbcType="REAL" property="saleTntvPrc" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+    <result column="MsUnit" jdbcType="VARCHAR" property="msunit" />
+    <result column="InTrsr_TNum" jdbcType="REAL" property="intrsrTnum" />
+    <result column="OutStg_TNum" jdbcType="REAL" property="outstgTnum" />
+    <result column="InTheStg_TNum" jdbcType="REAL" property="inthestgTnum" />
+    <result column="Ar_ID" jdbcType="CHAR" property="arId" />
+    <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
+    <result column="Spg_ID" jdbcType="CHAR" property="spgId" />
+    <result column="Plg_BillNo" jdbcType="CHAR" property="plgBillno" />
+    <result column="Bnk" jdbcType="BIGINT" property="bnk" />
+    <result column="Bnk_Nm" jdbcType="VARCHAR" property="bnkNm" />
+    <result column="StgCo" jdbcType="BIGINT" property="stgco" />
+    <result column="StgCo_Nm" jdbcType="VARCHAR" property="stgcoNm" />
+    <result column="Str_Pos" jdbcType="VARCHAR" property="strPos" />
+    <result column="Gds_Blg_ID" jdbcType="BIGINT" property="gdsBlgId" />
+    <result column="Gds_Blg_Nm" jdbcType="VARCHAR" property="gdsBlgNm" />
+    <result column="Plg_Aply_St" jdbcType="CHAR" property="plgAplySt" />
+    <result column="Ustrm_Splr" jdbcType="BIGINT" property="ustrmSplr" />
+    <result column="Ustrm_Splr_Nm" jdbcType="VARCHAR" property="ustrmSplrNm" />
   </resultMap>
+ 
 </mapper>

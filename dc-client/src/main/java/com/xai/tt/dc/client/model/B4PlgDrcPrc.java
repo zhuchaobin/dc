@@ -27,8 +27,8 @@ public class B4PlgDrcPrc {
     /**
      * 银行id
      */
-    @Column(name = "Bnk_id")
-    private Long bnkId;
+    @Column(name = "Bnk")
+    private Long bnk;
 
     /**
      * 银行名称
@@ -146,19 +146,19 @@ public class B4PlgDrcPrc {
     /**
      * 获取银行id
      *
-     * @return Bnk_id - 银行id
+     * @return Bnk - 银行id
      */
-    public Long getBnkId() {
-        return bnkId;
+    public Long getBnk() {
+        return bnk;
     }
 
     /**
      * 设置银行id
      *
-     * @param bnkId 银行id
+     * @param bnk 银行id
      */
-    public void setBnkId(Long bnkId) {
-        this.bnkId = bnkId;
+    public void setBnk(Long bnk) {
+        this.bnk = bnk;
     }
 
     /**
