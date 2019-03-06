@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * 2019-3-6 
  */
 @SuppressWarnings("deprecation")
-@Service("msgUtils")
+@Service("commonUtils")
 public class CommonUtils {
 	private static final Logger logger = LoggerFactory.getLogger(CommonUtils.class);
 	// 获取空属性
