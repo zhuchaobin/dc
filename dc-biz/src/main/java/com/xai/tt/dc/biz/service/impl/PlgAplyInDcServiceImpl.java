@@ -128,183 +128,7 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 			t17IvntDtlMapper.insert(t17);			
 		}
 		
-		T11IvntInf t11IvntInf =new T11IvntInf();
-		String spgId = "";
-		try {
-			if (null == inVo) {
-				logger.error("保存质押信息请求报文不能为空");
-				return Result.createFailResult("保存质押信息请求报文不能为空");
-			}
-			String solveType = "";
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			// 判断处理类别  01-保存 02-提交
-			if ("01".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {
-					T18PlgAply rltT1 = T18PlgAplyMapper.selectByPrimaryKey(inVo.getId());
-					if((null != rltT1)){
-						//撤销件	
-						if("11".equals(rltT1.getSpgSt())) {
-							solveType = "03";
-						} else if("10".equals(rltT1.getSpgSt())){
-							solveType = "04";
-						} else if("01".equals(rltT1.getSpgSt())){
-							solveType = "02";
-						}
-					} else {
-						solveType = "01";
-						inVo.setSpgSt("10");//保存
-					}
-				} else {
-					solveType = "01";
-					inVo.setSpgSt("10");//保存
-				}
-			} else if ("02".equals(inVo.getSecSrvCd())) {
-				if(null != inVo.getId()) {
-					T18PlgAply rltT1 = T18PlgAplyMapper.selectByPrimaryKey(inVo.getId());
-					if((null != rltT1)){
-						//撤销件	
-						if("11".equals(rltT1.getSpgSt())) {
-							solveType = "07";
-						} else if("10".equals(rltT1.getSpgSt())){
-							solveType = "08";
-						}else if("61".equals(rltT1.getSpgSt())){
-							solveType = "06";
-						}
-					} else {
-						solveType = "05";
-					}					
-				} else {
-					solveType = "05";
-				}
-			}
-			logger.info("处理类型solveType：" + solveType);
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
-				spgId = "FH" + DateUtils.noFormatDate() + sequenceUtils.getSequence("T6_Spg_Inf_Seq", 4);
-			} else {
-				spgId = inVo.getSpgId();
-			}			
-			if(StringUtils.isBlank(spgId)) {
-				logger.error("质押编号不能为空！");
-				return Result.createFailResult("质押编号不能为空！");
-			}
-			BeanUtils.copyProperties(inVo, T18PlgAplyo);
-			BeanUtils.copyProperties(inVo, t11IvntInf);
-
-			// 质押新建后记录质押状态
-			T18PlgAplyo.setSpgId(spgId);
-			T18PlgAplyo.setCnsgn(inVo.getCnsgn());
-			T18PlgAplyo.setTms(new Date());
-			T18PlgAplyo.setCrtTm(new Date());
-			T18PlgAplyo.setTms(new Date());
-
-			t11IvntInf.setRltvId(spgId);
-			t11IvntInf.setRltvTp(KuCunType.FA_HUO_KU_CUN.getCode());
-			t11IvntInf.setSpgId(spgId);
-			t11IvntInf.setCnsgn(inVo.getCnsgn());
-			t11IvntInf.setTms(new Date());
-			t11IvntInf.setTms(new Date());
-
-			// 01:新发起保存   02：退回件保存  03：撤销件保存  04：保存件保存
-			// 05:新发起发起   06：退回件发起  07：撤销件发起  08：保存件发起
-			// 
-			if(StringUtils.isBlank(T18PlgAplyo.getSpgSt())){
-				if("05".equals(solveType) || "07".equals(solveType)|| "08".equals(solveType)) {
-					T18PlgAplyo.setSpgSt("61");
-					t11IvntInf.setIvntSt("61");
-				}
-			}
-
-
-			//查出订单中的支付方式
-			if ( inVo.getOrdrId()!=null&& !"".equals(inVo.getOrdrId())) {
-				Condition condition0 = new Condition(T3OrderInf.class);
-				Example.Criteria criteria0 = condition0.createCriteria();
-				criteria0.andCondition("Ordr_ID = '" + inVo.getOrdrId() + "'");
-				List<T3OrderInf> t3OrderInfs = t3OrderInfMapper.selectByCondition(condition0);
-
-				if ( t3OrderInfs!= null&&t3OrderInfs.size()>0) {
-
-					T18PlgAplyo.setPymtMod(t3OrderInfs.get(0).getPymtmod());
-				};
-			};
-
-
-
-
-
-			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
-				T18PlgAplyo.setId(null);
-				t11IvntInf.setId(null);
-
-				int num = T18PlgAplyMapper.insertSelective(T18PlgAplyo);
-
-				int num1 = t11IvntInfMapper.insertSelective(t11IvntInf);
-
-
-				logger.info("更新质押信息成功，插入记录数：" + num);
-			} else {
-				int num = T18PlgAplyMapper.updateByPrimaryKeySelective(T18PlgAplyo);
-
-				int num1 = t11IvntInfMapper.updateByPrimaryKeySelective(t11IvntInf);
-				logger.info("更新质押信息成功：质押id" + T18PlgAplyo.getArId() + "更新条数：" + num);
-			}
-
-
-
-
-
-			// 保存质押明细信息
-			// 先删除已经存在的
-			Condition condition = new Condition(T7SpgDetail.class);
-			Example.Criteria criteria = condition.createCriteria();
-			criteria.andCondition("Spg_ID = '" + spgId + "'");
-			t7SpgDetailMapper.deleteByCondition(condition);
-
-
-			Condition condition2 = new Condition(T13GdsDetail.class);
-			Example.Criteria criteria2 = condition2.createCriteria();
-			criteria2.andCondition("Rltv_ID = '" + spgId + "'");
-			t13GdsDetailMapper.deleteByCondition(condition2);
-
-			List<T7SpgDetail> t7SpgDetailList = inVo.getT7SpgDetailList();
-			if (t7SpgDetailList != null&&t7SpgDetailList.size()>0) {
-				T7SpgDetail t7SpgDetail = new T7SpgDetail();
-				T13GdsDetail t13GdsDetail= new T13GdsDetail();
-
-				for (int i = 0; i < t7SpgDetailList.size(); i++) {
-
-					T7SpgDetail elem=t7SpgDetailList.get(i);
-
-					BeanUtils.copyProperties(elem, t7SpgDetail);
-					t7SpgDetail.setSpgId(spgId);
-
-					BeanUtils.copyProperties(elem, t13GdsDetail);
-					t13GdsDetail.setRltvId(spgId);
-					t13GdsDetail.setRltvTp(KuCunType.FA_HUO_KU_CUN.getCode());//01:质押形成库存 02：存入自由货物形成库存
-					t13GdsDetail.setModl("01");
-					t13GdsDetail.setIds((long) i);
-					t13GdsDetail.setModl("");
-					t13GdsDetail.setPchUnitprc(0.0F);
-					t13GdsDetail.setTxnPrcdif(0.0F);
-					t13GdsDetail.setSaleTntvPrc(0.0F);
-					t13GdsDetail.setUsername("");
-					t13GdsDetail.setCrtTm(new Date());
-					t13GdsDetail.setTms(new Date());
-					t13GdsDetail.setMsunit("");
-
-
-					t7SpgDetailMapper.insert(t7SpgDetail);
-
-					t13GdsDetailMapper.insert(t13GdsDetail);
-
-				}
-
-
-
-			}
+	/*
 
 
 
@@ -438,7 +262,7 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 		} catch (Exception e) {
 			logger.error("保存质押信息异常 {}", e);
 			return Result.createFailResult("保存质押信息发生异常" + e);
-		}
+		}*/
 		return Result.createSuccessResult(true);
 	}
 
@@ -525,7 +349,7 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
 		}
-		try {
+/*		try {
 			page = T18PlgAplyMapper.selectByT18PlgAplyDcQuery(query);
 			count = T18PlgAplyMapper.count(query);
 		} catch (Exception e) {
@@ -534,7 +358,8 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 			return Result.createFailResult("查询异常");
 		}
 		logger.info("queryPage success!{}",JSON.toJSON(page));
-		return Result.createSuccessResult(new PageData<>(count, page.getResult()));
+		return Result.createSuccessResult(new PageData<>(count, page.getResult()));*/
+		return null;
 	}
 
 	/**
@@ -547,7 +372,7 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 		logger.info("查询质押详情,请求参数:{}", JSON.toJSONString(query));
 		try {
 			QuerySpgInfDetailOutVo t3 = null;
-			t3 = T18PlgAplyMapper.querySpgDetail(query.getId().intValue());
+			/*t3 = T18PlgAplyMapper.querySpgDetail(query.getId().intValue());*/
 			if (t3 == null) {
 				logger.error("查询质押详情无数据");
 				return Result.createFailResult("查询质押详情无数据");
@@ -598,12 +423,13 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 				logger.error("查询用户角色参数权限信息，结果为空");
 			}
 
-			Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getAplyPcstpCd());
-			t3.setAplyPsrlt(result.getData());
+/*			Result<String> result = r1LnkInfDefService.querySpecialDiv(query.getAplyPcstpCd());
+			t3.setAplyPsrlt(result.getData());*/
 
 			logger.info("querySpgDetail res {}", JSON.toJSONString(t3));
+			return null;
 
-			return Result.createSuccessResult(t3);
+/*			return Result.createSuccessResult(t3);*/
 		} catch (Exception e) {
 			logger.error("查询质押详情异常 {}", e);
 			return Result.createFailResult("查询质押详情异常" + e);
