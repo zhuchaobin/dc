@@ -18,7 +18,29 @@ public class PlgAplyInVo extends UserInfoQuery {
     // 二级服务码
     private String secSrvCd;
     
-    public String getKeyWorlds() {
+    // 附件文件名信息
+    private String fileNames;
+    
+    // 待删除附件文件名信息（修改长约）
+    private String filesToDelete;
+    
+    public String getFileNames() {
+		return fileNames;
+	}
+
+	public void setFileNames(String fileNames) {
+		this.fileNames = fileNames;
+	}
+
+	public String getFilesToDelete() {
+		return filesToDelete;
+	}
+
+	public void setFilesToDelete(String filesToDelete) {
+		this.filesToDelete = filesToDelete;
+	}
+
+	public String getKeyWorlds() {
 		return keyWorlds;
 	}
 
