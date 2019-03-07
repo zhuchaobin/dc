@@ -87,6 +87,9 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 	@Autowired
 	private T13GdsDetailMapper t13GdsDetailMapper;
+
+    @Autowired
+    private T17IvntDtlMapper t17IvntDtlMapper;
 	/**
 	 * 描述：保存发货信息
 	 * 
@@ -943,6 +946,68 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			}
 
 		}
+
+
+        if ("64".equals(aplyPcstpCd)){
+
+            String StrPost = DateUtils.noFormatDate() + sequenceUtils.getSequence("Cd_Seq", 4);
+
+            for(T13GdsDetail t13 : query.getT13GdsDetailList()) {
+                // 保存质押货物明细
+                t13.setRltvTp("03");//01:发货明细 02：质押明细 03：发货入库明细 04：出库明细
+                String rltvId = "RK" + StrPost;
+
+                t13.setRltvId(rltvId);
+                t13.setTms(new Date());
+                t13.setCrtTm(new Date());
+                t13.setUsername(query.getUsername());
+                t13GdsDetailMapper.insert(t13);
+                // 货物入库
+                T17IvntDtl t17 = new T17IvntDtl();
+                BeanUtils.copyProperties(query, t17, CommonUtils.getNullPropertyNames(query));
+                t17.setWhrecptId(t13.getRltvId());
+                t17.setIntrsrTp("03");// 02：存入自有货物 03：上游发货形成
+                t17.setIntrsrTnum(t13.getNum());
+                t17.setInthestgTnum(t13.getNum());
+                t17.setOutstgTnum(0f);
+/*			t17.setArId(inVo.getArId());
+			t17.setOrdrId(inVo.getOrdrId());
+			t17.setSpgId(inVo.getSpgId());*/
+                t17.setPlgBillno("ZY" + StrPost);
+/*			t17.setBnk(inVo.getBnk());
+			t17.setBnkNm(inVo.getBnkNm());
+			t17.setStgco(inVo.getStgco());
+			t17.setStgcoNm(inVo.getStgcoNm());*/
+                t17.setGdsBlgId(1L);
+                t17.setGdsBlgNm("");
+                t17.setPlgAplySt("03");
+                t17IvntDtlMapper.insert(t17);
+
+
+                T16GdsOistgJrnl t16= new T16GdsOistgJrnl();
+
+                t16.setMnpltTrcno(rltvId);
+                t16.setArId(query.getArId());
+                t16.setOrdrId(query.getOrdrId());
+                t16.setSpgId(query.getSpgId());
+                t16.setRltvId(rltvId);
+                t16.setRltvTp("03");
+                t16.setTms(new Date());
+                t16.setOpr(query.getUsername());
+                t16.setCrtTm(new Date());
+                t16.setUdtTm(new Date());
+                t16.setRmrk("");
+                t16.setStgco(0L);
+                t16.setStgcoNm("");
+                t16.setStrPos("");
+                
+
+            }
+
+
+        }
+
+
 
 		return Result.createSuccessResult(true);
 	}
