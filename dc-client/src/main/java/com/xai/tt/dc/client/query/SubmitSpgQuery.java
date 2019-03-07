@@ -1,7 +1,10 @@
 package com.xai.tt.dc.client.query;
 
+import com.xai.tt.dc.client.model.T7SpgDetail;
+
 import javax.persistence.Column;
 import java.util.Date;
+import java.util.List;
 
 public class SubmitSpgQuery extends UserInfoQuery {
 	/**
@@ -209,6 +212,17 @@ public void setSpgId(String spgId) {
 	 */
 	private String plgWarnStcd;
 
+
+
+	List<T7SpgDetail> t7SpgDetailList;
+
+	public List<T7SpgDetail> getT7SpgDetailList() {
+		return t7SpgDetailList;
+	}
+
+	public void setT7SpgDetailList(List<T7SpgDetail> t7SpgDetailList) {
+		this.t7SpgDetailList = t7SpgDetailList;
+	}
 
 	public Integer getStgco() {
 		return stgco;
