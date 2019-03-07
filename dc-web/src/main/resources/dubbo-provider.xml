@@ -48,7 +48,7 @@
  <!--   <dubbo:service interface="com.xai.tt.dc.client.service.PlgDrcPrcDcService" ref="plgDrcPrcDcService" version="1.0"/> -->
     <!-- 质押控货预警线管理20190306-->
   <!--    <dubbo:service interface="com.xai.tt.dc.client.service.PlgCntlMnyWnLnDcService" ref="plgCntlMnyWnLnDcService" version="1.0"/> -->
-    <!-- 货物操作流水管理20190306-->
+    <!-- 货物操作流水管理20190306--> 
   <!--    <dubbo:service interface="com.xai.tt.dc.client.service.GdsOIStgJrnlDcService" ref="gdsOIStgJrnlDcService" version="1.0"/>
     -->
 </beans>
