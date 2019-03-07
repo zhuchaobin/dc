@@ -13,6 +13,10 @@ import com.xai.tt.dc.client.model.*;
 import com.xai.tt.dc.client.service.PlgAplyDcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.inVo.PlgAplyInVo;
+
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,31 +32,11 @@ import java.util.stream.Collectors;
 public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 	private static final Logger logger = LoggerFactory.getLogger(PlgAplyInDcServiceImpl.class);
 	@Autowired
-	private T1ArInfMapper t1ARInfMapper;
-	@Autowired
-	private T0LnkJrnlInfMapper t0LnkJrnlInfMapper;
-	@Autowired
 	private T2UploadAtchMapper t2UploadAtchMapper;
 	@Autowired
 	private SequenceUtils sequenceUtils;
 	@Autowired
-	private WfeUtils wfeUtils;
-	@Autowired
-	private WfDcService wfDcService;
-	@Autowired
-	private CompanyMapper companyMapper;
-	@Autowired
 	private T18PlgAplyMapper T18PlgAplyMapper;
-	@Autowired
-	private T7SpgDetailMapper t7SpgDetailMapper;
-	@Autowired
-	private UserMapper userMapper;
-	@Autowired
-	private R1LnkInfDefService r1LnkInfDefService;
-	@Autowired
-	private T3OrderInfMapper t3OrderInfMapper;
-    @Autowired
-    private MsgUtils msgUtils;
 	@Autowired
 	private T13GdsDetailMapper t13GdsDetailMapper;
 	@Autowired
@@ -76,7 +60,6 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 		BeanUtils.copyProperties(inVo, t18);
 		t18.setPlgAplyTm(new Date());
 		t18.setPlgAplyMnpltPsn(inVo.getUsername());
-		t18.setPlgAplyTm(new Date());
 		t18.setTms(new Date());
 		t18.setPlgAplySt("01");//待审核
 		String StrPost = DateUtils.noFormatDate() + sequenceUtils.getSequence("Cd_Seq", 4);
@@ -248,19 +231,25 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 	@Override
 	public Result<PlgAplyInVo> queryDetail(PlgAplyInVo query ) {
 		logger.info("查询质押详情,请求参数:{}", JSON.toJSONString(query));
-		try {
-			
-			T18PlgAply t18 = T18PlgAplyMapper.selectByPrimaryKey(query.getId());
+		try {		
+			PlgAplyInVo t18 = T18PlgAplyMapper.queryDetail(query.getId()+"");
 
 			/*t3 = T18PlgAplyMapper.querySpgDetail(query.getId().intValue());*/
 			if (t18 == null) {
 				logger.error("查询质押详情无数据");
 				return Result.createFailResult("查询质押详情无数据");
 			} else {
-				PlgAplyInVo vo = new PlgAplyInVo();
-				BeanUtils.copyProperties(t18, vo);
+				// 查询货物明细信息
+				Condition condition0 = new Condition(T13GdsDetail.class);
+				Example.Criteria criteria0 = condition0.createCriteria();
+				criteria0.andCondition("Rltv_ID = '" + t18.getWhrecptId()+ "'");
+				criteria0.andCondition("Rltv_Tp = '02'");
+				List<T13GdsDetail> t13List = t13GdsDetailMapper.selectByCondition(condition0);
+				t18.setT13GdsDetailList(t13List);
+				logger.info("查询货物明细信息成功!");
+				
 				Result<PlgAplyInVo>  rlt = new Result<PlgAplyInVo> ();
-				rlt.setData(vo);
+				rlt.setData(t18);
 				return rlt;
 			}
 			

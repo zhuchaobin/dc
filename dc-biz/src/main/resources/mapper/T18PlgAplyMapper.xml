@@ -27,5 +27,166 @@
     <result column="Plg_Adt_Tm" jdbcType="TIMESTAMP" property="plgAdtTm" />
     <result column="Str_Pos" jdbcType="VARCHAR" property="strPos" />
   </resultMap>
+ 
+ 
+ <sql id="query_criteria">  
+<if test="id != null and id  != ''">
+        and t.ID  = #{id ,jdbcType=BIGINT}    
+      </if>
+<if test="whrecptId != null and whrecptId  != ''">
+        and t.WhRecpt_ID  = #{whrecptId ,jdbcType=CHAR}    
+      </if>
+<if test="plgBillno != null and plgBillno  != ''">
+        and t.Plg_BillNo  = #{plgBillno ,jdbcType=CHAR}    
+      </if>
+<if test="arId != null and arId  != ''">
+        and t.Ar_ID  = #{arId ,jdbcType=CHAR}    
+      </if>
+<if test="ordrId != null and ordrId  != ''">
+        and t.Ordr_ID  = #{ordrId ,jdbcType=CHAR}    
+      </if>
+<if test="spgId != null and spgId  != ''">
+        and t.Spg_ID  = #{spgId ,jdbcType=CHAR}    
+      </if>
+<if test="tms != null and tms  != ''">
+        and t.Tms  = #{tms ,jdbcType=TIMESTAMP}    
+      </if>
+<if test="plgAplyMnpltPsn != null and plgAplyMnpltPsn  != ''">
+        and t.Plg_Aply_Mnplt_Psn  = #{plgAplyMnpltPsn ,jdbcType=VARCHAR}    
+      </if>
+<if test="plgAplyTm != null and plgAplyTm  != ''">
+        and t.Plg_Aply_Tm  = #{plgAplyTm ,jdbcType=TIMESTAMP}    
+      </if>
+<if test="aplyRmrk != null and aplyRmrk  != ''">
+        and t.Aply_Rmrk  = #{aplyRmrk ,jdbcType=VARCHAR}    
+      </if>
+<if test="bnk != null and bnk  != ''">
+        and t.Bnk  = #{bnk ,jdbcType=BIGINT}    
+      </if>
+<if test="bnkNm != null and bnkNm  != ''">
+        and t.Bnk_Nm  = #{bnkNm ,jdbcType=VARCHAR}    
+      </if>
+<if test="stgco != null and stgco  != ''">
+        and t.StgCo  = #{stgco ,jdbcType=BIGINT}    
+      </if>
+<if test="stgcoNm != null and stgcoNm  != ''">
+        and t.StgCo_Nm  = #{stgcoNm ,jdbcType=VARCHAR}    
+      </if>
+<if test="plgAplySt != null and plgAplySt  != ''">
+        and t.Plg_Aply_St  = #{plgAplySt ,jdbcType=VARCHAR}    
+      </if>
+<if test="fncEntp != null and fncEntp  != ''">
+        and t.Fnc_Entp  = #{fncEntp ,jdbcType=VARCHAR}    
+      </if>
+<if test="fncEntpNm != null and fncEntpNm  != ''">
+        and t.Fnc_Entp_Nm  = #{fncEntpNm ,jdbcType=VARCHAR}    
+      </if>
+<if test="plgAdtMnpltPsn != null and plgAdtMnpltPsn  != ''">
+        and t.Plg_Adt_Mnplt_Psn  = #{plgAdtMnpltPsn ,jdbcType=VARCHAR}    
+      </if>
+<if test="adtRmrk != null and adtRmrk  != ''">
+        and t.Adt_Rmrk  = #{adtRmrk ,jdbcType=VARCHAR}    
+      </if>
+<if test="plgAdtTm != null and plgAdtTm  != ''">
+        and t.Plg_Adt_Tm  = #{plgAdtTm ,jdbcType=VARCHAR}    
+      </if>
+<if test="strPos != null and strPos  != ''">
+        and t.Str_Pos  = #{strPos ,jdbcType=VARCHAR}    
+      </if>
+      <!--按照权限查询数据-->
+      <if test="userType  == null">
+      	and 1==2
+      </if>
+      <if test="userType  != null and userType  != 1 and userType  != 4 and userType  != 8 and userType  != 6">
+      	and 1==2
+      </if>
+      <if test="userType  != null and userType  == 1">
+      </if>
+      <if test="userType  != null and userType  == 4">
+        and t.Fnc_Entp = #{companyId ,jdbcType=INTEGER}
+      </if>
+      <if test="userType  != null and userType  == 8">
+        and t.StgCo = #{companyId ,jdbcType=INTEGER}
+      </if> 
+      <if test="userType  != null and userType  == 6">
+        and t.Bnk = #{companyId ,jdbcType=INTEGER}
+      </if>
+      <if test="username  != null or username  != ''">
+        or t.Plg_Aply_Mnplt_Psn = #{username ,jdbcType=VARCHAR}
+        or t.Plg_Adt_Mnplt_Psn = #{username ,jdbcType=VARCHAR}
+      </if>  
+  </sql>
   
+<select id="selectByPage" parameterType="com.xai.tt.dc.client.vo.inVo.PlgAplyInVo" resultType="com.xai.tt.dc.client.vo.inVo.PlgAplyInVo">
+select 
+t.ID as id,
+t.WhRecpt_ID as whrecptId,
+t.Plg_BillNo as plgBillno,
+t.Ar_ID as arId,
+t.Ordr_ID as ordrId,
+t.Spg_ID as spgId,
+t.Tms as tms,
+t.Plg_Aply_Mnplt_Psn as plgAplyMnpltPsn,
+t.Plg_Aply_Tm as plgAplyTm,
+t.Aply_Rmrk as aplyRmrk,
+t.Bnk as bnk,
+_get_coname_func (t.Bnk ) AS bnkNm,
+t.StgCo as stgco,
+_get_coname_func (t.StgCo ) AS stgcoNm,
+t.Plg_Aply_St as plgAplySt,
+t.Fnc_Entp as fncEntp,
+_get_coname_func (t.Fnc_Entp ) AS fncEntpNm,
+t.Plg_Adt_Mnplt_Psn as plgAdtMnpltPsn,
+t.Adt_Rmrk as adtRmrk,
+t.Plg_Adt_Tm as plgAdtTm,
+t.Str_Pos as strPos
+
+ from 
+ T18_Plg_Aply t
+ where 1=1
+ <include refid="query_criteria"></include>
+	   ORDER BY ${orderBy}
+	</select>
+	
+	    <select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.PlgAplyInVo" resultType="java.lang.Integer">
+SELECT 
+count(*)
+FROM
+T18_Plg_Aply t
+ where 1=1
+ <include refid="query_criteria"></include>
+   
+	</select>
+
+
+<select id="queryDetail" parameterType="java.lang.String" resultType="com.xai.tt.dc.client.vo.inVo.PlgAplyInVo">
+select 
+t.ID as id,
+t.WhRecpt_ID as whrecptId,
+t.Plg_BillNo as plgBillno,
+t.Ar_ID as arId,
+t.Ordr_ID as ordrId,
+t.Spg_ID as spgId,
+t.Tms as tms,
+t.Plg_Aply_Mnplt_Psn as plgAplyMnpltPsn,
+t.Plg_Aply_Tm as plgAplyTm,
+t.Aply_Rmrk as aplyRmrk,
+t.Bnk as bnk,
+_get_coname_func (t.Bnk ) AS bnkNm,
+t.StgCo as stgco,
+_get_coname_func (t.StgCo ) AS stgcoNm,
+t.Plg_Aply_St as plgAplySt,
+t.Fnc_Entp as fncEntp,
+_get_coname_func (t.Fnc_Entp ) AS fncEntpNm,
+t.Plg_Adt_Mnplt_Psn as plgAdtMnpltPsn,
+t.Adt_Rmrk as adtRmrk,
+t.Plg_Adt_Tm as plgAdtTm,
+t.Str_Pos as strPos
+
+ from 
+ T18_Plg_Aply t
+ where t.id  = #{id ,jdbcType=VARCHAR}   
+ 	</select>
 </mapper>
+
+
