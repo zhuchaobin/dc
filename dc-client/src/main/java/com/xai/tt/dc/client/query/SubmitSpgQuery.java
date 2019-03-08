@@ -1,5 +1,6 @@
 package com.xai.tt.dc.client.query;
 
+import com.xai.tt.dc.client.model.T13GdsDetail;
 import com.xai.tt.dc.client.model.T7SpgDetail;
 
 import javax.persistence.Column;
@@ -214,14 +215,37 @@ public void setSpgId(String spgId) {
 
 
 
-	List<T7SpgDetail> t7SpgDetailList;
+	List<T13GdsDetail> t13GdsDetailList;
 
-	public List<T7SpgDetail> getT7SpgDetailList() {
-		return t7SpgDetailList;
+
+	private String arId;
+
+
+	private String ordrId;
+
+
+	public String getOrdrId() {
+		return ordrId;
 	}
 
-	public void setT7SpgDetailList(List<T7SpgDetail> t7SpgDetailList) {
-		this.t7SpgDetailList = t7SpgDetailList;
+	public void setOrdrId(String ordrId) {
+		this.ordrId = ordrId;
+	}
+
+	public String getArId() {
+		return arId;
+	}
+
+	public void setArId(String arId) {
+		this.arId = arId;
+	}
+
+	public List<T13GdsDetail> getT13GdsDetailList() {
+		return t13GdsDetailList;
+	}
+
+	public void setT13GdsDetailList(List<T13GdsDetail> t13GdsDetailList) {
+		this.t13GdsDetailList = t13GdsDetailList;
 	}
 
 	public Integer getStgco() {
