@@ -23,11 +23,7 @@
 	<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
 	<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-<table schema="xlink2" tableName="B4_Plg_Drc_Prc" domainObjectName="B4PlgDrcPrc" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
-<table schema="xlink2" tableName="B5_Plg_Cntl_Mny_WnLn" domainObjectName="B5PlgCntlMnyWnln" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
-<table schema="xlink2" tableName="T16_Gds_OIStg_Jrnl" domainObjectName="T16GdsOistgJrnl" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
-<table schema="xlink2" tableName="T17_Ivnt_Dtl" domainObjectName="T17IvntDtl" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
-<table schema="xlink2" tableName="T18_Plg_Aply" domainObjectName="T18PlgAply" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="B5_Plg_Cntl_Mny_WnLn" domainObjectName="B5PlgCntlMnyWnLn" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
 
 
 
