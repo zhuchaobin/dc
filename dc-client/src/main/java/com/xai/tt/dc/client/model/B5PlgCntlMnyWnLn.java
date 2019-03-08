@@ -4,11 +4,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "b5_plg_cntl_mny_wnln")
-public class B5PlgCntlMnyWnln {
+public class B5PlgCntlMnyWnLn {
     /**
      * ID
      */
-    @Column(name = "ID")
+    @Id
     private Long id;
 
     /**
