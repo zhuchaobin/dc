@@ -100,7 +100,7 @@ public class T13GdsDetail {
     private Date crtTm;
 
     /**
-         * 时间戳
+     * 时间戳
      */
     @Column(name = "Tms")
     private Date tms;
@@ -110,6 +110,12 @@ public class T13GdsDetail {
      */
     @Column(name = "MsUnit")
     private String msunit;
+
+    /**
+     * 品名id
+     */
+    @Column(name = "pd_id")
+    private Integer pdId;
 
     /**
      * 获取ID
@@ -433,5 +439,23 @@ public class T13GdsDetail {
      */
     public void setMsunit(String msunit) {
         this.msunit = msunit;
+    }
+
+    /**
+     * 获取品名id
+     *
+     * @return pd_id - 品名id
+     */
+    public Integer getPdId() {
+        return pdId;
+    }
+
+    /**
+     * 设置品名id
+     *
+     * @param pdId 品名id
+     */
+    public void setPdId(Integer pdId) {
+        this.pdId = pdId;
     }
 }

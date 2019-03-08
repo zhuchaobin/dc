@@ -1,7 +1,6 @@
 package com.xai.tt.dc.client.vo.inVo;
 
 import com.xai.tt.dc.client.model.T13GdsDetail;
-import com.xai.tt.dc.client.model.T7SpgDetail;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 import javax.persistence.Column;
@@ -10,6 +9,27 @@ import java.util.Date;
 import java.util.List;
 
 public class PlgAplyInVo extends UserInfoQuery {
+
+	//最低控货线
+	private Float lwstCntlMnyLn;
+	//质押预警线
+	private Float plgWnln;
+	
+	public Float getLwstCntlMnyLn() {
+		return lwstCntlMnyLn;
+	}
+
+	public void setLwstCntlMnyLn(Float lwstCntlMnyLn) {
+		this.lwstCntlMnyLn = lwstCntlMnyLn;
+	}
+
+	public Float getPlgWnln() {
+		return plgWnln;
+	}
+
+	public void setPlgWnln(Float plgWnln) {
+		this.plgWnln = plgWnln;
+	}
 
 	/**
      * 全字段模糊检索关键字

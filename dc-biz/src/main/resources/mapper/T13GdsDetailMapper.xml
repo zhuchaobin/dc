@@ -23,5 +23,6 @@
     <result column="Crt_Tm" property="crtTm" jdbcType="TIMESTAMP" />
     <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
     <result column="MsUnit" property="msunit" jdbcType="VARCHAR" />
+    <result column="pd_id" property="pdId" jdbcType="INTEGER" />
   </resultMap>
 </mapper>
