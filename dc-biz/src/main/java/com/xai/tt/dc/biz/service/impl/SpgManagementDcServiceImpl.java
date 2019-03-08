@@ -90,6 +90,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
     @Autowired
     private T17IvntDtlMapper t17IvntDtlMapper;
+
+	@Autowired
+	private T16GdsOistgJrnlMapper t16GdsOistgJrnlMapper;
+
 	/**
 	 * 描述：保存发货信息
 	 * 
@@ -948,7 +952,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 		}
 
 
-        if ("64".equals(aplyPcstpCd)){
+        if ("63".equals(aplyPcstpCd)){
 
             String StrPost = DateUtils.noFormatDate() + sequenceUtils.getSequence("Cd_Seq", 4);
 
@@ -1000,7 +1004,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
                 t16.setStgco(0L);
                 t16.setStgcoNm("");
                 t16.setStrPos("");
-                
+				t16GdsOistgJrnlMapper.insert(t16);
 
             }
 
