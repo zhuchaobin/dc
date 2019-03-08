@@ -8,7 +8,6 @@ import com.github.pagehelper.Page;
 import java.util.List;
 
 import com.xai.tt.dc.biz.core.Mapper;
-import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 
 public interface CompanyMapper extends Mapper<Company> {
 	
