@@ -353,7 +353,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			if("05".equals(solveType) || "06".equals(solveType)|| "07".equals(solveType)|| "08".equals(solveType)) {
 				// 更新发货状态为新状态
 				try {
-					T6SpgInf t1 = new T6SpgInf();
+					T6SpgInf t6 = new T6SpgInf();
 
 					T11IvntInf t11 = new T11IvntInf();
 					// 更新发货状态
@@ -364,20 +364,20 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					QuerySpgInfDetailOutVo t1Vo = t6SpgInfMapper.querySpgDetailBySpgId(spgId);
 					if(t1Vo != null && t1Vo.getAplyPcstpCd() != null) {
 
-						BeanUtils.copyProperties(t1Vo, t1);
-						t1.setSpgSt(t1Vo.getAplyPcstpCd());
+						BeanUtils.copyProperties(t1Vo, t6);
+						t6.setSpgSt(t1Vo.getAplyPcstpCd());
 						t11.setIvntSt(t1Vo.getAplyPcstpCd());
 
 						// 发送审批处理提醒信息
 						// 查询长约信息
 						Condition condition0 = new Condition(T1ArInf.class);
 						Example.Criteria criteria0 = condition0.createCriteria();
-						criteria0.andCondition("AR_ID = '" + t1.getArId() + "'");
+						criteria0.andCondition("AR_ID = '" + t6.getArId() + "'");
 						T1ArInf t1ar = t1ARInfMapper.selectByCondition(condition0).get(0);
-						msgUtils.sendNewArTaskMsg(t1ar, null, t1, DataConstants.PROCESS_TPCD_SPG);
+						msgUtils.sendNewArTaskMsg(t1ar, null, t6, DataConstants.PROCESS_TPCD_SPG);
 					} else {
 						if(t1Vo != null && wfDcService.isEndProcess(t1Vo.getProcessInstId())) {
-							t1.setSpgSt("99");
+							t6.setSpgSt("99");
 							t11.setIvntSt("99");
 							logger.info("流程已经结束.");
 						} else {
@@ -385,14 +385,14 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 							return Result.createFailResult("更新发货信息，获取发货状态失败");
 						}
 					}
-					t1.setTms(new Date());
+					t6.setTms(new Date());
 					t11.setTms(new Date());
 
 
 					Condition condition0 = new Condition(T1ArInf.class);
 					Example.Criteria criteria0 = condition0.createCriteria();
 					criteria0.andCondition("Spg_ID = '" + spgId + "'");
-					int rltNum = t6SpgInfMapper.updateByConditionSelective(t1, condition0);
+					int rltNum = t6SpgInfMapper.updateByConditionSelective(t6, condition0);
 
 
 
