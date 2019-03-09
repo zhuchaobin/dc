@@ -1,9 +1,12 @@
 package com.xai.tt.dc.client.service;
 
+import java.util.List;
+
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
+import com.xai.tt.dc.client.vo.outVo.GdsBlgOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo;
 
 /**
@@ -18,4 +21,6 @@ public interface IvntDtlDcService {
 	Result<QueryPageIvntDtlOutVo> queryDetail(IvntDtlInVo inVo);
 	// 库存删除
 	Result<Boolean> delete(String id); 
+	// 查询货物归属列表
+	Result<List<GdsBlgOutVo>> queryGdsBlgList(); 
 }
