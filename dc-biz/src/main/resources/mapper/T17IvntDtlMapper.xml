@@ -42,4 +42,203 @@
     <result column="Ustrm_Splr_Nm" jdbcType="VARCHAR" property="ustrmSplrNm" />
   </resultMap>
  
+  <sql id="query_criteria"> 
+  		<if test="id!= null">
+        	and t.ID  = #{id ,jdbcType=BIGINT}    
+      	</if>
+		<if test="whrecptId!= null and whrecptId  != ''">
+        	and t.WhRecpt_ID  = #{whrecptId ,jdbcType=CHAR}    
+      	</if>
+		<if test="ids!= null">
+        	and t.ids  = #{ids ,jdbcType=BIGINT}    
+      	</if>
+		<if test="intrsrTp!= null and intrsrTp  != ''">
+        	and t.InTrsr_Tp  = #{intrsrTp ,jdbcType=CHAR}    
+      	</if>
+		<if test="pdId!= null">
+        	and t.Pd_ID  = #{pdId ,jdbcType=BIGINT}    
+      	</if>
+		<if test="pdNm!= null and pdNm  != ''">
+        	and t.Pd_Nm  = #{pdNm ,jdbcType=CHAR}    
+      	</if>
+		<if test="spec!= null and spec  != ''">
+        	and t.Spec  = #{spec ,jdbcType=CHAR}    
+      	</if>
+		<if test="modl!= null and modl  != ''">
+        	and t.Modl  = #{modl ,jdbcType=CHAR}    
+      	</if>
+		<if test="qlyStd!= null and qlyStd  != ''">
+        	and t.Qly_Std  = #{qlyStd ,jdbcType=CHAR}    
+      	</if>
+		<if test="brnd!= null and brnd  != ''">
+        	and t.Brnd  = #{brnd ,jdbcType=CHAR}    
+      	</if>
+		<if test="pdFctr!= null and pdFctr  != ''">
+        	and t.Pd_Fctr  = #{pdFctr ,jdbcType=CHAR}    
+      	</if>
+
+		<if test="arId!= null and arId  != ''">
+        	and t.Ar_ID  = #{arId ,jdbcType=CHAR}    
+      	</if>
+		<if test="ordrId!= null and ordrId  != ''">
+        	and t.Ordr_ID  = #{ordrId ,jdbcType=CHAR}    
+      	</if>
+		<if test="spgId!= null and spgId  != ''">
+        	and t.Spg_ID  = #{spgId ,jdbcType=CHAR}    
+      	</if>
+		<if test="plgBillno!= null and plgBillno  != ''">
+        	and t.Plg_BillNo  = #{plgBillno ,jdbcType=CHAR}    
+      	</if>
+		<if test="bnk!= null">
+        	and t.Bnk  = #{bnk ,jdbcType=BIGINT}    
+      	</if>
+		<if test="bnkNm!= null and bnkNm  != ''">
+        	and t.Bnk_Nm  = #{bnkNm ,jdbcType=CHAR}    
+      	</if>
+		<if test="stgco!= null ">
+        	and t.StgCo  = #{stgco ,jdbcType=BIGINT}    
+      	</if>
+		<if test="stgcoNm!= null and stgcoNm  != ''">
+        	and t.StgCo_Nm  = #{stgcoNm ,jdbcType=CHAR}    
+      	</if>
+		<if test="strPos!= null and strPos  != ''">
+        	and t.Str_Pos  = #{strPos ,jdbcType=CHAR}    
+      	</if>
+		<if test="gdsBlgId!= null">
+        	and t.Gds_Blg_ID  = #{gdsBlgId ,jdbcType=BIGINT}    
+      	</if>
+		<if test="gdsBlgNm!= null and gdsBlgNm  != ''">
+        	and t.Gds_Blg_Nm  = #{gdsBlgNm ,jdbcType=CHAR}    
+      	</if>
+		<if test="plgAplySt!= null and plgAplySt  != ''">
+        	and t.Plg_Aply_St  = #{plgAplySt ,jdbcType=CHAR}    
+      	</if>
+		<if test="ustrmSplr!= null">
+        	and t.Ustrm_Splr  = #{ustrmSplr ,jdbcType=BIGINT}    
+      	</if>
+		<if test="ustrmSplrNm!= null and ustrmSplrNm  != ''">
+        	and t.Ustrm_Splr_Nm  = #{ustrmSplrNm ,jdbcType=CHAR}    
+      	</if>
+      	<if test="eddt!= null and eddt  != ''">
+      		and #{eddt ,jdbcType=CHAR}  >= date_format(t.Crt_Tm, '%Y%m%d')
+      	</if>
+      	
+      	<if test="stdt!= null and stdt  != ''">
+        	and date_format(t.Crt_Tm, '%Y%m%d')  >= #{stdt ,jdbcType=CHAR}    
+      	</if>
+
+      	
+      	<!--按照权限查询数据-->
+      <if test="userType  == null">
+      	and 1==2
+      </if>
+      <if test="userType  != null and userType  != 1 and userType  != 2 and userType  != 3 and userType  != 4 and userType  != 8 and userType  != 6">
+      	and 1==2
+      </if>
+      <if test="userType  != null and userType  == 1">
+      </if>
+      <if test="userType  != null and ((userType  == 2) or (userType  == 3) or (userType  == 4) or (userType  == 6) or (userType  == 8))">
+        and t.Gds_Blg_ID = #{companyId ,jdbcType=INTEGER}
+      </if>
+      <if test="userType  != null and userType  == 8">
+        and t.StgCo = #{companyId ,jdbcType=INTEGER}
+      </if> 
+      <if test="userType  != null and userType  == 6">
+        and t.Bnk = #{companyId ,jdbcType=INTEGER}
+      </if> 
+  </sql>
+  
+  <select id="selectByPage" parameterType="com.xai.tt.dc.client.vo.inVo.IvntDtlInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo">
+	select 
+		t.ID as id,
+		t.WhRecpt_ID as whrecptId,
+		t.ids as ids,
+		t.InTrsr_Tp as intrsrTp,
+		t.Pd_ID as pdId,
+		t.Pd_Nm as pdNm,
+		t.Spec as spec,
+		t.Modl as modl,
+		t.Qly_Std as qlyStd,
+		t.Brnd as brnd,
+		t.Pd_Fctr as pdFctr,
+		t.Pch_UnitPrc as pchUnitprc,
+		t.Txn_PrcDif as txnPrcdif,
+		t.Sale_Tntv_Prc as saleTntvPrc,
+		t.username as username,
+		t.Crt_Tm as crtTm,
+		t.Tms as tms,
+		t.MsUnit as msunit,
+		t.InTrsr_TNum as intrsrTnum,
+		t.OutStg_TNum as outstgTnum,
+		t.InTheStg_TNum as inthestgTnum,
+		t.Ar_ID as arId,
+		t.Ordr_ID as ordrId,
+		t.Spg_ID as spgId,
+		t.Plg_BillNo as plgBillno,
+		t.Bnk as bnk,
+		t.Bnk_Nm as bnkNm,
+		t.StgCo as stgco,
+		t.StgCo_Nm as stgcoNm,
+		t.Str_Pos as strPos,
+		t.Gds_Blg_ID as gdsBlgId,
+		t.Gds_Blg_Nm as gdsBlgNm,
+		t.Plg_Aply_St as plgAplySt,
+		t.Ustrm_Splr as ustrmSplr,
+		t.Ustrm_Splr_Nm as ustrmSplrNm
+ 	from 
+		T17_Ivnt_Dtl t
+ 	where 1=1
+ 	<include refid="query_criteria"></include>
+	   ORDER BY ${orderBy}
+	</select>
+	    <select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.IvntDtlInVo" resultType="java.lang.Integer">
+	SELECT 
+		count(*)
+	FROM
+		T17_Ivnt_Dtl t
+ 	where 1=1
+ 		<include refid="query_criteria"></include>  
+	</select>
+
+	<select id="queryDetail" parameterType="java.lang.String" resultType="com.xai.tt.dc.client.vo.inVo.IvntDtlInVo">
+	select 
+		t.ID as id,
+		t.WhRecpt_ID as whrecptId,
+		t.ids as ids,
+		t.InTrsr_Tp as intrsrTp,
+		t.Pd_ID as pdId,
+		t.Pd_Nm as pdNm,
+		t.Spec as spec,
+		t.Modl as modl,
+		t.Qly_Std as qlyStd,
+		t.Brnd as brnd,
+		t.Pd_Fctr as pdFctr,
+		t.Pch_UnitPrc as pchUnitprc,
+		t.Txn_PrcDif as txnPrcdif,
+		t.Sale_Tntv_Prc as saleTntvPrc,
+		t.username as username,
+		t.Crt_Tm as crtTm,
+		t.Tms as tms,
+		t.MsUnit as msunit,
+		t.InTrsr_TNum as intrsrTnum,
+		t.OutStg_TNum as outstgTnum,
+		t.InTheStg_TNum as inthestgTnum,
+		t.Ar_ID as arId,
+		t.Ordr_ID as ordrId,
+		t.Spg_ID as spgId,
+		t.Plg_BillNo as plgBillno,
+		t.Bnk as bnk,
+		_get_coname_func (t.Bnk ) AS bnkNm,
+		t.StgCo as stgco,
+		_get_coname_func (t.StgCo ) AS stgcoNm,
+		t.Str_Pos as strPos,
+		t.Gds_Blg_ID as gdsBlgId,
+		_get_coname_func (t.Gds_Blg_ID ) AS gdsBlgNm,
+		t.Plg_Aply_St as plgAplySt,
+		t.Ustrm_Splr as ustrmSplr,
+		_get_coname_func (t.Ustrm_Splr ) AS ustrmSplrNm
+ 	from 
+ 		T17_Ivnt_Dtl t
+ 	where t.id  = #{id ,jdbcType=VARCHAR}   
+ </select>
 </mapper>

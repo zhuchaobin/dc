@@ -1,0 +1,21 @@
+package com.xai.tt.dc.client.service;
+
+import com.tianan.common.api.bean.PageData;
+import com.tianan.common.api.bean.Result;
+import com.tianan.common.api.mybatis.PageParam;
+import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
+import com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo;
+
+/**
+ * dc服务
+ * @author
+ *
+ */
+public interface IvntDtlDcService {
+	// 库存列表查询
+	Result<PageData<QueryPageIvntDtlOutVo>> queryPage(IvntDtlInVo inVo, PageParam pageParam);
+	// 库存详情查询
+	Result<QueryPageIvntDtlOutVo> queryDetail(IvntDtlInVo inVo);
+	// 库存删除
+	Result<Boolean> delete(String id);
+}

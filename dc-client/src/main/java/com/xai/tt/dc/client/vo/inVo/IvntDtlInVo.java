@@ -1,9 +1,26 @@
 package com.xai.tt.dc.client.vo.inVo;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class IvntDtlInVo extends UserInfoQuery {
-	
+	/**
+     * ID
+     */
+    private Long id;
+    
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/**
 	 * 
 	 */
@@ -159,6 +176,128 @@ public class IvntDtlInVo extends UserInfoQuery {
      * 质押申请状态
      */
     private String plgAplySt;
+    
+    
+    /**
+     * 序号
+     */
+    private Long ids;
+
+
+    /**
+     * 规格
+     */
+    @Column(name = "Spec")
+    private String spec;
+
+    /**
+     * 型号
+     */
+    @Column(name = "Modl")
+    private String modl;
+
+    /**
+     * 质量标准
+     */
+    @Column(name = "Qly_Std")
+    private String qlyStd;
+
+    /**
+     * 品牌
+     */
+    @Column(name = "Brnd")
+    private String brnd;
+
+    /**
+     * 生产厂家
+     */
+    @Column(name = "Pd_Fctr")
+    private String pdFctr;
+
+    /**
+     * 采购单价
+     */
+    @Column(name = "Pch_UnitPrc")
+    private Float pchUnitprc;
+
+    /**
+     * 交易差价
+     */
+    @Column(name = "Txn_PrcDif")
+    private Float txnPrcdif;
+
+    /**
+     * 销售暂定价
+     */
+    @Column(name = "Sale_Tntv_Prc")
+    private Float saleTntvPrc;
+
+    /**
+     * 入库操作员
+     */
+    private String username;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "Crt_Tm")
+    private Date crtTm;
+
+    /**
+     * 时间戳
+     */
+    @Column(name = "Tms")
+    private Date tms;
+
+    /**
+     * 计量单位
+     */
+    @Column(name = "MsUnit")
+    private String msunit;
+
+    /**
+     * 入库总量
+     */
+    @Column(name = "InTrsr_TNum")
+    private Float intrsrTnum;
+
+    /**
+     * 出库总量
+     */
+    @Column(name = "OutStg_TNum")
+    private Float outstgTnum;
+
+    /**
+     * 在库总量
+     */
+    @Column(name = "InTheStg_TNum")
+    private Float inthestgTnum;
+
+    /**
+     * 订单编号
+     */
+    @Column(name = "Ordr_ID")
+    private String ordrId;
+
+    /**
+     * 银行名称
+     */
+    @Column(name = "Bnk_Nm")
+    private String bnkNm;
+
+
+    /**
+     * 仓储名称
+     */
+    @Column(name = "StgCo_Nm")
+    private String stgcoNm;
+
+
+    /**
+     * 上游供应商公司名
+     */
+    @Column(name = "Ustrm_Splr_Nm")
+    private String ustrmSplrNm;
 
 	public String getArId() {
 		return arId;
@@ -342,6 +481,166 @@ public class IvntDtlInVo extends UserInfoQuery {
 
 	public void setPlgAplySt(String plgAplySt) {
 		this.plgAplySt = plgAplySt;
+	}
+
+	public Long getIds() {
+		return ids;
+	}
+
+	public void setIds(Long ids) {
+		this.ids = ids;
+	}
+
+	public String getSpec() {
+		return spec;
+	}
+
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
+
+	public String getModl() {
+		return modl;
+	}
+
+	public void setModl(String modl) {
+		this.modl = modl;
+	}
+
+	public String getQlyStd() {
+		return qlyStd;
+	}
+
+	public void setQlyStd(String qlyStd) {
+		this.qlyStd = qlyStd;
+	}
+
+	public String getBrnd() {
+		return brnd;
+	}
+
+	public void setBrnd(String brnd) {
+		this.brnd = brnd;
+	}
+
+	public String getPdFctr() {
+		return pdFctr;
+	}
+
+	public void setPdFctr(String pdFctr) {
+		this.pdFctr = pdFctr;
+	}
+
+	public Float getPchUnitprc() {
+		return pchUnitprc;
+	}
+
+	public void setPchUnitprc(Float pchUnitprc) {
+		this.pchUnitprc = pchUnitprc;
+	}
+
+	public Float getTxnPrcdif() {
+		return txnPrcdif;
+	}
+
+	public void setTxnPrcdif(Float txnPrcdif) {
+		this.txnPrcdif = txnPrcdif;
+	}
+
+	public Float getSaleTntvPrc() {
+		return saleTntvPrc;
+	}
+
+	public void setSaleTntvPrc(Float saleTntvPrc) {
+		this.saleTntvPrc = saleTntvPrc;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Date getCrtTm() {
+		return crtTm;
+	}
+
+	public void setCrtTm(Date crtTm) {
+		this.crtTm = crtTm;
+	}
+
+	public Date getTms() {
+		return tms;
+	}
+
+	public void setTms(Date tms) {
+		this.tms = tms;
+	}
+
+	public String getMsunit() {
+		return msunit;
+	}
+
+	public void setMsunit(String msunit) {
+		this.msunit = msunit;
+	}
+
+	public Float getIntrsrTnum() {
+		return intrsrTnum;
+	}
+
+	public void setIntrsrTnum(Float intrsrTnum) {
+		this.intrsrTnum = intrsrTnum;
+	}
+
+	public Float getOutstgTnum() {
+		return outstgTnum;
+	}
+
+	public void setOutstgTnum(Float outstgTnum) {
+		this.outstgTnum = outstgTnum;
+	}
+
+	public Float getInthestgTnum() {
+		return inthestgTnum;
+	}
+
+	public void setInthestgTnum(Float inthestgTnum) {
+		this.inthestgTnum = inthestgTnum;
+	}
+
+	public String getOrdrId() {
+		return ordrId;
+	}
+
+	public void setOrdrId(String ordrId) {
+		this.ordrId = ordrId;
+	}
+
+	public String getBnkNm() {
+		return bnkNm;
+	}
+
+	public void setBnkNm(String bnkNm) {
+		this.bnkNm = bnkNm;
+	}
+
+	public String getStgcoNm() {
+		return stgcoNm;
+	}
+
+	public void setStgcoNm(String stgcoNm) {
+		this.stgcoNm = stgcoNm;
+	}
+
+	public String getUstrmSplrNm() {
+		return ustrmSplrNm;
+	}
+
+	public void setUstrmSplrNm(String ustrmSplrNm) {
+		this.ustrmSplrNm = ustrmSplrNm;
 	}
    
 }
