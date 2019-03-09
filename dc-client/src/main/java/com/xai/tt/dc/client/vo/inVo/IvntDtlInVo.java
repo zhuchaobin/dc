@@ -45,7 +45,7 @@ public class IvntDtlInVo extends UserInfoQuery {
     private String stdt;
 
     /**
-     * 入库结束日期
+     * 入库结束日期 
      */
     private String eddt;
     

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.xai.tt.dc.client.model.T13GdsDetail;
 import com.xai.tt.dc.client.model.T17IvntDtl;
-
+ 
 public class QueryPageIvntDtlOutVo extends T17IvntDtl implements Serializable {
 	private static final long serialVersionUID = 1L;
 /*	List<T17IvntDtl> t17IvntDtlList;

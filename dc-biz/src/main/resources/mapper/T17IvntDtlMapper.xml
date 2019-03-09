@@ -118,7 +118,7 @@
       	</if>
 		<if test="ustrmSplrNm!= null and ustrmSplrNm  != ''">
         	and t.Ustrm_Splr_Nm  = #{ustrmSplrNm ,jdbcType=CHAR}    
-      	</if>
+      	</if> 
       	<if test="eddt!= null and eddt  != ''">
       		and #{eddt ,jdbcType=CHAR}  >= date_format(t.Crt_Tm, '%Y%m%d')
       	</if>

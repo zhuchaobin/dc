@@ -57,7 +57,7 @@ public class IvntDtlDcServiceImpl implements IvntDtlDcService {
 		int count = 0;
 		if (pageParam != null) {
 			PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
-		}
+		} 
 		try {
 			page = t17IvntDtlMapper.selectByPage(query);
 			count = t17IvntDtlMapper.count(query);
