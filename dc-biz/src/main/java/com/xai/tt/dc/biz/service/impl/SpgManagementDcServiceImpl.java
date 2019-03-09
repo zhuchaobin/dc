@@ -963,7 +963,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				for(T13GdsDetail t13 : query.getT13GdsDetailList()) {
 					// 保存质押货物明细
 					t13.setRltvTp("03");//01:发货明细 02：质押明细 03：发货入库明细 04：出库明细
-					String rltvId = "RK" + StrPost;
+					String rltvId = "CD" + StrPost;
 
 					t13.setRltvId(rltvId);
 					t13.setTms(new Date());
@@ -972,20 +972,28 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t13GdsDetailMapper.insert(t13);
 					// 货物入库
 					T17IvntDtl t17 = new T17IvntDtl();
+
+					t17.setPdId(t13.getPdId().longValue());
+					t17.setPdNm(t13.getPdNm());
+					t17.setSpec(t13.getSpec());
+					t17.setModl(t13.getModl());
+					t17.setQlyStd(t13.getQlyStd());
+					t17.setBrnd(t13.getBrnd());
+					t17.setPdFctr(t13.getPdFctr());
+
 					BeanUtils.copyProperties(query, t17, CommonUtils.getNullPropertyNames(query));
+
+
 					t17.setWhrecptId(t13.getRltvId());
 					t17.setIntrsrTp("03");// 02：存入自有货物 03：上游发货形成
 					t17.setIntrsrTnum(t13.getNum());
 					t17.setInthestgTnum(t13.getNum());
 					t17.setOutstgTnum(0f);
-	/*			t17.setArId(inVo.getArId());
-				t17.setOrdrId(inVo.getOrdrId());
-				t17.setSpgId(inVo.getSpgId());*/
+//					t17.setArId(query.getArId());
+//					t17.setOrdrId(query.getOrdrId());
+//					t17.setSpgId(query.getSpgId());
 					t17.setPlgBillno("ZY" + StrPost);
-	/*			t17.setBnk(inVo.getBnk());
-				t17.setBnkNm(inVo.getBnkNm());
-				t17.setStgco(inVo.getStgco());
-				t17.setStgcoNm(inVo.getStgcoNm());*/
+
 					t17.setGdsBlgId(1L);
 					t17.setGdsBlgNm("");
 					t17.setPlgAplySt("03");
