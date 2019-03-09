@@ -17,5 +17,5 @@ public interface IvntDtlDcService {
 	// 库存详情查询
 	Result<QueryPageIvntDtlOutVo> queryDetail(IvntDtlInVo inVo);
 	// 库存删除
-	Result<Boolean> delete(String id);
+	Result<Boolean> delete(String id); 
 }
