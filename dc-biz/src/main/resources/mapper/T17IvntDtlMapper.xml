@@ -184,9 +184,15 @@
 		t.Gds_Blg_Nm as gdsBlgNm,
 		t.Plg_Aply_St as plgAplySt,
 		t.Ustrm_Splr as ustrmSplr,
-		t.Ustrm_Splr_Nm as ustrmSplrNm
+		t.Ustrm_Splr_Nm as ustrmSplrNm,
+		s.Plg_Drc_Prc as plgDrcPrc
  	from 
 		T17_Ivnt_Dtl t
+	left join
+		B4_Plg_Drc_Prc s
+	on t.Bnk = s.Bnk
+		and t.Ar_ID = s.Ar_ID
+		and t.Pd_ID = s.Pd_ID
  	where 1=1
  	<include refid="query_criteria"></include>
 	   ORDER BY ${orderBy}
@@ -196,6 +202,11 @@
 		count(*)
 	FROM
 		T17_Ivnt_Dtl t
+	left join
+		B4_Plg_Drc_Prc s
+	on t.Bnk = s.Bnk
+		and t.Ar_ID = s.Ar_ID
+		and t.Pd_ID = s.Pd_ID
  	where 1=1
  		<include refid="query_criteria"></include>  
 	</select>
@@ -240,5 +251,13 @@
  	from 
  		T17_Ivnt_Dtl t
  	where t.id  = #{id ,jdbcType=VARCHAR}   
+ </select>
+ 
+ 	<select id="queryGdsBlgList"  resultType="java.lang.String">
+	select 
+		CONCAT(t.Gds_Blg_ID,'#',t.Gds_Blg_Nm)
+ 	from 
+ 		t17_ivnt_dtl t 
+ 	GROUP BY t.Gds_Blg_ID,t.Gds_Blg_Nm
  </select>
 </mapper>
