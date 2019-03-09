@@ -973,7 +973,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					// 货物入库
 					T17IvntDtl t17 = new T17IvntDtl();
 
-					t17.setPdId(t13.getPdId().longValue());
+					t17.setPdId(t13.getPdId()==null?0L:t13.getPdId().longValue());
 					t17.setPdNm(t13.getPdNm());
 					t17.setSpec(t13.getSpec());
 					t17.setModl(t13.getModl());
