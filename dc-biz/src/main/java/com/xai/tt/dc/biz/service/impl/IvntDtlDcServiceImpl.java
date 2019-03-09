@@ -7,9 +7,20 @@ import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.*;
+import com.xai.tt.dc.client.model.B5PlgCntlMnyWnLn;
 import com.xai.tt.dc.client.service.IvntDtlDcService;
 import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
+import com.xai.tt.dc.client.vo.outVo.GdsBlgOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo;
+
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,4 +104,80 @@ public class IvntDtlDcServiceImpl implements IvntDtlDcService {
 			return Result.createFailResult("查询库存信息详情异常" + e);
 		}
 	}
+	// 查询货物归属列表
+	@Override
+	public Result<List<GdsBlgOutVo>> queryGdsBlgList(){
+		List<GdsBlgOutVo> gdsBlgOutVoList = new ArrayList<GdsBlgOutVo>();
+		try {
+			List<String > gdsBlgList = t17IvntDtlMapper.queryGdsBlgList();
+			if(null != gdsBlgList && gdsBlgList.size() > 0) {
+				for(String gdsBlg : gdsBlgList) {
+					String[] arr = gdsBlg.split("#");
+					if(null != arr && arr.length ==2) {
+						GdsBlgOutVo gdsBlgOutVo = new GdsBlgOutVo();
+						gdsBlgOutVo.setGdsBlgId(Long.parseLong(arr[0]));
+						gdsBlgOutVo.setGdsBlgNm(arr[1]);
+						// 计算质押物总质押货值
+						IvntDtlInVo query = new IvntDtlInVo();
+						query.setGdsBlgId(gdsBlgOutVo.getGdsBlgId());
+						Page<QueryPageIvntDtlOutVo> page = t17IvntDtlMapper.selectByPage(query);
+						float plgPdValue = 0f;
+						// 合作银行
+						String bnkNm = "";
+						// 合作仓储
+						String stgNm = "";
+						// 相关长约
+						String arId = ""; 
+						if(null != page && page.size() > 0) {
+							for(QueryPageIvntDtlOutVo ivntDtl : page) {
+								// 自动质押或者质押审核通过， 且在库有余量，且有质押指导价
+								if(("02".equals(ivntDtl.getPlgAplySt()) || "04".equals(ivntDtl.getPlgAplySt())) 
+										&& null != ivntDtl.getInthestgTnum() 
+										&& ivntDtl.getPlgDrcPrc() != 0l) {
+									plgPdValue += (ivntDtl.getInthestgTnum()  * ivntDtl.getPlgDrcPrc());
+								}
+								if(StringUtils.isNoneBlank(ivntDtl.getBnkNm())){
+									if(!bnkNm.contains(ivntDtl.getBnkNm())) {
+										if(StringUtils.isBlank(bnkNm))
+											bnkNm = ivntDtl.getBnkNm();
+										else
+											bnkNm += ("," + ivntDtl.getBnkNm());
+									}
+									gdsBlgOutVo.setBnkNm(bnkNm);	
+								}
+								if(StringUtils.isNoneBlank(ivntDtl.getStgcoNm())){
+									if(!stgNm.contains(ivntDtl.getStgcoNm())) {
+										if(StringUtils.isBlank(stgNm))
+											stgNm = ivntDtl.getStgcoNm();
+										else
+											stgNm += ("," + ivntDtl.getStgcoNm());
+									}
+									gdsBlgOutVo.setStgNm(stgNm);	
+								}
+								if(StringUtils.isNoneBlank(ivntDtl.getArId())){
+									if(!arId.contains(ivntDtl.getArId())) {
+										if(StringUtils.isBlank(arId))
+											arId = ivntDtl.getArId();
+										else
+											arId += ("," + ivntDtl.getArId());
+									}
+									gdsBlgOutVo.setArId(arId);		
+								}
+							}
+						}
+						gdsBlgOutVo.setPlgPdValue(plgPdValue);
+						gdsBlgOutVoList.add(gdsBlgOutVo);
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.error("查询货物归属列表发生异常：" + e);
+			return Result.createFailResult("查询货物归属列表发生异常：" + e);
+		}
+		Result<List<GdsBlgOutVo>> rlt = new Result<List<GdsBlgOutVo>> ();
+		rlt.setData(gdsBlgOutVoList);
+		logger.error("查询货物归属列表发生成功：" + gdsBlgOutVoList);
+		return rlt;
+	}
+	
 }
