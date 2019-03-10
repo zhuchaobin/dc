@@ -130,10 +130,10 @@
       	
       	<!--按照权限查询数据-->
       <if test="userType  == null">
-      	and 1==2
+      	and 1=2
       </if>
       <if test="userType  != null and userType  != 1 and userType  != 2 and userType  != 3 and userType  != 4 and userType  != 8 and userType  != 6">
-      	and 1==2
+      	and 1=2
       </if>
       <if test="userType  != null and userType  == 1">
       </if>
@@ -195,7 +195,10 @@
 		and t.Pd_ID = s.Pd_ID
  	where 1=1
  	<include refid="query_criteria"></include>
-	   ORDER BY ${orderBy}
+ 	<if test="orderBy  != null and orderBy  != ''">
+        ORDER BY ${orderBy}
+    </if> 
+
 	</select>
 	    <select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.IvntDtlInVo" resultType="java.lang.Integer">
 	SELECT 
@@ -253,7 +256,7 @@
  	where t.id  = #{id ,jdbcType=VARCHAR}   
  </select>
  
- 	<select id="queryGdsBlgList"  resultType="java.lang.String">
+ 	<select id="queryGdsBlgList" resultType="java.lang.String">
 	select 
 		CONCAT(t.Gds_Blg_ID,'#',t.Gds_Blg_Nm)
  	from 

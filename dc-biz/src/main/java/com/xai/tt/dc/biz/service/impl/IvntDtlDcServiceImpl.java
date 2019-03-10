@@ -8,6 +8,7 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.*;
 import com.xai.tt.dc.client.model.B5PlgCntlMnyWnLn;
+import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.service.IvntDtlDcService;
 import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
 import com.xai.tt.dc.client.vo.outVo.GdsBlgOutVo;
@@ -106,7 +107,7 @@ public class IvntDtlDcServiceImpl implements IvntDtlDcService {
 	}
 	// 查询货物归属列表
 	@Override
-	public Result<List<GdsBlgOutVo>> queryGdsBlgList(){
+	public Result<List<GdsBlgOutVo>> queryGdsBlgList(UserInfoQuery userInfo){
 		List<GdsBlgOutVo> gdsBlgOutVoList = new ArrayList<GdsBlgOutVo>();
 		try {
 			List<String > gdsBlgList = t17IvntDtlMapper.queryGdsBlgList();
@@ -117,9 +118,11 @@ public class IvntDtlDcServiceImpl implements IvntDtlDcService {
 						GdsBlgOutVo gdsBlgOutVo = new GdsBlgOutVo();
 						gdsBlgOutVo.setGdsBlgId(Long.parseLong(arr[0]));
 						gdsBlgOutVo.setGdsBlgNm(arr[1]);
+						logger.info("货物归属id|公司名:" + gdsBlgOutVo.getGdsBlgId() + "|" + gdsBlgOutVo.getGdsBlgNm());
 						// 计算质押物总质押货值
 						IvntDtlInVo query = new IvntDtlInVo();
 						query.setGdsBlgId(gdsBlgOutVo.getGdsBlgId());
+						query.setUserType(userInfo.getUserType());//给平台权限，默认可以查所有货物
 						Page<QueryPageIvntDtlOutVo> page = t17IvntDtlMapper.selectByPage(query);
 						float plgPdValue = 0f;
 						// 合作银行
@@ -166,10 +169,13 @@ public class IvntDtlDcServiceImpl implements IvntDtlDcService {
 							}
 						}
 						gdsBlgOutVo.setPlgPdValue(plgPdValue);
-						gdsBlgOutVoList.add(gdsBlgOutVo);
+						logger.info("循环内货物归属信息：" + JSON.toJSONString(gdsBlgOutVo));	
+						gdsBlgOutVoList.add(gdsBlgOutVo);										
 					}
 				}
+				logger.info("货物归属信息返回结果：" + JSON.toJSONString(gdsBlgOutVoList));
 			}
+			
 		} catch (Exception e) {
 			logger.error("查询货物归属列表发生异常：" + e);
 			return Result.createFailResult("查询货物归属列表发生异常：" + e);

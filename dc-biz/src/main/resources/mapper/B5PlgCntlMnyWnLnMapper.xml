@@ -19,4 +19,81 @@
     <result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
   </resultMap>
 
+ <sql id="query_criteria">  
+		<if test="id != null">
+        	and t.ID  = #{id,jdbcType=BIGINT}    
+      	</if>
+		<if test="arId != null and arId  != ''">
+        	and t.Ar_ID  = #{arId,jdbcType=VARCHAR}    
+      	</if>
+		<if test="ordrId != null and ordrId  != ''">
+        	and t.Ordr_ID  = #{ordrId,jdbcType=VARCHAR}    
+      	</if>
+		<if test="bnk != null">
+        	and t.Bnk  = #{bnk,jdbcType=BIGINT}    
+      	</if>
+		<if test="bnkNm != null and bnkNm  != ''">
+        	and t.Bnk_Nm  = #{bnkNm,jdbcType=VARCHAR}    
+      	</if>
+		<if test="lwstCntlMnyLn != null">
+        	and t.Lwst_Cntl_Mny_Ln  = #{lwstCntlMnyLn,jdbcType=REAL}    
+      	</if>
+		<if test="plgWnln != null">
+        	and t.Plg_WnLn  = #{plgWnln,jdbcType=REAL}    
+      	</if>
+  </sql>
+  
+<select id="selectByPage" parameterType="com.xai.tt.dc.client.vo.PlgCntlMnyWnLnVo" resultType="com.xai.tt.dc.client.vo.PlgCntlMnyWnLnVo">
+		select 
+			t.ID as id,
+			t.Ar_ID as arId,
+			t.Ordr_ID as ordrId,
+			t.Bnk as bnk,
+			_get_coname_func (t.Bnk ) AS bnkNm,
+			t.Lwst_Cntl_Mny_Ln as lwstCntlMnyLn,
+			t.Plg_WnLn as plgWnln,
+			t.Tms as tms,
+			t.username as username,
+			t.Crt_Tm as crtTm,
+			t.Udt_Tm as udtTm,
+			t.Rmrk as rmrk
+ 		from 
+ 			B5_Plg_Cntl_Mny_WnLn t
+		where 1=1
+ 			<include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+</select>
+	
+	    <select id="count" parameterType="com.xai.tt.dc.client.vo.PlgCntlMnyWnLnVo" resultType="java.lang.Integer">
+SELECT 
+count(*)
+FROM
+B5_Plg_Cntl_Mny_WnLn t
+ where 1=1
+ <include refid="query_criteria"></include>
+   
+	</select>
+
+
+<select id="queryDetail" parameterType="com.xai.tt.dc.client.vo.PlgCntlMnyWnLnVo" resultType="com.xai.tt.dc.client.vo.PlgCntlMnyWnLnVo">
+select 
+			t.ID as id,
+			t.Ar_ID as arId,
+			t.Ordr_ID as ordrId,
+			t.Bnk as bnk,
+			_get_coname_func (t.Bnk ) AS bnkNm,
+			t.Lwst_Cntl_Mny_Ln as lwstCntlMnyLn,
+			t.Plg_WnLn as plgWnln,
+			t.Tms as tms,
+			t.username as username,
+			t.Crt_Tm as crtTm,
+			t.Udt_Tm as udtTm,
+			t.Rmrk as rmrk
+ from 
+ B5_Plg_Cntl_Mny_WnLn t
+ where 1=1
+ <include refid="query_criteria"></include>
+	limit 1
 </mapper>
