@@ -13,6 +13,7 @@ import com.xai.tt.dc.client.model.B1VrtyPdNm;
 import com.xai.tt.dc.client.model.B3PdNmDrcPrc;
 import com.xai.tt.dc.client.model.T13GdsDetail;
 import com.xai.tt.dc.client.model.User;
+import com.xai.tt.dc.client.model.vrty;
 import com.xai.tt.dc.client.service.KcDcService;
 import com.xai.tt.dc.client.service.PdService;
 import com.xai.tt.dc.client.vo.inVo.KcManagementInVo;
@@ -53,6 +54,8 @@ public class PdServiceImpl implements PdService {
 
     @Autowired
     private B1VrtyPdNmMapper b1VrtyPdNmMapper;
+    @Autowired
+    vrtyMapper vrtymapper;
     @Autowired
     private B3PdNmDrcPrcMapper b3PdNmDrcPrcMapper;
 
@@ -116,16 +119,22 @@ public class PdServiceImpl implements PdService {
 
 
     public void setPrc(String gbName, String quotationTime, float avgPrice, String url) {
-        Condition condition = new Condition(B1VrtyPdNm.class);
+/*        Condition condition = new Condition(B1VrtyPdNm.class);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andCondition("name = '" + gbName + "'");
         criteria.andCondition("folder = '0'");
-        List<B1VrtyPdNm> b1List = b1VrtyPdNmMapper.selectByCondition(condition);
+        List<B1VrtyPdNm> b1List = b1VrtyPdNmMapper.selectByCondition(condition);*/
+        // zhu,品种品名表修改为vrty，b1表不再使用
+        Condition condition = new Condition(vrty.class);
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andCondition("name = '" + gbName + "'");
+        criteria.andCondition("folder = '0'");
+        List<vrty> b1List = vrtymapper.selectByCondition(condition);
         if (b1List != null && b1List.size() > 0) {
-            for (B1VrtyPdNm b1 : b1List) {
+            for (vrty b1 : b1List) {
 
                 B3PdNmDrcPrc b3 = new B3PdNmDrcPrc();
-                b3.setPdId(b1.getId());
+                b3.setPdId((long)b1.getId());
                 b3.setAcqDt(quotationTime);
                 b3.setSrcTpcd("04");
                 b3.setSrcDsc("南储商务网");

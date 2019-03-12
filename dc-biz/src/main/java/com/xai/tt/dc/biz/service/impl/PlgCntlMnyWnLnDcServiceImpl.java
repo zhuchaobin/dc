@@ -73,14 +73,14 @@ public class PlgCntlMnyWnLnDcServiceImpl implements PlgCntlMnyWnLnDcService {
 	public Result<PlgCntlMnyWnLnVo> queryDetail(PlgCntlMnyWnLnVo query) {
 		logger.info("查询质押控货预警详情,请求参数:{}", JSON.toJSONString(query));
 		try {
-			PlgCntlMnyWnLnVo PlgCntlMnyWnLnVo = b5PlgCntlMnyWnLnMapper.queryDetail(query);
-			if (PlgCntlMnyWnLnVo == null) {
+			PlgCntlMnyWnLnVo plgCntlMnyWnLnVo = b5PlgCntlMnyWnLnMapper.queryDetail(query);
+			if (plgCntlMnyWnLnVo == null) {
 				logger.error("查询质押控货预警详情无数据");
 				return Result.createFailResult("查询质押控货预警详情无数据");
 			} else {
 				// 查询质押控货预警明细
 				Result<PlgCntlMnyWnLnVo> rlt = new Result<PlgCntlMnyWnLnVo>();
-				rlt.setData(PlgCntlMnyWnLnVo);
+				rlt.setData(plgCntlMnyWnLnVo);
 				return rlt;
 			}
 		} catch (Exception e) {

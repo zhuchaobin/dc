@@ -7,6 +7,7 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
+import com.xai.tt.dc.client.vo.inVo.OutStgTnumInVo;
 import com.xai.tt.dc.client.vo.outVo.GdsBlgOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo;
 
@@ -24,4 +25,6 @@ public interface IvntDtlDcService {
 	Result<Boolean> delete(String id); 
 	// 查询货物归属列表
 	Result<List<GdsBlgOutVo>> queryGdsBlgList(UserInfoQuery userInfo); 
+	// 出库
+	Result<?> outStgTnum(OutStgTnumInVo inVo); 
 }

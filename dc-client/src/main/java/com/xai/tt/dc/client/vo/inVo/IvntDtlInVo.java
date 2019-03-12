@@ -8,6 +8,17 @@ import javax.persistence.Id;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class IvntDtlInVo extends UserInfoQuery {
+	//待出库id列表
+	private String idList;
+	
+	public String getIdList() {
+		return idList;
+	}
+
+	public void setIdList(String idList) {
+		this.idList = idList;
+	}
+
 	/**
      * ID
      */

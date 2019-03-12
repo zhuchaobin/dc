@@ -126,7 +126,15 @@
       	<if test="stdt!= null and stdt  != ''">
         	and date_format(t.Crt_Tm, '%Y%m%d')  >= #{stdt ,jdbcType=CHAR}    
       	</if>
-
+      	<!--按照id列表查询所有货物-->
+      	<if test="secSrvCd!= null and secSrvCd  != '' and secSrvCd=='09'">
+      <!--  	and t.id in(#{idList ,jdbcType=VARCHAR}) -->
+        	and t.id in(8,11)
+      	</if>
+      	<!--查找企业名下，某长约下所有在质押且有在库余量的总货值-->
+      	<if test="secSrvCd!= null and secSrvCd  != '' and secSrvCd=='10'">
+        	and (t.Plg_Aply_St ='03' or t.Plg_Aply_St ='04') and t.InTheStg_TNum>0
+      	</if>
       	
       	<!--按照权限查询数据-->
       <if test="userType  == null">
@@ -147,7 +155,57 @@
         and t.Bnk = #{companyId ,jdbcType=INTEGER}
       </if> 
   </sql>
-  
+  <select id="selectByList" parameterType="com.xai.tt.dc.client.vo.inVo.IvntDtlInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo">
+	select 
+		t.ID as id,
+		t.WhRecpt_ID as whrecptId,
+		t.ids as ids,
+		t.InTrsr_Tp as intrsrTp,
+		t.Pd_ID as pdId,
+		t.Pd_Nm as pdNm,
+		t.Spec as spec,
+		t.Modl as modl,
+		t.Qly_Std as qlyStd,
+		t.Brnd as brnd,
+		t.Pd_Fctr as pdFctr,
+		t.Pch_UnitPrc as pchUnitprc,
+		t.Txn_PrcDif as txnPrcdif,
+		t.Sale_Tntv_Prc as saleTntvPrc,
+		t.username as username,
+		t.Crt_Tm as crtTm,
+		t.Tms as tms,
+		t.MsUnit as msunit,
+		t.InTrsr_TNum as intrsrTnum,
+		t.OutStg_TNum as outstgTnum,
+		t.InTheStg_TNum as inthestgTnum,
+		t.Ar_ID as arId,
+		t.Ordr_ID as ordrId,
+		t.Spg_ID as spgId,
+		t.Plg_BillNo as plgBillno,
+		t.Bnk as bnk,
+		t.Bnk_Nm as bnkNm,
+		t.StgCo as stgco,
+		t.StgCo_Nm as stgcoNm,
+		t.Str_Pos as strPos,
+		t.Gds_Blg_ID as gdsBlgId,
+		t.Gds_Blg_Nm as gdsBlgNm,
+		t.Plg_Aply_St as plgAplySt,
+		t.Ustrm_Splr as ustrmSplr,
+		t.Ustrm_Splr_Nm as ustrmSplrNm,
+		s.Plg_Drc_Prc as plgDrcPrc
+ 	from 
+		T17_Ivnt_Dtl t
+	left join
+		B4_Plg_Drc_Prc s
+	on t.Bnk = s.Bnk
+		and t.Ar_ID = s.Ar_ID
+		and t.Pd_ID = s.Pd_ID
+ 	where 1=1
+ 	<include refid="query_criteria"></include>
+ 	<if test="orderBy  != null and orderBy  != ''">
+        ORDER BY t.${orderBy}
+    </if>  
+    </select> 
   <select id="selectByPage" parameterType="com.xai.tt.dc.client.vo.inVo.IvntDtlInVo" resultType="com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo">
 	select 
 		t.ID as id,
@@ -196,7 +254,7 @@
  	where 1=1
  	<include refid="query_criteria"></include>
  	<if test="orderBy  != null and orderBy  != ''">
-        ORDER BY ${orderBy}
+        ORDER BY t.${orderBy}
     </if> 
 
 	</select>
@@ -263,4 +321,13 @@
  		t17_ivnt_dtl t 
  	GROUP BY t.Gds_Blg_ID,t.Gds_Blg_Nm
  </select>
+ 
+  	<update id="updateT17" parameterType="com.xai.tt.dc.client.vo.inVo.OutStgTnumSubInVo">
+  	UPDATE t17_ivnt_dtl t
+		SET t.InTheStg_TNum = t.InTheStg_TNum - #{currOutstgTnum ,jdbcType=REAL},
+ 		t.OutStg_TNum = t.OutStg_TNum + #{currOutstgTnum ,jdbcType=REAL},
+ 		t.tms=SYSDATE()
+	WHERE
+		id = #{id ,jdbcType=BIGINT}
+ </update>
 </mapper>

@@ -17,7 +17,7 @@ public class QueryPageIvntDtlOutVo extends T17IvntDtl implements Serializable {
 	public void setPlgDrcPrc(float plgDrcPrc) {
 		this.plgDrcPrc = plgDrcPrc;
 	}
-	
+		
 /*	List<T17IvntDtl> t17IvntDtlList;
 	public List<T17IvntDtl> getT17IvntDtlList() {
 		return t17IvntDtlList;
