@@ -9,7 +9,7 @@ import com.tianan.common.api.mybatis.PageParam;
 import com.xai.tt.dc.biz.mapper.*;
 import com.xai.tt.dc.biz.utils.CommonUtils;
 import com.xai.tt.dc.client.model.B4PlgDrcPrc;
-import com.xai.tt.dc.client.model.PlgCntlMnyWnLn;
+import com.xai.tt.dc.client.model.B5PlgCntlMnyWnLn;
 import com.xai.tt.dc.client.model.T17IvntDtl;
 import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.query.UserInfoQuery;
