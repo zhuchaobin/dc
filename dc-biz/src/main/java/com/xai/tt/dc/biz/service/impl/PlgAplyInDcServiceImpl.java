@@ -139,12 +139,12 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 				if (null == inVo.getPlgWnln())
 					inVo.setPlgWnln(0f);
 				// 保存或者更新质押控货预警线
-				Condition condition0 = new Condition(B5PlgCntlMnyWnLn.class);
+				Condition condition0 = new Condition(PlgCntlMnyWnLn.class);
 				Example.Criteria criteria0 = condition0.createCriteria();
 				criteria0.andCondition("Ar_ID = '" + inVo.getArId() + "'");
-				List<B5PlgCntlMnyWnLn> b5List = b5PlgCntlMnyWnlnMapper.selectByCondition(condition0);
+				List<PlgCntlMnyWnLn> b5List = b5PlgCntlMnyWnlnMapper.selectByCondition(condition0);
 				if (null != b5List && b5List.size() > 0 && null != b5List.get(0)) {
-					B5PlgCntlMnyWnLn b5 = b5List.get(0);
+					PlgCntlMnyWnLn b5 = b5List.get(0);
 					// 更新
 					if (null != b5) {
 						b5.setArId(inVo.getArId());
@@ -159,7 +159,7 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 					}
 				} else {
 					// 新建
-					B5PlgCntlMnyWnLn b5 = new B5PlgCntlMnyWnLn();
+					PlgCntlMnyWnLn b5 = new PlgCntlMnyWnLn();
 					b5.setArId(inVo.getArId());
 					b5.setLwstCntlMnyLn(inVo.getLwstCntlMnyLn());
 					b5.setPlgWnln(inVo.getPlgWnln());
