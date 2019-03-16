@@ -23,7 +23,9 @@
 	<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
 	<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-<table schema="xlink2" tableName="B5_Plg_Cntl_Mny_WnLn" domainObjectName="B5PlgCntlMnyWnLn" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="traffic_inf_rpt" domainObjectName="TrafficInfRpt" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="upload_file" domainObjectName="UploadFile" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
+<table schema="xlink2" tableName="accident_fast_deal_inf_rpt" domainObjectName="AccidentFastDealInfRpt" enableInsert = "true" enableSelectByPrimaryKey = "true" enableSelectByExample = "true" enableUpdateByPrimaryKey = "true" enableDeleteByPrimaryKey = "true" enableDeleteByExample = "true" enableCountByExample = "true" enableUpdateByExample = "true"></table>
 
 
 

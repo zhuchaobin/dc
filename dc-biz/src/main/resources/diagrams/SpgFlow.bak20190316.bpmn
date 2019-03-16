@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="SpgFlow" name="SpgProcess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="Spg_Itt_Ustrm" name="发货发起(上游)" activiti:candidateGroups="02"></userTask>
+    <userTask id="Spg_Mny_Tprt_Lgstc" name="接货承运(物流)" activiti:candidateGroups="07"></userTask>
+    <userTask id="Spg_Mny_InTrsr_Stg" name="接货入库(仓储)" activiti:candidateGroups="08"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="Spg_Itt_Ustrm"></sequenceFlow>
+    <exclusiveGateway id="Spg_Itt_Ustrm_GW" name="发货发起(上游)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow58" sourceRef="Spg_Itt_Ustrm" targetRef="Spg_Itt_Ustrm_GW"></sequenceFlow>
+    <sequenceFlow id="flow59" sourceRef="Spg_Itt_Ustrm_GW" targetRef="Spg_Mny_Tprt_Lgstc">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&(pymtmod==1||pymtmod==2)}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow60" sourceRef="Spg_Itt_Ustrm_GW" targetRef="Spg_Mny_InTrsr_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&(pymtmod==3)}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Spg_Mny_Tprt_Lgstc_GW" name="接货承运(物流)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow61" sourceRef="Spg_Mny_Tprt_Lgstc" targetRef="Spg_Mny_Tprt_Lgstc_GW"></sequenceFlow>
+    <sequenceFlow id="flow62" sourceRef="Spg_Mny_Tprt_Lgstc_GW" targetRef="Spg_Itt_Ustrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Spg_PymFrGds_Py_SplChain" name="货款支付(供应链)" activiti:candidateGroups="03"></userTask>
+    <sequenceFlow id="flow63" sourceRef="Spg_Mny_Tprt_Lgstc_GW" targetRef="Spg_Mny_InTrsr_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&(pymtmod==1)}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow64" sourceRef="Spg_Mny_Tprt_Lgstc_GW" targetRef="Spg_PymFrGds_Py_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&(pymtmod==2)}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Spg_Sel_RdmGds_Mod_SplChain" name="选择赎货方式(供应链)" activiti:candidateGroups="03"></userTask>
+    <userTask id="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain" name="选择赎货方式并支付(供应链)" activiti:candidateGroups="03"></userTask>
+    <exclusiveGateway id="Spg_Mny_InTrsr_Stg_GW" name="接货入库(仓储)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow66" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_Sel_RdmGds_Mod_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&(pymtmod==1||pymtmod==2)}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow67" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&(pymtmod==3)}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow68" sourceRef="Spg_Mny_InTrsr_Stg" targetRef="Spg_Mny_InTrsr_Stg_GW"></sequenceFlow>
+    <exclusiveGateway id="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW" name="选择赎货方式并支付(供应链)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Sel_RdmGds_Mod_SplChain_GW" name="选择赎货方式(供应链)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow69" sourceRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain" targetRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow70" sourceRef="Spg_Sel_RdmGds_Mod_SplChain" targetRef="Spg_Sel_RdmGds_Mod_SplChain_GW"></sequenceFlow>
+    <userTask id="Spg_Rfnd_RdmGds_Dwstr" name="回款赎货(下游)" activiti:candidateGroups="04"></userTask>
+    <userTask id="Spg_Ntc_Tfr_RghtForGds_Bnk" name="通知转货权(银行)" activiti:candidateGroups="06"></userTask>
+    <userTask id="Spg_Ntc_Tfr_RghtForGds_SplChain" name="通知转货权(供应链)" activiti:candidateGroups="03"></userTask>
+    <userTask id="Spg_Tfr_RghtForGds1_Stg" name="转货权1(仓储)" activiti:candidateGroups="08"></userTask>
+    <userTask id="Spg_Rtrv_Gds_Dwstr" name="提取货物(下游)" activiti:candidateGroups="04"></userTask>
+    <sequenceFlow id="flow71" sourceRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW" targetRef="Spg_Rfnd_RdmGds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==1}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Spg_Plg_Rplcmt_SplChain" name="质押置换(供应链)" activiti:candidateGroups="03"></userTask>
+    <userTask id="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk" name="出质通知转货权(银行)" activiti:candidateGroups="06"></userTask>
+    <userTask id="Spg_Tfr_RghtForGds1_Detr_Plg_Stg" name="转货权1确定质押(仓储)" activiti:candidateGroups="08"></userTask>
+    <userTask id="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr" name="存入自有货物回款赎货(下游)" activiti:candidateGroups="04"></userTask>
+    <userTask id="Spg_Ntc_Rslv_Bnk" name="通知解押(银行)" activiti:candidateGroups="06"></userTask>
+    <userTask id="Spg_Tfr_RghtForGds2_Stg" name="转货权2(仓储)" activiti:candidateGroups="08"></userTask>
+    <userTask id="Spg_Tmt_SplChain" name="发货终止(供应链)" activiti:candidateGroups="03"></userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow77" sourceRef="Spg_Sel_RdmGds_Mod_SplChain_GW" targetRef="Spg_Plg_Rplcmt_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==2}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" name="通知转货权(供应链)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow79" sourceRef="Spg_Ntc_Tfr_RghtForGds_SplChain" targetRef="Spg_Ntc_Tfr_RghtForGds_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow80" sourceRef="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" targetRef="Spg_Tfr_RghtForGds1_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow81" sourceRef="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" targetRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow88" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_Itt_Ustrm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Spg_PymFrGds_Py_SplChain_GW" name="货款支付(供应链)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow89" sourceRef="Spg_PymFrGds_Py_SplChain" targetRef="Spg_PymFrGds_Py_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow90" sourceRef="Spg_PymFrGds_Py_SplChain_GW" targetRef="Spg_Mny_InTrsr_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow91" sourceRef="Spg_PymFrGds_Py_SplChain_GW" targetRef="Spg_Mny_Tprt_Lgstc">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow92" sourceRef="Spg_Sel_RdmGds_Mod_SplChain_GW" targetRef="Spg_Mny_InTrsr_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow93" sourceRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW" targetRef="Spg_Mny_InTrsr_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Spg_Ntc_Tfr_RghtForGds_Bnk_GW" name="通知转货权(银行)_网关"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway11" name="融资发放_银行_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Plg_Rplcmt_SplChain_GW" name="质押置换(供应链)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk_GW" name="出质通知转货权(银行)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr_GW" name="存入自有货物回款赎货(下游)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW" name="转货权1确定质押(仓储)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Ntc_Rslv_Bnk_GW" name="通知解押(银行)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Tfr_RghtForGds1_Stg_GW" name="转货权1(仓储)_网关"></exclusiveGateway>
+    <exclusiveGateway id="Spg_Tmt_SplChain_GW" name="发货终止(供应链)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow94" sourceRef="Spg_Rfnd_RdmGds_Dwstr" targetRef="exclusivegateway11"></sequenceFlow>
+    <sequenceFlow id="flow95" sourceRef="exclusivegateway11" targetRef="Spg_Ntc_Tfr_RghtForGds_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow96" sourceRef="exclusivegateway11" targetRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow97" sourceRef="Spg_Ntc_Tfr_RghtForGds_Bnk" targetRef="Spg_Ntc_Tfr_RghtForGds_Bnk_GW"></sequenceFlow>
+    <sequenceFlow id="flow98" sourceRef="Spg_Ntc_Tfr_RghtForGds_Bnk_GW" targetRef="Spg_Ntc_Tfr_RghtForGds_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow99" sourceRef="Spg_Ntc_Tfr_RghtForGds_Bnk_GW" targetRef="Spg_Rfnd_RdmGds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow100" sourceRef="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" targetRef="Spg_Ntc_Tfr_RghtForGds_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&selRdmgdsMod==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow101" sourceRef="Spg_Plg_Rplcmt_SplChain" targetRef="Spg_Plg_Rplcmt_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow102" sourceRef="Spg_Plg_Rplcmt_SplChain_GW" targetRef="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow103" sourceRef="Spg_Plg_Rplcmt_SplChain_GW" targetRef="Spg_Sel_RdmGds_Mod_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow104" sourceRef="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk" targetRef="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk_GW"></sequenceFlow>
+    <sequenceFlow id="flow105" sourceRef="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk_GW" targetRef="Spg_Ntc_Tfr_RghtForGds_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow106" sourceRef="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk_GW" targetRef="Spg_Plg_Rplcmt_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Spg_Rtrv_Gds_Dwstr_GW" name="提取货物(下游)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow107" sourceRef="Spg_Tfr_RghtForGds1_Stg" targetRef="Spg_Tfr_RghtForGds1_Stg_GW"></sequenceFlow>
+    <sequenceFlow id="flow108" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="Spg_Ntc_Tfr_RghtForGds_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow109" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="Spg_Rtrv_Gds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow110" sourceRef="Spg_Rtrv_Gds_Dwstr" targetRef="Spg_Rtrv_Gds_Dwstr_GW"></sequenceFlow>
+    <sequenceFlow id="flow111" sourceRef="Spg_Rtrv_Gds_Dwstr_GW" targetRef="Spg_Tfr_RghtForGds1_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow112" sourceRef="Spg_Rtrv_Gds_Dwstr_GW" targetRef="Spg_Tmt_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow113" sourceRef="Spg_Tmt_SplChain" targetRef="Spg_Tmt_SplChain_GW"></sequenceFlow>
+    <sequenceFlow id="flow114" sourceRef="Spg_Tmt_SplChain_GW" targetRef="Spg_Rtrv_Gds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow115" sourceRef="Spg_Tmt_SplChain_GW" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow116" sourceRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg" targetRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW"></sequenceFlow>
+    <sequenceFlow id="flow117" sourceRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW" targetRef="Spg_Ntc_Tfr_RghtForGds_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow118" sourceRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW" targetRef="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow119" sourceRef="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr" targetRef="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr_GW"></sequenceFlow>
+    <sequenceFlow id="flow120" sourceRef="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr_GW" targetRef="Spg_Ntc_Rslv_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow121" sourceRef="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr_GW" targetRef="Spg_Tfr_RghtForGds1_Detr_Plg_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow122" sourceRef="Spg_Ntc_Rslv_Bnk" targetRef="Spg_Ntc_Rslv_Bnk_GW"></sequenceFlow>
+    <sequenceFlow id="flow123" sourceRef="Spg_Ntc_Rslv_Bnk_GW" targetRef="Spg_Tfr_RghtForGds2_Stg">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow124" sourceRef="Spg_Ntc_Rslv_Bnk_GW" targetRef="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Spg_Tfr_RghtForGds2_Stg_GW" name="转货权2(仓储)_网关"></exclusiveGateway>
+    <sequenceFlow id="flow125" sourceRef="Spg_Tfr_RghtForGds2_Stg" targetRef="Spg_Tfr_RghtForGds2_Stg_GW"></sequenceFlow>
+    <sequenceFlow id="flow126" sourceRef="Spg_Tfr_RghtForGds2_Stg_GW" targetRef="Spg_Ntc_Rslv_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow127" sourceRef="Spg_Tfr_RghtForGds2_Stg_GW" targetRef="Spg_Rtrv_Gds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow128" sourceRef="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" targetRef="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&selRdmgdsMod==2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow129" sourceRef="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW" targetRef="Spg_Plg_Rplcmt_SplChain">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow130" sourceRef="Spg_Sel_RdmGds_Mod_SplChain_GW" targetRef="Spg_Rfnd_RdmGds_Dwstr">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==1&&selRdmgdsMod==1}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SpgFlow">
+    <bpmndi:BPMNPlane bpmnElement="SpgFlow" id="BPMNPlane_SpgFlow">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="643.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Itt_Ustrm" id="BPMNShape_Spg_Itt_Ustrm">
+        <omgdc:Bounds height="55.0" width="160.0" x="581.0" y="83.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Mny_Tprt_Lgstc" id="BPMNShape_Spg_Mny_Tprt_Lgstc">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Mny_InTrsr_Stg" id="BPMNShape_Spg_Mny_InTrsr_Stg">
+        <omgdc:Bounds height="55.0" width="160.0" x="789.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Itt_Ustrm_GW" id="BPMNShape_Spg_Itt_Ustrm_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="640.0" y="172.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Mny_Tprt_Lgstc_GW" id="BPMNShape_Spg_Mny_Tprt_Lgstc_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="429.0" y="281.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_PymFrGds_Py_SplChain" id="BPMNShape_Spg_PymFrGds_Py_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="382.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Sel_RdmGds_Mod_SplChain" id="BPMNShape_Spg_Sel_RdmGds_Mod_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="789.0" y="597.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain" id="BPMNShape_Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain">
+        <omgdc:Bounds height="65.0" width="160.0" x="369.0" y="592.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Mny_InTrsr_Stg_GW" id="BPMNShape_Spg_Mny_InTrsr_Stg_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="640.0" y="492.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW" id="BPMNShape_Spg_Sel_RdmGds_Mod_PymFrGds_Py_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="428.0" y="742.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Sel_RdmGds_Mod_SplChain_GW" id="BPMNShape_Spg_Sel_RdmGds_Mod_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="848.0" y="742.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Rfnd_RdmGds_Dwstr" id="BPMNShape_Spg_Rfnd_RdmGds_Dwstr">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="863.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Tfr_RghtForGds_Bnk" id="BPMNShape_Spg_Ntc_Tfr_RghtForGds_Bnk">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="1012.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Tfr_RghtForGds_SplChain" id="BPMNShape_Spg_Ntc_Tfr_RghtForGds_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="1182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds1_Stg" id="BPMNShape_Spg_Tfr_RghtForGds1_Stg">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="1357.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Rtrv_Gds_Dwstr" id="BPMNShape_Spg_Rtrv_Gds_Dwstr">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="1543.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Plg_Rplcmt_SplChain" id="BPMNShape_Spg_Plg_Rplcmt_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="789.0" y="863.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk" id="BPMNShape_Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk">
+        <omgdc:Bounds height="55.0" width="160.0" x="789.0" y="1012.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds1_Detr_Plg_Stg" id="BPMNShape_Spg_Tfr_RghtForGds1_Detr_Plg_Stg">
+        <omgdc:Bounds height="69.0" width="160.0" x="789.0" y="1350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr" id="BPMNShape_Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr">
+        <omgdc:Bounds height="67.0" width="160.0" x="789.0" y="1537.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Rslv_Bnk" id="BPMNShape_Spg_Ntc_Rslv_Bnk">
+        <omgdc:Bounds height="67.0" width="160.0" x="789.0" y="1713.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds2_Stg" id="BPMNShape_Spg_Tfr_RghtForGds2_Stg">
+        <omgdc:Bounds height="55.0" width="160.0" x="789.0" y="1892.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tmt_SplChain" id="BPMNShape_Spg_Tmt_SplChain">
+        <omgdc:Bounds height="55.0" width="160.0" x="369.0" y="1719.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="431.0" y="1902.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Tfr_RghtForGds_SplChain_GW" id="BPMNShape_Spg_Ntc_Tfr_RghtForGds_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="279.0" y="1189.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_PymFrGds_Py_SplChain_GW" id="BPMNShape_Spg_PymFrGds_Py_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="640.0" y="389.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Tfr_RghtForGds_Bnk_GW" id="BPMNShape_Spg_Ntc_Tfr_RghtForGds_Bnk_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="581.0" y="1019.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway11" id="BPMNShape_exclusivegateway11">
+        <omgdc:Bounds height="40.0" width="40.0" x="274.0" y="870.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Plg_Rplcmt_SplChain_GW" id="BPMNShape_Spg_Plg_Rplcmt_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="1008.0" y="870.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk_GW" id="BPMNShape_Spg_OutPledge_Ntc_Tfr_RghtForGds_Bnk_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="1008.0" y="1019.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr_GW" id="BPMNShape_Spg_Dep_SlfOwn_Gds_Rfnd_RdmGds_Dwstr_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="648.0" y="1550.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW" id="BPMNShape_Spg_Tfr_RghtForGds1_Detr_Plg_Stg_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="1008.0" y="1364.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Ntc_Rslv_Bnk_GW" id="BPMNShape_Spg_Ntc_Rslv_Bnk_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="1008.0" y="1726.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds1_Stg_GW" id="BPMNShape_Spg_Tfr_RghtForGds1_Stg_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="279.0" y="1364.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tmt_SplChain_GW" id="BPMNShape_Spg_Tmt_SplChain_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="279.0" y="1726.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Rtrv_Gds_Dwstr_GW" id="BPMNShape_Spg_Rtrv_Gds_Dwstr_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="279.0" y="1550.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds2_Stg_GW" id="BPMNShape_Spg_Tfr_RghtForGds2_Stg_GW">
+        <omgdc:Bounds height="40.0" width="40.0" x="648.0" y="1726.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="660.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="661.0" y="83.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow58" id="BPMNEdge_flow58">
+        <omgdi:waypoint x="661.0" y="138.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow59" id="BPMNEdge_flow59">
+        <omgdi:waypoint x="640.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="529.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow60" id="BPMNEdge_flow60">
+        <omgdi:waypoint x="680.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="789.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
+        <omgdi:waypoint x="449.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="281.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
+        <omgdi:waypoint x="429.0" y="301.0"></omgdi:waypoint>
+        <omgdi:waypoint x="324.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="324.0" y="108.0"></omgdi:waypoint>
+        <omgdi:waypoint x="379.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="581.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow63" id="BPMNEdge_flow63">
+        <omgdi:waypoint x="469.0" y="301.0"></omgdi:waypoint>
+        <omgdi:waypoint x="835.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow64" id="BPMNEdge_flow64">
+        <omgdi:waypoint x="449.0" y="321.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="382.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow66" id="BPMNEdge_flow66">
+        <omgdi:waypoint x="660.0" y="532.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="597.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow67" id="BPMNEdge_flow67">
+        <omgdi:waypoint x="660.0" y="532.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="592.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow68" id="BPMNEdge_flow68">
+        <omgdi:waypoint x="869.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="837.0" y="428.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="492.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow69" id="BPMNEdge_flow69">
+        <omgdi:waypoint x="449.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="448.0" y="742.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow70" id="BPMNEdge_flow70">
+        <omgdi:waypoint x="869.0" y="652.0"></omgdi:waypoint>
+        <omgdi:waypoint x="868.0" y="742.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow71" id="BPMNEdge_flow71">
+        <omgdi:waypoint x="448.0" y="782.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="863.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow77" id="BPMNEdge_flow77">
+        <omgdi:waypoint x="868.0" y="782.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="863.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow79" id="BPMNEdge_flow79">
+        <omgdi:waypoint x="369.0" y="1209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.0" y="1209.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow80" id="BPMNEdge_flow80">
+        <omgdi:waypoint x="299.0" y="1229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="396.0" y="1318.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow81" id="BPMNEdge_flow81">
+        <omgdi:waypoint x="299.0" y="1229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="444.0" y="1284.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow88" id="BPMNEdge_flow88">
+        <omgdi:waypoint x="680.0" y="512.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1052.0" y="495.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1053.0" y="106.0"></omgdi:waypoint>
+        <omgdi:waypoint x="765.0" y="106.0"></omgdi:waypoint>
+        <omgdi:waypoint x="741.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow89" id="BPMNEdge_flow89">
+        <omgdi:waypoint x="529.0" y="409.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="409.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow90" id="BPMNEdge_flow90">
+        <omgdi:waypoint x="680.0" y="409.0"></omgdi:waypoint>
+        <omgdi:waypoint x="820.0" y="408.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow91" id="BPMNEdge_flow91">
+        <omgdi:waypoint x="660.0" y="389.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="232.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow92" id="BPMNEdge_flow92">
+        <omgdi:waypoint x="888.0" y="762.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1128.0" y="762.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1128.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow93" id="BPMNEdge_flow93">
+        <omgdi:waypoint x="448.0" y="742.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="703.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1023.0" y="703.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1205.0" y="703.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1205.0" y="296.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow94" id="BPMNEdge_flow94">
+        <omgdi:waypoint x="369.0" y="890.0"></omgdi:waypoint>
+        <omgdi:waypoint x="314.0" y="890.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow95" id="BPMNEdge_flow95">
+        <omgdi:waypoint x="294.0" y="910.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1012.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow96" id="BPMNEdge_flow96">
+        <omgdi:waypoint x="294.0" y="870.0"></omgdi:waypoint>
+        <omgdi:waypoint x="295.0" y="759.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="657.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow97" id="BPMNEdge_flow97">
+        <omgdi:waypoint x="529.0" y="1039.0"></omgdi:waypoint>
+        <omgdi:waypoint x="581.0" y="1039.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow98" id="BPMNEdge_flow98">
+        <omgdi:waypoint x="601.0" y="1059.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1182.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow99" id="BPMNEdge_flow99">
+        <omgdi:waypoint x="601.0" y="1019.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="918.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow100" id="BPMNEdge_flow100">
+        <omgdi:waypoint x="299.0" y="1189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow101" id="BPMNEdge_flow101">
+        <omgdi:waypoint x="949.0" y="890.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1008.0" y="890.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow102" id="BPMNEdge_flow102">
+        <omgdi:waypoint x="1028.0" y="910.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1012.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow103" id="BPMNEdge_flow103">
+        <omgdi:waypoint x="1028.0" y="870.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="652.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow104" id="BPMNEdge_flow104">
+        <omgdi:waypoint x="949.0" y="1039.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1008.0" y="1039.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow105" id="BPMNEdge_flow105">
+        <omgdi:waypoint x="1028.0" y="1059.0"></omgdi:waypoint>
+        <omgdi:waypoint x="948.0" y="1127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1182.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow106" id="BPMNEdge_flow106">
+        <omgdi:waypoint x="1028.0" y="1019.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="918.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow107" id="BPMNEdge_flow107">
+        <omgdi:waypoint x="369.0" y="1384.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.0" y="1384.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow108" id="BPMNEdge_flow108">
+        <omgdi:waypoint x="299.0" y="1364.0"></omgdi:waypoint>
+        <omgdi:waypoint x="362.0" y="1323.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow109" id="BPMNEdge_flow109">
+        <omgdi:waypoint x="299.0" y="1404.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1543.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow110" id="BPMNEdge_flow110">
+        <omgdi:waypoint x="369.0" y="1570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.0" y="1570.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow111" id="BPMNEdge_flow111">
+        <omgdi:waypoint x="299.0" y="1550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1412.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow112" id="BPMNEdge_flow112">
+        <omgdi:waypoint x="299.0" y="1590.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1719.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow113" id="BPMNEdge_flow113">
+        <omgdi:waypoint x="369.0" y="1746.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.0" y="1746.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow114" id="BPMNEdge_flow114">
+        <omgdi:waypoint x="299.0" y="1726.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1598.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow115" id="BPMNEdge_flow115">
+        <omgdi:waypoint x="299.0" y="1766.0"></omgdi:waypoint>
+        <omgdi:waypoint x="448.0" y="1902.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow116" id="BPMNEdge_flow116">
+        <omgdi:waypoint x="949.0" y="1384.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1008.0" y="1384.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow117" id="BPMNEdge_flow117">
+        <omgdi:waypoint x="1028.0" y="1364.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1003.0" y="1345.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow118" id="BPMNEdge_flow118">
+        <omgdi:waypoint x="1028.0" y="1404.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1537.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow119" id="BPMNEdge_flow119">
+        <omgdi:waypoint x="789.0" y="1570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="688.0" y="1570.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow120" id="BPMNEdge_flow120">
+        <omgdi:waypoint x="668.0" y="1590.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1713.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow121" id="BPMNEdge_flow121">
+        <omgdi:waypoint x="668.0" y="1550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1419.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow122" id="BPMNEdge_flow122">
+        <omgdi:waypoint x="949.0" y="1746.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1008.0" y="1746.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow123" id="BPMNEdge_flow123">
+        <omgdi:waypoint x="1028.0" y="1766.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1892.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow124" id="BPMNEdge_flow124">
+        <omgdi:waypoint x="1028.0" y="1726.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1604.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow125" id="BPMNEdge_flow125">
+        <omgdi:waypoint x="869.0" y="1892.0"></omgdi:waypoint>
+        <omgdi:waypoint x="668.0" y="1766.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow126" id="BPMNEdge_flow126">
+        <omgdi:waypoint x="688.0" y="1746.0"></omgdi:waypoint>
+        <omgdi:waypoint x="789.0" y="1746.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow127" id="BPMNEdge_flow127">
+        <omgdi:waypoint x="668.0" y="1726.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="1598.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow128" id="BPMNEdge_flow128">
+        <omgdi:waypoint x="299.0" y="1189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="457.0" y="1109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="1067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow129" id="BPMNEdge_flow129">
+        <omgdi:waypoint x="448.0" y="782.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="863.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow130" id="BPMNEdge_flow130">
+        <omgdi:waypoint x="868.0" y="782.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="863.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

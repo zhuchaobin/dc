@@ -1,4 +1,4 @@
-/*package test;
+package test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,10 +38,11 @@ public class TestT1ARInf{
 	public void testSave() {
 //		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_AR);
 //		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_ORDER);
+//		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_SPG);
 		String deploymentId = wfDcService.deploymentProcessDefinition(DataConstants.PROCESS_NAME_SPG);
 		
-		boolean test = wfDcService.suspendProcessInstanceById("215001");
-		System.out.println("test=" + test);
+//		boolean test = wfDcService.suspendProcessInstanceById("215001");
+//		System.out.println("test=" + test);
 		System.out.println("deploymentId=" + deploymentId);
 //		String  processInstanceId = wfDcService.startProcessInstance(DataConstants.PROCESS_NAME_AR);
 //		System.out.println("processInstanceId=" + processInstanceId);
@@ -118,9 +119,7 @@ public class TestT1ARInf{
 				
     	System.out.println("xxxxxxxxxxxxxxxxresult =" );
     	Result<Boolean> rlt = new Result<Boolean>();
-        for(int i = 0; i < 10; i++ ) {
-			rlt = tB0001DcService.save(req);
-        }
+
 		
 		Condition condition = new Condition(T1ArInf.class);
         condition.orderBy("id").desc();
@@ -143,4 +142,3 @@ public class TestT1ARInf{
 	}
 
 }
-*/

@@ -1,24 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xai.tt.dc.biz.mapper.B4PlgDrcPrcMapper">
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B4PlgDrcPrc">
+	<resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B4PlgDrcPrc">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="ID" jdbcType="BIGINT" property="id" />
-    <result column="Ar_ID" jdbcType="CHAR" property="arId" />
-    <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
-    <result column="Bnk" jdbcType="BIGINT" property="bnk" />
-    <result column="Bnk_Nm" jdbcType="VARCHAR" property="bnkNm" />
-    <result column="Pd_ID" jdbcType="BIGINT" property="pdId" />
-    <result column="Pd_Nm" jdbcType="VARCHAR" property="pdNm" />
-    <result column="Spec" jdbcType="VARCHAR" property="spec" />
-    <result column="Plg_Drc_Prc" jdbcType="REAL" property="plgDrcPrc" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
-    <result column="Udt_Tm" jdbcType="TIMESTAMP" property="udtTm" />
-    <result column="Tms" jdbcType="TIMESTAMP" property="tms" />
-    <result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
-  </resultMap>
+    	<id column="ID" jdbcType="BIGINT" property="id" />
+    					    	<result column="Ar_ID" jdbcType="CHAR" property="arId" />
+					    	<result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
+					    	<result column="Bnk" jdbcType="INTEGER" property="bnk" />
+					    	<result column="Bnk_Nm" jdbcType="VARCHAR" property="bnkNm" />
+					    	<result column="Pd_ID" jdbcType="INTEGER" property="pdId" />
+					    	<result column="Pd_Nm" jdbcType="VARCHAR" property="pdNm" />
+					    	<result column="Spec" jdbcType="VARCHAR" property="spec" />
+					    	<result column="Plg_Drc_Prc" jdbcType="REAL" property="plgDrcPrc" />
+					    	<result column="username" jdbcType="VARCHAR" property="username" />
+					    	<result column="Crt_Tm" jdbcType="TIMESTAMP" property="crtTm" />
+					    	<result column="Udt_Tm" jdbcType="TIMESTAMP" property="udtTm" />
+					    	<result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+					    	<result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
+				</resultMap>
   
-</mapper>
+	<sql id="query_criteria">
+			        	<if test="id != null">
+        		and t.ID = #{id ,jdbcType=INTEGER}    
+      		</if>
+								<if test="arId != null and arId  != ''">
+        		and t.Ar_ID = #{arId ,jdbcType=CHAR}
+        	</if>
+        						<if test="ordrId != null and ordrId  != ''">
+        		and t.Ordr_ID = #{ordrId ,jdbcType=CHAR}
+        	</if>
+        			        	<if test="bnk != null">
+        		and t.Bnk = #{bnk ,jdbcType=INTEGER}    
+      		</if>
+								<if test="bnkNm != null and bnkNm  != ''">
+        		and t.Bnk_Nm = #{bnkNm ,jdbcType=VARCHAR}
+        	</if>
+        			        	<if test="pdId != null">
+        		and t.Pd_ID = #{pdId ,jdbcType=INTEGER}    
+      		</if>
+								<if test="pdNm != null and pdNm  != ''">
+        		and t.Pd_Nm = #{pdNm ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="spec != null and spec  != ''">
+        		and t.Spec = #{spec ,jdbcType=VARCHAR}
+        	</if>
+        			        	<if test="plgDrcPrc != null">
+        		and t.Plg_Drc_Prc = #{plgDrcPrc ,jdbcType=REAL}    
+      		</if>
+								<if test="username != null and username  != ''">
+        		and t.username = #{username ,jdbcType=VARCHAR}
+        	</if>
+        			        	<if test="crtTm != null">
+        		and t.Crt_Tm = #{crtTm ,jdbcType=TIMESTAMP}    
+      		</if>
+					        	<if test="udtTm != null">
+        		and t.Udt_Tm = #{udtTm ,jdbcType=TIMESTAMP}    
+      		</if>
+					        	<if test="tms != null">
+        		and t.Tms = #{tms ,jdbcType=TIMESTAMP}    
+      		</if>
+								<if test="rmrk != null and rmrk  != ''">
+        		and t.Rmrk = #{rmrk ,jdbcType=VARCHAR}
+        	</if>
+        		</sql>
+	
+	<select id="queryPage" parameterType="com.xai.tt.dc.client.vo.inVo.PlgDrcPrcInVo" resultType="com.xai.tt.dc.client.vo.outVo.PlgDrcPrcOutVo">
+	select 
+		t.ID as id,
+		t.Ar_ID as arId,
+		t.Ordr_ID as ordrId,
+		t.Bnk as bnk,
+		t.Bnk_Nm as bnkNm,
+		t.Pd_ID as pdId,
+		t.Pd_Nm as pdNm,
+		t.Spec as spec,
+		t.Plg_Drc_Prc as plgDrcPrc,
+		t.username as username,
+		t.Crt_Tm as crtTm,
+		t.Udt_Tm as udtTm,
+		t.Tms as tms,
+		t.Rmrk as rmrk,
+		t.id as a
+	from b4_plg_drc_prc t
+	 where 1=1
+ <include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.PlgDrcPrcInVo" resultType="java.lang.Integer">
+	select 
+		count(*)
+	from b4_plg_drc_prc t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="getDetailById" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.outVo.PlgDrcPrcOutVo">
+		select 
+		t.ID as id,
+		t.Ar_ID as arId,
+		t.Ordr_ID as ordrId,
+		t.Bnk as bnk,
+		t.Bnk_Nm as bnkNm,
+		t.Pd_ID as pdId,
+		t.Pd_Nm as pdNm,
+		t.Spec as spec,
+		t.Plg_Drc_Prc as plgDrcPrc,
+		t.username as username,
+		t.Crt_Tm as crtTm,
+		t.Udt_Tm as udtTm,
+		t.Tms as tms,
+		t.Rmrk as rmrk,
+		t.id as a
+	from b4_plg_drc_prc t
+ where t.id  = #{id ,jdbcType=INTEGER}
+ limit 1 
+ 	</select>
+ 	
+ 		<select id="getDetailByCondition" parameterType="com.xai.tt.dc.client.vo.inVo.PlgDrcPrcInVo" resultType="com.xai.tt.dc.client.vo.outVo.PlgDrcPrcOutVo">
+		select 
+		t.ID as id,
+		t.Ar_ID as arId,
+		t.Ordr_ID as ordrId,
+		t.Bnk as bnk,
+		t.Bnk_Nm as bnkNm,
+		t.Pd_ID as pdId,
+		t.Pd_Nm as pdNm,
+		t.Spec as spec,
+		t.Plg_Drc_Prc as plgDrcPrc,
+		t.username as username,
+		t.Crt_Tm as crtTm,
+		t.Udt_Tm as udtTm,
+		t.Tms as tms,
+		t.Rmrk as rmrk,
+		t.id as a
+	from b4_plg_drc_prc t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ limit 1 
+ 	</select>
+	</mapper>
