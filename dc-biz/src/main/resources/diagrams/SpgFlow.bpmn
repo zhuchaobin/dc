@@ -44,7 +44,7 @@
     <sequenceFlow id="flow95" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_Mny_Tprt_Lgstc">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&(pymtmod==1)}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="Spg_Tfr_RghtForGds1_Stg" name="转货权1(仓储)" activiti:async="true" activiti:candidateGroups="08"></userTask>
+    <userTask id="Spg_Tfr_RghtForGds1_Stg" name="转货权1(仓储)" activiti:candidateGroups="08"></userTask>
     <serviceTask id="servicetask1" name="自动出质" activiti:class="com.xai.tt.dc.biz.utils.ServiceTask"></serviceTask>
     <sequenceFlow id="flow96" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_Tfr_RghtForGds1_Stg" skipExpression="${flag==1&amp;&amp;((pymtmod==1)||(pymtmod==2))}"></sequenceFlow>
     <sequenceFlow id="flow97" sourceRef="Spg_PymFrGds_Py_SplChain_GW" targetRef="Spg_Tfr_RghtForGds1_Stg" skipExpression="${flag==1&amp;&amp;(pymtmod==3)}"></sequenceFlow>
@@ -175,6 +175,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow97" id="BPMNEdge_flow97">
         <omgdi:waypoint x="660.0" y="429.0"></omgdi:waypoint>
+        <omgdi:waypoint x="397.0" y="489.0"></omgdi:waypoint>
         <omgdi:waypoint x="450.0" y="630.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow99" id="BPMNEdge_flow99">

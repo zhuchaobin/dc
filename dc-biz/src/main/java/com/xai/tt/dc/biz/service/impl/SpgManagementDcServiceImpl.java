@@ -946,8 +946,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 			if ("63".equals(aplyPcstpCd)){
 
-
-				saveT11ivntInf(query, t6);
+///				saveT11ivntInf(query, t6);
 
 			}
 
