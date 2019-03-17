@@ -39,7 +39,6 @@
     <sequenceFlow id="flow91" sourceRef="Spg_PymFrGds_Py_SplChain_GW" targetRef="Spg_Mny_Tprt_Lgstc">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&(pymtmod==2)}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow92" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_PymFrGds_Py_SplChain" skipExpression="${(flag==1&amp;&amp;(pymtmod==3))||(flag==0&amp;&amp;(pymtmod==2))}"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow95" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_Mny_Tprt_Lgstc">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flag==0&&(pymtmod==1)}]]></conditionExpression>
@@ -54,6 +53,7 @@
     <sequenceFlow id="flow101" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="servicetask1" skipExpression="${flag==1}"></sequenceFlow>
     <sequenceFlow id="flow102" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="Spg_Mny_InTrsr_Stg" skipExpression="${flag==0&amp;&amp;((pymtmod==1)||(pymtmod==2))}"></sequenceFlow>
     <sequenceFlow id="flow103" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="Spg_PymFrGds_Py_SplChain" skipExpression="${flag==1&amp;&amp;(pymtmod==3)}"></sequenceFlow>
+    <sequenceFlow id="flow104" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_PymFrGds_Py_SplChain" skipExpression="${((flag==1)&amp;&amp;(pymtmod==3))||((flag==0)&amp;&amp;(pymtmod==2))}"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_SpgFlow">
     <bpmndi:BPMNPlane bpmnElement="SpgFlow" id="BPMNPlane_SpgFlow">
@@ -158,11 +158,6 @@
         <omgdi:waypoint x="660.0" y="232.0"></omgdi:waypoint>
         <omgdi:waypoint x="449.0" y="220.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow92" id="BPMNEdge_flow92">
-        <omgdi:waypoint x="619.0" y="580.0"></omgdi:waypoint>
-        <omgdi:waypoint x="449.0" y="578.0"></omgdi:waypoint>
-        <omgdi:waypoint x="449.0" y="437.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow95" id="BPMNEdge_flow95">
         <omgdi:waypoint x="619.0" y="580.0"></omgdi:waypoint>
         <omgdi:waypoint x="282.0" y="595.0"></omgdi:waypoint>
@@ -202,6 +197,10 @@
         <omgdi:waypoint x="230.0" y="526.0"></omgdi:waypoint>
         <omgdi:waypoint x="229.0" y="408.0"></omgdi:waypoint>
         <omgdi:waypoint x="369.0" y="409.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow104" id="BPMNEdge_flow104">
+        <omgdi:waypoint x="639.0" y="560.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="437.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

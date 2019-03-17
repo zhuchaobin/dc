@@ -210,10 +210,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				};
 			};
 
-
-
-
-
 			if("01".equals(solveType) || "05".equals(solveType)|| "07".equals(solveType)) {
 				t6SpgInfo.setId(null);
 				t11IvntInf.setId(null);
@@ -230,10 +226,6 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 				int num1 = t11IvntInfMapper.updateByPrimaryKeySelective(t11IvntInf);
 				logger.info("更新发货信息成功：发货id" + t6SpgInfo.getArId() + "更新条数：" + num);
 			}
-
-
-
-
 
 			// 保存发货明细信息
 			// 先删除已经存在的
@@ -797,6 +789,9 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			logger.info("selRdmgdsMod:{}",selRdmgdsMod);
 			
 			// 拾取并完成任务
+			logger.info("发货管理拾取完成任务aplyPcstpCd=" + aplyPcstpCd);
+			logger.info("发货管理拾取完成任务query.getAplyPsrltCd()=" + query.getAplyPsrltCd());
+			logger.info("发货管理拾取完成任务query.getPymtMod()=" + query.getPymtMod());
 			wfDcService.claimAndCompleteSpgTask(query.getSpgId(), query.getUsername(), aplyPcstpCd,
 					query.getAplyPsrltCd(),query.getPymtMod(), selRdmgdsMod);
 			logger.debug("拾取并完成任务成功！");
