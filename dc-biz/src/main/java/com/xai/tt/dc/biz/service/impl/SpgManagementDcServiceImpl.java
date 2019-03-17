@@ -788,7 +788,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			criteria0.andCondition("Spg_ID = '" + query.getSpgId() + "'");
 			t6 = t6SpgInfMapper.selectByCondition(condition0).get(0);
 
-
+ 
 			String selRdmgdsMod=StringUtils.isEmpty(t6.getSelRdmgdsMod())?query.getSelRdmgdsMod():t6.getSelRdmgdsMod();
 
 
