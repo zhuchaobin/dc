@@ -133,7 +133,7 @@
       	</if>
       	<!--查找企业名下，某长约下所有在质押且有在库余量的总货值-->
       	<if test="secSrvCd!= null and secSrvCd  != '' and secSrvCd=='10'">
-        	and (t.Plg_Aply_St ='03' or t.Plg_Aply_St ='04') and t.InTheStg_TNum>0
+        	and (t.Plg_Aply_St ='02' or t.Plg_Aply_St ='04') and t.InTheStg_TNum>0
       	</if>
       	
       	<!--按照权限查询数据-->

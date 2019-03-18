@@ -204,6 +204,8 @@ public class WfDcServiceImpl implements WfDcService{
 				logger.error("查询任务id成功失败，任务id为空");
 			
 			Map<String, Object> variables= new HashMap<String, Object>();
+			// 发货id传给下一环节，目前自动质押使用
+			variables.put("Spg_ID", id);
 			if("01".equals(aplyPsrltCd))
 				variables.put("flag", 1);
 			else

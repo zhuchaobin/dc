@@ -14,6 +14,7 @@ import com.xai.tt.dc.biz.utils.MsgUtils;
 import com.xai.tt.dc.client.model.*;
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
 import com.xai.tt.dc.client.query.UserInfoQuery;
+import com.xai.tt.dc.client.service.PlgAplyDcService;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.service.WfDcService;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
@@ -95,7 +96,10 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 	@Autowired
 	private T16GdsOistgJrnlMapper t16GdsOistgJrnlMapper;
-
+	
+	@Autowired
+	private PlgAplyDcService plgAplyDcService;
+	
 	/**
 	 * 描述：保存发货信息
 	 * 
@@ -713,7 +717,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			t0.setUsername(inVo.getUsername());
 			t0.setCompanyId(inVo.getCompanyId());
 			t0.setRltvId(t1.getSpgId());
-			t0.setProcessType("02");
+			t0.setProcessType("03");
 			t0.setAplyPcstpCd("11");
 			t0.setAplyPsrltCd("04");
 			t0.setId(null);
@@ -800,7 +804,31 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			return Result.createFailResult("流程已被撤销，无法提交:" + e);
 		}
 
-
+		//自动质押，zhuchaobin，20190318
+		if("01".equals(query.getAplyPsrltCd()) && "72".equals(aplyPcstpCd)){
+			if(plgAplyDcService.autoPlg(query.getSpgId())) {
+				logger.info("自动质押成功！");
+				
+				try {
+					// 保存环节流水
+					T0LnkJrnlInf t0 = new T0LnkJrnlInf();
+					t0.setUsername("999999");
+					t0.setCompanyId(-1);
+					t0.setRltvId(query.getSpgId());
+					t0.setProcessType("03");
+					t0.setAplyPcstpCd("80");
+					t0.setAplyPsrltCd("01");
+					t0.setTms(new Date());
+					wfeUtils.saveLnkJrnlInf(t0);
+				} catch (Exception e) {
+					logger.error("撤销订单保存环节流水异常 {}", e);
+					return Result.createFailResult("撤销订单保存环节流水异常:" + e);
+				}
+				
+			} else {
+				logger.error("自动质押失败！");
+			}
+		}
 
 		try {
 			// 保存环节流水
@@ -1030,6 +1058,13 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 		return Result.createSuccessResult(true);
 	}
+	
+	
+	// 自动质押 20190318, zhuchaobin
+	private boolean autoSpy(String spgId) {
+		return true;
+	}
+	
 
 	private int updateT11ivntInf(SubmitSpgQuery query,String ivnSt) {
 		String spgId = query.getSpgId();

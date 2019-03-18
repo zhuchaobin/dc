@@ -375,5 +375,42 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 			return Result.createFailResult("查询质押详情异常" + e);
 		}
 	}
-
+	/**
+	 * 描述：查询质押详情
+	 * 
+	 * @author
+	 */
+	@Override
+	public boolean autoPlg(String spgId){
+		// 自动设置质押
+/*		Condition condition = new Condition(T17IvntDtl.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("Spg_ID = '" + spgId + "'");
+		criteria.andCondition("Plg_Aply_St = '03'");
+		List<T17IvntDtl> t17List = t17IvntDtlMapper.selectByCondition(condition);
+		if(null != t17List && t17List.size() > 0) {
+			for(T17IvntDtl t17 : t17List) {
+				if(null != t17) {
+					t17.setPlgAplySt("04");
+					t17IvntDtlMapper.updateByPrimaryKeySelective(t17);
+				}
+			}
+		} else {
+			logger.error("自动质押服务, 查询不到库存信息！");
+			return false;
+		}*/
+		try {
+		Condition condition = new Condition(T17IvntDtl.class);
+		Example.Criteria criteria = condition.createCriteria();
+		criteria.andCondition("Spg_ID = '" + spgId + "'");
+		criteria.andCondition("Plg_Aply_St = '03'");
+		T17IvntDtl record = new T17IvntDtl();
+		record.setPlgAplySt("04");
+		t17IvntDtlMapper.updateByConditionSelective(record, condition);
+		return true;
+		} catch (Exception e) {
+			logger.error("自动质押发生异常：" + e);
+			return false;
+		}
+	}
 }

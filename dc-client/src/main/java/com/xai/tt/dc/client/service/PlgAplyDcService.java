@@ -21,4 +21,6 @@ public interface PlgAplyDcService {
 	Result<Boolean> delete(String id);
 	// 质押审核
 	Result<Boolean> adt(PlgAplyInVo inVo);
+	// 自动质押
+	boolean autoPlg(String spgId);
 }
