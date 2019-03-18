@@ -29,8 +29,6 @@ public class WfeUtils {
 	private static final Logger logger = LoggerFactory.getLogger(WfeUtils.class);
 	@Autowired
 	private T0LnkJrnlInfMapper t0LnkJrnlInfMapper;
-	@Autowired
-	private ActRuTaskMapper actRuTaskMapper;
 	/*
 	 * 保存环节流水信息
 	 * 2018-11-20
