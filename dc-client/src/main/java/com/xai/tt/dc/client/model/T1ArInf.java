@@ -7,6 +7,20 @@ import javax.persistence.*;
 public class T1ArInf {
 
     /**
+     * 合同编号
+     */
+    @Column(name = "Ctr_ID")
+    private String ctrId;
+    
+    public String getCtrId() {
+		return ctrId;
+	}
+
+	public void setCtrId(String ctrId) {
+		this.ctrId = ctrId;
+	}
+
+	/**
      * ID
      */
     @Id

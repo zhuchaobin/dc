@@ -46,6 +46,8 @@
     <result column="Pps_Lnd" jdbcType="VARCHAR" property="ppsLnd" />
     <result column="Tprt_Mod_And_Imt" jdbcType="VARCHAR" property="tprtModAndImt" />
     <result column="PymtMod" jdbcType="CHAR" property="pymtmod" />
+    <result column="Ctr_ID" jdbcType="VARCHAR" property="ctrId" />
+    <result column="Bnk_Ahn" jdbcType="BIT" property="bnkAhn" />
   </resultMap>
   
     <sql id="query_criteria">  
@@ -275,6 +277,7 @@
  or t8.gdsNm like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.ppsLnd like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  or t8.tprtModAndImt like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
+  or t8.bnkAhn like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
   or t8.ctrId like binary CONCAT('%', #{keyWorlds ,jdbcType=CHAR},'%')
  )
       </if>	
@@ -344,6 +347,7 @@ t6.PymtMod AS pymtmod,
 	t6.BTp as btp,
 	t6.SvcFee_CMd as svcfeeCmd,
 	t6.Ctr_ID as ctrId,
+	t6.Bnk_Ahn as bnkAhn,
 	t6.Fnc_Pctg as fncPctg
 FROM
 	(
@@ -565,7 +569,9 @@ t3.Tprt_Dt AS tprtDt,
 t3.Pps_Lnd AS ppsLnd,
 t3.Tprt_Mod_And_Imt AS tprtModAndImt,
 t3.PymtMod AS pymtmod,
-t3.Fnc_Pctg as fncPctg
+t3.Fnc_Pctg as fncPctg,
+	t3.Bnk_Ahn as bnkAhn,
+		t3.Ctr_ID as ctrId
 	
 FROM
 	(
@@ -643,7 +649,9 @@ t3.Tprt_Dt AS tprtDt,
 t3.Pps_Lnd AS ppsLnd,
 t3.Tprt_Mod_And_Imt AS tprtModAndImt,
 t3.PymtMod AS pymtmod,
-t3.Fnc_Pctg as fncPctg	
+t3.Fnc_Pctg as fncPctg,
+	t3.Bnk_Ahn as bnkAhn,
+		t3.Ctr_ID as ctrId
 FROM
 	(
 		SELECT

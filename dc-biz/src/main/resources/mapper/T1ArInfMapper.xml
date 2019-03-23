@@ -46,6 +46,7 @@
     <result column="Ins_EdDt" jdbcType="CHAR" property="insEddt" />
     <result column="Is_Need_Ins" jdbcType="INTEGER" property="isNeedIns" />
     <result column="WnLn" jdbcType="REAL" property="wnln" />
+    <result column="Ctr_ID" jdbcType="VARCHAR" property="ctrId" />
   </resultMap>
   <sql id="query_criteria">  
   	 	  <if test="id  != null and id  != ''">
@@ -165,6 +166,10 @@
 	  <if test="insEddt  != null and insEddt  != ''">
         and Ins_EdDt  = #{insEddt ,jdbcType=CHAR}
       </if>
+      	  <if test="ctrId  != null and ctrId  != ''">
+        and Ctr_ID  = #{ctrId ,jdbcType=VARCHAR}
+      </if>
+      
       <if test="queryType  != null and queryType  == 1">
         and AR_St  = '07'
       </if>
@@ -328,7 +333,8 @@ WHEN 'AR_Tmt_Pltfrm' THEN
 ELSE
 	''
 END AS aplyPcstpCd,
-t6.WnLn as wnln
+t6.WnLn as wnln,
+t6.Ctr_ID as ctrId
 
 FROM
 	(
@@ -554,7 +560,8 @@ WHEN 'AR_Tmt_Pltfrm' THEN
 ELSE
 	''
 END AS aplyPcstpCd,
-t3.WnLn as wnln
+t3.WnLn as wnln,
+t3.Ctr_ID as ctrId
 FROM
 	(
 		SELECT
@@ -637,7 +644,8 @@ WHEN 'AR_Tmt_Pltfrm' THEN
 ELSE
 	''
 END AS aplyPcstpCd,
-t3.WnLn as wnln
+t3.WnLn as wnln,
+t3.Ctr_ID as ctrId
 FROM
 	(
 		SELECT

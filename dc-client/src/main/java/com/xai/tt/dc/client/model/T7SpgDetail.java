@@ -3,7 +3,7 @@ package com.xai.tt.dc.client.model;
 import javax.persistence.*;
 
 @Table(name = "t7_spg_detail")
-public class T7SpgDetail {
+public class T7SpgDetail extends T13GdsDetail{
     /**
      * ID
      */

@@ -54,6 +54,7 @@
     <sequenceFlow id="flow102" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="Spg_Mny_InTrsr_Stg" skipExpression="${flag==0&amp;&amp;((pymtmod==1)||(pymtmod==2))}"></sequenceFlow>
     <sequenceFlow id="flow103" sourceRef="Spg_Tfr_RghtForGds1_Stg_GW" targetRef="Spg_PymFrGds_Py_SplChain" skipExpression="${flag==1&amp;&amp;(pymtmod==3)}"></sequenceFlow>
     <sequenceFlow id="flow104" sourceRef="Spg_Mny_InTrsr_Stg_GW" targetRef="Spg_PymFrGds_Py_SplChain" skipExpression="${((flag==1)&amp;&amp;(pymtmod==3))||((flag==0)&amp;&amp;(pymtmod==2))}"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Service Task"></serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_SpgFlow">
     <bpmndi:BPMNPlane bpmnElement="SpgFlow" id="BPMNPlane_SpgFlow">
@@ -95,6 +96,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Spg_Tfr_RghtForGds1_Stg_GW" id="BPMNShape_Spg_Tfr_RghtForGds1_Stg_GW">
         <omgdc:Bounds height="40.0" width="40.0" x="180.0" y="650.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="250.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="660.0" y="36.0"></omgdi:waypoint>

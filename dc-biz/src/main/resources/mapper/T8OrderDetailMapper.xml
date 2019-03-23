@@ -9,6 +9,7 @@
     <result column="MsUnit" jdbcType="VARCHAR" property="msunit" />
     <result column="Ordr_ID" jdbcType="CHAR" property="ordrId" />
     <result column="ids" jdbcType="BIGINT" property="ids" />
+    <result column="Pd_ID" jdbcType="BIGINT" property="pdId" />
     <result column="Pd_Nm" jdbcType="VARCHAR" property="pdNm" />
     <result column="Num" jdbcType="REAL" property="num" />
     <result column="Spec" jdbcType="VARCHAR" property="spec" />

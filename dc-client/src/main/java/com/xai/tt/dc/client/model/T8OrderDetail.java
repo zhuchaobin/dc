@@ -33,8 +33,22 @@ public class T8OrderDetail {
      */
     @Column(name = "Pd_Nm")
     private String pdNm;
-
+    
     /**
+     * 品名id
+     */
+    @Column(name = "Pd_Id")
+    private String pdId;
+
+    public String getPdId() {
+		return pdId;
+	}
+
+	public void setPdId(String pdId) {
+		this.pdId = pdId;
+	}
+
+	/**
      * 数量
      */
     @Column(name = "Num")

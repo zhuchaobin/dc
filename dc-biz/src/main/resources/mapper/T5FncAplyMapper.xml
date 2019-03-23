@@ -1,21 +1,123 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xai.tt.dc.biz.mapper.T5FncAplyMapper" >
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T5FncAply" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.T5FncAplyMapper">
+	<resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.T5FncAply">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
-    <result column="Email" property="email" jdbcType="VARCHAR" />
-    <result column="CtcPsn" property="ctcpsn" jdbcType="VARCHAR" />
-    <result column="Ctc_Tel" property="ctcTel" jdbcType="VARCHAR" />
-    <result column="Fnc_Rqm_Dsc" property="fncRqmDsc" jdbcType="VARCHAR" />
-    <result column="Aply_Tm" property="aplyTm" jdbcType="TIMESTAMP" />
-    <result column="Aply_Chnl" property="aplyChnl" jdbcType="CHAR" />
-    <result column="Mod_Tm" property="modTm" jdbcType="TIMESTAMP" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="Pcs_Tm" property="pcsTm" jdbcType="TIMESTAMP" />
-    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
-  </resultMap>
-</mapper>
+    	<id column="ID" jdbcType="BIGINT" property="id" />
+    					    	<result column="company_name" jdbcType="VARCHAR" property="companyName" />
+					    	<result column="Email" jdbcType="VARCHAR" property="email" />
+					    	<result column="CtcPsn" jdbcType="VARCHAR" property="ctcpsn" />
+					    	<result column="Ctc_Tel" jdbcType="VARCHAR" property="ctcTel" />
+					    	<result column="Fnc_Rqm_Dsc" jdbcType="VARCHAR" property="fncRqmDsc" />
+					    	<result column="Aply_Tm" jdbcType="TIMESTAMP" property="aplyTm" />
+					    	<result column="Aply_Chnl" jdbcType="CHAR" property="aplyChnl" />
+					    	<result column="Mod_Tm" jdbcType="TIMESTAMP" property="modTm" />
+					    	<result column="username" jdbcType="VARCHAR" property="username" />
+					    	<result column="Pcs_Tm" jdbcType="TIMESTAMP" property="pcsTm" />
+					    	<result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
+				</resultMap>
+  
+	<sql id="query_criteria">
+			        	<if test="id != null">
+        		and t.id = #{id ,jdbcType=bigint}    
+      		</if>
+								<if test="companyName != null and companyName  != ''">
+        		and t.company_name = #{companyName ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="email != null and email  != ''">
+        		and t.Email = #{email ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="ctcpsn != null and ctcpsn  != ''">
+        		and t.CtcPsn = #{ctcpsn ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="ctcTel != null and ctcTel  != ''">
+        		and t.Ctc_Tel = #{ctcTel ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="fncRqmDsc != null and fncRqmDsc  != ''">
+        		and t.Fnc_Rqm_Dsc = #{fncRqmDsc ,jdbcType=VARCHAR}
+        	</if>
+								<if test="aplyChnl != null and aplyChnl  != ''">
+        		and t.Aply_Chnl = #{aplyChnl ,jdbcType=CHAR}
+        	</if>
+								<if test="rmrk != null and rmrk  != ''">
+        		and t.Rmrk = #{rmrk ,jdbcType=VARCHAR}
+        	</if>
+        		</sql>
+	
+	<select id="queryPage" parameterType="com.xai.tt.dc.client.vo.inVo.FncAplyInVo" resultType="com.xai.tt.dc.client.vo.outVo.FncAplyOutVo">
+	select 
+		t.id as id,
+		t.company_name as companyName,
+		t.Email as email,
+		t.CtcPsn as ctcpsn,
+		t.Ctc_Tel as ctcTel,
+		t.Fnc_Rqm_Dsc as fncRqmDsc,
+		t.Aply_Tm as aplyTm,
+		t.Aply_Chnl as aplyChnl,
+		t.Mod_Tm as modTm,
+		t.username as username,
+		t.Pcs_Tm as pcsTm,
+		t.Rmrk as rmrk,
+		t.id as a
+	from t5_fnc_aply t
+	 where 1=1
+ <include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.FncAplyInVo" resultType="java.lang.Integer">
+	select 
+		count(*)
+	from t5_fnc_aply t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="getDetailById" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.outVo.FncAplyOutVo">
+		select 
+		t.id as id,
+		t.company_name as companyName,
+		t.Email as email,
+		t.CtcPsn as ctcpsn,
+		t.Ctc_Tel as ctcTel,
+		t.Fnc_Rqm_Dsc as fncRqmDsc,
+		t.Aply_Tm as aplyTm,
+		t.Aply_Chnl as aplyChnl,
+		t.Mod_Tm as modTm,
+		t.username as username,
+		t.Pcs_Tm as pcsTm,
+		t.Rmrk as rmrk,
+		t.id as a
+	from t5_fnc_aply t
+ where t.id  = #{id ,jdbcType=INTEGER}
+ limit 1 
+ 	</select>
+ 	
+ 		<select id="getDetailByCondition" parameterType="com.xai.tt.dc.client.vo.inVo.FncAplyInVo" resultType="com.xai.tt.dc.client.vo.outVo.FncAplyOutVo">
+		select 
+		t.id as id,
+		t.company_name as companyName,
+		t.Email as email,
+		t.CtcPsn as ctcpsn,
+		t.Ctc_Tel as ctcTel,
+		t.Fnc_Rqm_Dsc as fncRqmDsc,
+		t.Aply_Tm as aplyTm,
+		t.Aply_Chnl as aplyChnl,
+		t.Mod_Tm as modTm,
+		t.username as username,
+		t.Pcs_Tm as pcsTm,
+		t.Rmrk as rmrk,
+		t.id as a
+	from t5_fnc_aply t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ limit 1 
+ 	</select>
+	</mapper>

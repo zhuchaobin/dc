@@ -258,20 +258,12 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 					BeanUtils.copyProperties(elem, t13GdsDetail);
 					t13GdsDetail.setRltvId(spgId);
-					t13GdsDetail.setRltvTp(KuCunType.FA_HUO_KU_CUN.getCode());//01:发货形成库存 02：存入自由货物形成库存
-					t13GdsDetail.setModl("01");
-					t13GdsDetail.setIds((long) i);
-					t13GdsDetail.setModl("");
-					t13GdsDetail.setPchUnitprc(0.0F);
-					t13GdsDetail.setTxnPrcdif(0.0F);
-					t13GdsDetail.setSaleTntvPrc(0.0F);
-					t13GdsDetail.setUsername("");
+					t13GdsDetail.setRltvTp("01");//01:发货形成库存 02：存入自由货物形成库存
 					t13GdsDetail.setCrtTm(new Date());
 					t13GdsDetail.setTms(new Date());
-					t13GdsDetail.setMsunit("");
+					t13GdsDetail.setUsername(inVo.getUsername());
 
-
-					t7SpgDetailMapper.insert(t7SpgDetail);
+//					t7SpgDetailMapper.insert(t7SpgDetail);
 
 					t13GdsDetailMapper.insert(t13GdsDetail);
 
@@ -644,11 +636,18 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			}
 			Condition condition1 = new Condition(T7SpgDetail.class);
 			Example.Criteria criteria1 = condition1.createCriteria();
-			criteria1.andCondition("Spg_ID = '" + t3.getSpgId() + "'");
-			List<T7SpgDetail> t7SpgDetailList = t7SpgDetailMapper.selectByCondition(condition1);
-			if(null != t7SpgDetailList) {
-				t3.setT7SpgDetailList(t7SpgDetailList);
-				logger.info("查询发货明细信息成功!查询到数据条数：" + t7SpgDetailList.size());
+			criteria1.andCondition("Rltv_ID = '" + t3.getSpgId() + "'");
+			criteria1.andCondition("Rltv_Tp = '01'");
+			List<T13GdsDetail> t13GdsDetailList = t13GdsDetailMapper.selectByCondition(condition1);
+			List<T7SpgDetail> t7List = new ArrayList<T7SpgDetail>();
+			for(T13GdsDetail t13 : t13GdsDetailList) {
+				T7SpgDetail t7 = new T7SpgDetail();
+				BeanUtils.copyProperties(t13, t7);
+				t7List.add(t7);
+			}
+			if(null != t7List || t7List.size() > 0) {				
+				t3.setT7SpgDetailList(t7List);
+				logger.info("查询发货明细信息成功!查询到数据条数：" + t7List.size());
 			}
 			logger.info("查询发货详情成功!");
 			// 查询用户角色参数权限信息
