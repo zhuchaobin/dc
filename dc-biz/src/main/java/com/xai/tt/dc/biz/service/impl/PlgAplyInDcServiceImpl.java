@@ -81,6 +81,15 @@ public class PlgAplyInDcServiceImpl implements PlgAplyDcService {
 				// 质押品入库
 				T17IvntDtl t17 = new T17IvntDtl();
 				BeanUtils.copyProperties(inVo, t17, CommonUtils.getNullPropertyNames(inVo));
+				t17.setPdId(t13.getPdId().longValue());
+				t17.setPdNm(t13.getPdNm());
+				t17.setBrnd(t13.getBrnd());
+				t17.setSpec(t13.getSpec());
+				t17.setPdFctr(t13.getPdFctr());
+				t17.setMsunit(t13.getMsunit());
+				t17.setQlyStd(t13.getQlyStd());
+				t17.setModl(t13.getModl());
+				BeanUtils.copyProperties(inVo.getUsername(), t17, CommonUtils.getNullPropertyNames(inVo.getUsername()));
 				t17.setWhrecptId(t13.getRltvId());
 				t17.setIntrsrTp("02");// 02：存入自有货物 03：上游发货形成
 				t17.setIntrsrTnum(t13.getNum());

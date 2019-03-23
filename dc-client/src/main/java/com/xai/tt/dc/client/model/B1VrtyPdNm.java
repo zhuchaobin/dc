@@ -153,6 +153,20 @@ public class B1VrtyPdNm {
     private byte[] picDetail;
 
     /**
+     * 型号
+     */
+    @Column(name = "Modl")
+    private String modl;
+    
+    public String getModl() {
+		return modl;
+	}
+
+	public void setModl(String modl) {
+		this.modl = modl;
+	}
+
+	/**
      * 获取ID
      *
      * @return id - ID

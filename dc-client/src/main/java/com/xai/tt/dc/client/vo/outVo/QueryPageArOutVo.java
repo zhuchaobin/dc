@@ -5,6 +5,18 @@ import java.util.Date;
 
 public class QueryPageArOutVo implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	// 合同编号
+	private String ctrId;
+	
+	public String getCtrId() {
+		return ctrId;
+	}
+
+	public void setCtrId(String ctrId) {
+		this.ctrId = ctrId;
+	}
+	
 	private String fncEntpName;
 	private String ustrmSplrName;
 	private String stgcoName;

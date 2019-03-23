@@ -1,18 +1,108 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xai.tt.dc.biz.mapper.B3PdNmDrcPrcMapper" >
-  <resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B3PdNmDrcPrc" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.B3PdNmDrcPrcMapper">
+	<resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.B3PdNmDrcPrc">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="Pd_ID" property="pdId" jdbcType="BIGINT" />
-    <result column="Acq_Dt" property="acqDt" jdbcType="CHAR" />
-    <result column="Src_TpCd" property="srcTpcd" jdbcType="CHAR" />
-    <result column="Src_Dsc" property="srcDsc" jdbcType="VARCHAR" />
-    <result column="Drc_Prc" property="drcPrc" jdbcType="REAL" />
-    <result column="Tms" property="tms" jdbcType="TIMESTAMP" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="Rmrk" property="rmrk" jdbcType="VARCHAR" />
-  </resultMap>
-</mapper>
+    	<id column="ID" jdbcType="BIGINT" property="id" />
+    					    	<result column="Pd_ID" jdbcType="BIGINT" property="pdId" />
+					    	<result column="Acq_Dt" jdbcType="CHAR" property="acqDt" />
+					    	<result column="Src_TpCd" jdbcType="CHAR" property="srcTpcd" />
+					    	<result column="Src_Dsc" jdbcType="VARCHAR" property="srcDsc" />
+					    	<result column="Drc_Prc" jdbcType="FLOAT" property="drcPrc" />
+					    	<result column="Tms" jdbcType="TIMESTAMP" property="tms" />
+					    	<result column="username" jdbcType="VARCHAR" property="username" />
+					    	<result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
+				</resultMap>
+  
+	<sql id="query_criteria">
+			        	<if test="id != null">
+        		and t.id = #{id ,jdbcType=BIGINT}    
+      		</if>
+					        	<if test="pdId != null">
+        		and t.Pd_ID = #{pdId ,jdbcType=BIGINT}    
+      		</if>
+								<if test="acqDt != null and acqDt  != ''">
+        		and t.Acq_Dt = #{acqDt ,jdbcType=CHAR}
+        	</if>
+        						<if test="srcTpcd != null and srcTpcd  != ''">
+        		and t.Src_TpCd = #{srcTpcd ,jdbcType=CHAR}
+        	</if>
+        						<if test="srcDsc != null and srcDsc  != ''">
+        		and t.Src_Dsc = #{srcDsc ,jdbcType=VARCHAR}
+        	</if>
+        			        	<if test="drcPrc != null">
+        		and t.Drc_Prc = #{drcPrc ,jdbcType=FLOAT}    
+      		</if>
+        						<if test="rmrk != null and rmrk  != ''">
+        		and t.Rmrk = #{rmrk ,jdbcType=VARCHAR}
+        	</if>
+        		</sql>
+	
+	<select id="queryPage" parameterType="com.xai.tt.dc.client.vo.inVo.PdNmDrcPrcInVo" resultType="com.xai.tt.dc.client.vo.outVo.PdNmDrcPrcOutVo">
+	select 
+		t.id as id,
+		t.Pd_ID as pdId,
+		t.Acq_Dt as acqDt,
+		t.Src_TpCd as srcTpcd,
+		t.Src_Dsc as srcDsc,
+		t.Drc_Prc as drcPrc,
+		t.Tms as tms,
+		t.username as username,
+		t.Rmrk as rmrk,
+		t.id as a
+	from b3_pd_nm_drc_prc t
+	 where 1=1
+ <include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.PdNmDrcPrcInVo" resultType="java.lang.Integer">
+	select 
+		count(*)
+	from b3_pd_nm_drc_prc t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="getDetailById" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.outVo.PdNmDrcPrcOutVo">
+		select 
+		t.id as id,
+		t.Pd_ID as pdId,
+		t.Acq_Dt as acqDt,
+		t.Src_TpCd as srcTpcd,
+		t.Src_Dsc as srcDsc,
+		t.Drc_Prc as drcPrc,
+		t.Tms as tms,
+		_get_pd_ty_nm_func(t.Pd_ID) as pdNm,
+		t.username as username,
+		t.Rmrk as rmrk,
+		t.id as a
+	from b3_pd_nm_drc_prc t
+ where t.id  = #{id ,jdbcType=INTEGER}
+ limit 1 
+ 	</select> 	
+ 		<select id="getDetailByCondition" parameterType="com.xai.tt.dc.client.vo.inVo.PdNmDrcPrcInVo" resultType="com.xai.tt.dc.client.vo.outVo.PdNmDrcPrcOutVo">
+		select 
+		t.id as id,
+		t.Pd_ID as pdId,
+		t.Acq_Dt as acqDt,
+		t.Src_TpCd as srcTpcd,
+		t.Src_Dsc as srcDsc,
+		t.Drc_Prc as drcPrc,
+		t.Tms as tms,
+		t.username as username,
+		t.Rmrk as rmrk,
+		t.id as a
+	from b3_pd_nm_drc_prc t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ limit 1 
+ 	</select>
+	</mapper>

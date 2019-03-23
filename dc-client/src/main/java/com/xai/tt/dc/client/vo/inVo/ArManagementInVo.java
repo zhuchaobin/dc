@@ -9,7 +9,17 @@ import javax.persistence.Id;
 import com.xai.tt.dc.client.query.UserInfoQuery;
 
 public class ArManagementInVo extends UserInfoQuery {
+	// 合同编号
+	private String ctrId;
 	
+	public String getCtrId() {
+		return ctrId;
+	}
+
+	public void setCtrId(String ctrId) {
+		this.ctrId = ctrId;
+	}
+
 	/**
      * 全字段模糊检索关键字
      */

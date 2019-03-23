@@ -31,5 +31,6 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="Pic_Detail" property="picDetail" jdbcType="LONGVARBINARY" />
+    <result column="Modl" property="modl" jdbcType="VARCHAR" />
   </resultMap>
 </mapper>

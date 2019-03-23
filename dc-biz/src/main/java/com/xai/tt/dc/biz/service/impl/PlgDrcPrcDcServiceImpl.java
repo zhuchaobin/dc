@@ -53,6 +53,8 @@ public class PlgDrcPrcDcServiceImpl implements PlgDrcPrcDcService {
 				B4PlgDrcPrc b4PlgDrcPrc = new B4PlgDrcPrc();
 				BeanUtils.copyProperties(inVo, b4PlgDrcPrc);
 				b4PlgDrcPrc.setTms(new Date());
+				b4PlgDrcPrc.setCrtTm(new Date());
+				b4PlgDrcPrc.setUdtTm(new Date());
 				Integer count = b4PlgDrcPrcMapper.insert(b4PlgDrcPrc);
 				logger.info("insert 质押指导价 成功，条数：" + count);
 			} else {
@@ -60,6 +62,8 @@ public class PlgDrcPrcDcServiceImpl implements PlgDrcPrcDcService {
 				B4PlgDrcPrc b4PlgDrcPrc = new B4PlgDrcPrc();
 				BeanUtils.copyProperties(inVo, b4PlgDrcPrc);
 				b4PlgDrcPrc.setTms(new Date());
+				b4PlgDrcPrc.setUdtTm(new Date());
+				b4PlgDrcPrc.setUdtTm(new Date());
 				Integer count = b4PlgDrcPrcMapper.updateByPrimaryKeySelective(b4PlgDrcPrc);
 				logger.info("update 质押指导价 成功，条数：" + count);			
 			}

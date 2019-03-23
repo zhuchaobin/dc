@@ -14,7 +14,16 @@ import com.xai.tt.dc.client.vo.outVo.QueryLnkJrnlInfOutVo;
 public class QueryOrderInfDetailOutVo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-    /**
+	// 银行授权
+	private boolean bnkAhn;
+
+	public boolean isBnkAhn() {
+		return bnkAhn;
+	}
+	public void setBnkAhn(boolean bnkAhn) {
+		this.bnkAhn = bnkAhn;
+	}
+	/**
      * 保证金比例
      */
     private Float fncPctg;
