@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xai.tt.dc.biz.mapper.Company2Mapper">
+	<resultMap id="BaseResultMap" type="com.xai.tt.dc.client.model.Company">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    	<id column="ID" jdbcType="BIGINT" property="id" />
+    					    	<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+					    	<result column="code" jdbcType="VARCHAR" property="code" />
+					    	<result column="name" jdbcType="VARCHAR" property="name" />
+					    	<result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+					    	<result column="email" jdbcType="VARCHAR" property="email" />
+					    	<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+					    	<result column="province" jdbcType="VARCHAR" property="province" />
+					    	<result column="city" jdbcType="VARCHAR" property="city" />
+					    	<result column="address" jdbcType="VARCHAR" property="address" />
+					    	<result column="locked" jdbcType="BIT" property="locked" />
+					    	<result column="Usr_Tp" jdbcType="CHAR" property="usrTp" />
+					    	<result column="RgtAds" jdbcType="VARCHAR" property="rgtads" />
+					    	<result column="Taxpyr_Id_No" jdbcType="VARCHAR" property="taxpyrIdNo" />
+					    	<result column="DepBnk" jdbcType="VARCHAR" property="depbnk" />
+					    	<result column="Bnk_Acc_No" jdbcType="VARCHAR" property="bnkAccNo" />
+					    	<result column="Rmrk" jdbcType="VARCHAR" property="rmrk" />
+					    	<result column="Entp_Soc_Cr_Cd" jdbcType="CHAR" property="entpSocCrCd" />
+				</resultMap>
+  
+	<sql id="query_criteria">
+			        	<if test="id != null">
+        		and t.id = #{id ,jdbcType=INT}    
+      		</if>
+					        	<if test="createTime != null">
+        		and t.create_time = #{createTime ,jdbcType=TIMESTAMP}    
+      		</if>
+								<if test="code != null and code  != ''">
+        		and t.code = #{code ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="name != null and name  != ''">
+        		and t.name = #{name ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="managerName != null and managerName  != ''">
+        		and t.manager_name = #{managerName ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="email != null and email  != ''">
+        		and t.email = #{email ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="mobile != null and mobile  != ''">
+        		and t.mobile = #{mobile ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="province != null and province  != ''">
+        		and t.province = #{province ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="city != null and city  != ''">
+        		and t.city = #{city ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="address != null and address  != ''">
+        		and t.address = #{address ,jdbcType=VARCHAR}
+        	</if>
+        			        	<if test="locked != null">
+        		and t.locked = #{locked ,jdbcType=BIT}    
+      		</if>
+								<if test="usrTp != null and usrTp  != ''">
+        		and t.Usr_Tp = #{usrTp ,jdbcType=CHAR}
+        	</if>
+        						<if test="rgtads != null and rgtads  != ''">
+        		and t.RgtAds = #{rgtads ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="taxpyrIdNo != null and taxpyrIdNo  != ''">
+        		and t.Taxpyr_Id_No = #{taxpyrIdNo ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="depbnk != null and depbnk  != ''">
+        		and t.DepBnk = #{depbnk ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="bnkAccNo != null and bnkAccNo  != ''">
+        		and t.Bnk_Acc_No = #{bnkAccNo ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="rmrk != null and rmrk  != ''">
+        		and t.Rmrk = #{rmrk ,jdbcType=VARCHAR}
+        	</if>
+        						<if test="entpSocCrCd != null and entpSocCrCd  != ''">
+        		and t.Entp_Soc_Cr_Cd = #{entpSocCrCd ,jdbcType=CHAR}
+        	</if>
+        		</sql>
+	
+	<select id="queryPage" parameterType="com.xai.tt.dc.client.vo.inVo.Company2InVo" resultType="com.xai.tt.dc.client.vo.outVo.Company2OutVo">
+	select 
+		t.id as id,
+		t.create_time as createTime,
+		t.code as code,
+		t.name as name,
+		t.manager_name as managerName,
+		t.email as email,
+		t.mobile as mobile,
+		t.province as province,
+		t.city as city,
+		t.address as address,
+		t.locked as locked,
+		t.Usr_Tp as usrTp,
+		t.RgtAds as rgtads,
+		t.Taxpyr_Id_No as taxpyrIdNo,
+		t.DepBnk as depbnk,
+		t.Bnk_Acc_No as bnkAccNo,
+		t.Rmrk as rmrk,
+		t.Entp_Soc_Cr_Cd as entpSocCrCd,
+		t.id as a
+	from company t
+	 where 1=1
+ <include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="count" parameterType="com.xai.tt.dc.client.vo.inVo.Company2InVo" resultType="java.lang.Integer">
+	select 
+		count(*)
+	from company t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ 			<if test="orderBy != null and orderBy  != ''">
+        		ORDER BY ${orderBy}   
+      		</if>
+	</select>
+	
+	<select id="getDetailById" parameterType="java.lang.Integer" resultType="com.xai.tt.dc.client.vo.outVo.Company2OutVo">
+		select 
+		t.id as id,
+		t.create_time as createTime,
+		t.code as code,
+		t.name as name,
+		t.manager_name as managerName,
+		t.email as email,
+		t.mobile as mobile,
+		t.province as province,
+		t.city as city,
+		t.address as address,
+		t.locked as locked,
+		t.Usr_Tp as usrTp,
+		t.RgtAds as rgtads,
+		t.Taxpyr_Id_No as taxpyrIdNo,
+		t.DepBnk as depbnk,
+		t.Bnk_Acc_No as bnkAccNo,
+		t.Rmrk as rmrk,
+		t.Entp_Soc_Cr_Cd as entpSocCrCd,
+		t.id as a
+	from company t
+ where t.id  = #{id ,jdbcType=INTEGER}
+ limit 1 
+ 	</select>
+ 	
+ 		<select id="getDetailByCondition" parameterType="com.xai.tt.dc.client.vo.inVo.Company2InVo" resultType="com.xai.tt.dc.client.vo.outVo.Company2OutVo">
+		select 
+		t.id as id,
+		t.create_time as createTime,
+		t.code as code,
+		t.name as name,
+		t.manager_name as managerName,
+		t.email as email,
+		t.mobile as mobile,
+		t.province as province,
+		t.city as city,
+		t.address as address,
+		t.locked as locked,
+		t.Usr_Tp as usrTp,
+		t.RgtAds as rgtads,
+		t.Taxpyr_Id_No as taxpyrIdNo,
+		t.DepBnk as depbnk,
+		t.Bnk_Acc_No as bnkAccNo,
+		t.Rmrk as rmrk,
+		t.Entp_Soc_Cr_Cd as entpSocCrCd,
+		t.id as a
+	from company t
+	 where 1=1
+ 	<include refid="query_criteria"></include>
+ limit 1 
+ 	</select>
+	</mapper>

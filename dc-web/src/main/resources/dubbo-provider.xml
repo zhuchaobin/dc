@@ -56,4 +56,6 @@
     <dubbo:service interface="com.xai.tt.dc.client.service.FncAplyDcService" ref="fncAplyDcService" version="1.0"/>
     <!-- 风控指导价20190321-->
     <dubbo:service interface="com.xai.tt.dc.client.service.PdNmDrcPrcDcService" ref="pdNmDrcPrcDcService" version="1.0"/>
+    <!-- 公司信息2  20190323-->
+    <dubbo:service interface="com.xai.tt.dc.client.service.Company2DcService" ref="company2DcService" version="1.0"/>
 </beans>
