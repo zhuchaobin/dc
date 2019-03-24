@@ -13,6 +13,146 @@ import lombok.Data;
  @Data
 public class FncAplyInVo extends UserInfoQuery {
 	
+	public String getKeyWorlds() {
+		return keyWorlds;
+	}
+
+
+	public void setKeyWorlds(String keyWorlds) {
+		this.keyWorlds = keyWorlds;
+	}
+
+
+	public String getSecSrvCd() {
+		return secSrvCd;
+	}
+
+
+	public void setSecSrvCd(String secSrvCd) {
+		this.secSrvCd = secSrvCd;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getCtcpsn() {
+		return ctcpsn;
+	}
+
+
+	public void setCtcpsn(String ctcpsn) {
+		this.ctcpsn = ctcpsn;
+	}
+
+
+	public String getCtcTel() {
+		return ctcTel;
+	}
+
+
+	public void setCtcTel(String ctcTel) {
+		this.ctcTel = ctcTel;
+	}
+
+
+	public String getFncRqmDsc() {
+		return fncRqmDsc;
+	}
+
+
+	public void setFncRqmDsc(String fncRqmDsc) {
+		this.fncRqmDsc = fncRqmDsc;
+	}
+
+
+	public Date getAplyTm() {
+		return aplyTm;
+	}
+
+
+	public void setAplyTm(Date aplyTm) {
+		this.aplyTm = aplyTm;
+	}
+
+
+	public String getAplyChnl() {
+		return aplyChnl;
+	}
+
+
+	public void setAplyChnl(String aplyChnl) {
+		this.aplyChnl = aplyChnl;
+	}
+
+
+	public Date getModTm() {
+		return modTm;
+	}
+
+
+	public void setModTm(Date modTm) {
+		this.modTm = modTm;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public Date getPcsTm() {
+		return pcsTm;
+	}
+
+
+	public void setPcsTm(Date pcsTm) {
+		this.pcsTm = pcsTm;
+	}
+
+
+	public String getRmrk() {
+		return rmrk;
+	}
+
+
+	public void setRmrk(String rmrk) {
+		this.rmrk = rmrk;
+	}
+
+
 	/**
      * 全字段模糊检索关键字
      */

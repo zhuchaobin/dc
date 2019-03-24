@@ -769,7 +769,33 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 			logger.error("提交发货，保存附件信息异常 {}", e);
 			return Result.createFailResult("提交发货，保存附件信息异常" + e);
 		}
-
+		
+		// 2019-03-24转货权操作
+        if("72".equals(aplyPcstpCd) && "01".equals(query.getAplyPsrltCd())){
+        	// 查询长约信息中融资企业
+			try {
+				Condition condition = new Condition(T1ArInf.class);
+				Example.Criteria criteria = condition.createCriteria();
+				criteria.andCondition("AR_ID = '" + query.getArId() + "'");
+				List<T1ArInf> t1List = t1ARInfMapper.selectByCondition(condition);
+				if(null != t1List && t1List.size() > 0) {
+					T1ArInf t1 = t1List.get(0);				
+					Condition condition3 = new Condition(T17IvntDtl.class);
+					Example.Criteria criteria3 = condition3.createCriteria();
+					criteria3.andCondition("Spg_ID = '" + query.getSpgId() + "'");
+					T17IvntDtl record = new T17IvntDtl();
+					record.setGdsBlgId(t1.getFncEntp().longValue());
+					t17IvntDtlMapper.updateByConditionSelective(record, condition3);				
+				} else {
+					logger.error("发货提交转货权异常查询不到长约信息，提交失败");
+					return Result.createFailResult("发货提交转货权异常查询不到长约信息，提交失败");
+				}
+			} catch (Exception e) {
+				logger.error("发货提交转货权异常 {}", e);
+				return Result.createFailResult("发货提交转货权异常 :" + e);
+			}
+        }
+		
 		T6SpgInf t6=null;
 
 		try {
@@ -981,6 +1007,18 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 
 
 			try {
+				T1ArInf t1 = null;
+				Condition condition = new Condition(T1ArInf.class);
+				Example.Criteria criteria = condition.createCriteria();
+				criteria.andCondition("AR_ID = '" + query.getArId() + "'");
+				List<T1ArInf> t1List = t1ARInfMapper.selectByCondition(condition);
+				if(null != t1List && t1List.size() > 0) {
+					t1 = t1List.get(0);				
+				}
+				if(null == t1) {
+					logger.error("发货提交查询长约信息失败");
+					return Result.createFailResult("发货提交查询长约信息失败");
+				}
 				for(T13GdsDetail t13 : query.getT13GdsDetailList()) {
 					// 保存质押货物明细
 					t13.setRltvTp("03");//01:发货明细 02：质押明细 03：发货入库明细 04：出库明细
@@ -1015,14 +1053,14 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 //					t17.setSpgId(query.getSpgId());
 					t17.setPlgBillno("ZY" + StrPost);
 
-					t17.setGdsBlgId(1L);
+					t17.setGdsBlgId(t1.getSplchainCo().longValue());
 					t17.setGdsBlgNm("");
 					t17.setPlgAplySt("03");
 					t17.setCrtTm(new Date());
 					t17.setTms(new Date());
 
-					t17.setStgco(11L);
-					t17.setStgcoNm("xxxx");
+/*					t17.setStgco(11L);
+					t17.setStgcoNm("xxxx");*/
 
 					t17IvntDtlMapper.insert(t17);
 

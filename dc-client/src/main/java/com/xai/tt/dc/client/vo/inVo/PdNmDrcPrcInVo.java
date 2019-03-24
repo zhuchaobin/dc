@@ -13,6 +13,116 @@ import lombok.Data;
  @Data
 public class PdNmDrcPrcInVo extends UserInfoQuery {
 	
+	public String getKeyWorlds() {
+		return keyWorlds;
+	}
+
+
+	public void setKeyWorlds(String keyWorlds) {
+		this.keyWorlds = keyWorlds;
+	}
+
+
+	public String getSecSrvCd() {
+		return secSrvCd;
+	}
+
+
+	public void setSecSrvCd(String secSrvCd) {
+		this.secSrvCd = secSrvCd;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public Long getPdId() {
+		return pdId;
+	}
+
+
+	public void setPdId(Long pdId) {
+		this.pdId = pdId;
+	}
+
+
+	public String getAcqDt() {
+		return acqDt;
+	}
+
+
+	public void setAcqDt(String acqDt) {
+		this.acqDt = acqDt;
+	}
+
+
+	public String getSrcTpcd() {
+		return srcTpcd;
+	}
+
+
+	public void setSrcTpcd(String srcTpcd) {
+		this.srcTpcd = srcTpcd;
+	}
+
+
+	public String getSrcDsc() {
+		return srcDsc;
+	}
+
+
+	public void setSrcDsc(String srcDsc) {
+		this.srcDsc = srcDsc;
+	}
+
+
+	public Float getDrcPrc() {
+		return drcPrc;
+	}
+
+
+	public void setDrcPrc(Float drcPrc) {
+		this.drcPrc = drcPrc;
+	}
+
+
+	public Date getTms() {
+		return tms;
+	}
+
+
+	public void setTms(Date tms) {
+		this.tms = tms;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getRmrk() {
+		return rmrk;
+	}
+
+
+	public void setRmrk(String rmrk) {
+		this.rmrk = rmrk;
+	}
+
+
 	/**
      * 全字段模糊检索关键字
      */
