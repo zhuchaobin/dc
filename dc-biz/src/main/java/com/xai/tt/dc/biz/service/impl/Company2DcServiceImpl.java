@@ -45,8 +45,9 @@ public class Company2DcServiceImpl implements Company2DcService {
 	 */
 	@Override
 	public Result<String> save(Company2InVo inVo) {
-		logger.info("save企业信息2请求报文{inVo}", JSON.toJSONString(inVo));
+		logger.info("save企业信息2请求报文inVo{}" , JSON.toJSONString(inVo));
 		logger.info("二级服务码secSrvCd：" + inVo.getSecSrvCd());
+		logger.info("getEntpSocCrCd：" + inVo.getEntpSocCrCd());
 		try {
 			if(null == inVo.getId()){
 				// 新建企业信息2

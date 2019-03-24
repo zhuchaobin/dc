@@ -92,8 +92,22 @@ public class Company {
      */
     @Column(name = "Rmrk")
     private String rmrk;
-
+    
     /**
+     * 企业社会信用代码
+     */
+    @Column(name = "Entp_Soc_Cr_Cd")
+    private String entpSocCrCd;
+    			
+    public String getEntpSocCrCd() {
+		return entpSocCrCd;
+	}
+
+	public void setEntpSocCrCd(String entpSocCrCd) {
+		this.entpSocCrCd = entpSocCrCd;
+	}
+
+	/**
      * @return id
      */
     public Integer getId() {
