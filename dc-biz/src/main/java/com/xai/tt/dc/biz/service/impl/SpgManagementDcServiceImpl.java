@@ -1059,8 +1059,7 @@ public class SpgManagementDcServiceImpl implements SpgManagementDcService {
 					t17.setCrtTm(new Date());
 					t17.setTms(new Date());
 
-/*					t17.setStgco(11L);
-					t17.setStgcoNm("xxxx");*/
+					t17.setStgco(t1.getStgco().longValue());
 
 					t17IvntDtlMapper.insert(t17);
 
