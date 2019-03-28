@@ -25,6 +25,12 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3309/xlink2?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true"></property>
 		<property name="jdbcUsername" value="root"></property>
 		<property name="jdbcPassword" value="123456"></property>
+		
+<!--		<property name="jdbcUrl" value="jdbc:mysql://rm-8vbld54d9yn3tw58mwo.mysql.zhangbei.rds.aliyuncs.com:3306/vieda_trade?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true"></property>
+		<property name="jdbcUsername" value="vieda_trade"></property>
+		<property name="jdbcPassword" value="12345678aB"></property>
+		-->
+		
 		<!-- 没有表创建表 -->
 		<property name="databaseSchemaUpdate" value="true"></property>
 	</bean>
